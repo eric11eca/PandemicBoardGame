@@ -10,4 +10,10 @@ public class EventCard implements PCard {
 		return name;
 	}
 
+	@Override
+	public void function() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

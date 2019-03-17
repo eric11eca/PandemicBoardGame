@@ -10,5 +10,10 @@ public class CityCard implements PCard {
 		return name;
 	}
 
+	@Override
+	public void function() {
+		
+	}
+
 
 }
