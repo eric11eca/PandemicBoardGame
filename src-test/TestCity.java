@@ -46,4 +46,11 @@ class TestCity {
 		assertTrue(researchStation);
 	}
 	
+	@Test
+	public void testDiseaseCube() {
+		City city = new City();
+		city.placeDiseaseCube(5);
+		assertEquals(5, city.getDiseaseCube());
+	}
+	
 }

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.function.BooleanSupplier;
 
 public class City {
 	private int X;
@@ -9,6 +8,7 @@ public class City {
 	
 	private ArrayList<City> connections;
 	private Boolean researchStation;
+	private int diseaseCube;
 
 	public City() {
 		this.researchStation = false;
@@ -53,5 +53,13 @@ public class City {
 
 	public void placeResearchStation() {
 		this.researchStation = true;
+	}
+
+	public void placeDiseaseCube(int diseaseCube) {
+		this.diseaseCube = diseaseCube;
+	}
+
+	public int getDiseaseCube() {
+		return this.diseaseCube;
 	}
 }
