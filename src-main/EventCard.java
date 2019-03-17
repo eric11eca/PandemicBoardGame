@@ -1,7 +1,7 @@
 
-public class CityCard implements PCard {
+public class EventCard implements PCard {
 	String name;
-	public CityCard (String string) {
+	public EventCard(String string) {
 		name = string;
 	}
 
@@ -9,6 +9,5 @@ public class CityCard implements PCard {
 	public String getName() {
 		return name;
 	}
-
 
 }

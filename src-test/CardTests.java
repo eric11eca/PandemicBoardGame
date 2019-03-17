@@ -8,6 +8,8 @@ public class CardTests {
 	public void test() {
 			PCard card = new CityCard("Sydney");
 			assertEquals("Sydney", card.getName());
+			PCard card2 = new EventCard("Epidemic");
+			assertEquals("Epidemic", card2.getName() );
 	}
 
 }
