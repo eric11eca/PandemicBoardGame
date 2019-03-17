@@ -38,6 +38,12 @@ class TestCity {
 		assertEquals("Boston", connections.get(2).getName());
 	}
 	
-
-
+	@Test
+	public void testResearchStations(){
+		City city = new City();
+		city.placeResearchStation();
+		Boolean researchStation = city.getResearchStation();
+		assertTrue(researchStation);
+	}
+	
 }

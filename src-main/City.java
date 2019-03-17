@@ -8,9 +8,10 @@ public class City {
 	private String name;
 	
 	private ArrayList<City> connections;
-
+	private Boolean researchStation;
 
 	public City() {
+		this.researchStation = false;
 		this.connections = new ArrayList<City>();
 	}
 	
@@ -44,5 +45,13 @@ public class City {
 	
 	public ArrayList<City> getConnections() {
 		return this.connections;
+	}
+
+	public Boolean getResearchStation() {
+		return this.researchStation;
+	}
+
+	public void placeResearchStation() {
+		this.researchStation = true;
 	}
 }
