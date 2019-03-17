@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.function.BooleanSupplier;
 
 public class City {
 	private int X;
@@ -6,7 +7,8 @@ public class City {
 	
 	private String name;
 	
-	public ArrayList<City> connections;
+	private ArrayList<City> connections;
+
 
 	public City() {
 		this.connections = new ArrayList<City>();
@@ -38,5 +40,9 @@ public class City {
 	
 	public void addConnections(City city){
 		this.connections.add(city);
+	}
+	
+	public ArrayList<City> getConnections() {
+		return this.connections;
 	}
 }

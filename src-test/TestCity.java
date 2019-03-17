@@ -31,9 +31,13 @@ class TestCity {
 		city.addConnections(c2);
 		city.addConnections(c3);
 		
-		assertEquals("Atalanta", city.connections.get(0).getName());
-		assertEquals("New York", city.connections.get(1).getName());
-		assertEquals("Boston", city.connections.get(2).getName());
+		ArrayList<City> connections = city.getConnections();
+		
+		assertEquals("Atalanta", connections.get(0).getName());
+		assertEquals("New York", connections.get(1).getName());
+		assertEquals("Boston", connections.get(2).getName());
 	}
+	
+
 
 }
