@@ -12,5 +12,11 @@ class TestCity {
 		assertEquals(city.getX(), 12);
 		assertEquals(city.getY(), 50);
 	}
+	
+	@Test
+	public void testConnections () {
+		City city = new City();
+		
+	}
 
 }
