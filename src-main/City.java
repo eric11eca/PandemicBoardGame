@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class City {
 	private int X;
@@ -6,14 +6,14 @@ public class City {
 	
 	private String name;
 	
-	private ArrayList<City> connections;
+	private HashSet<City> neighbors;
 	private Boolean researchStation;
 	private int diseaseCube;
 	private String color;
 
 	public City() {
 		this.researchStation = false;
-		this.connections = new ArrayList<City>();
+		this.neighbors = new HashSet<City>();
 	}
 	
 	public int getX() {
@@ -40,12 +40,12 @@ public class City {
 		return this.name;
 	}
 	
-	public void addConnections(City city){
-		this.connections.add(city);
+	public void setNeighbors(HashSet<City> neighbors){
+		this.neighbors = neighbors;
 	}
 	
-	public ArrayList<City> getConnections() {
-		return this.connections;
+	public HashSet<City> getNeighbors() {
+		return this.neighbors;
 	}
 
 	public Boolean getResearchStation() {

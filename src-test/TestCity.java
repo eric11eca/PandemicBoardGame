@@ -1,11 +1,11 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import org.junit.Test;
 
-class TestCity {
-
+public class TestCity {
 	@Test
 	public void testCoordinates() {
 		City city = new City();
@@ -16,7 +16,7 @@ class TestCity {
 	}
 	
 	@Test
-	public void testConnections () {
+	public void testNeighbors () {
 		City city = new City();
 	
 		City c1 = new City();
@@ -26,16 +26,24 @@ class TestCity {
 		c1.setName("Atalanta");
 		c2.setName("New York");
 		c3.setName("Boston");
-
-		city.addConnections(c1);
-		city.addConnections(c2);
-		city.addConnections(c3);
 		
-		ArrayList<City> connections = city.getConnections();
+		HashSet<City> n = new HashSet<City>();
+		n.add(c1); 
+		n.add(c2); 
+		n.add(c3);
+		city.setNeighbors(n);
 		
-		assertEquals("Atalanta", connections.get(0).getName());
-		assertEquals("New York", connections.get(1).getName());
-		assertEquals("Boston", connections.get(2).getName());
+		HashSet<City> neighbors = city.getNeighbors();
+		
+		HashSet<String> cityNames = new HashSet<String>();
+		cityNames.add("Atalanta");
+		cityNames.add("New York");
+		cityNames.add("Boston");
+		
+		Iterator<City> it = neighbors.iterator();
+	    while(it.hasNext()){
+	        assertTrue(cityNames.contains(it.next().getName()));
+	    } 
 	}
 	
 	@Test
@@ -59,5 +67,4 @@ class TestCity {
 		city.setColor("RED");
 		assertEquals("RED", city.getColor());
 	}
-	
 }
