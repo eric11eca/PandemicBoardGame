@@ -1,5 +1,5 @@
 
-public class EventCard implements PCard {
+public class EventCard implements PlayerCard {
 	String name;
 	public EventCard(String string) {
 		name = string;

@@ -6,13 +6,13 @@ public class CardTests {
 
 	@Test
 	public void test() {
-			PCard card = new CityCard("Sydney");
+			PlayerCard card = new CityCard("Sydney");
 			assertEquals("Sydney", card.getName());
 			card.function();
-			PCard card2 = new EventCard("Epidemic");
+			PlayerCard card2 = new EventCard("Epidemic");
 			assertEquals("Epidemic", card2.getName() );
 			card2.function();
-			PCard card3 = new EventCard("One Quiet Night");
+			PlayerCard card3 = new EventCard("One Quiet Night");
 			card3.function();
 			assertEquals("One Quiet Night", card.getName());
 	}
