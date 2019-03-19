@@ -8,9 +8,12 @@ public class PlayerTest {
 	
 	
 	@Test 
-	public void testNormalReceiveCityCard(){
+	public void testNormalReceiveAndDiscardCityCard(){
 		Player player = new Dispatcher();
 		player.receiveCard(new CityCard("Beijing"));
-		player.hand.contains("Beijing");
+		assertTrue(player.handContains("Beijing"));
+		player.discardCard("Beijing");
+		assertFalse(player.handContains("Beijing"));
 	}
+	
 }
