@@ -5,11 +5,10 @@ public class City {
 	private int Y;
 	
 	private String name;
-	
-	private HashSet<City> neighbors;
-	private Boolean researchStation;
 	private int diseaseCube;
 	private String color;
+	private Boolean researchStation;
+	private HashSet<City> neighbors;
 
 	public City() {
 		this.researchStation = false;

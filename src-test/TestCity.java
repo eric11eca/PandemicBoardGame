@@ -34,8 +34,8 @@ public class TestCity {
 		city.setNeighbors(n);
 		
 		HashSet<City> neighbors = city.getNeighbors();
-		
 		HashSet<String> cityNames = new HashSet<String>();
+		
 		cityNames.add("Atalanta");
 		cityNames.add("New York");
 		cityNames.add("Boston");
