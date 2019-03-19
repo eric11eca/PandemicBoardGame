@@ -9,6 +9,7 @@ public class City {
 	private ArrayList<City> connections;
 	private Boolean researchStation;
 	private int diseaseCube;
+	private String color;
 
 	public City() {
 		this.researchStation = false;
@@ -61,5 +62,13 @@ public class City {
 
 	public int getDiseaseCube() {
 		return this.diseaseCube;
+	}
+
+	public String getColor() {
+		return this.color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

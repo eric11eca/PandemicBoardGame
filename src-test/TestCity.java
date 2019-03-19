@@ -53,4 +53,11 @@ class TestCity {
 		assertEquals(5, city.getDiseaseCube());
 	}
 	
+	@Test 
+	public void testColor() {
+		City city = new City();
+		city.setColor("RED");
+		assertEquals("RED", city.getColor());
+	}
+	
 }
