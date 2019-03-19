@@ -1,5 +1,5 @@
 
-public class CityCard implements PCard {
+public class CityCard implements PlayerCard {
 	String name;
 	public CityCard (String string) {
 		name = string;
