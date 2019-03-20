@@ -1,3 +1,4 @@
+SanFrancisco,BLUE
 Chicago,BLUE
 Ataland,BLUE
 NewYork,BLUE
@@ -21,18 +22,18 @@ Riyrdh,BLACK
 Delhi,BLACK
 hennri,BLACK
 Kolkata,BLACK
-LosAngeles,GREEN
-Mexico City,GREEN
-Miaim,GREEN
-Bogota,GREEN
-Lima,GREEN
-SaoPaulo,GREEN
-Santiago,GREEN
-Lagos,GREEN
-Kinshasa,GREEN
-Khartoum,GREEN
-Johannesurg,GREEN
-BuenosAires,GREEN	
+LosAngeles,YELLOW
+Mexico City,YELLOW
+Miaim,YELLOW
+Bogota,YELLOW
+Lima,YELLOW
+SaoPaulo,YELLOW
+Santiago,YELLOW
+Lagos,YELLOW
+Kinshasa,YELLOW
+Khartoum,YELLOW
+Johannesurg,YELLOW
+BuenosAires,YELLOW	
 Beijing,RED
 Seoul,RED
 Shanghai,RED

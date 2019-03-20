@@ -18,18 +18,15 @@ public class CityDataParser {
 				citiesData.add(citydata);
 			}
 			
-			
+	
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException("path: " + path, e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException("path: " + path +"is empty", e);
 		}
 		return citiesData;
-		
 	}
 	
 }
