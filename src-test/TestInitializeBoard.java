@@ -8,17 +8,14 @@ import org.junit.Test;
 
 public class TestInitializeBoard {
 	InitializeBoard initializeBoard;
-	Board board;
 	@Before
 	public void setup(){
 		initializeBoard = new InitializeBoard();
-		board = new Board();
 	}
 	
 	@Test
 	public void TestInitializeCity(){
 		initializeBoard.initializeCity();
-		assertEquals(48, board.cities.size());
-		
+		assertEquals(48, initializeBoard.board.cities.size());
 	}
 }

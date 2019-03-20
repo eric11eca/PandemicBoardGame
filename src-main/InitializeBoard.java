@@ -2,8 +2,8 @@
 public class InitializeBoard {
 	Board board;
 	
-	public InitializeBoard(Board board){
-		this.board = board;
+	public InitializeBoard(Board mainBoard){
+		this.board = mainBoard;
 	}
 	
 	public void initializeCity(){
@@ -60,6 +60,7 @@ public class InitializeBoard {
 		City c48 = new City("Brngkok", "RED");
 	
 		board.cities.add()
+		
 	}
 	
 }
