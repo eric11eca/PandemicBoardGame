@@ -1,10 +1,26 @@
+import java.util.HashSet;
 import java.util.Set;
 
 public class Board {
-	Set<City> total_cities;
+	int outbreak_count = 0;
+	int infection_rate;
+	
+	int green_cubes = 24;
+	int red_cubes = 24;
+	int blue_cubes = 24;
+	int black_cubes = 24;
+	
+	boolean green_cure = false;
+	boolean red_cure = false;
+	boolean blue_cure = false;
+	boolean black_cure = false;
+	
+	Set<City> cities;
+	
 	Set<Player> current_players;
-	Set<PlayerCard> valid_playerCard;
-	Set<PlayerCard> discard_playerCard;
-	// TODO: sets of discarded and valid playercard
-
+	Set<String> valid_playerCard;
+	Set<String> discard_playerCard = new HashSet<String>();
+	Set<String> valid_infection_card;
+	Set<String> discard_infection_card = new HashSet<String>();
+	
 }

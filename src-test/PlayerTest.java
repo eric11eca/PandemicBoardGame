@@ -15,11 +15,11 @@ public class PlayerTest {
 	@Before
 	public void setup(){
 		city = new City();
-		city.setName("city");
+		city.name = "city";
 		unconnected_city = new City();
 		connected_city = new City();
-		city.getNeighbors().add(connected_city);
-		connected_city.getNeighbors().add(city);
+		city.neighbors.add(connected_city);
+		connected_city.neighbors.add(city);
 		String[] cities = {"A","B","C","D","E","F","G","H"}; // 8 cities
 		citycards = new ArrayList<>();
 		for(String city: cities){
