@@ -21,4 +21,8 @@ public class InitializeBoard {
 	public void initializeInfectionCard(String cityName) {
 		board.valid_infection_card.add(cityName);
 	}
+	
+	public void initializePlayerCard(Board.CardType cardType, String cardName) {
+		board.valid_playerCard.add(new PlayerCard(cardType, cardName));
+	}
 }

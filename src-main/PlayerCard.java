@@ -1,5 +1,5 @@
 
-public abstract class PlayerCard {
+public class PlayerCard {
 	Board.CardType cardType;
 	String cardName;
 	
