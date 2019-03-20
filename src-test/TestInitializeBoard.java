@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -17,12 +18,25 @@ public class TestInitializeBoard {
 	}
 	
 	@Test
-	public void TestInitializeCity(){
+	public void testInitializeCity(){
 		initializeBoard.initializeCity();
 		Map<String, City> cities = initializeBoard.board.cities;
 		assertEquals(48, cities.size());
 		City chicago = cities.get("Chicago");
 		assertEquals("Chicago", chicago.cityName);
 		assertEquals("BLUE", chicago.color);
+	}
+	
+	@Test
+	public void testInitializeInfectionCard() {
+		String cityName = "Chicago";
+		initializeBoard.initializeInfectionCard(cityName);
+		Set<String> valid_infection_card = initializeBoard.board.valid_infection_card;
+		assertTrue(valid_infection_card.contains(cityName));
+	}
+	
+	@Test
+	public void testInitializePlayerCard() {
+		
 	}
 }

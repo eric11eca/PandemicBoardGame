@@ -17,4 +17,8 @@ public class InitializeBoard {
 			board.cities.put(cityData.get(0), city);
 		} 
 	}
+	
+	public void initializeInfectionCard(String cityName) {
+		board.valid_infection_card.add(cityName);
+	}
 }
