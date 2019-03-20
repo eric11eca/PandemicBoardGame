@@ -37,6 +37,7 @@ public class TestInitializeBoard {
 	
 	@Test
 	public void testInitializePlayerCard() {
-		
+		initializeBoard.initializePlayerCard(Board.CardType.CITYCARD, "Chicago");
+		Set<PlayerCard> valid_playercard = initializeBoard.board.valid_playerCard;
 	}
 }
