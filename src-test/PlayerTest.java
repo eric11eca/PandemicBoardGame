@@ -18,8 +18,8 @@ public class PlayerTest {
 		city.setName("city");
 		unconnected_city = new City();
 		connected_city = new City();
-		city.addConnections(connected_city);
-		connected_city.addConnections(city);
+		city.getNeighbors().add(connected_city);
+		connected_city.getNeighbors().add(city);
 		String[] cities = {"A","B","C","D","E","F","G","H"}; // 8 cities
 		citycards = new ArrayList<>();
 		for(String city: cities){
@@ -34,17 +34,19 @@ public class PlayerTest {
 		assertTrue(player.hand.contains(citycards.get(0)));
 		player.discardCard(citycards.get(0));
 		assertFalse(player.hand.contains(citycards.get(0)));
-	@Test
-	public void testHandCapacity() {
-		Player p1 = new Player(4);
-		assertEquals(2, p1.getHandCapacity());
-		
-		Player p2 = new Player(3);
-		assertEquals(3, p2.getHandCapacity());
-		
-		Player p3 = new Player(2);
-		assertEquals(4, p3.getHandCapacity());
 	}
+	
+//	@Test
+//	public void testHandCapacity() {
+//		Player p1 = new Player(4);
+//		assertEquals(2, p1.getHandCapacity());
+//		
+//		Player p2 = new Player(3);
+//		assertEquals(3, p2.getHandCapacity());
+//		
+//		Player p3 = new Player(2);
+//		assertEquals(4, p3.getHandCapacity());
+//	}
 	
 //	@Test 
 //	public void testReceiveCardWithExceedNumberOfHandCard(){
