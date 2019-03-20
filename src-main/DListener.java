@@ -7,14 +7,16 @@ public class DListener implements ActionListener  {
 
 	int epidemicNumber;
 	JPanel panel;
-	DListener(int x, JPanel y){
+	InitializeGame game;
+	DListener(int x, JPanel y, InitializeGame game){
 		epidemicNumber = x;
 		panel = y;
+		this.game= game;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Pandemic.SetDifficulty(epidemicNumber, panel);
+		game.SetDifficulty(epidemicNumber, panel);
 		
 	}
 

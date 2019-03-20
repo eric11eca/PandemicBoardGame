@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+
+<<<<<<< HEAD
+public class Player {
+	private int handCapacity;
+	//ArrayList<Card> hand;
+	
+	public Player(int playerNumber){
+		if (playerNumber == 4) {
+			this.handCapacity = 2;
+		} else if (playerNumber == 3) {
+			this.handCapacity = 3;
+		} else if (playerNumber == 2) {
+			this.handCapacity = 4;
+		}
+		//this.hand = new ArrayList<Card>;
+	}
+
+	public int getHandCapacity() {
+		return this.handCapacity;
+	}
+
+	/*public Card[] getHand() {
+		return this.hand();
+	}*/
+=======
+public abstract class Player{
+	
+	public ArrayList<PlayerCard> hand;
+	public City location;
+
+	public void receiveCard(PlayerCard playercard) {
+		if(hand.size() >= 7){
+			// somehow discard card
+		}
+		hand.add(playercard);
+	}
+
+	public boolean discardCard(PlayerCard playercard){
+		if(hand.contains(playercard)){
+			hand.remove(playercard);
+			return true;
+		}
+		return false;
+	}
+>>>>>>> 6545a03fa3192118142e66121473ed53949cfae4
+
+	public void move(City city) {
+		if(location.getConnections().contains(city)){
+			location = city;
+		}
+	}
+	
+	
+	
+	
+	
+	
+}

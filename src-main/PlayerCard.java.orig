@@ -1,0 +1,9 @@
+
+public interface PlayerCard {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6545a03fa3192118142e66121473ed53949cfae4
+	String getName();
+	void function();
+}
