@@ -7,14 +7,16 @@ import javax.swing.JPanel;
 public class PlayerListener implements ActionListener{
 	int playerNumber;
 	JPanel panel;
-	PlayerListener(int x, JPanel y){
+	InitializeGame game;
+	PlayerListener(int x, JPanel y, InitializeGame game){
 		playerNumber = x;
 		panel = y;
+		this.game = game;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Pandemic.SetPlayers(playerNumber, panel);
+		game.SetPlayers(playerNumber, panel);
 		
 	}
 	
