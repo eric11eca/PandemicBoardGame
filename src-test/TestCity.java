@@ -55,8 +55,12 @@ public class TestCity {
 	@Test
 	public void testDiseaseCubes() {
 		City city = new City();
-		//city.diseaseCubes = 5;
-		//assertEquals(5, city.diseaseCubes);
+		city.diseaseCubes.put("Yellow", 1);
+		city.diseaseCubes.put("Red", 2);
+		assertTrue(city.diseaseCubes.containsKey("Yellow"));
+		assertTrue(1 == city.diseaseCubes.get("Yellow"));
+		assertTrue(city.diseaseCubes.containsKey("Red"));
+		assertTrue(2 == city.diseaseCubes.get("Red"));
 	}
 	
 	@Test 
