@@ -22,9 +22,10 @@ public class GUI {
 
 	private void setPanels(JLabel label) {
 		JPanel mainPanel = new JPanel();
-		mainPanel.add(label, BorderLayout.WEST);
-		mainPanel.add(buttonPanel, BorderLayout.EAST);
-		frame.add(mainPanel);
+		mainPanel.add(label);
+		//frame.add(label, BorderLayout.EAST);
+		mainPanel.add(buttonPanel);
+		frame.add(mainPanel, BorderLayout.EAST);
 	}
 
 	public void addPanel(JPanel panel) {
@@ -55,6 +56,10 @@ public class GUI {
 		}
 
 	}
+	
+	
+	
+	
 	public void setButtonPanel(JPanel buttonPanel){
 		this.buttonPanel = buttonPanel;
 	}
