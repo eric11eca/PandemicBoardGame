@@ -18,7 +18,7 @@ public class Board {
 	ArrayList<City> cities;
 	
 	ArrayList<Player> current_players;
-	ArrayListSet<String> valid_playerCard;
+	ArrayList<String> valid_playerCard;
 	ArrayList<String> discard_playerCard = new ArrayList<String>();
 	ArrayList<String> valid_infection_card;
 	ArrayList<String> discard_infection_card = new ArrayList<String>();
