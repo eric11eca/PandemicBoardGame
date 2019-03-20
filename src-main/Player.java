@@ -32,9 +32,11 @@ public abstract class Player {
 	}
 
 	public boolean move(City city) {
-		// TODO Auto-generated method stub
-		location = city;
-		return true;
+		if(location.getConnections().contains(city)){
+			location = city;
+			return true;
+		}
+		return false;
 	}
 	
 	
