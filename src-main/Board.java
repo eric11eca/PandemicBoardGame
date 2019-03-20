@@ -1,5 +1,8 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+
 
 public class Board {
 	int outbreak_count = 0;
@@ -15,7 +18,7 @@ public class Board {
 	boolean blue_cure = false;
 	boolean black_cure = false;
 	
-	Set<City> cities;
+	Map<String, City> cities = new HashMap<String, City>();
 	
 	Set<Player> current_players;
 	Set<String> valid_playerCard;
