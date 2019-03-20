@@ -27,11 +27,9 @@ public class TestCity {
 		c2.name = "New York";
 		c3.name = "Boston";
 		
-		HashSet<City> n = new HashSet<City>();
-		n.add(c1); 
-		n.add(c2); 
-		n.add(c3);
-		city.neighbors = n;
+		city.neighbors.add(c1); 
+		city.neighbors.add(c2); 
+		city.neighbors.add(c3);
 		
 		HashSet<String> cityNames = new HashSet<String>();
 		
