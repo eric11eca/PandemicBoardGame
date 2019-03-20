@@ -9,10 +9,10 @@ public class TestCity {
 	@Test
 	public void testCoordinates() {
 		City city = new City();
-		city.setX(12);
-		city.setY(50);
-		assertEquals(city.getX(), 12);
-		assertEquals(city.getY(), 50);
+		city.X = 12;
+		city.Y = 50;
+		assertEquals(city.X, 12);
+		assertEquals(city.Y, 50);
 	}
 	
 	@Test
@@ -23,48 +23,48 @@ public class TestCity {
 		City c2 = new City();
 		City c3 = new City();
 		
-		c1.setName("Atalanta");
-		c2.setName("New York");
-		c3.setName("Boston");
+		c1.name = "Atalanta";
+		c2.name = "New York";
+		c3.name = "Boston";
 		
-		HashSet<City> n = new HashSet<City>();
-		n.add(c1); 
-		n.add(c2); 
-		n.add(c3);
-		city.setNeighbors(n);
+		city.neighbors.add(c1); 
+		city.neighbors.add(c2); 
+		city.neighbors.add(c3);
 		
-		HashSet<City> neighbors = city.getNeighbors();
 		HashSet<String> cityNames = new HashSet<String>();
 		
 		cityNames.add("Atalanta");
 		cityNames.add("New York");
 		cityNames.add("Boston");
 		
-		Iterator<City> it = neighbors.iterator();
+		Iterator<City> it = city.neighbors.iterator();
 	    while(it.hasNext()){
-	        assertTrue(cityNames.contains(it.next().getName()));
+	        assertTrue(cityNames.contains(it.next().name));
 	    } 
 	}
 	
 	@Test
 	public void testResearchStations(){
 		City city = new City();
-		city.placeResearchStation();
-		Boolean researchStation = city.getResearchStation();
-		assertTrue(researchStation);
+		city.researchStation = true;
+		assertTrue(city.researchStation);
 	}
 	
 	@Test
-	public void testDiseaseCube() {
+	public void testDiseaseCubes() {
 		City city = new City();
-		city.placeDiseaseCube(5);
-		assertEquals(5, city.getDiseaseCube());
+		city.diseaseCubes.put("Yellow", 1);
+		city.diseaseCubes.put("Red", 2);
+		assertTrue(city.diseaseCubes.containsKey("Yellow"));
+		assertTrue(1 == city.diseaseCubes.get("Yellow"));
+		assertTrue(city.diseaseCubes.containsKey("Red"));
+		assertTrue(2 == city.diseaseCubes.get("Red"));
 	}
 	
 	@Test 
 	public void testColor() {
 		City city = new City();
-		city.setColor("RED");
-		assertEquals("RED", city.getColor());
+		city.color = "RED";
+		assertEquals("RED", city.color);
 	}
 }
