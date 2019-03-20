@@ -15,7 +15,7 @@ public class PlayerTest {
 	@Before
 	public void setup(){
 		city = new City();
-		city.name = "city";
+		city.cityName = "city";
 		unconnected_city = new City();
 		connected_city = new City();
 		city.neighbors.add(connected_city);

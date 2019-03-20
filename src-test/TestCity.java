@@ -23,9 +23,9 @@ public class TestCity {
 		City c2 = new City();
 		City c3 = new City();
 		
-		c1.name = "Atalanta";
-		c2.name = "New York";
-		c3.name = "Boston";
+		c1.cityName = "Atalanta";
+		c2.cityName = "New York";
+		c3.cityName = "Boston";
 		
 		city.neighbors.add(c1); 
 		city.neighbors.add(c2); 
@@ -39,7 +39,7 @@ public class TestCity {
 		
 		Iterator<City> it = city.neighbors.iterator();
 	    while(it.hasNext()){
-	        assertTrue(cityNames.contains(it.next().name));
+	        assertTrue(cityNames.contains(it.next().cityName));
 	    } 
 	}
 	
