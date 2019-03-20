@@ -11,6 +11,7 @@ public class City {
 	private HashSet<City> neighbors;
 
 	public City() {
+		this.diseaseCube = 0;
 		this.researchStation = false;
 		this.neighbors = new HashSet<City>();
 	}
