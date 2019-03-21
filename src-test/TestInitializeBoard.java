@@ -11,6 +11,9 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.PlayerCard;
+import Initialize.*;
+
 public class TestInitializeBoard {
 	InitializeBoard initializeBoard;
 	Board board;

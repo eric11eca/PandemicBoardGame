@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.PlayerCard;
+import Initialize.*;
+import Player.Player.*;
+
 public class PlayerTest {
 	private City city;
 	private PlayerCard hand_city;

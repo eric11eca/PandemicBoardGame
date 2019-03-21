@@ -5,6 +5,8 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import Initialize.City;
+
 public class TestCity {
 	@Test
 	public void testCoordinates() {

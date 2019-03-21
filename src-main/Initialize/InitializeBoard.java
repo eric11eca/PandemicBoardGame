@@ -1,12 +1,16 @@
+package Initialize;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Card.PlayerCard;
+import Parse.CityDataParser;
+
 public class InitializeBoard {
-	Board board;
+	public Board board;
 	CityDataParser cityDataParser;
 	String cityDataPath = "CityData";
-	ThreadLocalRandom random;
+	public ThreadLocalRandom random;
 	
 	public InitializeBoard(Board mainBoard){
 		random =  ThreadLocalRandom.current();
@@ -46,7 +50,7 @@ public class InitializeBoard {
 		
 		if (playerCardNum == 44 && epidemicCardNum == 4) {
 			for (int i = 0; i < range ; i++) {
-				int randomNum = random.nextInt(i*range, (i+1)*range);
+				int randomNum = random.nextInt(i*(int)range, (i+1)*(int)range);
 				board.valid_playerCard.add(randomNum, new PlayerCard(cardType,""));
 			}
 		} else if(playerCardNum == 44 && epidemicCardNum == 5) {

@@ -1,7 +1,11 @@
+package Initialize;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import Card.PlayerCard;
+import Player.Player;
 
 public class Board {
 	public enum CardType{
@@ -24,11 +28,11 @@ public class Board {
 	boolean blue_cure = false;
 	boolean black_cure = false;
 	
-	Map<String, City> cities = new HashMap<String, City>();
+	public Map<String, City> cities = new HashMap<String, City>();
 	
 	List<Player> current_players = new ArrayList<Player>();
-	List<PlayerCard> valid_playerCard = new ArrayList<PlayerCard>();
+	public List<PlayerCard> valid_playerCard = new ArrayList<PlayerCard>();
 	List<PlayerCard> discard_playerCard = new ArrayList<PlayerCard>();
-	List<String> valid_infection_card = new ArrayList<String>();
+	public List<String> valid_infection_card = new ArrayList<String>();
 	List<String> discard_infection_card = new ArrayList<String>();
 }

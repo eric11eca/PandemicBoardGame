@@ -1,4 +1,8 @@
+package Player;
 import java.util.ArrayList;
+
+import Card.PlayerCard;
+import Initialize.City;
 
 public abstract class Player{
 //	private int handCapacity;

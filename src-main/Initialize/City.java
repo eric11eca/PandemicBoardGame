@@ -1,15 +1,16 @@
+package Initialize;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class City {
-	int X;
-	int Y;
+	public int X;
+	public int Y;
 	
-	String cityName;
-	String color;
-	HashMap<String, Integer> diseaseCubes;
-	Boolean researchStation;
-	HashSet<City> neighbors;
+	public String cityName;
+	public String color;
+	public HashMap<String, Integer> diseaseCubes;
+	public Boolean researchStation;
+	public HashSet<City> neighbors;
 
 	public City(String name, String color){
 		this();

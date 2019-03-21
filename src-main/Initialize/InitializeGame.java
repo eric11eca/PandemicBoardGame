@@ -1,7 +1,10 @@
+package Initialize;
 import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import Panel.*;
 
 public class InitializeGame {
 	int players = 0;
@@ -9,7 +12,7 @@ public class InitializeGame {
 	private GUI gui;
 	JPanel buttonPanel;
 
-	InitializeGame() {
+	public InitializeGame() {
 		// Build all the objects
 		// Call the GUI to select the number of players
 		JPanel pnl = new JPanel();

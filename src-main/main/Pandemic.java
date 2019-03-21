@@ -1,5 +1,8 @@
+package main;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import Initialize.*;
 
 public class Pandemic {
 	
