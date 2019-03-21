@@ -36,6 +36,17 @@ public class TestInitializeBoard {
 	}
 	
 	@Test
+	public void testInitializeHandCardWithTwoPlayer(){
+		for(int i = 0; i < board.playernumber; i++){
+			for(int j = 0; j < board.initialhandcard; j++){
+				board.currentPlayers.get(i).hand.add(); // the top card
+			}
+		}
+	}
+	
+	
+	
+	@Test
 	public void testInitializeCity(){
 		String cityName = "Shanghai";
 		initializeBoard.initializeCity(cityName, "BLUE", 12, 30, 40);

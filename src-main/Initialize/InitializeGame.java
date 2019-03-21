@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import Panel.*;
 
 public class InitializeGame {
-	int players = 0;
-	int epidemicNumber = 0;
+	public int players = 0;
+	public int epidemicNumber = 0;
 	private GUI gui;
 	JPanel buttonPanel;
 
