@@ -4,7 +4,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,5 +44,16 @@ public class TestInitializeBoard {
 		List<PlayerCard> valid_playercard = initializeBoard.board.valid_playerCard;
 		assertEquals(Board.CardType.CITYCARD, valid_playercard.get(0).cardType);
 		assertEquals("Chicago", valid_playercard.get(0).cardName);
+	}
+	
+	@Test
+	public void testInitializeEpiDemicCard() {
+		ThreadLocalRandom random = EasyMock.mock(ThreadLocalRandom.class);
+		EasyMock.expect(random.nextInt()).andReturn(5);
+		EasyMock.replay(random);
+		initializeBoard.random = random;
+		EasyMock.verify(random);
+		List<PlayerCard> valid_playercard = initializeBoard.board.valid_playerCard;
+		assertEquals(Board.CardType.EPIDEMIC, valid_playercard.get(5).cardType);
 	}
 }
