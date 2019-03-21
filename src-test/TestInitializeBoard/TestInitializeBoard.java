@@ -56,8 +56,6 @@ public class TestInitializeBoard {
 		assertTrue(valid_infection_card.contains(cityName));
 	}
 	
-
-	
 	@Test
 	public void testInitializePlayerCard() {
 		initializeBoard.initializePlayerCard(Board.CardType.CITYCARD, "Chicago");
@@ -65,6 +63,4 @@ public class TestInitializeBoard {
 		assertEquals(Board.CardType.CITYCARD, valid_playercard.get(0).cardType);
 		assertEquals("Chicago", valid_playercard.get(0).cardName);
 	}
-	
-
 }
