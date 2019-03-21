@@ -1,5 +1,4 @@
 package Initialize;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -46,18 +45,31 @@ public class InitializeBoard {
 	
 	public void initializeEpidemicCard(int playerCardNum, int epidemicCardNum) {
 		int count = 0;
+		int deckSize;
 		Board.CardType cardType = Board.CardType.EPIDEMIC;
 		
-		double range = Math.ceil(playerCardNum / epidemicCardNum);
-		int partitionSize = (int)range;
+		double result = (double)playerCardNum / (double)epidemicCardNum;
 		
-		for (int i = 0; i < range ; i++) {
-			int randomNum = random.nextInt(i*(int)range, (i+1)*(int)range);
-			board.validPlayerCard.add(randomNum, new PlayerCard(cardType,""));
+		if (result > (double)(playerCardNum / epidemicCardNum) + 0.5) {
+			deckSize = (int)Math.ceil(result);
+		} else {
+			deckSize = playerCardNum / epidemicCardNum;
 		}
 		
-
+		int cardRemain = playerCardNum - deckSize * (epidemicCardNum - 1);
 		
-		
+		for (int i = 0; i < epidemicCardNum ; i++) {
+			int randomIdx;
+			int low = i*deckSize;
+			int high = (i+1)*deckSize;
+			
+			if(i == epidemicCardNum - 1) {
+				randomIdx = random.nextInt(low, low + cardRemain);
+			} else {
+				randomIdx = random.nextInt(low, high);
+			}
+			board.validPlayerCard.add(randomIdx + count, new PlayerCard(cardType,""));
+			count += 1;
+		}
 	}
 }
