@@ -17,6 +17,8 @@ public class Board {
 	int blue_cubes = 24;
 	int black_cubes = 24;
 	
+	//int difficulty = 0;
+	
 	boolean yellow_cure = false;
 	boolean red_cure = false;
 	boolean blue_cure = false;
