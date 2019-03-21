@@ -37,14 +37,14 @@ public class TestInitializeBoard {
 	public void testInitializeInfectionCard() {
 		String cityName = "Chicago";
 		initializeBoard.initializeInfectionCard(cityName);
-		List<String> valid_infection_card = initializeBoard.board.valid_infection_card;
+		List<String> valid_infection_card = initializeBoard.board.validInfectionCard;
 		assertTrue(valid_infection_card.contains(cityName));
 	}
 	
 	@Test
 	public void testInitializePlayerCard() {
 		initializeBoard.initializePlayerCard(Board.CardType.CITYCARD, "Chicago");
-		List<PlayerCard> valid_playercard = initializeBoard.board.valid_playerCard;
+		List<PlayerCard> valid_playercard = initializeBoard.board.validPlayerCard;
 		assertEquals(Board.CardType.CITYCARD, valid_playercard.get(0).cardType);
 		assertEquals("Chicago", valid_playercard.get(0).cardName);
 	}
@@ -56,7 +56,7 @@ public class TestInitializeBoard {
 		EasyMock.replay(random);
 		initializeBoard.random = random;
 		EasyMock.verify(random);
-		List<PlayerCard> valid_playercard = initializeBoard.board.valid_playerCard;
+		List<PlayerCard> valid_playercard = initializeBoard.board.validPlayerCard;
 		assertEquals(Board.CardType.EPIDEMIC, valid_playercard.get(5).cardType);
 	}
 }

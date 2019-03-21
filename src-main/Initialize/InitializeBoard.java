@@ -34,11 +34,11 @@ public class InitializeBoard {
 	}
 	
 	public void initializeInfectionCard(String cityName) {
-		board.valid_infection_card.add(cityName);
+		board.validInfectionCard.add(cityName);
 	}
 	
 	public void initializePlayerCard(Board.CardType cardType, String cardName) {
-		board.valid_playerCard.add(new PlayerCard(cardType, cardName));
+		board.validPlayerCard.add(new PlayerCard(cardType, cardName));
 	}	
 	
 	public void initializeEpidemicCard(int playerCardNum, int epidemicCardNum) {
@@ -48,13 +48,9 @@ public class InitializeBoard {
 		double range = Math.ceil(playerCardNum / epidemicCardNum);
 		int partitionSize = (int)range;
 		
-		if (playerCardNum == 44 && epidemicCardNum == 4) {
-			for (int i = 0; i < range ; i++) {
-				int randomNum = random.nextInt(i*(int)range, (i+1)*(int)range);
-				board.valid_playerCard.add(randomNum, new PlayerCard(cardType,""));
-			}
-		} else if(playerCardNum == 44 && epidemicCardNum == 5) {
-			
+		for (int i = 0; i < range ; i++) {
+			int randomNum = random.nextInt(i*(int)range, (i+1)*(int)range);
+			board.validPlayerCard.add(randomNum, new PlayerCard(cardType,""));
 		}
 		
 
