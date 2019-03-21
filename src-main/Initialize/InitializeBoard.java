@@ -59,6 +59,11 @@ public class InitializeBoard {
 		}
 	}
 	
+	public void shuffleCards() {
+		Collections.shuffle(board.validInfectionCard);
+		Collections.shuffle(board.validPlayerCard);
+	}
+	
 	public void initializePlayerCard(Board.CardType cardType, String cardName) {
 		board.validPlayerCard.add(new PlayerCard(cardType, cardName));
 	}	

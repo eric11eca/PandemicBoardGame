@@ -1,8 +1,8 @@
 package TestInitializeBoard;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -62,5 +62,39 @@ public class TestInitializeBoard {
 		List<PlayerCard> valid_playercard = initializeBoard.board.validPlayerCard;
 		assertEquals(Board.CardType.CITYCARD, valid_playercard.get(0).cardType);
 		assertEquals("Chicago", valid_playercard.get(0).cardName);
+	}
+	
+	@Test
+	public void testShuffleCards() {
+		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city1"));
+		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city2"));
+		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city3"));
+		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "event1"));
+		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "event2"));
+		
+		initializeBoard.board.validInfectionCard.add("city1");
+		initializeBoard.board.validInfectionCard.add("city2");
+		initializeBoard.board.validInfectionCard.add("city3");
+		initializeBoard.board.validInfectionCard.add("city4");
+		initializeBoard.board.validInfectionCard.add("city5");
+		
+		String oldInfectionCards = initializeBoard.board.validInfectionCard.toString();
+		String oldPlayerCards = "";
+		
+		for(int i = 0; i < 5; i++) {
+			oldPlayerCards += initializeBoard.board.validPlayerCard.get(i).cardName;
+		}
+		
+		initializeBoard.shuffleCards();	
+		
+		String newInfectionCards = initializeBoard.board.validInfectionCard.toString();
+		String newPlayerCards = "";
+		
+		for(int i = 0; i < 5; i++) {
+			newPlayerCards += initializeBoard.board.validPlayerCard.get(i).cardName;
+		}
+		
+		assertFalse(newInfectionCards == oldInfectionCards);
+		assertFalse(newPlayerCards == oldPlayerCards);
 	}
 }
