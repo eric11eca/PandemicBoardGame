@@ -41,8 +41,8 @@ public class InitializeBoard {
 		int count = 0;
 		Board.CardType cardType = Board.CardType.EPIDEMIC;
 		
-		int range = (int) Math.ceil(playerCardNum / epidemicCardNum);
-		
+		double range = Math.ceil(playerCardNum / epidemicCardNum);
+		int partitionSize = (int)range;
 		
 		if (playerCardNum == 44 && epidemicCardNum == 4) {
 			for (int i = 0; i < range ; i++) {
