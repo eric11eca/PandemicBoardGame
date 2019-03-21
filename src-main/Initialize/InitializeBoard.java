@@ -42,16 +42,23 @@ public class InitializeBoard {
 	
 	public void initializeEpidemicCard(int playerCardNum, int epidemicCardNum) {
 		int count = 0;
+		int deckSize;
 		Board.CardType cardType = Board.CardType.EPIDEMIC;
 		
-		double range = Math.ceil(playerCardNum / epidemicCardNum);
-		int partitionSize = (int)range;
-		int cardRemain = playerCardNum - partitionSize * (epidemicCardNum - 1);
+		double result = (double)playerCardNum / (double)epidemicCardNum;
+		
+		if (result > (double)(playerCardNum / epidemicCardNum) + 0.5) {
+			deckSize = (int)Math.ceil(result);
+		} else {
+			deckSize = playerCardNum / epidemicCardNum;
+		}
+		
+		int cardRemain = playerCardNum - deckSize * (epidemicCardNum - 1);
 		
 		for (int i = 0; i < epidemicCardNum ; i++) {
 			int randomIdx;
-			int low = i*partitionSize;
-			int high = (i+1)*partitionSize;
+			int low = i*deckSize;
+			int high = (i+1)*deckSize;
 			
 			if(i == epidemicCardNum - 1) {
 				randomIdx = random.nextInt(low, low + cardRemain);
