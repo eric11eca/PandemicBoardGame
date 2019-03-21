@@ -19,7 +19,7 @@ public abstract class Player{
 //		//this.hand = new ArrayList<Card>;
 //	}
 
-	public ArrayList<PlayerCard> hand;
+	public ArrayList<PlayerCard> hand = new ArrayList<>();
 	public City location;
 
 	public void receiveCard(PlayerCard playercard) {

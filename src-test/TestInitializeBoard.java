@@ -24,13 +24,27 @@ public class TestInitializeBoard {
 	}
 	
 	@Test
-	public void testInitializeCity(){
+	public void testInitializeCityWithCityData(){
 		initializeBoard.initializeWithCityData();
+		// TODO: Generate Data to the CityData
 		Map<String, City> cities = initializeBoard.board.cities;
 		assertEquals(48, cities.size());
 		City chicago = cities.get("Chicago");
 		assertEquals("Chicago", chicago.cityName);
 		assertEquals("BLUE", chicago.color);
+	}
+	
+	@Test
+	public void testInitializeCity(){
+		String cityName = "Shanghai";
+		initializeBoard.initializeCity(cityName, "BLUE", 12, 30, 40);
+		Map<String, City> cities = initializeBoard.board.cities;
+		City shanghai = cities.get(cityName);
+		assertEquals("Shanghai", shanghai.cityName);
+		assertEquals("BLUE", shanghai.color);
+		assertEquals(12, shanghai.population);
+		assertEquals(30, shanghai.x);
+		assertEquals(40, shanghai.y);
 	}
 	
 	@Test

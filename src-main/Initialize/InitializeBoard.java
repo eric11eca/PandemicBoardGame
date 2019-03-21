@@ -8,8 +8,8 @@ import Parse.CityDataParser;
 
 public class InitializeBoard {
 	public Board board;
-	CityDataParser cityDataParser;
-	String cityDataPath = "CityData";
+	public CityDataParser cityDataParser;
+	public String cityDataPath = "CityData";
 	public ThreadLocalRandom random;
 	
 	public InitializeBoard(Board mainBoard){
@@ -22,14 +22,17 @@ public class InitializeBoard {
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
 		for(List<String> cityData : citiesData) {
 			String cityName = cityData.get(0);
-			initializeCity(cityName, cityData.get(1));
+			initializeCity(cityName, cityData.get(1),
+					Integer.parseInt(cityData.get(2)),
+					Integer.parseInt(cityData.get(3)),
+					Integer.parseInt(cityData.get(4)));
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
 		} 
 	}
-	
-	public void initializeCity(String cityName, String color) {
-		City city = new City(cityName, color);
+
+	public void initializeCity(String cityName, String color, int population, int x, int y) {
+		City city = new City(cityName, color, population, x, y);
 		board.cities.put(cityName, city);
 	}
 	
