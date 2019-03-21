@@ -1,4 +1,5 @@
 package Initialize;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,6 +38,25 @@ public class InitializeBoard {
 	
 	public void initializeInfectionCard(String cityName) {
 		board.validInfectionCard.add(cityName);
+	}
+	
+	public void initializeDiseaseCube() {
+		Collections.shuffle(board.validInfectionCard);
+		for (int i = 0; i < 9; i++) {
+			String cardName = board.validInfectionCard.get(0);
+			City city = board.cities.get(cardName);
+			
+			if (i < 3) {
+				city.diseaseCubes.put(city.color, 3);
+			} else if (i > 2 && i < 6) {
+				city.diseaseCubes.put(city.color, 2);
+			} else {
+				city.diseaseCubes.put(city.color, 1);
+			}
+			board.cities.replace(cardName, city);
+			board.validInfectionCard.remove(0);
+			board.discardInfectionCard.add(0, cardName);
+		}
 	}
 	
 	public void initializePlayerCard(Board.CardType cardType, String cardName) {

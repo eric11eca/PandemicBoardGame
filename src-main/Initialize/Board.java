@@ -34,5 +34,5 @@ public class Board {
 	public List<PlayerCard> validPlayerCard = new ArrayList<PlayerCard>();
 	List<PlayerCard> discardPlayerCard = new ArrayList<PlayerCard>();
 	public List<String> validInfectionCard = new ArrayList<String>();
-	List<String> discardInfectionCard = new ArrayList<String>();
+	public List<String> discardInfectionCard = new ArrayList<String>();
 }
