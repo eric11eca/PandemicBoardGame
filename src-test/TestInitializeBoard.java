@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -50,13 +51,32 @@ public class TestInitializeBoard {
 	}
 	
 	@Test
-	public void testInitializeEpiDemicCard() {
+	public void testInitializeEpiDemicCard1() {
 		ThreadLocalRandom random = EasyMock.mock(ThreadLocalRandom.class);
-		EasyMock.expect(random.nextInt()).andReturn(5);
+		EasyMock.expect(random.nextInt(0, 7)).andReturn(43);
+		EasyMock.expect(random.nextInt(7, 14)).andReturn(43);
+		EasyMock.expect(random.nextInt(14, 21)).andReturn(43);
+		EasyMock.expect(random.nextInt(21, 28)).andReturn(43);
+		EasyMock.expect(random.nextInt(28, 35)).andReturn(43);
+		EasyMock.expect(random.nextInt(35, 45)).andReturn(43);
+
 		EasyMock.replay(random);
 		initializeBoard.random = random;
+
+		List<PlayerCard> validPlayerCard = initializeBoard.board.validPlayerCard;
+		for (int i = 0; i < 48; i++) {
+			validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, ""));
+		}
+		
+		for (int i = 0; i < 5; i++) {
+			validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, ""));
+		}
+		
+		initializeBoard.initializeEpidemicCard(45, 6);
+		
+		Collections.shuffle(validPlayerCard);
+		assertEquals(Board.CardType.EPIDEMIC, validPlayerCard.get(47).cardType);
+		
 		EasyMock.verify(random);
-		List<PlayerCard> valid_playercard = initializeBoard.board.validPlayerCard;
-		assertEquals(Board.CardType.EPIDEMIC, valid_playercard.get(5).cardType);
 	}
 }
