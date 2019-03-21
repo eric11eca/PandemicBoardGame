@@ -107,4 +107,35 @@ public class TestInitializeBoard {
 		
 		EasyMock.verify(random);
 	}
+	
+	@Test
+	public void testInitializeEpiDemicCard3() {
+		ThreadLocalRandom random = EasyMock.mock(ThreadLocalRandom.class);
+		EasyMock.expect(random.nextInt(0, 9)).andReturn(5);
+		EasyMock.expect(random.nextInt(9, 18)).andReturn(17);
+		EasyMock.expect(random.nextInt(18, 27)).andReturn(20);
+		EasyMock.expect(random.nextInt(27, 36)).andReturn(34);
+		EasyMock.expect(random.nextInt(36, 44)).andReturn(43);
+
+		EasyMock.replay(random);
+		initializeBoard.random = random;
+
+		List<PlayerCard> validPlayerCard = initializeBoard.board.validPlayerCard;
+		for (int i = 0; i < 48; i++) {
+			validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, ""));
+		}
+		
+		for (int i = 0; i < 5; i++) {
+			validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, ""));
+		}
+		
+		Collections.shuffle(validPlayerCard);
+		initializeBoard.initializeEpidemicCard(44, 5);
+		
+		assertEquals(Board.CardType.EPIDEMIC, validPlayerCard.get(47).cardType);
+		
+		EasyMock.verify(random);
+	}
+	
+	
 }
