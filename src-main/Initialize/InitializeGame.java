@@ -1,5 +1,5 @@
-import java.awt.Dimension;
 package Initialize;
+import java.awt.Dimension;
 import java.util.HashMap;
 
 import javax.swing.JButton;
