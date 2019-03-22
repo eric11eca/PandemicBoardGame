@@ -1,4 +1,5 @@
 package Initialize;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,11 +12,13 @@ public class InitializeBoard {
 	public CityDataParser cityDataParser;
 	public String cityDataPath = "CityData";
 	public ThreadLocalRandom random;
+	public ArrayList<String> eventCardNames;
 	
 	public InitializeBoard(Board mainBoard){
 		random =  ThreadLocalRandom.current();
 		this.board = mainBoard;
 		this.cityDataParser = new CityDataParser();
+		this.eventCardNames = new ArrayList<String>();
 	}
 	
 	public void initializeWithCityData(){
@@ -95,6 +98,12 @@ public class InitializeBoard {
 			}
 			board.validPlayerCard.add(randomIdx + count, new PlayerCard(cardType,""));
 			count += 1;
+		}
+	}
+	
+	public void initializeEventCard() {
+		for(String cardName : eventCardNames) {
+			board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
 		}
 	}
 }

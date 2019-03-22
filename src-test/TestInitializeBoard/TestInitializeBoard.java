@@ -3,11 +3,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
-import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,12 +16,11 @@ import Initialize.*;
 public class TestInitializeBoard {
 	InitializeBoard initializeBoard;
 	Board board;
-	ThreadLocalRandom random;
+	
 	@Before
 	public void setup(){
 		board = new Board();
 		initializeBoard = new InitializeBoard(board);
-		random = EasyMock.mock(ThreadLocalRandom.class);
 	}
 	
 	@Test
@@ -96,5 +94,17 @@ public class TestInitializeBoard {
 		
 		assertFalse(newInfectionCards == oldInfectionCards);
 		assertFalse(newPlayerCards == oldPlayerCards);
+	}
+	
+	@Test
+	public void testInitializeEventCards() {
+		initializeBoard.eventCardNames.add("event1");
+		initializeBoard.eventCardNames.add("event2");
+		initializeBoard.eventCardNames.add("event3");
+		
+		initializeBoard.initializeEventCard();
+		String firstEventCardName = initializeBoard.board.validPlayerCard.get(0).cardName;
+		
+		assertEquals("event1", firstEventCardName);
 	}
 }
