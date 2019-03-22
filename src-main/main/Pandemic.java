@@ -62,7 +62,8 @@ public class Pandemic {
 		
 		board.cities.put("Atlanta", atlanta);
 		
-		int validPlayerCardNum = 53 - board.initialhandcard * board.playernumber;
+		int validPlayerCardNum = 0;
+		validPlayerCardNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerCardNum, epidemicCardNum);
     }
 }
