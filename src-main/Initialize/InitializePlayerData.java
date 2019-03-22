@@ -4,11 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
+import Card.PlayerCard;
 import Player.Player;
 
 public class InitializePlayerData {
 	Board board;
 	String prefix = "Player.";
+
 	public InitializePlayerData(Board board) {
 		this.board = board;
 	}
@@ -20,13 +22,13 @@ public class InitializePlayerData {
 		board.totalRoles.add("QuarantineSpecialist");
 		board.totalRoles.add("Researcher");
 		board.totalRoles.add("Scientist");
-		board.totalRoles.add("ContingencyPlanner");	
+		board.totalRoles.add("ContingencyPlanner");
 	}
-	
+
 	public void createPlayers() {
 		Collections.shuffle(board.totalRoles);
-		
-		for(int i = 0; i < board.playernumber; i++){
+
+		for (int i = 0; i < board.playernumber; i++) {
 			Class<?> clazz = null;
 			try {
 				clazz = Class.forName(prefix + board.totalRoles.get(i));
@@ -49,19 +51,19 @@ public class InitializePlayerData {
 				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
-			
+
 		}
 	}
-	
+
 	public void drawHandCard() {
-		// TODO Auto-generated method stub
+		for(int i = 0; i < board.playernumber; i++){
+			for(int j = 0; j < board.initialhandcard; j++){
+				int topOfDeck = board.validPlayerCard.size() - 1;
+				PlayerCard playercard = board.validPlayerCard.remove(topOfDeck);
+				board.currentPlayers.get(i).hand.add(playercard); 
+		}
+	}
 		
 	}
-
-
-
-
-
-
 
 }

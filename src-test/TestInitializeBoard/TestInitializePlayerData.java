@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
+import Initialize.InitializeCity;
 import Initialize.InitializePlayerData;
 
 public class TestInitializePlayerData {
@@ -36,15 +37,14 @@ public class TestInitializePlayerData {
 	@Test
 	public void testdrawHandCardWithTwoPlayer(){
 		board.initialhandcard = 4;
-		initializePlayerData.drawHandCard();
-		assertEquals(4, board.currentPlayers.get(0).hand);
-		assertEquals(4, board.currentPlayers.get(1).hand);
-
-//		for(int i = 0; i < board.playernumber; i++){
-//			for(int j = 0; j < board.initialhandcard; j++){
-//				PlayerCard playercard = board.validPlayerCard.remove(valid)
-//				board.currentPlayers.get(i).hand.add(); // the top card
-//			}
-//		}
+		InitializeCity initializecity = new InitializeCity(board);
+		initializePlayerData.addRole();		
+		initializePlayerData.createPlayers();
+		initializecity.initializeWithCityData();
+		initializecity.initializeEventCard();
+		initializecity.shuffleCards();
+		initializePlayerData.drawHandCard();	
+		assertEquals(4, board.currentPlayers.get(0).hand.size());
+		assertEquals(4, board.currentPlayers.get(1).hand.size());
 	}
 }
