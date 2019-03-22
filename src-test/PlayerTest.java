@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.PlayerCard;
+import Initialize.*;
+import Player.Dispatcher;
+import Player.Player;
+import Player.Player.*;
+
 public class PlayerTest {
 	private City city;
 	private PlayerCard hand_city;
@@ -23,7 +29,7 @@ public class PlayerTest {
 		String[] cities = {"A","B","C","D","E","F","G","H"}; // 8 cities
 		citycards = new ArrayList<>();
 		for(String city: cities){
-			citycards.add(new CityCard(city));
+			citycards.add(new PlayerCard(Board.CardType.CITYCARD, city));
 		}
 	}
 	

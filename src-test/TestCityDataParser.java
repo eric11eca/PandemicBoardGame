@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import Parse.CityDataParser;
+
 public class TestCityDataParser {
 	
 	@Test (expected = RuntimeException.class)

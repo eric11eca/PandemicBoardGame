@@ -5,14 +5,16 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import Initialize.City;
+
 public class TestCity {
 	@Test
 	public void testCoordinates() {
 		City city = new City();
-		city.X = 12;
-		city.Y = 50;
-		assertEquals(city.X, 12);
-		assertEquals(city.Y, 50);
+		city.x = 12;
+		city.y = 50;
+		assertEquals(city.x, 12);
+		assertEquals(city.y, 50);
 	}
 	
 	@Test

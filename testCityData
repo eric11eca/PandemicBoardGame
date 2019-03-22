@@ -1,5 +1,5 @@
-Chicago,BLUE
-Istanbul,BLACK
-LosAngeles,GREEN
-Mexico City,GREEN
-Seoul,RED
+Chicago,BLUE,12,0,0
+Istanbul,BLACK,32,0,0
+LosAngeles,GREEN,23,0,0
+Mexico City,GREEN,100,0,0
+Seoul,RED,10,0,0

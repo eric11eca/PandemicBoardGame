@@ -1,3 +1,4 @@
+package Panel;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,7 +15,7 @@ public class GUI {
 	JFrame frame;
 	JPanel buttonPanel;
 
-	GUI() {
+	public GUI() {
 		frame = new JFrame();
 		frame.setSize(1000, 1000);
 		frame.show();
