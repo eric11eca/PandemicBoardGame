@@ -53,7 +53,7 @@ public class Pandemic {
 		initPlayerData.addRole();
 		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
-		
+		initPlayerData.sortPlayer();
     }
 
 	

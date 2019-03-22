@@ -59,7 +59,7 @@ public class TestInitializePlayerData {
 		initializecity.initializeEventCard();
 		initializecity.shuffleCards();
 		initializePlayerData.drawHandCard();	
-		initializePlayerData.initializeSortPlayer();
+		initializePlayerData.sortPlayer();
 		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
 				> initializePlayerData.populationSum(board.currentPlayers.get(1)));
 	}
@@ -74,7 +74,7 @@ public class TestInitializePlayerData {
 		initializecity.initializeEventCard();
 		initializecity.shuffleCards();
 		initializePlayerData.drawHandCard();	
-		initializePlayerData.initializeSortPlayer();
+		initializePlayerData.sortPlayer();
 		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
 				> initializePlayerData.populationSum(board.currentPlayers.get(1)));
 		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(1))

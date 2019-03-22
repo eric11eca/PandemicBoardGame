@@ -66,7 +66,7 @@ public class InitializePlayerData {
 		}	
 	}
 
-	public void initializeSortPlayer() {
+	public void sortPlayer() {
 		PopulationComparator comparator = new PopulationComparator();
 		Collections.sort(board.currentPlayers,comparator);
 	}
