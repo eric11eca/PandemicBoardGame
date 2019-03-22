@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Initialize.*;
+import Player.Player;
 
 public class Pandemic {
 	
@@ -15,9 +16,9 @@ public class Pandemic {
 		InitializeBoard initBoard = new InitializeBoard(board);
 		InitializePlayerData initPlayerData = new InitializePlayerData(board);
 		//TODO: getting these two number from gui
-		board.playernumber = 0;
+		board.playernumber = 3;
 		
-		int difficulty = 0;
+		int difficulty = 2;
 		int epidemicCardNum = 0;
 		
 		if (board.playernumber == 2) {
@@ -51,6 +52,15 @@ public class Pandemic {
 		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
+		
+		City atlanta = board.cities.get("Atlanta");
+		atlanta.researchStation = true;
+		
+		for (Player player : board.currentPlayers) {
+			atlanta.players.add(player);
+		}
+		
+		board.cities.put("Atlanta", atlanta);
 		
 		int validPlayerCardNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerCardNum, epidemicCardNum);
