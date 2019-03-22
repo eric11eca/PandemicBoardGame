@@ -35,7 +35,9 @@ public class Pandemic {
 		}
 		
 		initBoard.initializeWithCityData();
-		
+		initBoard.initializeEventCard();
+		initBoard.shuffleCards();
+		initBoard.initializeDiseaseCube();
     }
 
 	
