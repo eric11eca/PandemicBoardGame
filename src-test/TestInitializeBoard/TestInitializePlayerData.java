@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
-import Initialize.InitializeCity;
+import Initialize.InitializeBoard;
 import Initialize.InitializePlayerData;
 
 public class TestInitializePlayerData {
@@ -38,12 +38,12 @@ public class TestInitializePlayerData {
 	@Test
 	public void testdrawHandCardWithTwoPlayer(){
 		board.initialhandcard = 4;
-		InitializeCity initializecity = new InitializeCity(board);
+		InitializeBoard InitializeBoard = new InitializeBoard(board);
 		initializePlayerData.addRole();		
 		initializePlayerData.createPlayers();
-		initializecity.initializeWithCityData();
-		initializecity.initializeEventCard();
-		initializecity.shuffleCards();
+		InitializeBoard.initializeWithCityData();
+		InitializeBoard.initializeEventCard();
+		InitializeBoard.shuffleCards();
 		initializePlayerData.drawHandCard();	
 		assertEquals(4, board.currentPlayers.get(0).hand.size());
 		assertEquals(4, board.currentPlayers.get(1).hand.size());
@@ -52,12 +52,12 @@ public class TestInitializePlayerData {
 	@Test
 	public void testSortPlayerByPopulation(){
 		board.initialhandcard = 4;
-		InitializeCity initializecity = new InitializeCity(board);
+		InitializeBoard InitializeBoard = new InitializeBoard(board);
 		initializePlayerData.addRole();		
 		initializePlayerData.createPlayers();
-		initializecity.initializeWithCityData();
-		initializecity.initializeEventCard();
-		initializecity.shuffleCards();
+		InitializeBoard.initializeWithCityData();
+		InitializeBoard.initializeEventCard();
+		InitializeBoard.shuffleCards();
 		initializePlayerData.drawHandCard();	
 		initializePlayerData.sortPlayer();
 		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
@@ -67,12 +67,12 @@ public class TestInitializePlayerData {
 	public void testSortPlayerByPopulationThreePlayer(){
 		board.playernumber = 3;
 		board.initialhandcard = 3;
-		InitializeCity initializecity = new InitializeCity(board);
+		InitializeBoard InitializeBoard = new InitializeBoard(board);
 		initializePlayerData.addRole();		
 		initializePlayerData.createPlayers();
-		initializecity.initializeWithCityData();
-		initializecity.initializeEventCard();
-		initializecity.shuffleCards();
+		InitializeBoard.initializeWithCityData();
+		InitializeBoard.initializeEventCard();
+		InitializeBoard.shuffleCards();
 		initializePlayerData.drawHandCard();	
 		initializePlayerData.sortPlayer();
 		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
