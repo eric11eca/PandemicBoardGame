@@ -13,20 +13,20 @@ public class Pandemic {
 		Board board = new Board();
 		InitializeGame initGame = new InitializeGame();
 		InitializeBoard initBoard = new InitializeBoard(board);
-		
+		InitializePlayerData initPlayerData = new InitializePlayerData(board);
 		//TODO: getting these two number from gui
-		int playerNum = 0;
+		board.playernumber = 0;
 		int difficulty = 0;
-
 		int EpidemicCardNum = 0;
-		int handSize= 0;
 		
-		if (playerNum == 2) {
-			handSize = 4;
-		} else if (playerNum == 3) {
-			handSize = 3;
-		} else if (playerNum == 4) {
-			handSize = 2;
+		
+		
+		if (board.playernumber == 2) {
+			board.initialhandcard = 4;
+		} else if (board.playernumber == 3) {
+			board.initialhandcard = 3;
+		} else if (board.playernumber == 4) {
+			board.initialhandcard = 2;
 		}
 		
 		if (difficulty == 1) {
@@ -36,6 +36,8 @@ public class Pandemic {
 		} else if (difficulty == 3) {
 			EpidemicCardNum = 6;
 		}
+		
+		
 		
 		initBoard.eventCardNames.add("One Quiet Night");
 		initBoard.eventCardNames.add("Resilient Population");
@@ -47,5 +49,10 @@ public class Pandemic {
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
 		initBoard.initializeDiseaseCube();
+		
+		initPlayerData.addRole();
+		initPlayerData.createPlayers();
+		initPlayerData.drawHandCard();
+		initPlayerData.sortPlayer();
     }
 }
