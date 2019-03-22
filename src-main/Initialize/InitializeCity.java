@@ -29,6 +29,7 @@ public class InitializeCity {
 					Integer.parseInt(cityData.get(2)),
 					Integer.parseInt(cityData.get(3)),
 					Integer.parseInt(cityData.get(4)));
+
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
 		} 

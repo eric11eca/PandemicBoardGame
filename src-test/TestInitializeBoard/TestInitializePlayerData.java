@@ -1,6 +1,7 @@
 package TestInitializeBoard;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,5 +47,38 @@ public class TestInitializePlayerData {
 		initializePlayerData.drawHandCard();	
 		assertEquals(4, board.currentPlayers.get(0).hand.size());
 		assertEquals(4, board.currentPlayers.get(1).hand.size());
+	}
+	
+	@Test
+	public void testSortPlayerByPopulation(){
+		board.initialhandcard = 4;
+		InitializeCity initializecity = new InitializeCity(board);
+		initializePlayerData.addRole();		
+		initializePlayerData.createPlayers();
+		initializecity.initializeWithCityData();
+		initializecity.initializeEventCard();
+		initializecity.shuffleCards();
+		initializePlayerData.drawHandCard();	
+		initializePlayerData.initializeSortPlayer();
+		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
+				> initializePlayerData.populationSum(board.currentPlayers.get(1)));
+	}
+	@Test
+	public void testSortPlayerByPopulationThreePlayer(){
+		board.playernumber = 3;
+		board.initialhandcard = 3;
+		InitializeCity initializecity = new InitializeCity(board);
+		initializePlayerData.addRole();		
+		initializePlayerData.createPlayers();
+		initializecity.initializeWithCityData();
+		initializecity.initializeEventCard();
+		initializecity.shuffleCards();
+		initializePlayerData.drawHandCard();	
+		initializePlayerData.initializeSortPlayer();
+		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
+				> initializePlayerData.populationSum(board.currentPlayers.get(1)));
+		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(1))
+				> initializePlayerData.populationSum(board.currentPlayers.get(2)));
+		
 	}
 }

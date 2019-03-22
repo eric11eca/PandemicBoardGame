@@ -31,6 +31,7 @@ public class TestInitializeCity {
 		City chicago = cities.get("Chicago");
 		assertEquals("Chicago", chicago.cityName);
 		assertEquals("BLUE", chicago.color);
+		assertEquals(2716000,chicago.population);
 	}
 	
 	

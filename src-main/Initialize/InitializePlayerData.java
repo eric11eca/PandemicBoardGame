@@ -3,6 +3,7 @@ package Initialize;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import java.util.Comparator;
 
 import Card.PlayerCard;
 import Player.Player;
@@ -61,8 +62,32 @@ public class InitializePlayerData {
 				int topOfDeck = board.validPlayerCard.size() - 1;
 				PlayerCard playercard = board.validPlayerCard.remove(topOfDeck);
 				board.currentPlayers.get(i).hand.add(playercard); 
-		}
+			}
+		}	
 	}
+
+	public void initializeSortPlayer() {
+		PopulationComparator comparator = new PopulationComparator();
+		Collections.sort(board.currentPlayers,comparator);
+	}
+
+	public int populationSum(Player player) {
+		int totalPopulation = 0;
+		for(int i = 0; i < player.hand.size(); i++){
+			PlayerCard playercard = player.hand.get(i);
+			if(playercard.cardType.equals(Board.CardType.CITYCARD)){
+				totalPopulation += board.cities.get(playercard.cardName).population;
+			}
+		}
+		return totalPopulation;
+	}
+	
+	class PopulationComparator implements Comparator<Player>{
+
+		@Override
+		public int compare(Player o1, Player o2) {
+			return populationSum(o2) - populationSum(o1);
+		}
 		
 	}
 
