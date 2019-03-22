@@ -10,7 +10,7 @@ public class Pandemic {
 		
 		Board board = new Board();
 		InitializeGame initGame = new InitializeGame();
-		InitializeBoard initBoard = new InitializeBoard(board);
+		InitializeCity initBoard = new InitializeCity(board);
 		
 		//TODO: getting these two number from gui
 		int playerNum = 0;

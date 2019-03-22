@@ -13,6 +13,8 @@ public class Board {
 		EVENTCARD,
 		EPIDEMIC;
 	}
+	
+	
 	public int playernumber = 0;
 	public int initialhandcard = 0; 
 	int initialHandCard = 0;
@@ -31,7 +33,7 @@ public class Board {
 	boolean blackCure = false;
 	
 	public Map<String, City> cities = new HashMap<String, City>();
-	List<String> totalRoles = new ArrayList<String>();
+	public List<String> totalRoles = new ArrayList<String>();
 	public List<Player> currentPlayers = new ArrayList<Player>();
 	public List<PlayerCard> validPlayerCard = new ArrayList<PlayerCard>();
 	List<PlayerCard> discardPlayerCard = new ArrayList<PlayerCard>();

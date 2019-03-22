@@ -13,14 +13,14 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.*;
 
-public class TestInitializeBoard {
-	InitializeBoard initializeBoard;
+public class TestInitializeCity {
+	InitializeCity initializeBoard;
 	Board board;
 	
 	@Before
 	public void setup(){
 		board = new Board();
-		initializeBoard = new InitializeBoard(board);
+		initializeBoard = new InitializeCity(board);
 	}
 	
 	@Test
@@ -32,16 +32,6 @@ public class TestInitializeBoard {
 		assertEquals("Chicago", chicago.cityName);
 		assertEquals("BLUE", chicago.color);
 	}
-	
-	@Test
-	public void testInitializeHandCardWithTwoPlayer(){
-		for(int i = 0; i < board.playernumber; i++){
-			for(int j = 0; j < board.initialhandcard; j++){
-				board.currentPlayers.get(i).hand.add(); // the top card
-			}
-		}
-	}
-	
 	
 	
 	@Test

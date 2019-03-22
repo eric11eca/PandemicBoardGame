@@ -7,14 +7,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import Card.PlayerCard;
 import Parse.CityDataParser;
 
-public class InitializeBoard {
+public class InitializeCity {
 	public Board board;
 	public CityDataParser cityDataParser;
 	public String cityDataPath = "CityData";
 	public ThreadLocalRandom random;
 	public ArrayList<String> eventCardNames;
 	
-	public InitializeBoard(Board mainBoard){
+	public InitializeCity(Board mainBoard){
 		random =  ThreadLocalRandom.current();
 		this.board = mainBoard;
 		this.cityDataParser = new CityDataParser();
@@ -106,4 +106,5 @@ public class InitializeBoard {
 			board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
 		}
 	}
+
 }

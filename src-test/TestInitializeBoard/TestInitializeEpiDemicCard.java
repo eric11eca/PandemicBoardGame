@@ -12,10 +12,10 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
-import Initialize.InitializeBoard;
+import Initialize.InitializeCity;
 
 public class TestInitializeEpiDemicCard {
-	InitializeBoard initializeBoard;
+	InitializeCity initializeBoard;
 	Board board;
 	ThreadLocalRandom random;
 	List<PlayerCard> validPlayerCard;
@@ -23,7 +23,7 @@ public class TestInitializeEpiDemicCard {
 	@Before
 	public void setup(){
 		board = new Board();
-		initializeBoard = new InitializeBoard(board);
+		initializeBoard = new InitializeCity(board);
 		random = EasyMock.mock(ThreadLocalRandom.class);	
 		validPlayerCard = initializeBoard.board.validPlayerCard;
 		
