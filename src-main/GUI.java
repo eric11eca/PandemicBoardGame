@@ -16,16 +16,16 @@ public class GUI {
 
 	GUI() {
 		frame = new JFrame();
-		frame.setSize(3000, 3000);
+		frame.setSize(1000, 1000);
 		frame.show();
 	}
 
 	private void setPanels(JLabel label) {
 		JPanel mainPanel = new JPanel();
-		mainPanel.add(label);
+		//mainPanel.add(label);
 		//frame.add(label, BorderLayout.EAST);
 		mainPanel.add(buttonPanel);
-		frame.add(mainPanel, BorderLayout.EAST);
+		frame.add(mainPanel);
 	}
 
 	public void addPanel(JPanel panel) {

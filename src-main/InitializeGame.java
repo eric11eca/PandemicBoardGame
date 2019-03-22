@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -123,8 +124,22 @@ public class InitializeGame {
 	}
 
 	private void addButtonsToPanel(HashMap<String, JButton> buttons) {
+		int x = 0;
+		buttonPanel.setLayout(null);
+		buttonPanel.setSize(1000, 1000);
+		buttonPanel.setPreferredSize(new Dimension(1000,1000 ));
 		for (String i : buttons.keySet()) {
-			buttonPanel.add(buttons.get(i));
+			
+			if(x < 4){
+				buttonPanel.add(buttons.get(i));
+			}
+			else{
+				buttons.get(i).setLocation(x*(100) - 300, 100 );
+				buttons.get(i).setSize(100, 100);
+				buttons.get(i).setPreferredSize(new Dimension(100, 100));
+				buttonPanel.add(buttons.get(i));
+			}
+			x++;
 		}
 
 	}
