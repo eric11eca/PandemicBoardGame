@@ -13,14 +13,14 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.*;
 
-public class TestInitializeCity {
-	InitializeCity initializeBoard;
+public class TestInitializeBoard {
+	InitializeBoard initializeBoard;
 	Board board;
 	
 	@Before
 	public void setup(){
 		board = new Board();
-		initializeBoard = new InitializeCity(board);
+		initializeBoard = new InitializeBoard(board);
 	}
 	
 	@Test

@@ -10,16 +10,16 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Initialize.City;
-import Initialize.InitializeCity;
+import Initialize.InitializeBoard;
 
 public class TestInitializeDiseaseCube {
-	InitializeCity initializeBoard;
+	InitializeBoard initializeBoard;
 	Board board;
 	
 	@Before
 	public void setup() {
 		board = new Board();
-		initializeBoard = new InitializeCity(board);
+		initializeBoard = new InitializeBoard(board);
 		initializeBoard.board.validInfectionCard.add("a");
 		initializeBoard.board.validInfectionCard.add("b");
 		initializeBoard.board.validInfectionCard.add("c");
