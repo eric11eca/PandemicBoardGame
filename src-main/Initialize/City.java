@@ -20,20 +20,12 @@ public class City {
 		this.neighbors = new HashSet<City>();
 	}
 	
-	public City(String name){
-		this();
-		this.cityName = name;
-	}
-	
-	public City(String name, String color){
-		this(name);
-		this.color = color;
-	}
-	
 	public City(String name, String color, int population, int x, int y){
-		this(name,color);
+		this();
 		this.x = x;
 		this.y = y;
+		this.cityName = name;
+		this.color = color;
 		this.population = population;
 	}
 }

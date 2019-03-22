@@ -25,9 +25,10 @@ public class TestInitializeBoard {
 	
 	@Test
 	public void testInitializeCityWithCityData(){
+	    initializeBoard.cityDataPath = "testCityData";
 		initializeBoard.initializeWithCityData();
 		Map<String, City> cities = initializeBoard.board.cities;
-		assertEquals(48, cities.size());
+		assertEquals(5, cities.size());
 		City chicago = cities.get("Chicago");
 		assertEquals("Chicago", chicago.cityName);
 		assertEquals("BLUE", chicago.color);
