@@ -12,7 +12,7 @@ public class Pandemic {
 		
 		Board board = new Board();
 		InitializeGame initGame = new InitializeGame();
-		InitializeCity initBoard = new InitializeCity(board);
+		InitializeBoard initBoard = new InitializeBoard(board);
 		
 		//TODO: getting these two number from gui
 		int playerNum = 0;
@@ -48,9 +48,4 @@ public class Pandemic {
 		initBoard.shuffleCards();
 		initBoard.initializeDiseaseCube();
     }
-
-	
-	
-		
-
 }
