@@ -2,7 +2,6 @@ package Player;
 import java.util.ArrayList;
 
 import Card.PlayerCard;
-import Initialize.Board;
 import Initialize.City;
 
 public abstract class Player{
@@ -30,5 +29,10 @@ public abstract class Player{
 			location = city;
 		}
 	}
+	
+	
+	
+	
+	
 	
 }

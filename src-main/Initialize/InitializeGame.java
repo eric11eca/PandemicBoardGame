@@ -1,8 +1,10 @@
 package Initialize;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Panel.*;
@@ -12,8 +14,10 @@ public class InitializeGame {
 	public int epidemicNumber = 0;
 	private GUI gui;
 	JPanel buttonPanel;
+	private Board board;
 
-	public InitializeGame() {
+	public InitializeGame(Board board) {
+		this.board = board;
 		// Build all the objects
 		// Call the GUI to select the number of players
 		JPanel pnl = new JPanel();
@@ -69,6 +73,40 @@ public class InitializeGame {
 	}
 
 	private void createInfoPanel() {
+		gui.panel =  new JPanel();
+		gui.panel.setLayout(null);
+		gui.panel.setSize(1600, 800);
+		gui.panel.setPreferredSize(new Dimension(1000,800 ));
+		int x= 0;
+		String  Pstring = "";
+		while(x < players){
+		 Pstring = Pstring + "P" +(x+1) +", Atlanta.  ";
+		 x++;
+		}
+		String Cstring= "";
+		for(int z = 3; z > 0; z--){
+			for(int y = 0; y < 3; y++){
+		Cstring = Cstring + board.validInfectionCard.remove(0) + ": " +z+" cubes. ";}
+		}
+		JLabel label = new JLabel("Current locations: Reasearch stations: Atlanta.  " + Pstring);
+				/*("KEY: p# is player #"
+				+	"   R is research station     B,R,G and b are Black Red Green and Blue cubes");*/
+		
+		label.setSize(600, 200);
+		label.setLocation(0, 0);
+		JLabel cubelabel = new JLabel(Cstring);
+		/*("KEY: p# is player #"
+		+	"   R is research station     B,R,G and b are Black Red Green and Blue cubes");*/
+
+		cubelabel.setSize(1200, 200);
+		cubelabel.setLocation(0, 30);
+		board.infectionRate = 2;
+		JLabel outbreaksandinfection = new JLabel("outbreaks = "+board.outbreakCount+".  infection rate = "+board.infectionRate + ". PlayerDeck has "+board.validPlayerCard.size()+" left.");
+		outbreaksandinfection.setSize(500, 200);
+		outbreaksandinfection.setLocation(600, 0);
+		gui.panel.add(cubelabel);
+		gui.panel.add(outbreaksandinfection);
+		gui.panel.add(label);
 		
 		
 	}
@@ -129,17 +167,19 @@ public class InitializeGame {
 	private void addButtonsToPanel(HashMap<String, JButton> buttons) {
 		int x = 0;
 		buttonPanel.setLayout(null);
-		buttonPanel.setSize(1000, 1000);
-		buttonPanel.setPreferredSize(new Dimension(1000,1000 ));
+		buttonPanel.setSize(800, 800);
+		buttonPanel.setPreferredSize(new Dimension(800,800 ));
 		for (String i : buttons.keySet()) {
 			
 			if(x < 4){
+				buttons.get(i).setLocation(x*180, 0 );
+				buttons.get(i).setSize(150, 20);
 				buttonPanel.add(buttons.get(i));
 			}
 			else{
-				buttons.get(i).setLocation(x*(100) - 300, 100 );
-				buttons.get(i).setSize(100, 100);
-				buttons.get(i).setPreferredSize(new Dimension(100, 100));
+				buttons.get(i).setLocation(x*(180) - 720, 40 );
+				buttons.get(i).setSize(150, 20);
+			
 				buttonPanel.add(buttons.get(i));
 			}
 			x++;

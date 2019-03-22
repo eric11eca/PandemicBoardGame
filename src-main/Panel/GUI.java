@@ -11,25 +11,30 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Initialize.Board;
+
 public class GUI {
 	JFrame frame;
 	JPanel buttonPanel;
-
+	public JPanel panel;
+	public Board board;
 	public GUI() {
 		frame = new JFrame();
-		frame.setSize(1000, 1000);
+		frame.setSize(1900, 1900);
 		frame.show();
 	}
 
 	private void setPanels(JLabel label) {
 		JPanel mainPanel = new JPanel();
-		//mainPanel.add(label);
-		//frame.add(label, BorderLayout.EAST);
+		mainPanel.add(label);
+		frame.add(label, BorderLayout.PAGE_END);
 		mainPanel.add(buttonPanel);
-		frame.add(mainPanel);
+		frame.add(mainPanel, BorderLayout.WEST);
+		frame.add(panel, BorderLayout.EAST);
 	}
 
 	public void addPanel(JPanel panel) {
+		System.out.println("print");
 		frame.add(panel);
 	}
 

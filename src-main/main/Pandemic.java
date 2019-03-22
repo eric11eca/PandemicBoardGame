@@ -5,38 +5,42 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import Initialize.*;
-import Player.Player;
 
 public class Pandemic {
 	
 	public static void main(String[] args) {
 		
 		Board board = new Board();
-		InitializeGame initGame = new InitializeGame();
+		InitializeGame initGame = new InitializeGame(board);
 		InitializeBoard initBoard = new InitializeBoard(board);
-		InitializePlayerData initPlayerData = new InitializePlayerData(board);
+		
 		//TODO: getting these two number from gui
-		board.playernumber = 3;
 		
-		int difficulty = 2;
-		int epidemicCardNum = 0;
+		// need to add a good way to wait for user input here
 		
-		if (board.playernumber == 2) {
-			board.initialhandcard = 4;
-		} else if (board.playernumber == 3) {
-			board.initialhandcard = 3;
-		} else if (board.playernumber == 4) {
-			board.initialhandcard = 2;
+		int playerNum = initGame.players;
+		//int difficulty = 0;
+
+		int EpidemicCardNum = initGame.epidemicNumber;
+		int handSize= 0;
+		
+		if (playerNum == 2) {
+			handSize = 4;
+		} else if (playerNum == 3) {
+			handSize = 3;
+		} else if (playerNum == 4) {
+			handSize = 2;
 		}
+		initBoard.initializePlayers(playerNum, handSize );
 		
-		if (difficulty == 1) {
-			epidemicCardNum = 4;
+		/*if (difficulty == 1) {
+			EpidemicCardNum = 4;
 		} else if (difficulty == 2) {
-			epidemicCardNum = 5;
+			EpidemicCardNum = 5;
 		} else if (difficulty == 3) {
-			epidemicCardNum = 6;
-		}
-		
+			EpidemicCardNum = 6;
+		}*/
+	
 		initBoard.eventCardNames.add("One Quiet Night");
 		initBoard.eventCardNames.add("Resilient Population");
 		initBoard.eventCardNames.add("Forecast");
@@ -47,22 +51,5 @@ public class Pandemic {
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
 		initBoard.initializeDiseaseCube();
-		
-		initPlayerData.addRole();
-		initPlayerData.createPlayers();
-		initPlayerData.drawHandCard();
-		initPlayerData.sortPlayer();
-		
-		City atlanta = board.cities.get("Atlanta");
-		atlanta.researchStation = true;
-		
-		for (Player player : board.currentPlayers) {
-			atlanta.players.add(player);
-		}
-		
-		board.cities.put("Atlanta", atlanta);
-		
-		int validPlayerCardNum = 53 - board.initialhandcard * board.playernumber;
-		initBoard.initializeEpidemicCard(validPlayerCardNum, epidemicCardNum);
     }
 }

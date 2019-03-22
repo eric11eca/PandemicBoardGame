@@ -6,6 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Card.PlayerCard;
 import Parse.CityDataParser;
+import Player.Medic;
+import Player.Player;
 
 public class InitializeBoard {
 	public Board board;
@@ -29,7 +31,6 @@ public class InitializeBoard {
 					Integer.parseInt(cityData.get(2)),
 					Integer.parseInt(cityData.get(3)),
 					Integer.parseInt(cityData.get(4)));
-
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
 		} 
@@ -106,6 +107,24 @@ public class InitializeBoard {
 		for(String cardName : eventCardNames) {
 			board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
 		}
+	}
+
+	public void initializePlayers(int playerNum, int handsize) {
+		int x = 0;
+		System.out.println(playerNum);
+		// this needs a lot of work
+		while(x < playerNum){
+			board.currentPlayers.add(randomplayer(handsize));
+			x++;
+		}
+		
+	}
+
+	private Player randomplayer(int handsize) {
+		// TODO this also needs work, but for now i just need player arraylist to not be empty
+		Player player = new Medic(handsize);
+		player.location = board.cities.get("Atlanta");
+		return player;
 	}
 
 }
