@@ -27,10 +27,10 @@ public class TestInitializePlayerData {
 	
 	@Test
 	public void testCreatePlayers(){
+		initializePlayerData.addRole();		
 		initializePlayerData.createPlayers();
 		assertEquals(2,board.currentPlayers.size());
 	}
-	
 	
 	
 	@Test

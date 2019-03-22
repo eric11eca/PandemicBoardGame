@@ -8,7 +8,7 @@ import Player.Player;
 
 public class InitializePlayerData {
 	Board board;
-	
+	String prefix = "Player.";
 	public InitializePlayerData(Board board) {
 		this.board = board;
 	}
@@ -25,10 +25,11 @@ public class InitializePlayerData {
 	
 	public void createPlayers() {
 		Collections.shuffle(board.totalRoles);
+		
 		for(int i = 0; i < board.playernumber; i++){
 			Class<?> clazz = null;
 			try {
-				clazz = Class.forName(board.totalRoles.get(i));
+				clazz = Class.forName(prefix + board.totalRoles.get(i));
 			} catch (ClassNotFoundException e2) {
 				e2.printStackTrace();
 				throw new RuntimeException(e2);
