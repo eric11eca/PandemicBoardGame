@@ -14,7 +14,6 @@ public class Board {
 		EPIDEMIC;
 	}
 	
-	
 	public int playernumber = 0;
 	public int initialhandcard = 0; 
 	int outbreakCount = 0;
@@ -23,8 +22,6 @@ public class Board {
 	int redCubes = 24;
 	int blueCubes = 24;
 	int blackCubes = 24;
-	
-	//int difficulty = 0;
 	
 	boolean yellowCure = false;
 	boolean redCure = false;
