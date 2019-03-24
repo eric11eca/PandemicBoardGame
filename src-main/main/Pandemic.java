@@ -56,10 +56,6 @@ public class Pandemic {
 		City atlanta = board.cities.get("Atlanta");
 		atlanta.researchStation = true;
 		
-		for (Player player : board.currentPlayers) {
-			atlanta.players.add(player);
-		}
-		
 		board.cities.put("Atlanta", atlanta);
 		
 		int validPlayerCardNum = 0;

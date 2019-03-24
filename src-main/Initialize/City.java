@@ -14,14 +14,11 @@ public class City {
 	public HashMap<String, Integer> diseaseCubes;
 	public Boolean researchStation;
 	public HashSet<City> neighbors;
-	public HashSet<Player> players;
 
-	
 	public City() {
 		this.diseaseCubes = new HashMap<String, Integer>();
 		this.researchStation = false;
 		this.neighbors = new HashSet<City>();
-		players = new HashSet<Player>();
 	}
 	
 	public City(String name, String color, int population, int x, int y){
