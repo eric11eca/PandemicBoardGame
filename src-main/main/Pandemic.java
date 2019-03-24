@@ -12,7 +12,7 @@ public class Pandemic {
 	public static void main(String[] args) {
 		
 		Board board = new Board();
-		InitializeGame initGame = new InitializeGame();
+		InitializeGame initGame = new InitializeGame(board);
 		InitializeBoard initBoard = new InitializeBoard(board);
 		InitializePlayerData initPlayerData = new InitializePlayerData(board);
 		//TODO: getting these two number from gui
@@ -57,7 +57,7 @@ public class Pandemic {
 		atlanta.researchStation = true;
 		
 		for (Player player : board.currentPlayers) {
-			atlanta.players.add(player);
+			player.location = atlanta;
 		}
 		
 		board.cities.put("Atlanta", atlanta);

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="csse367-boardgame-project-master/src-main"/>
-	<classpathentry kind="src" path="csse367-boardgame-project-master/src-test"/>
+	<classpathentry kind="src" path="src-main"/>
+	<classpathentry kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/mahajaa1/.gradle/caches/modules-2/files-2.1/org.easymock/easymock/3.4/9fdeea183a399f25c2469497612cad131e920fa3/easymock-3.4.jar" sourcepath="C:/Users/mahajaa1/.gradle/caches/modules-2/files-2.1/org.easymock/easymock/3.4/138cb4dfced5e4536b8300ae71f673b84b00c7f9/easymock-3.4-sources.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="cucumber,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
