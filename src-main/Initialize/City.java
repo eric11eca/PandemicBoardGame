@@ -5,7 +5,6 @@ import java.util.HashSet;
 public class City {
 	public int x;
 	public int y;
-	
 	public String cityName;
 	public String color;
 	public int population;
