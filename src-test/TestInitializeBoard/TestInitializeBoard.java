@@ -80,20 +80,12 @@ public class TestInitializeBoard {
 		initializeBoard.board.validInfectionCard.add("city5");
 		
 		String oldInfectionCards = initializeBoard.board.validInfectionCard.toString();
-		String oldPlayerCards = "";
-		
-		for(int i = 0; i < 5; i++) {
-			oldPlayerCards += initializeBoard.board.validPlayerCard.get(i).cardName;
-		}
+		String oldPlayerCards = initializeBoard.board.validPlayerCard.toString();
 		
 		initializeBoard.shuffleCards();	
 		
 		String newInfectionCards = initializeBoard.board.validInfectionCard.toString();
-		String newPlayerCards = "";
-		
-		for(int i = 0; i < 5; i++) {
-			newPlayerCards += initializeBoard.board.validPlayerCard.get(i).cardName;
-		}
+		String newPlayerCards = initializeBoard.board.validPlayerCard.toString();
 		
 		assertFalse(newInfectionCards == oldInfectionCards);
 		assertFalse(newPlayerCards == oldPlayerCards);
