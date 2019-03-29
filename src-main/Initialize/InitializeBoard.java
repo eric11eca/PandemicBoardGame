@@ -45,7 +45,6 @@ public class InitializeBoard {
 	}
 	
 	public void initializeDiseaseCube() {
-		Collections.shuffle(board.validInfectionCard);
 		for (int i = 0; i < 9; i++) {
 			String cardName = board.validInfectionCard.get(0);
 			City city = board.cities.get(cardName);

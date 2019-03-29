@@ -50,22 +50,6 @@ public class TestInitializeBoard {
 	}
 	
 	@Test
-	public void testInitializeInfectionCard() {
-		String cityName = "Chicago";
-		initializeBoard.initializeInfectionCard(cityName);
-		List<String> valid_infection_card = initializeBoard.board.validInfectionCard;
-		assertTrue(valid_infection_card.contains(cityName));
-	}
-	
-	@Test
-	public void testInitializePlayerCard() {
-		initializeBoard.initializePlayerCard(Board.CardType.CITYCARD, "Chicago");
-		List<PlayerCard> valid_playercard = initializeBoard.board.validPlayerCard;
-		assertEquals(Board.CardType.CITYCARD, valid_playercard.get(0).cardType);
-		assertEquals("Chicago", valid_playercard.get(0).cardName);
-	}
-	
-	@Test
 	public void testShuffleCards() {
 		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city1"));
 		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city2"));
