@@ -35,20 +35,6 @@ public class TestInitializeBoard {
 		assertEquals(2716000,chicago.population);
 	}
 	
-	
-	@Test
-	public void testInitializeCity(){
-		String cityName = "Shanghai";
-		initializeBoard.initializeCity(cityName, "BLUE", 12, 30, 40);
-		Map<String, City> cities = initializeBoard.board.cities;
-		City shanghai = cities.get(cityName);
-		assertEquals("Shanghai", shanghai.cityName);
-		assertEquals("BLUE", shanghai.color);
-		assertEquals(12, shanghai.population);
-		assertEquals(30, shanghai.x);
-		assertEquals(40, shanghai.y);
-	}
-	
 	@Test
 	public void testShuffleCards() {
 		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city1"));

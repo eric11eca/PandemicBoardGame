@@ -25,19 +25,20 @@ public class InitializeBoard {
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
 		for(List<String> cityData : citiesData) {
 			String cityName = cityData.get(0);
-			initializeCity(cityName, cityData.get(1),
-					Integer.parseInt(cityData.get(2)),
-					Integer.parseInt(cityData.get(3)),
-					Integer.parseInt(cityData.get(4)));
-
+			String color = cityData.get(1);
+			Integer population = Integer.parseInt(cityData.get(2));
+			Integer x = Integer.parseInt(cityData.get(3));
+			Integer y = Integer.parseInt(cityData.get(4));
+			
+			City city = new City(cityName, color, population, x, y);
+			initializeCity(city);
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
 		} 
 	}
 
-	public void initializeCity(String cityName, String color, int population, int x, int y) {
-		City city = new City(cityName, color, population, x, y);
-		board.cities.put(cityName, city);
+	public void initializeCity(City city) {
+		board.cities.put(city.cityName, city);
 	}
 	
 	public void initializeInfectionCard(String cityName) {
