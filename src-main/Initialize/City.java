@@ -12,7 +12,6 @@ public class City {
 	public Boolean researchStation;
 	public HashSet<City> neighbors;
 
-	
 	public City() {
 		this.diseaseCubes = new HashMap<String, Integer>();
 		this.researchStation = false;

@@ -33,36 +33,6 @@ public class TestInitializeBoard {
 		assertEquals("BLUE", chicago.color);
 	}
 	
-	
-	@Test
-	public void testInitializeCity(){
-		String cityName = "Shanghai";
-		initializeBoard.initializeCity(cityName, "BLUE", 12, 30, 40);
-		Map<String, City> cities = initializeBoard.board.cities;
-		City shanghai = cities.get(cityName);
-		assertEquals("Shanghai", shanghai.cityName);
-		assertEquals("BLUE", shanghai.color);
-		assertEquals(12, shanghai.population);
-		assertEquals(30, shanghai.x);
-		assertEquals(40, shanghai.y);
-	}
-	
-	@Test
-	public void testInitializeInfectionCard() {
-		String cityName = "Chicago";
-		initializeBoard.initializeInfectionCard(cityName);
-		List<String> valid_infection_card = initializeBoard.board.validInfectionCard;
-		assertTrue(valid_infection_card.contains(cityName));
-	}
-	
-	@Test
-	public void testInitializePlayerCard() {
-		initializeBoard.initializePlayerCard(Board.CardType.CITYCARD, "Chicago");
-		List<PlayerCard> valid_playercard = initializeBoard.board.validPlayerCard;
-		assertEquals(Board.CardType.CITYCARD, valid_playercard.get(0).cardType);
-		assertEquals("Chicago", valid_playercard.get(0).cardName);
-	}
-	
 	@Test
 	public void testShuffleCards() {
 		initializeBoard.board.validPlayerCard.add(new PlayerCard(Board.CardType.CITYCARD, "city1"));
@@ -78,20 +48,12 @@ public class TestInitializeBoard {
 		initializeBoard.board.validInfectionCard.add("city5");
 		
 		String oldInfectionCards = initializeBoard.board.validInfectionCard.toString();
-		String oldPlayerCards = "";
-		
-		for(int i = 0; i < 5; i++) {
-			oldPlayerCards += initializeBoard.board.validPlayerCard.get(i).cardName;
-		}
+		String oldPlayerCards = initializeBoard.board.validPlayerCard.toString();
 		
 		initializeBoard.shuffleCards();	
 		
 		String newInfectionCards = initializeBoard.board.validInfectionCard.toString();
-		String newPlayerCards = "";
-		
-		for(int i = 0; i < 5; i++) {
-			newPlayerCards += initializeBoard.board.validPlayerCard.get(i).cardName;
-		}
+		String newPlayerCards = initializeBoard.board.validPlayerCard.toString();
 		
 		assertFalse(newInfectionCards == oldInfectionCards);
 		assertFalse(newPlayerCards == oldPlayerCards);

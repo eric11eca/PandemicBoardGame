@@ -6,8 +6,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Card.PlayerCard;
 import Parse.CityDataParser;
-import Player.Medic;
-import Player.Player;
 
 public class InitializeBoard {
 	public Board board;
@@ -27,18 +25,20 @@ public class InitializeBoard {
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
 		for(List<String> cityData : citiesData) {
 			String cityName = cityData.get(0);
-			initializeCity(cityName, cityData.get(1),
-					Integer.parseInt(cityData.get(2)),
-					Integer.parseInt(cityData.get(3)),
-					Integer.parseInt(cityData.get(4)));
+			String color = cityData.get(1);
+			Integer population = Integer.parseInt(cityData.get(2));
+			Integer x = Integer.parseInt(cityData.get(3));
+			Integer y = Integer.parseInt(cityData.get(4));
+			
+			City city = new City(cityName, color, population, x, y);
+			initializeCity(city);
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
 		} 
 	}
 
-	public void initializeCity(String cityName, String color, int population, int x, int y) {
-		City city = new City(cityName, color, population, x, y);
-		board.cities.put(cityName, city);
+	public void initializeCity(City city) {
+		board.cities.put(city.cityName, city);
 	}
 	
 	public void initializeInfectionCard(String cityName) {
@@ -46,7 +46,6 @@ public class InitializeBoard {
 	}
 	
 	public void initializeDiseaseCube() {
-		Collections.shuffle(board.validInfectionCard);
 		for (int i = 0; i < 9; i++) {
 			String cardName = board.validInfectionCard.get(0);
 			City city = board.cities.get(cardName);
@@ -107,24 +106,6 @@ public class InitializeBoard {
 		for(String cardName : eventCardNames) {
 			board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
 		}
-	}
-
-	public void initializePlayers(int playerNum, int handsize) {
-		int x = 0;
-		System.out.println(playerNum);
-		// this needs a lot of work
-		while(x < playerNum){
-			board.currentPlayers.add(randomplayer(handsize));
-			x++;
-		}
-		
-	}
-
-	private Player randomplayer(int handsize) {
-		// TODO this also needs work, but for now i just need player arraylist to not be empty
-		Player player = new Medic(handsize);
-		player.location = board.cities.get("Atlanta");
-		return player;
 	}
 
 }
