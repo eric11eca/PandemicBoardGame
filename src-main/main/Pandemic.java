@@ -16,6 +16,7 @@ public class Pandemic {
 		InitializeBoard initBoard = new InitializeBoard(board);
 		InitializePlayerData initPlayerData = new InitializePlayerData(board);
 		//TODO: getting these two number from gui
+		
 		board.playernumber = 3;
 		
 		int difficulty = 2;

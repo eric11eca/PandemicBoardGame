@@ -1,8 +1,10 @@
 package Initialize;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import Card.PlayerCard;
 import Player.Player;
@@ -23,11 +25,7 @@ public class Board {
 	int blueCubes = 24;
 	int blackCubes = 24;
 	
-	boolean yellowCure = false;
-	boolean redCure = false;
-	boolean blueCure = false;
-	boolean blackCure = false;
-	
+	public Set<String> curedDiseases = new HashSet<String>();
 	public Map<String, City> cities = new HashMap<String, City>();
 	public List<String> totalRoles = new ArrayList<String>();
 	public List<Player> currentPlayers = new ArrayList<Player>();

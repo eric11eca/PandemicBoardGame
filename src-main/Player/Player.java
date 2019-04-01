@@ -9,6 +9,7 @@ public abstract class Player{
 
 	public ArrayList<PlayerCard> hand = new ArrayList<>();
 	public City location;
+	public int action;
 
 	public void receiveCard(PlayerCard playercard) {
 		if(hand.size() >= 7){
@@ -30,5 +31,7 @@ public abstract class Player{
 			location = city;
 		}
 	}
+	
+	public abstract void removeAllCubes();
 	
 }
