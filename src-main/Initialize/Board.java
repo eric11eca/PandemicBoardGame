@@ -30,7 +30,7 @@ public class Board {
 	public List<String> totalRoles = new ArrayList<String>();
 	public List<Player> currentPlayers = new ArrayList<Player>();
 	public List<PlayerCard> validPlayerCard = new ArrayList<PlayerCard>();
-	List<PlayerCard> discardPlayerCard = new ArrayList<PlayerCard>();
+	public List<PlayerCard> discardPlayerCard = new ArrayList<PlayerCard>();
 	public List<String> validInfectionCard = new ArrayList<String>();
 	public List<String> discardInfectionCard = new ArrayList<String>();
 }

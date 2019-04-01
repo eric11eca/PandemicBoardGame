@@ -33,5 +33,6 @@ public abstract class Player{
 	}
 	
 	public abstract void removeAllCubes();
+	public abstract void pickFromDiscardPlayerCard(String cardName);
 	
 }
