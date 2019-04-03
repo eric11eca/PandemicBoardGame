@@ -44,10 +44,26 @@ public abstract class Player {
 		}
 	}
 
-	public void move(City city) {
-		if (location.neighbors.contains(city)) {
-			location = city;
+	public void move(City destination) {
+		if (location.neighbors.contains(destination)) {
+			location = destination;
 		}
+	}
+
+	public void directFlight(PlayerCard cityCard) {
+		if (cityCard.cardName.equals(location.cityName)) {
+			throw new IllegalArgumentException("Cannot direct flight to current city");
+		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
+			hand.remove(cityCard);
+			consumeAction();
+			location = board.cities.get(cityCard.cardName);
+		} else {
+			throw new IllegalArgumentException("Illegal Argument Type");
+		}
+	}
+
+	public void consumeAction() {
+		action--;
 	}
 
 }
