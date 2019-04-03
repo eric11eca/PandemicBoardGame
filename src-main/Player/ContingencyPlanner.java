@@ -4,10 +4,9 @@ import Card.PlayerCard;
 import Initialize.Board;
 
 public class ContingencyPlanner extends Player{
-	Board board;
 		
-	public ContingencyPlanner(Board board) {
-		this.board = board;
+	public ContingencyPlanner(Board gameBoard) {
+		super(gameBoard);
 	}
 
 	public void pickFromDiscardPlayerCard(String cardName) {

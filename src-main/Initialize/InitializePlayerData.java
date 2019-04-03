@@ -39,13 +39,13 @@ public class InitializePlayerData {
 			}
 			Constructor<?> constructor = null;
 			try {
-				constructor = clazz.getConstructor();
+				constructor = clazz.getConstructor(Board.class);
 			} catch (NoSuchMethodException | SecurityException e1) {
 				e1.printStackTrace();
 				throw new RuntimeException(e1);
 			}
 			try {
-				Player role = (Player) constructor.newInstance();
+				Player role = (Player) constructor.newInstance(board);
 				board.currentPlayers.add(role);
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException e) {

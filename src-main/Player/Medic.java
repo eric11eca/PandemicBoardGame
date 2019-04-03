@@ -7,9 +7,8 @@ import Initialize.City;
 
 public class Medic extends Player{
 	
-	Board board;
-	public Medic(Board board) {
-		this.board = board;
+	public Medic(Board gameBoard) {
+		super(gameBoard);
 	}
 
 	public void removeAllCubes() {
