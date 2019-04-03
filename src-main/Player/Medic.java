@@ -29,6 +29,9 @@ public class Medic extends Player{
 		
 		location.diseaseCubes.clear();
 	}
+
+	@Override
+	public void pickFromDiscardPlayerCard(String cardName) {}
 	
 	
 }

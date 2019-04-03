@@ -10,6 +10,7 @@ public abstract class Player{
 	public ArrayList<PlayerCard> hand = new ArrayList<>();
 	public City location;
 	public int action;
+	public PlayerCard specialEventCard;
 
 	public void receiveCard(PlayerCard playercard) {
 		if(hand.size() >= 7){
