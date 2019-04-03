@@ -1,27 +1,41 @@
 package Player;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Card.PlayerCard;
-import Initialize.Board;
 import Initialize.City;
 
 public abstract class Player{
 
-	public ArrayList<PlayerCard> hand = new ArrayList<>();
+	public Map<String, PlayerCard> hand = new HashMap<>();
 	public City location;
 	public int action;
 	public PlayerCard specialEventCard;
 
-	public void receiveCard(PlayerCard playercard) {
+	public void receiveCard(PlayerCard playerCard) {
 		if(hand.size() >= 7){
 			// somehow discard card
 		}
-		hand.add(playercard);     
+		hand.put(playerCard.cardName, playerCard);     
 	}
 	
-	public boolean discardCard(PlayerCard playercard){
-		if(hand.contains(playercard)){
-			hand.remove(playercard);
+	public boolean useCard(String cardName) {
+		boolean cardUsed = false;
+		if(cardName == specialEventCard.cardName) {
+			cardUsed = specialEventCard.excuteEvents();
+			if(cardUsed) {
+				this.specialEventCard = null;
+			}
+		} else {
+			PlayerCard card = hand.get(cardName);
+			cardUsed = card.excuteEvents();
+		}
+		return cardUsed;
+	}
+	
+	public boolean discardCard(String cardName){
+		if(hand.containsKey(cardName)){
+			hand.remove(cardName);
 			return true;
 		}
 		return false;
