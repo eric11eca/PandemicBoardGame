@@ -10,19 +10,11 @@ public class OperationsExpert extends Player{
 		this.board = board;
 	}
 
-	@Override
-	public void removeAllCubes() {}
-
-	@Override
-	public void pickFromDiscardPlayerCard(String cardName) {}
-
-	@Override
 	public void buildResearchStation() {
 		location.researchStation = true;
 		action--;
 	}
 
-	@Override
 	public void moveToAnotherCity(String cityName) {
 		for (String cardName : hand.keySet()) {
 			if(cardName == cityName) {

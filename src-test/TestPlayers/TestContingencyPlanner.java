@@ -14,7 +14,7 @@ import Player.Player;
 
 public class TestContingencyPlanner {
 	Board board;
-	Player contingencyPlanner; 
+	ContingencyPlanner contingencyPlanner; 
 	
 	@Before 
 	public void setup() {

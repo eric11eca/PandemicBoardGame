@@ -9,10 +9,6 @@ public class ContingencyPlanner extends Player{
 		this.board = board;
 	}
 
-	@Override
-	public void removeAllCubes() {}
-
-	@Override
 	public void pickFromDiscardPlayerCard(String cardName) {
 		for (String name : board.discardPlayerCard.keySet()) {
 			if (name == cardName) {
@@ -22,12 +18,4 @@ public class ContingencyPlanner extends Player{
 			}
 		} 
 	}
-
-	@Override
-	public void buildResearchStation() {}
-
-	@Override
-	public void moveToAnotherCity(String cityName) {}
-	
-	
 }

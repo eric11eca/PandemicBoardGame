@@ -9,19 +9,6 @@ public class Scientist extends Player{
 		this.board = board;
 	}
 
-	@Override
-	public void removeAllCubes() {}
-
-	@Override
-	public void pickFromDiscardPlayerCard(String cardName) {}
-
-	@Override
-	public void buildResearchStation() {}
-
-	@Override
-	public void moveToAnotherCity(String cityName) {}
-
-	@Override
 	public void discoverCure(String disease) {
 		int count = 0;
 		for(String cardName : hand.keySet()) {

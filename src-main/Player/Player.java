@@ -52,13 +52,4 @@ public abstract class Player{
 		}
 	}
 	
-	public abstract void removeAllCubes();
-	public abstract void pickFromDiscardPlayerCard(String cardName);
-
-	public abstract void buildResearchStation();
-
-	public abstract void moveToAnotherCity(String cityName);
-
-	public abstract void discoverCure(String disease);
-	
 }

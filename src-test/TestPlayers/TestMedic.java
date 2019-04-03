@@ -12,7 +12,7 @@ import Player.Medic;
 import Player.Player;
 
 public class TestMedic {
-	Player medic;
+	Medic medic;
 	Board board;
 	@Before
 	public void setup() {
