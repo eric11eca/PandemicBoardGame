@@ -15,9 +15,11 @@ public class InitializeGame {
 	private GUI gui;
 	JPanel buttonPanel;
 	private Board board;
+	GameSetup setup;
 
-	public InitializeGame(Board board) {
+	public InitializeGame(Board board, GameSetup setup) {
 		this.board = board;
+		this.setup = setup;
 		// Build all the objects
 		// Call the GUI to select the number of players
 		JPanel pnl = new JPanel();
@@ -40,7 +42,8 @@ public class InitializeGame {
 	}
 
 	public void SetPlayers(int playernum, JPanel panelToClose) {
-		players = playernum;
+		players= playernum;
+		board.playernumber=playernum;
 		gui.removePanel(panelToClose);
 		Difficulty();
 	}
@@ -64,12 +67,21 @@ public class InitializeGame {
 	}
 
 	public void SetDifficulty(int epidemics, JPanel panelToClose) {
+		System.out.println(epidemics);
+		
 		epidemicNumber = epidemics;
+		board.epidemicCardNum = epidemics;
 		gui.removePanel(panelToClose);
 		createButtons();
+		setup.startGameSetup();
+//		createInfoPanel();
+//		StartGame();
+
+	}
+	
+	public void startCreationofBoard(){
 		createInfoPanel();
 		StartGame();
-
 	}
 
 	private void createInfoPanel() {

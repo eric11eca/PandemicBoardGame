@@ -72,9 +72,11 @@ public class InitializeBoard {
 		board.validPlayerCard.add(new PlayerCard(cardType, cardName));
 	}	
 	
-	public void initializeEpidemicCard(int playerCardNum, int epidemicCardNum) {
+	public void initializeEpidemicCard(int validPlayerNum) {
 		int count = 0;
 		int deckSize;
+		int playerCardNum = validPlayerNum;
+		int epidemicCardNum = board.epidemicCardNum;
 		Board.CardType cardType = Board.CardType.EPIDEMIC;
 		
 		double result = (double)playerCardNum / (double)epidemicCardNum;

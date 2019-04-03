@@ -19,7 +19,6 @@ public class DListener implements ActionListener  {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		game.SetDifficulty(epidemicNumber, panel);
-		
 	}
 
 }
