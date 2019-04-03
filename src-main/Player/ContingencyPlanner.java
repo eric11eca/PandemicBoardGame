@@ -22,6 +22,12 @@ public class ContingencyPlanner extends Player{
 			}
 		} 
 	}
+
+	@Override
+	public void buildResearchStation() {}
+
+	@Override
+	public void moveToAnotherCity(String cityName) {}
 	
 	
 }

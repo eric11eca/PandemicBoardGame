@@ -24,6 +24,12 @@ public class Medic extends Player{
 
 	@Override
 	public void pickFromDiscardPlayerCard(String cardName) {}
+
+	@Override
+	public void buildResearchStation() {}
+
+	@Override
+	public void moveToAnotherCity(String cityName) {}
 	
 	
 }
