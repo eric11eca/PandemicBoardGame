@@ -25,11 +25,13 @@ public class Board {
 	int blueCubes = 24;
 	int blackCubes = 24;
 	
+	boolean handOverFlow = false;
+	
 	public Set<String> curedDiseases = new HashSet<>();
 	public Map<String, City> cities = new HashMap<>();
 	public List<String> totalRoles = new ArrayList<>();
 	public List<Player> currentPlayers = new ArrayList<>();
-	public Map<String,PlayerCard> validPlayerCard = new HashMap<>();
+	public List<PlayerCard> validPlayerCard = new ArrayList<>();
 	public Map<String,PlayerCard> discardPlayerCard = new HashMap<>();
 	public List<String> validInfectionCard = new ArrayList<>();
 	public List<String> discardInfectionCard = new ArrayList<>();

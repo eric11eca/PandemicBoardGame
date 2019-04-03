@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Card.PlayerCard;
+import Initialize.Board;
 import Initialize.City;
 
 public abstract class Player{
@@ -11,12 +12,16 @@ public abstract class Player{
 	public City location;
 	public int action;
 	public PlayerCard specialEventCard;
+	public String cardToBeDiscard;
+	public boolean handOverFlow = false;
 
 	public void receiveCard(PlayerCard playerCard) {
 		if(hand.size() >= 7){
-			// somehow discard card
+			handOverFlow = true;
+			discardCard(cardToBeDiscard);
+		} else {
+			hand.put(playerCard.cardName, playerCard);     
 		}
-		hand.put(playerCard.cardName, playerCard);     
 	}
 	
 	public boolean useCard(String cardName) {

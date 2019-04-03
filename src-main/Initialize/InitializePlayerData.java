@@ -61,7 +61,7 @@ public class InitializePlayerData {
 			for(int j = 0; j < board.initialhandcard; j++){
 				int topOfDeck = board.validPlayerCard.size() - 1;
 				PlayerCard playercard = board.validPlayerCard.remove(topOfDeck);
-				board.currentPlayers.get(i).hand.add(playercard); 
+				board.currentPlayers.get(i).hand.put(playercard.cardName, playercard); 
 			}
 		}	
 	}

@@ -37,9 +37,9 @@ public class PlayerTest {
 	public void testNormalReceiveAndDiscardCityCard(){
 		Player player = new Dispatcher();
 		player.receiveCard(citycards.get(0));
-		assertTrue(player.hand.contains(citycards.get(0)));
-		player.discardCard(citycards.get(0));
-		assertFalse(player.hand.contains(citycards.get(0)));
+		assertTrue(player.hand.containsKey(citycards.get(0).cardName));
+		player.discardCard(citycards.get(0).cardName);
+		assertFalse(player.hand.containsKey(citycards.get(0).cardName));
 	}
 	
 //	@Test
