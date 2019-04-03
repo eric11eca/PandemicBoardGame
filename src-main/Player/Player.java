@@ -43,7 +43,9 @@ public abstract class Player {
 	}
 
 	public void directFlight(PlayerCard cityCard) {
-		if (cityCard.cardType == Board.CardType.CITYCARD) {
+		if (cityCard.cardName.equals(location.cityName)) {
+			throw new IllegalArgumentException("Cannot direct flight to current city");
+		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
 			hand.remove(cityCard);
 			consumeAction();
 			location = board.cities.get(cityCard.cardName);

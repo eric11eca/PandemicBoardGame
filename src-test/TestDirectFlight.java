@@ -11,7 +11,7 @@ import Player.Player;
 
 public class TestDirectFlight {
 	Player player;
-	PlayerCard cityCard;
+	PlayerCard newyorkCityCard, chicagoCityCard;
 	PlayerCard eventCard;
 	Board board;
 
@@ -20,18 +20,25 @@ public class TestDirectFlight {
 		player = new Medic();
 		board = new Board();
 		player.board = board;
-		String cityName = "NewYork";
-		cityCard = new PlayerCard(Board.CardType.CITYCARD, cityName);
+		String newyork = "NewYork";
+		City newyorkCity = new City(newyork);
+		String chicago = "Chicago";
+		City chicagoCity = new City(chicago);
+		player.location = chicagoCity;
+		newyorkCityCard = new PlayerCard(Board.CardType.CITYCARD, newyork);
+		chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
 		eventCard = new PlayerCard(Board.CardType.EVENTCARD, "");
-		board.cities.put(cityName, new City(cityName));
-		player.hand.add(cityCard);
+		board.cities.put(newyork, newyorkCity);
+		board.cities.put(chicago, chicagoCity);
+		player.hand.add(newyorkCityCard);
+		player.hand.add(chicagoCityCard);
 		player.hand.add(eventCard);
 	}
 
 	@Test
 	public void testSuccessDirectFlight() {
-		player.directFlight(cityCard);
-		assertEquals(player.hand.size(), 1);
+		player.directFlight(newyorkCityCard);
+		assertEquals(player.hand.size(), 2);
 		assertEquals(player.action, 3);
 		assertEquals("NewYork", player.location.cityName);
 	}
@@ -39,6 +46,11 @@ public class TestDirectFlight {
 	@Test(expected = IllegalArgumentException.class)
 	public void testFailDirectFlight() {
 		player.directFlight(eventCard);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testFlyToCurrentCity() {
+		player.directFlight(chicagoCityCard);
 	}
 
 }
