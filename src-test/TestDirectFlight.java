@@ -17,9 +17,8 @@ public class TestDirectFlight {
 
 	@Before
 	public void setup() {
-		player = new Medic();
 		board = new Board();
-		player.board = board;
+		player = new Medic(board);
 		String newyork = "NewYork";
 		City newyorkCity = new City(newyork);
 		String chicago = "Chicago";
@@ -38,8 +37,8 @@ public class TestDirectFlight {
 	@Test
 	public void testSuccessDirectFlight() {
 		player.directFlight(newyorkCityCard);
-		assertEquals(player.hand.size(), 2);
-		assertEquals(player.action, 3);
+		assertEquals(2, player.hand.size());
+		assertEquals(3, player.action);
 		assertEquals("NewYork", player.location.cityName);
 	}
 
