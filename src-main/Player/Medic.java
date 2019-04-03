@@ -1,9 +1,6 @@
 package Player;
 
-import java.util.ArrayList;
-
 import Initialize.Board;
-import Initialize.City;
 
 public class Medic extends Player{
 	
@@ -17,14 +14,16 @@ public class Medic extends Player{
 			if(!board.curedDiseases.contains(diseas)) {
 				allCured = false;
 			}
-		}
-		
+		}	
 		if(!allCured) {
 			action--;
 		}
-		
 		location.diseaseCubes.clear();
 	}
-	
-	
+
+	@Override
+	public void discoverCure(DiscoverCure discoverCure) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -55,13 +55,13 @@ public class InitializePlayerData {
 
 		}
 	}
-	
+
 	public void drawHandCard() {
 		for(int i = 0; i < board.playernumber; i++){
 			for(int j = 0; j < board.initialhandcard; j++){
 				int topOfDeck = board.validPlayerCard.size() - 1;
 				PlayerCard playercard = board.validPlayerCard.remove(topOfDeck);
-				board.currentPlayers.get(i).hand.add(playercard); 
+				board.currentPlayers.get(i).hand.put(playercard.cardName, playercard); 
 			}
 		}	
 	}
@@ -73,7 +73,7 @@ public class InitializePlayerData {
 
 	public int populationSum(Player player) {
 		int totalPopulation = 0;
-		for(int i = 0; i < player.hand.size(); i++){
+		for(String i: player.hand.keySet()){
 			PlayerCard playercard = player.hand.get(i);
 			if(playercard.cardType.equals(Board.CardType.CITYCARD)){
 				totalPopulation += board.cities.get(playercard.cardName).population;

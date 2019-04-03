@@ -8,7 +8,8 @@ public class Dispatcher extends Player {
 		super(gameBoard);
 	}
 
-	public void pickFromDiscardPlayerCard(String cardName) {
+	@Override
+	public void discoverCure(DiscoverCure discoverCure) {
 		// TODO Auto-generated method stub
 		
 	}

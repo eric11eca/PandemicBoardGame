@@ -9,7 +9,7 @@ public class City {
 	public String color;
 	public int population;
 	public HashMap<String, Integer> diseaseCubes;
-	public Boolean researchStation;
+	public boolean researchStation;
 	public HashSet<City> neighbors;
 
 	public City() {

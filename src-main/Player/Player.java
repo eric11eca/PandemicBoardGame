@@ -1,69 +1,65 @@
 package Player;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
 
-public abstract class Player {
+public abstract class Player{
 
-	public ArrayList<PlayerCard> hand = new ArrayList<>();
+	public Map<String, PlayerCard> hand = new HashMap<>();
 	public City location;
-	public int action;
+	public int action = 4;
+	public PlayerCard specialEventCard;
+	public String cardToBeDiscard;
+	public boolean handOverFlow = false;
 	Board board;
 	
+	
 	public Player(Board gameBoard){
-		board = gameBoard;
+		board=gameBoard;
 	}
 
-	public void receiveCard(PlayerCard playercard) {
-		if (hand.size() >= 7) {
-			// somehow discard card
+	public void receiveCard(PlayerCard playerCard) {
+		if(hand.size() >= 7){
+			handOverFlow = true;
+			discardCard(cardToBeDiscard);
+		} else {
+			hand.put(playerCard.cardName, playerCard);     
 		}
-		hand.add(playercard);
+	}
+	
+	public boolean useCard(String cardName) {
+		boolean cardUsed = false;
+		if(cardName == specialEventCard.cardName) {
+			cardUsed = specialEventCard.excuteEvents();
+			if(cardUsed) {
+				this.specialEventCard = null;
+			}
+		} else {
+			PlayerCard card = hand.get(cardName);
+			cardUsed = card.excuteEvents();
+		}
+		return cardUsed;
 	}
 
-	public boolean discardCard(PlayerCard playercard) {
-		if (hand.contains(playercard)) {
-			hand.remove(playercard);
+	public boolean discardCard(String cardName){
+		if(hand.containsKey(cardName)){
+			hand.remove(cardName);
 			return true;
 		}
 		return false;
 	}
 
-	public void isValid() {
-
-	}
-
-	public void drive(City destination) {
-		if (location.neighbors.contains(destination)) {
-			location = destination;
-		} else {
-			throw new RuntimeException("Invalid destinaion: Not a neighbor!!");
+	public void move(City city) {
+		if(location.neighbors.contains(city)){
+			location = city;
 		}
 	}
 
-	public void move(City destination) {
-		if (location.neighbors.contains(destination)) {
-			location = destination;
-		}
-	}
-
-	public void directFlight(PlayerCard cityCard) {
-		if (cityCard.cardName.equals(location.cityName)) {
-			throw new IllegalArgumentException("Cannot direct flight to current city");
-		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
-			hand.remove(cityCard);
-			consumeAction();
-			location = board.cities.get(cityCard.cardName);
-		} else {
-			throw new IllegalArgumentException("Illegal Argument Type");
-		}
-	}
-
-	public void consumeAction() {
-		action--;
-	}
-
+	
+	public abstract void discoverCure(DiscoverCure discoverCure);
+	
 }
