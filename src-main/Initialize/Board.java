@@ -25,12 +25,12 @@ public class Board {
 	int blueCubes = 24;
 	int blackCubes = 24;
 	
-	public Set<String> curedDiseases = new HashSet<String>();
-	public Map<String, City> cities = new HashMap<String, City>();
-	public List<String> totalRoles = new ArrayList<String>();
-	public List<Player> currentPlayers = new ArrayList<Player>();
-	public List<PlayerCard> validPlayerCard = new ArrayList<PlayerCard>();
-	public List<PlayerCard> discardPlayerCard = new ArrayList<PlayerCard>();
-	public List<String> validInfectionCard = new ArrayList<String>();
-	public List<String> discardInfectionCard = new ArrayList<String>();
+	public Set<String> curedDiseases = new HashSet<>();
+	public Map<String, City> cities = new HashMap<>();
+	public List<String> totalRoles = new ArrayList<>();
+	public List<Player> currentPlayers = new ArrayList<>();
+	public Map<String,PlayerCard> validPlayerCard = new HashMap<>();
+	public Map<String,PlayerCard> discardPlayerCard = new HashMap<>();
+	public List<String> validInfectionCard = new ArrayList<>();
+	public List<String> discardInfectionCard = new ArrayList<>();
 }

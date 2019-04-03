@@ -25,12 +25,14 @@ public class TestContingencyPlanner {
 
 	@Test
 	public void testPickCardFromDispach() {
-		String cardName = "Peaceful Night";
-		contingencyPlanner.hand.add(new PlayerCard(Board.CardType.CITYCARD, "Chicago"));
+		String cardName = "Airlift";
+		String cardName1 = "Chicago";
+		contingencyPlanner.hand.put(cardName1, new PlayerCard(Board.CardType.CITYCARD, cardName1));
 		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, cardName);
-		board.discardPlayerCard.add(playerCard);
+		board.discardPlayerCard.put(cardName, playerCard);
 		contingencyPlanner.pickFromDiscardPlayerCard(cardName);
 		assertEquals(contingencyPlanner.specialEventCard.cardName, cardName);
+		assertFalse(board.discardPlayerCard.containsKey(cardName));
 	}
 	
 	@Test
@@ -43,8 +45,8 @@ public class TestContingencyPlanner {
 		String cardName2 = "New York";
 		PlayerCard playerCard1 = new PlayerCard(Board.CardType.CITYCARD, cardName1);
 		PlayerCard playerCard2 = new PlayerCard(Board.CardType.CITYCARD, cardName2);
-		board.discardPlayerCard.add(playerCard1);
-		board.discardPlayerCard.add(playerCard2);
+		board.discardPlayerCard.put(cardName1, playerCard1);
+		board.discardPlayerCard.put(cardName2, playerCard2);
 		int old_size = board.discardPlayerCard.size();
 		
 		boolean cardUsed = contingencyPlanner.useCard(cardName);

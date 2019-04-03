@@ -1,6 +1,5 @@
 package Player;
 
-import Card.PlayerCard;
 import Initialize.Board;
 
 public class ContingencyPlanner extends Player{
@@ -15,9 +14,10 @@ public class ContingencyPlanner extends Player{
 
 	@Override
 	public void pickFromDiscardPlayerCard(String cardName) {
-		for (PlayerCard playerCard : board.discardPlayerCard) {
-			if (playerCard.cardName == cardName) {
-				specialEventCard = playerCard;
+		for (String name : board.discardPlayerCard.keySet()) {
+			if (name == cardName) {
+				specialEventCard = board.discardPlayerCard.get(name);
+				board.discardPlayerCard.remove(name);
 				break;
 			}
 		} 
