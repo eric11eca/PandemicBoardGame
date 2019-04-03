@@ -10,10 +10,10 @@ public abstract class Player {
 
 	public ArrayList<PlayerCard> hand = new ArrayList<>();
 	public City location;
-	public int action;
+	public int action = 4;
 	Board board;
-	
-	public Player(Board gameBoard){
+
+	public Player(Board gameBoard) {
 		board = gameBoard;
 	}
 

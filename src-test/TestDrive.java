@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Card.PlayerCard;
+import Initialize.Board;
 import Initialize.City;
 import Player.Medic;
 import Player.Player;
@@ -13,10 +14,11 @@ public class TestDrive {
 	PlayerCard cityCard1;
 	PlayerCard cityCard2;
 	City location, neighborCity, notNeighborCity;
+	Board board;
 
 	@Before
 	public void setup() {
-		player = new Medic();
+		player = new Medic(board);
 		location = new City();
 		location.cityName = "Chicago";
 
