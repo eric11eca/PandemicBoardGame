@@ -3,12 +3,15 @@ package Player;
 import java.util.ArrayList;
 
 import Card.PlayerCard;
+import Initialize.Board;
 import Initialize.City;
 
 public abstract class Player {
 
 	public ArrayList<PlayerCard> hand = new ArrayList<>();
 	public City location;
+	public int action = 4;
+	public Board board;
 
 	public void receiveCard(PlayerCard playercard) {
 		if (hand.size() >= 7) {
@@ -25,10 +28,6 @@ public abstract class Player {
 		return false;
 	}
 
-	public void isValid() {
-
-	}
-
 	public void drive(City destination) {
 		if (location.neighbors.contains(destination)) {
 			location = destination;
@@ -37,10 +36,24 @@ public abstract class Player {
 		}
 	}
 
-	public void move(City city) {
-		if (location.neighbors.contains(city)) {
-			location = city;
+	public void move(City destination) {
+		if (location.neighbors.contains(destination)) {
+			location = destination;
 		}
+	}
+
+	public void directFlight(PlayerCard cityCard) {
+		if (cityCard.cardType == Board.CardType.CITYCARD) {
+			hand.remove(cityCard);
+			consumeAction();
+			location = board.cities.get(cityCard.cardName);
+		} else {
+			throw new IllegalArgumentException("Illegal Argument Type");
+		}
+	}
+
+	public void consumeAction() {
+		action--;
 	}
 
 }

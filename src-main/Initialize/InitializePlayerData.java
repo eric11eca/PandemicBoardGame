@@ -55,7 +55,7 @@ public class InitializePlayerData {
 
 		}
 	}
-
+	
 	public void drawHandCard() {
 		for(int i = 0; i < board.playernumber; i++){
 			for(int j = 0; j < board.initialhandcard; j++){

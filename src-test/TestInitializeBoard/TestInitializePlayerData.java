@@ -8,8 +8,12 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
+import Initialize.City;
 import Initialize.InitializeBoard;
 import Initialize.InitializePlayerData;
+import Player.ContingencyPlanner;
+import Player.Player;
+import Player.Scientist;
 
 public class TestInitializePlayerData {
 	InitializePlayerData initializePlayerData;
@@ -33,7 +37,6 @@ public class TestInitializePlayerData {
 		initializePlayerData.createPlayers();
 		assertEquals(2,board.currentPlayers.size());
 	}
-	
 	
 	@Test
 	public void testdrawHandCardWithTwoPlayer(){
@@ -63,6 +66,7 @@ public class TestInitializePlayerData {
 		assertTrue(initializePlayerData.populationSum(board.currentPlayers.get(0))
 				> initializePlayerData.populationSum(board.currentPlayers.get(1)));
 	}
+	
 	@Test
 	public void testSortPlayerByPopulationThreePlayer(){
 		board.playernumber = 3;
@@ -81,4 +85,5 @@ public class TestInitializePlayerData {
 				> initializePlayerData.populationSum(board.currentPlayers.get(2)));
 		
 	}
+	
 }
