@@ -10,7 +10,7 @@ public abstract class Player{
 
 	public Map<String, PlayerCard> hand = new HashMap<>();
 	public City location;
-	public int action;
+	public int action = 4;
 	public PlayerCard specialEventCard;
 	public String cardToBeDiscard;
 	public boolean handOverFlow = false;
@@ -54,5 +54,7 @@ public abstract class Player{
 	
 	public abstract void removeAllCubes();
 	public abstract void pickFromDiscardPlayerCard(String cardName);
+
+	public abstract void buildResearchStation();
 	
 }
