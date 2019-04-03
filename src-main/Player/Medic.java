@@ -1,30 +1,32 @@
 package Player;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 import Initialize.Board;
-import Initialize.City;
 
-public class Medic extends Player{
-	
+public class Medic extends Player {
+
 	public Medic(Board gameBoard) {
 		super(gameBoard);
 	}
 
+	public Medic(Board gameBoard, Random random) {
+		super(gameBoard, random);
+	}
+
 	public void removeAllCubes() {
 		Boolean allCured = true;
-		for(String diseas : location.diseaseCubes.keySet()) {
-			if(!board.curedDiseases.contains(diseas)) {
+		for (String diseas : location.diseaseCubes.keySet()) {
+			if (!board.curedDiseases.contains(diseas)) {
 				allCured = false;
 			}
 		}
-		
-		if(!allCured) {
+
+		if (!allCured) {
 			action--;
 		}
-		
+
 		location.diseaseCubes.clear();
 	}
-	
-	
+
 }

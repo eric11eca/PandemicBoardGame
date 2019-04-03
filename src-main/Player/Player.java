@@ -1,6 +1,8 @@
 package Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 import Card.PlayerCard;
 import Initialize.Board;
@@ -12,9 +14,15 @@ public abstract class Player {
 	public City location;
 	public int action = 4;
 	Board board;
+	Random random;
 
 	public Player(Board gameBoard) {
+		this(gameBoard, new Random());
+	}
+
+	public Player(Board gameBoard, Random random) {
 		board = gameBoard;
+		this.random = random;
 	}
 
 	public void receiveCard(PlayerCard playercard) {
@@ -30,10 +38,6 @@ public abstract class Player {
 			return true;
 		}
 		return false;
-	}
-
-	public void isValid() {
-
 	}
 
 	public void drive(City destination) {
@@ -63,7 +67,55 @@ public abstract class Player {
 	}
 
 	public void consumeAction() {
-		action--;
+		if (action <= 0) {
+			throw new RuntimeException("Run out of Actions");
+		} else {
+			action--;
+		}
+	}
+
+	public void characterFlight(PlayerCard cityCard) {
+		String cityCardName = cityCard.cardName;
+		String playerLocationCityName = location.cityName;
+		if (cityCard.cardType != Board.CardType.CITYCARD) {
+			throw new IllegalArgumentException("Not a cityCard");
+		} else {
+			if (cityCardName.equals(playerLocationCityName)) {
+				City destination = randomDestination();
+				System.out.println(destination.cityName);
+				while (destination.cityName.equals(playerLocationCityName)) {
+					destination = randomDestination();
+					System.out.println(destination.cityName);
+				}
+				System.out.println("Before assign location: " + destination.cityName);
+				location = destination;
+				discardCard(cityCard);
+				consumeAction();
+			} else {
+				throw new IllegalArgumentException("The name of city card is different from your location");
+			}
+		}
+	}
+
+	public City randomDestination() {
+		Collection<City> cities = board.cities.values();
+		int randomInt = random.nextInt(cities.size());
+		City destination = (cities.toArray(new City[0]))[randomInt];
+		return destination;
+	}
+
+	public void shuttleFlight(City destination) {
+		if (location.researchStation) {
+			if (destination.researchStation) {
+				location = destination;
+				consumeAction();
+			} else {
+				throw new RuntimeException("Invalid shuttle flight: Destination doesn't have the station.");
+			}
+		} else {
+			throw new RuntimeException("Invalid shuttle flight: Current location doesn't hava the station.");
+		}
+
 	}
 
 }

@@ -9,17 +9,17 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Player.Medic;
-import Player.Player;
 
 public class TestMedic {
-	Player medic;
+	Medic medic;
 	Board board;
+
 	@Before
 	public void setup() {
 		board = new Board();
 		medic = new Medic(board);
 	}
-	
+
 	@Test
 	public void testRemoveAllUncuredCubes() {
 		medic.location.diseaseCubes.put("yellow", 2);
@@ -29,7 +29,7 @@ public class TestMedic {
 		assertTrue(medic.location.diseaseCubes.isEmpty());
 		assertEquals(3, medic.action);
 	}
-	
+
 	@Test
 	public void testRemoveAllCuredCubes() {
 		medic.location.diseaseCubes.put("yellow", 2);

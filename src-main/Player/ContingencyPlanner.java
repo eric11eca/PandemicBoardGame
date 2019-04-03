@@ -1,12 +1,18 @@
 package Player;
 
+import java.util.Random;
+
 import Card.PlayerCard;
 import Initialize.Board;
 
-public class ContingencyPlanner extends Player{
-		
+public class ContingencyPlanner extends Player {
+
 	public ContingencyPlanner(Board gameBoard) {
 		super(gameBoard);
+	}
+
+	public ContingencyPlanner(Board gameBoard, Random random) {
+		super(gameBoard, random);
 	}
 
 	public void pickFromDiscardPlayerCard(String cardName) {
@@ -15,9 +21,6 @@ public class ContingencyPlanner extends Player{
 				hand.add(hand.size(), playerCard);
 				break;
 			}
-		} 
+		}
 	}
-	
-	
-
 }
