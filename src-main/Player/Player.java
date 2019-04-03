@@ -52,4 +52,6 @@ public abstract class Player{
 		}
 	}
 	
+	public abstract void discoverCure(DiscoverCure discoverCure);
+	
 }

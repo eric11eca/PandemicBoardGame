@@ -8,6 +8,8 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
+import Player.DiscoverCure;
+import Player.DiscoverCureScientist;
 import Player.Player;
 import Player.Scientist;
 
@@ -46,7 +48,8 @@ public class testScientist {
 		scientist.hand.put(cityName4, city4);
 		scientist.hand.put(cityName5, city5);
 		scientist.hand.put(cityName6, city6);
-		scientist.discoverCure("Yellow");
+		DiscoverCure discoverCure = new DiscoverCureScientist(scientist.hand, "Yellow", board.curedDiseases);;
+		scientist.discoverCure(discoverCure);
 		assertTrue(board.curedDiseases.contains(city1.color));
 	}
 
