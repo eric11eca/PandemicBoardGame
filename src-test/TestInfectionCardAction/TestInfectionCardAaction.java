@@ -11,40 +11,48 @@ import Initialize.City;
 public class TestInfectionCardAaction {
 	Board board;
 	InfectionCardAction infect;
+	String cityName;
+	String diseaseColor;
 	@Before 
 	public void setup(){
+		cityName = "Chicago";
+		diseaseColor = "Red";
 		board = new Board();
 		City city = new City();
-		city.cityName = "Chicago";
-		board.cities.put("Chicago", city);
+		city.cityName = cityName;
+		board.cities.put(cityName, city);
 		infect = new InfectionCardAction(board);
 	}
 	
 	@Test
 	public void testInfectCityWithNewDisease() {
-		infect.infectCity("Chicago", "Red");
-		City city = board.cities.get("Chicago");
-		int numOfRedCubes = city.diseaseCubes.get("Red");
+		infect.infectCity(cityName, diseaseColor);
+		City city = board.cities.get(cityName);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
 		assertTrue(1 == numOfRedCubes);
 	}
 	
 	@Test
 	public void testInfectCityWithEixstingDisease() {
-		City city_old = board.cities.get("Chicago");
-		city_old.diseaseCubes.put("Red", 1);
-		board.cities.put("Chicago", city_old);
+		City city_old = board.cities.get(cityName);
+		city_old.diseaseCubes.put(diseaseColor, 1);
+		board.cities.put(cityName, city_old);
 		
-		infect.infectCity("Chicago", "Red");
-		City city_new = board.cities.get("Chicago");
-		int numOfRedCubes = city_new.diseaseCubes.get("Red");
+		infect.infectCity(cityName, diseaseColor);
+		City city_new = board.cities.get(cityName);
+		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
 		assertTrue(2 == numOfRedCubes);
 	}
 	
 	@Test
 	public void testInfectCityOnQueitNight() {
-		City city_old = board.cities.get("Chicago");
-		city_old.diseaseCubes.put("Red", 1); 
-		infect.infectCity("Chicago", "Red");
+		board.inQueitNight = true;
+		City city_old = board.cities.get(cityName);
+		city_old.diseaseCubes.put(diseaseColor, 1); 
+		infect.infectCity(cityName, diseaseColor);
+		City city_new = board.cities.get(cityName);
+		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
+		assertTrue(1 == numOfRedCubes);
 	}
 	
 }
