@@ -17,8 +17,9 @@ public class TestDirectFlight {
 
 	@Before
 	public void setup() {
-		board = new Board();
 		player = new Medic(board);
+		board = new Board();
+		player.board = board;
 		String newyork = "NewYork";
 		City newyorkCity = new City(newyork);
 		String chicago = "Chicago";
@@ -29,16 +30,16 @@ public class TestDirectFlight {
 		eventCard = new PlayerCard(Board.CardType.EVENTCARD, "");
 		board.cities.put(newyork, newyorkCity);
 		board.cities.put(chicago, chicagoCity);
-		player.hand.put(newyorkCityCard.cardName,newyorkCityCard);
-		player.hand.put(chicagoCityCard.cardName,chicagoCityCard);
-		player.hand.put(eventCard.cardName,eventCard);
+		player.hand.put(newyorkCityCard.cardName, newyorkCityCard);
+		player.hand.put(chicagoCityCard.cardName, chicagoCityCard);
+		player.hand.put(eventCard.cardName, eventCard);
 	}
 
 	@Test
 	public void testSuccessDirectFlight() {
 		player.directFlight(newyorkCityCard);
-		assertEquals(2, player.hand.size());
-		assertEquals(3, player.action);
+		assertEquals(player.hand.size(), 2);
+		assertEquals(player.action, 3);
 		assertEquals("NewYork", player.location.cityName);
 	}
 

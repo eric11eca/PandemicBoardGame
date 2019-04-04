@@ -17,7 +17,7 @@ public abstract class Player{
 	public PlayerCard specialEventCard;
 	public String cardToBeDiscard;
 	public boolean handOverFlow = false;
-	Board board;
+	public Board board;
 	Random random;
 	
 	
@@ -65,7 +65,7 @@ public abstract class Player{
 		if (location.neighbors.contains(destination)) {
 			location = destination;
 		} else {
-			throw new RuntimeException("Invalid destinaion: Not a neighbor!!");
+			throw new RuntimeException("Invalid destination: Not a neighbour!!");
 		}
 	}
 	

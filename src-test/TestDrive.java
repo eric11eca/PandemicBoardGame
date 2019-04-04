@@ -11,14 +11,16 @@ import Player.Player;
 
 public class TestDrive {
 	Player player;
+	Board board;
 	PlayerCard cityCard1;
 	PlayerCard cityCard2;
 	City location, neighborCity, notNeighborCity;
-	Board board;
 
 	@Before
 	public void setup() {
+		board = new Board();
 		player = new Medic(board);
+		
 		location = new City();
 		location.cityName = "Chicago";
 
