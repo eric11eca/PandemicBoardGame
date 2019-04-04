@@ -29,9 +29,9 @@ public class TestDirectFlight {
 		eventCard = new PlayerCard(Board.CardType.EVENTCARD, "");
 		board.cities.put(newyork, newyorkCity);
 		board.cities.put(chicago, chicagoCity);
-		player.hand.add(newyorkCityCard);
-		player.hand.add(chicagoCityCard);
-		player.hand.add(eventCard);
+		player.hand.put(newyorkCityCard.cardName,newyorkCityCard);
+		player.hand.put(chicagoCityCard.cardName,chicagoCityCard);
+		player.hand.put(eventCard.cardName,eventCard);
 	}
 
 	@Test
