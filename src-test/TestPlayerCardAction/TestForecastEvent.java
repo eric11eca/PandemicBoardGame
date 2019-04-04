@@ -11,7 +11,7 @@ import Initialize.City;
 import Player.Player;
 import javafx.util.Pair;
 
-public class TestForeastEvent {
+public class TestForecastEvent {
 	Board board;
 	ForecastEvent forecast;
 	Player player;
