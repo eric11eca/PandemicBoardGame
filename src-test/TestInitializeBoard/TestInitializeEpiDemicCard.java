@@ -48,8 +48,8 @@ public class TestInitializeEpiDemicCard {
 
 		EasyMock.replay(random);
 		initializeBoard.random = random;
-
-		initializeBoard.initializeEpidemicCard(45, 6);			
+		board.epidemicCardNum = 6;
+		initializeBoard.initializeEpidemicCard(45);			
 		assertEquals(Board.CardType.EPIDEMIC, validPlayerCard.get(48).cardType);
 		
 		EasyMock.verify(random);
@@ -66,8 +66,8 @@ public class TestInitializeEpiDemicCard {
 
 		EasyMock.replay(random);
 		initializeBoard.random = random;
-
-		initializeBoard.initializeEpidemicCard(45, 6);		
+		board.epidemicCardNum = 6;
+		initializeBoard.initializeEpidemicCard(45);		
 		assertEquals(Board.CardType.EPIDEMIC, validPlayerCard.get(5).cardType);
 		
 		EasyMock.verify(random);
@@ -83,8 +83,8 @@ public class TestInitializeEpiDemicCard {
 
 		EasyMock.replay(random);
 		initializeBoard.random = random;
-
-		initializeBoard.initializeEpidemicCard(44, 5);		
+		board.epidemicCardNum = 5;
+		initializeBoard.initializeEpidemicCard(44);		
 		assertEquals(Board.CardType.EPIDEMIC, validPlayerCard.get(47).cardType);
 		
 		EasyMock.verify(random);
@@ -100,8 +100,8 @@ public class TestInitializeEpiDemicCard {
 
 		EasyMock.replay(random);
 		initializeBoard.random = random;
-		
-		initializeBoard.initializeEpidemicCard(44, 5);
+		board.epidemicCardNum = 5;
+		initializeBoard.initializeEpidemicCard(44);
 		assertEquals(Board.CardType.EPIDEMIC, validPlayerCard.get(7).cardType);
 		
 		EasyMock.verify(random);

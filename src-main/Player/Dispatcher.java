@@ -10,8 +10,7 @@ public class Dispatcher extends Player {
 
 	@Override
 	public void discoverCure(DiscoverCure discoverCure) {
-		// TODO Auto-generated method stub
-		
+		discoverCure.discoverCure();
 	}
 
 }
