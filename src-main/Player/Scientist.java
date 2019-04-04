@@ -1,5 +1,7 @@
 package Player;
 
+import java.util.Random;
+
 import Initialize.Board;
 
 public class Scientist extends Player{
@@ -12,5 +14,9 @@ public class Scientist extends Player{
 	public void discoverCure(DiscoverCure discoverCure) {
 		discoverCure.discoverCure();
 		
+	}
+
+	public Scientist(Board gameBoard, Random random) {
+		super(gameBoard, random);
 	}
 }

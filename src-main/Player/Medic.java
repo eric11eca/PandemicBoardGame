@@ -1,11 +1,18 @@
 package Player;
 
+
+import java.util.Random;
+
 import Initialize.Board;
 
-public class Medic extends Player{
-	
+public class Medic extends Player {
+
 	public Medic(Board gameBoard) {
 		super(gameBoard);
+	}
+
+	public Medic(Board gameBoard, Random random) {
+		super(gameBoard, random);
 	}
 
 	public void removeAllCubes() {

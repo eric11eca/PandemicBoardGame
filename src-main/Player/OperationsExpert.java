@@ -1,5 +1,7 @@
 package Player;
 
+import java.util.Random;
+
 import Initialize.Board;
 
 import Initialize.Board;
@@ -30,6 +32,10 @@ public class OperationsExpert extends Player {
 	public void discoverCure(DiscoverCure discoverCure) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public OperationsExpert(Board gameBoard, Random random) {
+		super(gameBoard, random);
 	}
 
 }

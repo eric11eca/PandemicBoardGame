@@ -1,5 +1,7 @@
 package Player;
 
+import java.util.Random;
+
 import Initialize.Board;
 
 public class QuarantineSpecialist extends Player{
@@ -13,6 +15,10 @@ public class QuarantineSpecialist extends Player{
 	public void discoverCure(DiscoverCure discoverCure) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public QuarantineSpecialist(Board gameBoard, Random random) {
+		super(gameBoard, random);
 	}
 
 }
