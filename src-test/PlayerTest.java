@@ -12,6 +12,7 @@ import Player.Player;
 import Player.Player.*;
 
 public class PlayerTest {
+	private Board board;
 	private City city;
 	private PlayerCard hand_city;
 	private City unconnected_city;
@@ -21,6 +22,7 @@ public class PlayerTest {
 	@Before
 	public void setup(){
 		city = new City();
+		board = new Board();
 		city.cityName = "city";
 		unconnected_city = new City();
 		connected_city = new City();
@@ -35,7 +37,7 @@ public class PlayerTest {
 	
 	@Test 
 	public void testNormalReceiveAndDiscardCityCard(){
-		Player player = new Dispatcher();
+		Player player = new Dispatcher(board);
 		player.receiveCard(citycards.get(0));
 		assertTrue(player.hand.containsKey(citycards.get(0).cardName));
 		player.discardCard(citycards.get(0).cardName);
@@ -66,7 +68,7 @@ public class PlayerTest {
 	
 	@Test 
 	public void testMove(){
-		Player player = new Dispatcher();
+		Player player = new Dispatcher(board);
 		player.location = city;
 		player.move(connected_city);
 		assertEquals(player.location, connected_city);
@@ -74,7 +76,7 @@ public class PlayerTest {
 	
 	@Test 
 	public void testInvalidMove(){
-		Player player = new Dispatcher();	
+		Player player = new Dispatcher(board);	
 		player.location = city;
 		player.move(unconnected_city);
 		assertNotEquals(player.location,unconnected_city);
