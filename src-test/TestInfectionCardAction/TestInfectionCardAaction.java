@@ -53,6 +53,7 @@ public class TestInfectionCardAaction {
 		City city_new = board.cities.get(cityName);
 		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
 		assertTrue(1 == numOfRedCubes);
+		assertFalse(board.inQueitNight);
 	}
 	
 }

@@ -12,6 +12,7 @@ public class InfectionCardAction {
 	
 	public void infectCity(String cityName, String diseaseColor) {
 		if(board.inQueitNight) {
+			board.inQueitNight = false;
 			return;
 		}
 		City city = board.cities.get(cityName);
