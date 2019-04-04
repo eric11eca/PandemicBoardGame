@@ -8,6 +8,7 @@ import java.util.Set;
 
 import Card.PlayerCard;
 import Player.Player;
+import javafx.util.Pair;
 
 public class Board {
 	public enum CardType{
@@ -28,7 +29,11 @@ public class Board {
 	int blueCubes = 24;
 	int blackCubes = 24;
 	
-	//int difficulty = 0;
+	public int idxofPlayerAirlift;
+	public String nameofCityAirlift;
+	
+	public Map<String, String> infectionCardForecast = new HashMap<>();
+	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
 	
 	public Set<String> curedDiseases = new HashSet<String>();
 	public Map<String, City> cities = new HashMap<String, City>();

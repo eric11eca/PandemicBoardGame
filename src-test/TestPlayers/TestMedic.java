@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Initialize.Board;
+import Initialize.City;
 import Player.Medic;
 
 public class TestMedic {
@@ -18,6 +19,9 @@ public class TestMedic {
 	public void setup() {
 		board = new Board();
 		medic = new Medic(board);
+		City city = new City();
+		city.cityName = "a";
+		medic.location = city;
 	}
 
 	@Test
