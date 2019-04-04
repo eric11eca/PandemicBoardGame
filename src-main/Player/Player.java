@@ -15,7 +15,7 @@ public abstract class Player{
 	public PlayerCard specialEventCard;
 	public String cardToBeDiscard;
 	public boolean handOverFlow = false;
-	Board board;
+	public Board board;
 	
 	
 	public Player(Board gameBoard){
@@ -33,7 +33,7 @@ public abstract class Player{
 	
 	public boolean useCard(String cardName) {
 		boolean cardUsed = false;
-		if(cardName == specialEventCard.cardName) {
+		if(cardName.equals(specialEventCard.cardName)) {
 			cardUsed = specialEventCard.excuteEvents();
 			if(cardUsed) {
 				this.specialEventCard = null;

@@ -10,7 +10,7 @@ public class ContingencyPlanner extends Player{
 
 	public void pickFromDiscardPlayerCard(String cardName) {
 		for (String name : board.discardPlayerCard.keySet()) {
-			if (name == cardName) {
+			if (name.equals(cardName)) {
 				specialEventCard = board.discardPlayerCard.get(name);
 				board.discardPlayerCard.remove(name);
 				break;
