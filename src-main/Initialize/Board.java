@@ -28,7 +28,8 @@ public class Board {
 	int blueCubes = 24;
 	int blackCubes = 24;
 	
-	//int difficulty = 0;
+	public int idxofPlayerAirlift;
+	public String nameofCityAirlift;
 	
 	public Set<String> curedDiseases = new HashSet<String>();
 	public Map<String, City> cities = new HashMap<String, City>();

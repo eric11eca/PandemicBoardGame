@@ -25,7 +25,7 @@ public class TestDiscoverCureScientist {
 	}
 
 	@Test
-	public void testDiscoverCureNormal() {
+	public void testDiscoverCureScientist() {
 		String cardName1 = "a";
 		String cardName2 = "b";
 		String cardName3 = "c";
