@@ -29,6 +29,10 @@ public class Board {
 	int blueCubes = 24;
 	int blackCubes = 24;
 	
+	public boolean inQueitNight = false;
+	
+	public String cityWithGrant;
+	
 	public int idxofPlayerAirlift;
 	public String nameofCityAirlift;
 	
@@ -43,4 +47,6 @@ public class Board {
 	public Map<String,PlayerCard> discardPlayerCard = new HashMap<>();
 	public List<String> validInfectionCard = new ArrayList<String>();
 	public List<String> discardInfectionCard = new ArrayList<String>();
+	
+	
 }

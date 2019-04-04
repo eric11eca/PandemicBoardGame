@@ -41,7 +41,7 @@ public abstract class Player{
 	
 	public boolean useCard(String cardName) {
 		boolean cardUsed = false;
-		if(cardName == specialEventCard.cardName) {
+		if(cardName.equals(specialEventCard.cardName)) {
 			cardUsed = specialEventCard.excuteEvents();
 			if(cardUsed) {
 				this.specialEventCard = null;

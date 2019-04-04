@@ -52,13 +52,13 @@ public class TestForecastEvent {
 		city8.cityName = "Paris";
 		
 		city1.color = "Yellow";
-		city1.color = "Yellow";
-		city1.color = "Red";
-		city1.color = "Blue";
-		city1.color = "Black";
-		city1.color = "Blue";
-		city1.color = "Red";
-		city1.color = "Yellow";
+		city2.color = "Yellow";
+		city3.color = "Red";
+		city4.color = "Blue";
+		city5.color = "Black";
+		city6.color = "Blue";
+		city7.color = "Red";
+		city8.color = "Yellow";
 		
 		board.cities.put("Boston", city1);
 		board.cities.put("Moscow", city1);

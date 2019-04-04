@@ -20,7 +20,7 @@ public class OperationsExpert extends Player {
 
 	public void moveToAnotherCity(String cityName) {
 		for (String cardName : hand.keySet()) {
-			if (cardName == cityName) {
+			if (cardName.contentEquals(cityName)) {
 				location = board.cities.get(cityName);
 				board.discardPlayerCard.put(cardName, hand.get(cardName));
 				hand.remove(cardName);
