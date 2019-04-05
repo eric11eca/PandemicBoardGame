@@ -3,14 +3,17 @@ package Player;
 import java.util.Random;
 
 import Initialize.Board;
-
-import Initialize.Board;
 import Initialize.City;
 
 public class OperationsExpert extends Player {
 	public OperationsExpert(Board gameBoard) {
 		super(gameBoard);
 		location = new City();
+	}
+
+	public OperationsExpert(Board gameBoard, Random random) {
+		super(gameBoard, random);
+		discoverCure = new DiscoverCureNormal(hand, gameBoard.curedDiseases);
 	}
 
 	public void buildResearchStation() {
@@ -26,15 +29,6 @@ public class OperationsExpert extends Player {
 				hand.remove(cardName);
 			}
 		}
-	}
-
-	@Override
-	public void discoverCure(DiscoverCure discoverCure) {
-		discoverCure.discoverCure();
-	}
-
-	public OperationsExpert(Board gameBoard, Random random) {
-		super(gameBoard, random);
 	}
 
 }

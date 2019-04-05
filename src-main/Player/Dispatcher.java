@@ -12,11 +12,7 @@ public class Dispatcher extends Player {
 
 	public Dispatcher(Board gameBoard, Random random) {
 		super(gameBoard, random);
-	}
-
-	@Override
-	public void discoverCure(DiscoverCure discoverCure) {
-		discoverCure.discoverCure();
+		discoverCure = new DiscoverCureNormal(hand, gameBoard.curedDiseases);
 	}
 
 }

@@ -10,7 +10,7 @@ import Card.PlayerCardAction;
 import Initialize.Board;
 import Initialize.City;
 
-public abstract class Player{
+public abstract class Player {
 
 	public Map<String, PlayerCard> hand = new HashMap<>();
 	public City location;
@@ -20,32 +20,32 @@ public abstract class Player{
 	public boolean handOverFlow = false;
 	public Board board;
 	Random random;
-	
-	
-	public Player(Board gameBoard){
+	DiscoverCure discoverCure;
+
+	public Player(Board gameBoard) {
 		this(gameBoard, new Random());
 	}
-	
+
 	public Player(Board gameBoard, Random random) {
 		board = gameBoard;
 		this.random = random;
 	}
 
 	public void receiveCard(PlayerCard playerCard) {
-		if(hand.size() >= 7){
+		if (hand.size() >= 7) {
 			handOverFlow = true;
 			discardCard(cardToBeDiscard);
 		} else {
-			hand.put(playerCard.cardName, playerCard);     
+			hand.put(playerCard.cardName, playerCard);
 		}
 	}
-	
+
 	public boolean usePlayerCard(String cardName) {
 		boolean cardUsed = false;
-		if(cardName.equals(specialEventCard.cardName)) {
+		if (cardName.equals(specialEventCard.cardName)) {
 			PlayerCardAction playerCardAction = new PlayerCardAction(board, specialEventCard);
 			cardUsed = playerCardAction.excuteCard();
-			if(cardUsed) {
+			if (cardUsed) {
 				this.specialEventCard = null;
 			}
 		} else {
@@ -53,15 +53,14 @@ public abstract class Player{
 			PlayerCardAction playerCardAction = new PlayerCardAction(board, card);
 			cardUsed = playerCardAction.excuteCard();
 			if (!card.cardType.equals(Board.CardType.EVENTCARD)) {
-				 action--;
+				consumeAction();
 			}
 		}
 		return cardUsed;
 	}
 
-
-	public boolean discardCard(String cardName){
-		if(hand.containsKey(cardName)){
+	public boolean discardCard(String cardName) {
+		if (hand.containsKey(cardName)) {
 			hand.remove(cardName);
 			return true;
 		}
@@ -75,7 +74,7 @@ public abstract class Player{
 			throw new RuntimeException("Invalid destination: Not a neighbour!!");
 		}
 	}
-	
+
 	public void directFlight(PlayerCard cityCard) {
 		if (cityCard.cardName.equals(location.cityName)) {
 			throw new IllegalArgumentException("Cannot direct flight to current city");
@@ -89,9 +88,12 @@ public abstract class Player{
 	}
 
 	public void consumeAction() {
+		if (action <= 0) {
+			throw new RuntimeException("NO MORE ACTIONS!");
+		}
 		action--;
 	}
-	
+
 	public void characterFlight(PlayerCard cityCard) {
 		String cityCardName = cityCard.cardName;
 		String playerLocationCityName = location.cityName;
@@ -135,7 +137,8 @@ public abstract class Player{
 		}
 	}
 
-	
-	public abstract void discoverCure(DiscoverCure discoverCure);
-	
+	public void discoverCure() {
+		discoverCure.discoverCure();
+	}
+
 }

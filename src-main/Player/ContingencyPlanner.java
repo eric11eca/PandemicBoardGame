@@ -2,7 +2,6 @@ package Player;
 
 import java.util.Random;
 
-import Card.PlayerCard;
 import Initialize.Board;
 
 public class ContingencyPlanner extends Player {
@@ -13,6 +12,7 @@ public class ContingencyPlanner extends Player {
 
 	public ContingencyPlanner(Board gameBoard, Random random) {
 		super(gameBoard, random);
+		discoverCure = new DiscoverCureNormal(hand, gameBoard.curedDiseases);
 	}
 
 	public void pickFromDiscardPlayerCard(String cardName) {
@@ -24,12 +24,4 @@ public class ContingencyPlanner extends Player {
 			}
 		}
 	}
-
-	@Override
-	public void discoverCure(DiscoverCure discoverCure) {
-		discoverCure.discoverCure();
-	}
-	
-	
-
 }

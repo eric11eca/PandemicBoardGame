@@ -4,20 +4,14 @@ import java.util.Random;
 
 import Initialize.Board;
 
-public class Researcher extends Player{
+public class Researcher extends Player {
 
-
-	public Researcher(Board gameBoard){
+	public Researcher(Board gameBoard) {
 		super(gameBoard);
 	}
 
-	@Override
-	public void discoverCure(DiscoverCure discoverCure) {
-		discoverCure.discoverCure();
-	}
-
-
 	public Researcher(Board gameBoard, Random random) {
 		super(gameBoard, random);
+		discoverCure = new DiscoverCureNormal(hand, gameBoard.curedDiseases);
 	}
 }

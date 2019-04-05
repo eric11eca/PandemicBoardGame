@@ -13,7 +13,7 @@ public class DiscoverCureScientist implements DiscoverCure {
 	private int blue_count = 0;
 	private int black_count = 0;
 	private int yellow_count = 0;
-	
+
 	public DiscoverCureScientist(Map<String, PlayerCard> hand, Set<String> curedDiseases) {
 		this.hand = hand;
 		this.curedDiseases = curedDiseases;
@@ -22,27 +22,27 @@ public class DiscoverCureScientist implements DiscoverCure {
 	@Override
 	public void discoverCure() {
 		countColors();
-		if(red_count >= 4) {
-			curedDiseases.add("Red");
+		if (red_count >= 4) {
+			curedDiseases.add("RED");
 		} else if (blue_count >= 4) {
-			curedDiseases.add("Blue");
+			curedDiseases.add("BLUE");
 		} else if (black_count >= 4) {
-			curedDiseases.add("Black");
+			curedDiseases.add("BLACK");
 		} else if (yellow_count >= 4) {
-			curedDiseases.add("Yellow");
+			curedDiseases.add("YELLOW");
 		}
 	}
-	
+
 	private void countColors() {
-		for(PlayerCard card : hand.values()) {
-			if(card.cardType == Board.CardType.CITYCARD) {
-				if(card.color == "Yellow") {
+		for (PlayerCard card : hand.values()) {
+			if (card.cardType == Board.CardType.CITYCARD) {
+				if (card.color.equals("YELLOW")) {
 					yellow_count++;
-				} else if (card.color == "Red") {
+				} else if (card.color.equals("RED")) {
 					red_count++;
-				} else if (card.color == "Blue") {
+				} else if (card.color.equals("BLUE")) {
 					blue_count++;
-				} else if (card.color == "Black") {
+				} else if (card.color.equals("BLACK")) {
 					black_count++;
 				}
 			}
