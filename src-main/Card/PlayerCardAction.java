@@ -5,18 +5,18 @@ import Initialize.Board;
 public class PlayerCardAction {
 	Board board;
 	PlayerCard playerCard;
-	
+
 	private AirliftEvent airliftEvent;
 	private ForecastEvent forecastEvent;
 	private OneQueitNightEvent nightEvent;
 	private GovernmentGrantEvent grantEvent;
-	
+
 	private final String airlift = "Airlift";
 	private final String forecast = "Forecast";
 	private final String oneQuietNight = "OneQuietNight";
 	private final String governmentGrant = "GovernmentGrant";
 	private final String resilientPopulation = "ResilientPopulation";
-	
+
 	public PlayerCardAction(Board gameBoard, PlayerCard card) {
 		board = gameBoard;
 		playerCard = card;
@@ -25,7 +25,7 @@ public class PlayerCardAction {
 		nightEvent = new OneQueitNightEvent(board);
 		grantEvent = new GovernmentGrantEvent(board);
 	}
-	
+
 	public boolean excuteEventCard() {
 		if (playerCard.cardName == airlift) {
 			airliftEvent.airlift();
@@ -44,12 +44,12 @@ public class PlayerCardAction {
 		}
 		return false;
 	}
-	
+
 	public boolean excuteCityCard() {
 		return false;
-		
+
 	}
-	
+
 	public boolean excuteCard() {
 		if (playerCard.cardType.equals(Board.CardType.EVENTCARD)) {
 			return excuteEventCard();

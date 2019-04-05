@@ -38,6 +38,13 @@ public class InitializeBoard {
 		}
 	}
 
+	public void initializeRemainDiseaseCube() {
+		board.remainDiseaseCube.put("RED", 24);
+		board.remainDiseaseCube.put("BLUE", 24);
+		board.remainDiseaseCube.put("BLACK", 24);
+		board.remainDiseaseCube.put("YELLOW", 24);
+	}
+
 	public void initializeCity(City city) {
 		board.cities.put(city.cityName, city);
 	}
@@ -50,18 +57,23 @@ public class InitializeBoard {
 		for (int i = 0; i < 9; i++) {
 			String cardName = board.validInfectionCard.get(0);
 			City city = board.cities.get(cardName);
-
 			if (i < 3) {
-				city.diseaseCubes.put(city.color, 3);
+				placeDiseaseCube(city, 3);
 			} else if (i > 2 && i < 6) {
-				city.diseaseCubes.put(city.color, 2);
+				placeDiseaseCube(city, 2);
 			} else {
-				city.diseaseCubes.put(city.color, 1);
+				placeDiseaseCube(city, 1);
 			}
 			board.cities.replace(cardName, city);
 			board.validInfectionCard.remove(0);
 			board.discardInfectionCard.add(0, cardName);
 		}
+	}
+
+	private void placeDiseaseCube(City city, int count) {
+		int numOfCubes = board.remainDiseaseCube.get(city.color);
+		city.diseaseCubes.put(city.color, count);
+		board.remainDiseaseCube.put(city.color, numOfCubes - count);
 	}
 
 	public void shuffleCards() {
