@@ -1,4 +1,5 @@
 package TestPlayerCommonActions;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -42,9 +43,9 @@ public class TestCharterFlight {
 		locationCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
 		notLocationCityCard = new PlayerCard(Board.CardType.CITYCARD, newyork);
 		eventCard = new PlayerCard(Board.CardType.EVENTCARD, "");
-		player.hand.put(locationCityCard.cardName,locationCityCard);
-		player.hand.put(notLocationCityCard.cardName,notLocationCityCard);
-		player.hand.put(eventCard.cardName,eventCard);
+		player.hand.put(locationCityCard.cardName, locationCityCard);
+		player.hand.put(notLocationCityCard.cardName, notLocationCityCard);
+		player.hand.put(eventCard.cardName, eventCard);
 	}
 
 	@Test
@@ -125,9 +126,9 @@ public class TestCharterFlight {
 		EasyMock.replay(mockRandom);
 		mockRandom.location = chicagoCity;
 		mockRandom.action = 4;
-		mockRandom.hand.put(locationCityCard.cardName,locationCityCard);
-		mockRandom.hand.put(notLocationCityCard.cardName,notLocationCityCard);
-		mockRandom.hand.put(eventCard.cardName,eventCard);
+		mockRandom.hand.put(locationCityCard.cardName, locationCityCard);
+		mockRandom.hand.put(notLocationCityCard.cardName, notLocationCityCard);
+		mockRandom.hand.put(eventCard.cardName, eventCard);
 		mockRandom.characterFlight(locationCityCard);
 		assertEquals("NewYork", mockRandom.location.cityName);
 		assertEquals(2, mockRandom.hand.size());
@@ -139,6 +140,7 @@ public class TestCharterFlight {
 		Player mockRandom = EasyMock.partialMockBuilder(Player.class).addMockedMethod("randomDestination")
 				.withConstructor(board).createMock();
 		EasyMock.expect(mockRandom.randomDestination()).andReturn(chicagoCity);
+		EasyMock.expect(mockRandom.randomDestination()).andReturn(newyorkCity);
 		EasyMock.replay(mockRandom);
 		mockRandom.location = chicagoCity;
 		mockRandom.characterFlight(locationCityCard);
