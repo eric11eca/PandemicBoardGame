@@ -16,9 +16,7 @@ public class Board {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
 
-	public enum Color {
-		BLUE, BLACK, RED, YELLOW;
-	}
+	public String nameofCardBeingPlayed;
 
 	public int playernumber = 0;
 	public int initialhandcard = 0;

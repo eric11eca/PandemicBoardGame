@@ -59,6 +59,7 @@ public class TestDiscoverCureScientist {
 
 		assertTrue(board.curedDiseases.isEmpty());
 		scienceCure.discoverCure();
+
 		assertTrue(board.curedDiseases.contains("RED"));
 	}
 }

@@ -10,11 +10,13 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.Board;
 import Player.ContingencyPlanner;
+import Player.Medic;
+import Player.Researcher;
 
 public class TestContingencyPlanner {
 	Board board;
 	ContingencyPlanner contingencyPlanner;
-
+	String specialCardName = "Airlift";
 	@Before
 	public void setup() {
 		board = new Board();
@@ -23,21 +25,27 @@ public class TestContingencyPlanner {
 
 	@Test
 	public void testPickCardFromDispach() {
-		String cardName = "Airlift";
 		String cardName1 = "Chicago";
 		contingencyPlanner.hand.put(cardName1, new PlayerCard(Board.CardType.CITYCARD, cardName1));
-		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, cardName);
-		board.discardPlayerCard.put(cardName, playerCard);
-		contingencyPlanner.pickFromDiscardPlayerCard(cardName);
-		assertEquals(contingencyPlanner.specialEventCard.cardName, cardName);
-		assertFalse(board.discardPlayerCard.containsKey(cardName));
+		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, specialCardName);
+		board.discardPlayerCard.put(specialCardName, playerCard);
+		contingencyPlanner.pickFromDiscardPlayerCard(specialCardName);
+		assertEquals(contingencyPlanner.specialEventCard.cardName, specialCardName);
+		assertFalse(board.discardPlayerCard.containsKey(specialCardName));
 	}
 
 	@Test
 	public void testRemoveSpecialEventCardCompletly() {
-		String cardName = "Airlift";
-		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, cardName);
+		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, specialCardName);
 		contingencyPlanner.specialEventCard = playerCard;
+		board.idxofPlayerAirlift = 0;
+		
+		Medic medic = new Medic(board);
+		Researcher researcher = new Researcher(board);
+		board.currentPlayers.add(0, medic);
+		board.currentPlayers.add(1, researcher);
+		board.currentPlayers.add(2, contingencyPlanner);
+		
 
 		String cardName1 = "Chicago";
 		String cardName2 = "New York";
@@ -47,7 +55,7 @@ public class TestContingencyPlanner {
 		board.discardPlayerCard.put(cardName2, playerCard2);
 		int old_size = board.discardPlayerCard.size();
 
-		boolean cardUsed = contingencyPlanner.useEventCard(cardName);
+		boolean cardUsed = contingencyPlanner.useEventCard(specialCardName);
 		assertTrue(cardUsed);
 		assertTrue(contingencyPlanner.specialEventCard == null);
 		int new_size = board.discardPlayerCard.size();
