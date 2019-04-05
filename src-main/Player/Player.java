@@ -98,12 +98,9 @@ public abstract class Player {
 		} else {
 			if (cityCardName.equals(playerLocationCityName)) {
 				City destination = randomDestination();
-				System.out.println(destination.cityName);
 				while (destination.cityName.equals(playerLocationCityName)) {
 					destination = randomDestination();
-					System.out.println(destination.cityName);
 				}
-				System.out.println("Before assign location: " + destination.cityName);
 				location = destination;
 				discardCard(cityCard.cardName);
 				consumeAction();
@@ -147,7 +144,7 @@ public abstract class Player {
 	}
 
 	public void discoverCure() {
-		if(location.researchStation) {
+		if (location.researchStation) {
 			discoverCure.discoverCure();
 			consumeAction();
 		}
