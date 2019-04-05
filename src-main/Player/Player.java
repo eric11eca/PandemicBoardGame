@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import Card.PlayerCard;
-import Card.PlayerCardAction;
+import Card.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 
@@ -40,21 +40,18 @@ public abstract class Player {
 		}
 	}
 
-	public boolean usePlayerCard(String cardName) {
+	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(specialEventCard.cardName)) {
-			PlayerCardAction playerCardAction = new PlayerCardAction(board, specialEventCard);
-			cardUsed = playerCardAction.excuteCard();
+			EventCardAction eventCardAction = new EventCardAction(board, specialEventCard);
+			cardUsed = eventCardAction.excuteEventCard();
 			if (cardUsed) {
 				this.specialEventCard = null;
 			}
 		} else {
 			PlayerCard card = hand.get(cardName);
-			PlayerCardAction playerCardAction = new PlayerCardAction(board, card);
-			cardUsed = playerCardAction.excuteCard();
-			if (!card.cardType.equals(Board.CardType.EVENTCARD)) {
-				consumeAction();
-			}
+			EventCardAction eventCardAction = new EventCardAction(board, card);
+			cardUsed = eventCardAction.excuteEventCard();
 		}
 		return cardUsed;
 	}

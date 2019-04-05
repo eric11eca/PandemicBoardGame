@@ -35,14 +35,14 @@ public class DiscoverCureNormal implements DiscoverCure {
 
 	private void countColors() {
 		for (PlayerCard card : hand.values()) {
-			if (card.cardType == Board.CardType.CITYCARD) {
-				if (card.color == "YELLOW") {
+			if (card.cardType.equals(Board.CardType.CITYCARD)) {
+				if (card.color.equals("YELLOW")) {
 					yellow_count++;
-				} else if (card.color == "RED") {
+				} else if (card.color.equals("RED")) {
 					red_count++;
-				} else if (card.color == "BLUE") {
+				} else if (card.color.equals("BLUE")) {
 					blue_count++;
-				} else if (card.color == "BLACK") {
+				} else if (card.color.equals("BLACK")) {
 					black_count++;
 				}
 			}
