@@ -34,8 +34,8 @@ public class GameSetup {
 		initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
-		initBoard.initializeDiseaseCube();
 		initBoard.initializeRemainDiseaseCube();
+		initBoard.initializeDiseaseCube();
 
 		initPlayerData.addRole();
 		initPlayerData.createPlayers();

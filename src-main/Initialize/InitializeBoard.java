@@ -32,9 +32,23 @@ public class InitializeBoard {
 			Integer y = Integer.parseInt(cityData.get(4));
 
 			City city = new City(cityName, color, population, x, y);
+
 			initializeCity(city);
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
+		}
+		initializeNeighbors(citiesData);
+	}
+
+	public void initializeNeighbors(List<List<String>> citiesData) {
+		for (List<String> cityData : citiesData) {
+			String cityName = cityData.get(0);
+			City city = board.cities.get(cityName);
+			for (int i = 5; i < cityData.size(); i++) {
+				String neighborName = cityData.get(i);
+				City neighbor = board.cities.get(neighborName);
+				city.neighbors.add(neighbor);
+			}
 		}
 	}
 
