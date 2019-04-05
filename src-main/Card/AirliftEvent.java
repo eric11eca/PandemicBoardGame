@@ -15,6 +15,5 @@ public class AirliftEvent {
 		Player player = board.currentPlayers.get(playeridx);
 		String cityName = board.nameofCityAirlift;
 		player.location = board.cities.get(cityName);
-		board.currentPlayers.add(playeridx, player);
 	}
 }
