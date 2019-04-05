@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import Card.PlayerCard;
+import Card.PlayerCardAction;
 import Initialize.Board;
 import Initialize.City;
 
@@ -39,19 +40,25 @@ public abstract class Player{
 		}
 	}
 	
-	public boolean useCard(String cardName) {
+	public boolean usePlayerCard(String cardName) {
 		boolean cardUsed = false;
 		if(cardName.equals(specialEventCard.cardName)) {
-			cardUsed = specialEventCard.excuteEvents();
+			PlayerCardAction playerCardAction = new PlayerCardAction(board, specialEventCard);
+			cardUsed = playerCardAction.excuteCard();
 			if(cardUsed) {
 				this.specialEventCard = null;
 			}
 		} else {
 			PlayerCard card = hand.get(cardName);
-			cardUsed = card.excuteEvents();
+			PlayerCardAction playerCardAction = new PlayerCardAction(board, card);
+			cardUsed = playerCardAction.excuteCard();
+			if (!card.cardType.equals(Board.CardType.EVENTCARD)) {
+				 action--;
+			}
 		}
 		return cardUsed;
 	}
+
 
 	public boolean discardCard(String cardName){
 		if(hand.containsKey(cardName)){
@@ -73,7 +80,7 @@ public abstract class Player{
 		if (cityCard.cardName.equals(location.cityName)) {
 			throw new IllegalArgumentException("Cannot direct flight to current city");
 		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
-			hand.remove(cityCard);
+			hand.remove(cityCard.cardName);
 			consumeAction();
 			location = board.cities.get(cityCard.cardName);
 		} else {
