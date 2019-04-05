@@ -30,7 +30,6 @@ public class GUI {
 		frame.add(label, BorderLayout.PAGE_END);
 		mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
-		frame.add(panel, BorderLayout.EAST);
 	}
 
 	public void addPanel(JPanel panel) {
@@ -44,21 +43,19 @@ public class GUI {
 	}
 
 	public void loadInitialGame() {
-		// TODO Auto-generated method stub
 		loadBoardImage();
 
 	}
 
 	private void loadBoardImage() {
 		try {
-			BufferedImage img = ImageIO.read(new File("Main Picture.png"));
-			ImageIcon icon = new ImageIcon(img);
 			JLabel label = new JLabel();
-			label.setIcon(icon);
+			DrawingBoard draw = new DrawingBoard(board, frame, label); 
+			draw.repaint();
 			setPanels(label);
 
 		} catch (IOException e) {
-			System.out.println("File not found");
+			System.out.println("File not found " + e.getMessage());
 		}
 
 	}

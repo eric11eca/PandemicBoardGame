@@ -67,7 +67,7 @@ public class InitializeGame {
 	}
 
 	public void SetDifficulty(int epidemics, JPanel panelToClose) {
-		System.out.println(epidemics);
+		//System.out.println(epidemics);
 		
 		epidemicNumber = epidemics;
 		board.epidemicCardNum = epidemics;
@@ -80,7 +80,7 @@ public class InitializeGame {
 	}
 	
 	public void startCreationofBoard(){
-		createInfoPanel();
+		//createInfoPanel();
 		StartGame();
 	}
 
@@ -125,6 +125,7 @@ public class InitializeGame {
 
 	private void StartGame() {
 		// TODO Auto-generated method stub
+		gui.board = board;
 		gui.loadInitialGame();
 	}
 

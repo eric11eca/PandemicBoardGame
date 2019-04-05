@@ -1,4 +1,5 @@
 package main;
+
 import Initialize.*;
 
 public class Pandemic {
