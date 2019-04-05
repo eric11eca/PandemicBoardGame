@@ -2,7 +2,7 @@ package Card;
 
 import Initialize.Board;
 
-public class PlayerCardAction {
+public class EventCardAction {
 	Board board;
 	PlayerCard playerCard;
 
@@ -17,7 +17,7 @@ public class PlayerCardAction {
 	private final String governmentGrant = "GovernmentGrant";
 	private final String resilientPopulation = "ResilientPopulation";
 
-	public PlayerCardAction(Board gameBoard, PlayerCard card) {
+	public EventCardAction(Board gameBoard, PlayerCard card) {
 		board = gameBoard;
 		playerCard = card;
 		airliftEvent = new AirliftEvent(board);
@@ -41,20 +41,6 @@ public class PlayerCardAction {
 			return true;
 		} else if (playerCard.cardName.equals(resilientPopulation)) {
 			return true;
-		}
-		return false;
-	}
-
-	public boolean excuteCityCard() {
-		return false;
-
-	}
-
-	public boolean excuteCard() {
-		if (playerCard.cardType.equals(Board.CardType.EVENTCARD)) {
-			return excuteEventCard();
-		} else if (playerCard.cardType.equals(Board.CardType.CITYCARD)) {
-			return excuteCityCard();
 		}
 		return false;
 	}

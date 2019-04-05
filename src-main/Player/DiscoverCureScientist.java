@@ -35,7 +35,7 @@ public class DiscoverCureScientist implements DiscoverCure {
 
 	private void countColors() {
 		for (PlayerCard card : hand.values()) {
-			if (card.cardType == Board.CardType.CITYCARD) {
+			if (card.cardType.equals(Board.CardType.CITYCARD)) {
 				if (card.color.equals("YELLOW")) {
 					yellow_count++;
 				} else if (card.color.equals("RED")) {

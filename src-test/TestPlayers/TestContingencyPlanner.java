@@ -47,7 +47,7 @@ public class TestContingencyPlanner {
 		board.discardPlayerCard.put(cardName2, playerCard2);
 		int old_size = board.discardPlayerCard.size();
 
-		boolean cardUsed = contingencyPlanner.usePlayerCard(cardName);
+		boolean cardUsed = contingencyPlanner.useEventCard(cardName);
 		assertTrue(cardUsed);
 		assertTrue(contingencyPlanner.specialEventCard == null);
 		int new_size = board.discardPlayerCard.size();
