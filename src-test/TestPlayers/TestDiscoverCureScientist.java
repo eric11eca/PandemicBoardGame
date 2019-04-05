@@ -1,6 +1,6 @@
 package TestPlayers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class TestDiscoverCureScientist {
 	DiscoverCureScientist scienceCure;
 	Map<String, PlayerCard> hand;
 	Board board;
-	
+
 	@Before
 	public void setup() {
 		hand = new HashMap<>();
@@ -41,14 +41,14 @@ public class TestDiscoverCureScientist {
 		PlayerCard card5 = new PlayerCard(Board.CardType.CITYCARD, cardName5);
 		PlayerCard card6 = new PlayerCard(Board.CardType.EVENTCARD, cardName6);
 		PlayerCard card7 = new PlayerCard(Board.CardType.CITYCARD, cardName7);
-		
-		card1.color = "Yellow";
-		card2.color = "Red";
-		card3.color = "Red";
-		card4.color = "Red";
-		card5.color = "Red";
-		card7.color = "Blue";
-		
+
+		card1.color = "YELLOW";
+		card2.color = "RED";
+		card3.color = "RED";
+		card4.color = "RED";
+		card5.color = "RED";
+		card7.color = "BLUE";
+
 		hand.put(cardName1, card1);
 		hand.put(cardName2, card2);
 		hand.put(cardName3, card3);
@@ -56,9 +56,9 @@ public class TestDiscoverCureScientist {
 		hand.put(cardName5, card5);
 		hand.put(cardName6, card6);
 		hand.put(cardName7, card7);
-		
+
 		assertTrue(board.curedDiseases.isEmpty());
 		scienceCure.discoverCure();
-		assertTrue(board.curedDiseases.contains("Red"));
+		assertTrue(board.curedDiseases.contains("RED"));
 	}
 }
