@@ -31,16 +31,21 @@ public class TestInitializeDiseaseCube {
 		initializeBoard.board.validInfectionCard.add("i");
 		initializeBoard.board.validInfectionCard.add("j");
 		
-		initializeBoard.board.cities.put("a", new City("a"));
-		initializeBoard.board.cities.put("b", new City("b"));
-		initializeBoard.board.cities.put("c", new City("c"));
-		initializeBoard.board.cities.put("d", new City("d"));
-		initializeBoard.board.cities.put("e", new City("e"));
-		initializeBoard.board.cities.put("f", new City("f"));
-		initializeBoard.board.cities.put("g", new City("g"));
-		initializeBoard.board.cities.put("h", new City("h"));
-		initializeBoard.board.cities.put("i", new City("i"));
-		initializeBoard.board.cities.put("j", new City("j"));
+		initializeBoard.board.cities.put("a", new City("a", "RED"));
+		initializeBoard.board.cities.put("b", new City("b", "RED"));
+		initializeBoard.board.cities.put("c", new City("c", "YELLOW"));
+		initializeBoard.board.cities.put("d", new City("d", "BLUE"));
+		initializeBoard.board.cities.put("e", new City("e", "YELLOW"));
+		initializeBoard.board.cities.put("f", new City("f", "BLACK"));
+		initializeBoard.board.cities.put("g", new City("g", "BLUE"));
+		initializeBoard.board.cities.put("h", new City("h", "YELLOW"));
+		initializeBoard.board.cities.put("i", new City("i", "RED"));
+		initializeBoard.board.cities.put("j", new City("j", "BLUE"));
+		
+		board.remainDiseaseCube.put("RED", 24);
+		board.remainDiseaseCube.put("BLUE", 24);
+		board.remainDiseaseCube.put("BLACK", 24);
+		board.remainDiseaseCube.put("YELLOW", 24);
 	}
 	
 	@Test

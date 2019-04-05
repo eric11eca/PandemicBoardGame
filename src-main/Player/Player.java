@@ -11,7 +11,6 @@ import Initialize.Board;
 import Initialize.City;
 
 public abstract class Player {
-
 	public Map<String, PlayerCard> hand = new HashMap<>();
 	public City location;
 	public int action = 4;
@@ -148,7 +147,10 @@ public abstract class Player {
 	}
 
 	public void discoverCure() {
-		discoverCure.discoverCure();
+		if(location.researchStation) {
+			discoverCure.discoverCure();
+			consumeAction();
+		}
 	}
 
 }

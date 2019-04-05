@@ -16,6 +16,8 @@ public class Board {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
 
+	public String nameofCardBeingPlayed;
+
 	public int playernumber = 0;
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;

@@ -1,5 +1,6 @@
 package Initialize;
 
+import Card.PlayerCard;
 import Player.Player;
 
 public class GameSetup {
@@ -55,6 +56,21 @@ public class GameSetup {
 		initBoard.initializeEpidemicCard(validPlayerNum);
 		initGame.startCreationofBoard();
 
+	}
+	
+	public void oneTurn() {
+		for (Player player : board.currentPlayers) {
+			PlayerCard playerCard = player.hand.get(board.nameofCardBeingPlayed);
+			String cardName = playerCard.cardName;
+			
+			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
+				player.directFlight(playerCard);
+			} else if (playerCard.cardType.equals(Board.CardType.EVENTCARD)) {
+				player.useEventCard(cardName);
+			}
+			
+			
+		}
 	}
 
 }

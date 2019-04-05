@@ -27,16 +27,16 @@ public class EventCardAction {
 	}
 
 	public boolean excuteEventCard() {
-		if (playerCard.cardName == airlift) {
+		if (playerCard.cardName.equals(airlift)) {
 			airliftEvent.airlift();
 			return true;
-		} else if (playerCard.cardName == forecast) {
+		} else if (playerCard.cardName.equals(forecast)) {
 			forecastEvent.forecast();
 			return true;
-		} else if (playerCard.cardName == oneQuietNight) {
+		} else if (playerCard.cardName.equals(oneQuietNight)) {
 			nightEvent.skipNextInfection();
 			return true;
-		} else if (playerCard.cardName == governmentGrant) {
+		} else if (playerCard.cardName.equals(governmentGrant)) {
 			grantEvent.addResearchStation();
 			return true;
 		} else if (playerCard.cardName.equals(resilientPopulation)) {

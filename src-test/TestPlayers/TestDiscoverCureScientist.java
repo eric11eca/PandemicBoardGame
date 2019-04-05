@@ -42,12 +42,12 @@ public class TestDiscoverCureScientist {
 		PlayerCard card6 = new PlayerCard(Board.CardType.EVENTCARD, cardName6);
 		PlayerCard card7 = new PlayerCard(Board.CardType.CITYCARD, cardName7);
 		
-		card1.color = "Yellow";
-		card2.color = "Red";
-		card3.color = "Red";
-		card4.color = "Red";
-		card5.color = "Red";
-		card7.color = "Blue";
+		card1.color = "YELLOW";
+		card2.color = "RED";
+		card3.color = "RED";
+		card4.color = "RED";
+		card5.color = "RED";
+		card7.color = "BLUE";
 		
 		hand.put(cardName1, card1);
 		hand.put(cardName2, card2);
@@ -59,6 +59,6 @@ public class TestDiscoverCureScientist {
 		
 		assertTrue(board.curedDiseases.isEmpty());
 		scienceCure.discoverCure();
-		assertTrue(board.curedDiseases.contains("Red"));
+		assertTrue(board.curedDiseases.contains("RED"));
 	}
 }
