@@ -1,6 +1,6 @@
 SanFrancisco,BLUE,884363,67,157,Chicago,LosAngeles,Tokyo,Manila
 Chicago,BLUE,2716000,200,121,SanFransisco,LosAngeles,MexicoCity,Atlanta,Montreal
-Atlanta,BLUE,486290,100,240,196,Chicago,Washington,Miami
+Atlanta,BLUE,486290,240,200,196,Chicago,Washington,Miami
 NewYork,BLUE,8623000,385,130,Montreal,Washington,London,Madrid
 Montreal,BLUE,1705000,306,119,NewYork,Chicago
 Washington,BLUE,7536000,349,192,Miami,Atlanta,Montreal,NewYork

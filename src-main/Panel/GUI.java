@@ -51,14 +51,17 @@ public class GUI {
 
 	private void loadBoardImage() {
 		try {
-			BufferedImage img = ImageIO.read(new File("Main Picture.png"));
-			ImageIcon icon = new ImageIcon(img);
+			//BufferedImage img = ImageIO.read(new File("Main Picture.png"));
 			JLabel label = new JLabel();
-			label.setIcon(icon);
+			DrawingBoard draw = new DrawingBoard(board, frame, label); 
+			draw.repaint();
+		//	ImageIcon icon = new ImageIcon(img);
+			
+			//label.setIcon(icon);
 			setPanels(label);
 
 		} catch (IOException e) {
-			System.out.println("File not found");
+			System.out.println("File not found " + e.getMessage());
 		}
 
 	}

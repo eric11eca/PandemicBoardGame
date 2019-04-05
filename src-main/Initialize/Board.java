@@ -22,8 +22,8 @@ public class Board {
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;
 	int initialHandCard = 0;
-	int outbreakCount = 0;
-	int infectionRate;
+	public int outbreakCount = 0;
+	public int infectionRate = 0;
 	int yellowCubes = 24;
 	int redCubes = 24;
 	int blueCubes = 24;
