@@ -137,6 +137,19 @@ public abstract class Player {
 		}
 	}
 
+	public void treat(String diseaseColor) {
+		int numOfDiseaseCubes = location.diseaseCubes.get(diseaseColor);
+		if (numOfDiseaseCubes == 0) {
+			throw new RuntimeException("The number of " + diseaseColor + "Cube is zero");
+		}
+		int removeCounts = 1;
+		if (board.curedDiseases.contains(diseaseColor)) {
+			removeCounts = numOfDiseaseCubes;
+		}
+		location.diseaseCubes.put(diseaseColor, numOfDiseaseCubes - removeCounts);
+		consumeAction();
+	}
+
 	public void discoverCure() {
 		discoverCure.discoverCure();
 	}
