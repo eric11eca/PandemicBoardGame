@@ -1,11 +1,6 @@
 package main;
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 import Initialize.*;
-import Player.Player;
 
 public class Pandemic {
 	

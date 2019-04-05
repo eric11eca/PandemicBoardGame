@@ -30,7 +30,6 @@ public class GUI {
 		frame.add(label, BorderLayout.PAGE_END);
 		mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
-		frame.add(panel, BorderLayout.EAST);
 	}
 
 	public void addPanel(JPanel panel) {
@@ -44,20 +43,15 @@ public class GUI {
 	}
 
 	public void loadInitialGame() {
-		// TODO Auto-generated method stub
 		loadBoardImage();
 
 	}
 
 	private void loadBoardImage() {
 		try {
-			//BufferedImage img = ImageIO.read(new File("Main Picture.png"));
 			JLabel label = new JLabel();
 			DrawingBoard draw = new DrawingBoard(board, frame, label); 
 			draw.repaint();
-		//	ImageIcon icon = new ImageIcon(img);
-			
-			//label.setIcon(icon);
 			setPanels(label);
 
 		} catch (IOException e) {

@@ -66,26 +66,16 @@ public class DrawingBoard {
 			drawPlayer(player.location, Integer.toString(currentPlayerNum));
 		}
 
-		// cured stuff still needs to go down
-
 		drawCards(board.validPlayerCard.size());
-
-	
-		//JLabel j = new JLabel(new ImageIcon(img));
 		ImageIcon icon = new ImageIcon(img);
 		label.setIcon(icon);
-		//j.setSize(2000, 2000);
-	//	j.setPreferredSize(new Dimension(2000, 2000));
-		//JFrame frame = new JFrame();
-		//frame.add(j);
 		frame.setVisible(true);
-		//frame.setSize(1900, 1900);
 		frame.show();
 	}
 
 	public void drawInfect(int i) {
 		g.setFont(new Font("X", Font.BOLD, 30));
-		g.drawString("X", 800 + (i * 50), 55);
+		g.drawString("X", 900 + (i * 50), 55);
 	}
 
 	public void drawCards(int i) {

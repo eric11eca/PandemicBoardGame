@@ -80,7 +80,7 @@ public class InitializeGame {
 	}
 	
 	public void startCreationofBoard(){
-		createInfoPanel();
+		//createInfoPanel();
 		StartGame();
 	}
 
