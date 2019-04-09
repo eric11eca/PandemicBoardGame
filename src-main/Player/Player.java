@@ -1,5 +1,6 @@
 package Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -143,11 +144,16 @@ public abstract class Player {
 		consumeAction();
 	}
 
-	public void discoverCure() {
-		if (location.researchStation) {
-			discoverCure.discoverCure();
+	public void discoverCure(ArrayList<PlayerCard> cards) {
+		if (isResearchStation()) {
+			discoverCure.discoverCure(cards);
 			consumeAction();
+		} else {
+			throw new RuntimeException("You are not at the research Station!!");
 		}
 	}
 
+	private boolean isResearchStation() {
+		return location.researchStation;
+	}
 }
