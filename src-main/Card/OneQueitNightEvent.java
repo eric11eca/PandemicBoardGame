@@ -9,8 +9,9 @@ public class OneQueitNightEvent {
 		board = gameBoard;
 	}
 	
-	public void skipNextInfection() {
+	public boolean skipNextInfection() {
 		board.inQueitNight = true;
+		return true;
 	}
 
 }

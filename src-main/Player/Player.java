@@ -102,7 +102,7 @@ public abstract class Player {
 				while (destination.cityName.equals(playerLocationCityName)) {
 					destination = randomDestination();
 					System.out.println(destination.cityName);
-				}
+				} 
 				System.out.println("Before assign location: " + destination.cityName);
 				location = destination;
 				discardCard(cityCard.cardName);

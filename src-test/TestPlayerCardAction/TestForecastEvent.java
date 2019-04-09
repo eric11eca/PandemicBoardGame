@@ -81,11 +81,12 @@ public class TestForecastEvent {
 	
 	@Test 
 	public void testForecast() {
-		forecast.forecast();
+		boolean used = forecast.forecast();
 		assertEquals(6, board.infectionCardForecast.size());
 		assertEquals("Cairo", board.validInfectionCard.get(0));
 		assertEquals("TaiPei", board.validInfectionCard.get(3));
 		assertEquals("Paris", board.validInfectionCard.get(7));
+		assertTrue(used);
 	}
 	
 	@Test
