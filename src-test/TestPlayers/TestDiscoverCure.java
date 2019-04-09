@@ -29,9 +29,9 @@ public class TestDiscoverCure {
 	public void setup() {
 		board = new Board();
 		medic = new Medic(board);
-		medicDiscoverCure = new DiscoverCureNormal(medic.hand, board.curedDiseases);
+		medicDiscoverCure = new DiscoverCureNormal(board.curedDiseases);
 		scientist = new Scientist(board);
-		scientistDiscoverCure = new DiscoverCureScientist(scientist.hand, board.curedDiseases);
+		scientistDiscoverCure = new DiscoverCureScientist(board.curedDiseases);
 
 		yellowCityName1 = "yellowCity1";
 		redCityName1 = "redCity1";

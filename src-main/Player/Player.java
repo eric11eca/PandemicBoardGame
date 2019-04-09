@@ -19,7 +19,7 @@ public abstract class Player {
 	public String cardToBeDiscard;
 	public boolean handOverFlow = false;
 	public Board board;
-	Random random;
+	public Random random;
 	DiscoverCure discoverCure;
 
 	public Player(Board gameBoard) {
@@ -57,7 +57,7 @@ public abstract class Player {
 	}
 
 	public void discardCard(String cardName) {
-		if (hand.containsKey(cardName)){
+		if (hand.containsKey(cardName)) {
 			PlayerCard playerCard = hand.get(cardName);
 			hand.remove(cardName);
 			board.discardPlayerCard.put(cardName, playerCard);
@@ -103,7 +103,7 @@ public abstract class Player {
 				City destination = randomDestination();
 				while (destination.cityName.equals(playerLocationCityName)) {
 					destination = randomDestination();
-				} 
+				}
 				location = destination;
 				discardCard(cityCard.cardName);
 				consumeAction();
@@ -145,10 +145,12 @@ public abstract class Player {
 		location.diseaseCubes.put(diseaseColor, numOfDiseaseCubes - removeCounts);
 		consumeAction();
 	}
+
 	public void discoverCure(ArrayList<PlayerCard> cards) {
 		if (isResearchStation()) {
 			if (discoverCure.discoverCure(cards)) {
 				for (PlayerCard playercard : cards) {
+					discardCard(playercard.cardName);
 				}
 				consumeAction();
 			}

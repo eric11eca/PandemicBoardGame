@@ -1,14 +1,12 @@
 package Player;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Set;
 
 import Card.PlayerCard;
 import Initialize.Board;
 
 public class DiscoverCure {
-	public Map<String, PlayerCard> hand;
 	public Set<String> curedDiseases;
 	public int cardCount;
 

@@ -76,7 +76,8 @@ public class TestCharterFlight {
 	public void testRandomDestination0() {
 		Random random = EasyMock.createMock(Random.class);
 		board.cities = EasyMock.createMock(HashMap.class);
-		player = new Medic(board, random);
+		player = new Medic(board);
+		player.random = random;
 		EasyMock.expect(random.nextInt(4)).andReturn(0);
 		ArrayList<City> cities = new ArrayList<City>();
 		addCities(cities);
@@ -96,7 +97,8 @@ public class TestCharterFlight {
 	public void testRandomDestinationEnd() {
 		Random random = EasyMock.createMock(Random.class);
 		board.cities = EasyMock.createMock(HashMap.class);
-		player = new Medic(board, random);
+		player = new Medic(board);
+		player.random = random;
 		EasyMock.expect(random.nextInt(4)).andReturn(3);
 		ArrayList<City> cities = new ArrayList<City>();
 		addCities(cities);
@@ -109,7 +111,8 @@ public class TestCharterFlight {
 	public void testRandomDestination2() {
 		Random random = EasyMock.createMock(Random.class);
 		board.cities = EasyMock.createMock(HashMap.class);
-		player = new Medic(board, random);
+		player = new Medic(board);
+		player.random = random;
 		EasyMock.expect(random.nextInt(4)).andReturn(1);
 		ArrayList<City> cities = new ArrayList<City>();
 		addCities(cities);
@@ -142,6 +145,7 @@ public class TestCharterFlight {
 		EasyMock.expect(mockRandom.randomDestination()).andReturn(chicagoCity);
 		EasyMock.expect(mockRandom.randomDestination()).andReturn(newyorkCity);
 		EasyMock.replay(mockRandom);
+		mockRandom.hand.put(locationCityCard.cardName, locationCityCard);
 		mockRandom.location = chicagoCity;
 		mockRandom.characterFlight(locationCityCard);
 		assertFalse("Chicago".equals(mockRandom.location.cityName));
