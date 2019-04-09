@@ -23,7 +23,7 @@ public class Medic extends Player {
 			}
 		}
 		if (!allCured) {
-			action--;
+			consumeAction();
 		}
 		location.diseaseCubes.clear();
 	}

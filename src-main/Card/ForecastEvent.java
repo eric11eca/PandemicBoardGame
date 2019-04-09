@@ -12,7 +12,7 @@ public class ForecastEvent {
 		board = gameBoard;
 	}
 	
-	private void reviewCard() {
+	public void reviewCard() {
 		for(int i = 0; i < 6; i++) {
 			String name = board.validInfectionCard.get(i);
 			String color = board.cities.get(name).color;
@@ -20,7 +20,7 @@ public class ForecastEvent {
 		}
 	}	
 	
-	private void arrangeCard() {
+	public void arrangeCard() {
 		List<Pair<String, Integer>> instruction = board.rearrangeInstruction;
 		for(int i = 0; i < instruction.size(); i++) {
 			String infection = instruction.get(i).getKey();
@@ -29,8 +29,9 @@ public class ForecastEvent {
 		}
 	}
 	
-	public void forecast() {
+	public boolean forecast() {
 		reviewCard();
 		arrangeCard();
+		return true;
 	}
 }

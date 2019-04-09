@@ -56,12 +56,14 @@ public abstract class Player {
 		return cardUsed;
 	}
 
-	public boolean discardCard(String cardName) {
-		if (hand.containsKey(cardName)) {
+	public void discardCard(String cardName) {
+		if (hand.containsKey(cardName)){
+			PlayerCard playerCard = hand.get(cardName);
 			hand.remove(cardName);
-			return true;
+			board.discardPlayerCard.put(cardName, playerCard);
+		} else {
+			throw new RuntimeException("This card does not exist in the hand");
 		}
-		return false;
 	}
 
 	public void drive(City destination) {
@@ -101,7 +103,7 @@ public abstract class Player {
 				City destination = randomDestination();
 				while (destination.cityName.equals(playerLocationCityName)) {
 					destination = randomDestination();
-				}
+				} 
 				location = destination;
 				discardCard(cityCard.cardName);
 				consumeAction();
@@ -143,7 +145,6 @@ public abstract class Player {
 		location.diseaseCubes.put(diseaseColor, numOfDiseaseCubes - removeCounts);
 		consumeAction();
 	}
-
 	public void discoverCure(ArrayList<PlayerCard> cards) {
 		if (isResearchStation()) {
 			if (discoverCure.discoverCure(cards)) {

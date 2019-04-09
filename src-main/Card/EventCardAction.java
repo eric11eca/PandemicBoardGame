@@ -6,10 +6,11 @@ public class EventCardAction {
 	Board board;
 	PlayerCard playerCard;
 
-	private AirliftEvent airliftEvent;
-	private ForecastEvent forecastEvent;
-	private OneQueitNightEvent nightEvent;
-	private GovernmentGrantEvent grantEvent;
+	public AirliftEvent airliftEvent;
+	public ForecastEvent forecastEvent;
+	public OneQueitNightEvent nightEvent;
+	public GovernmentGrantEvent grantEvent;
+	public ResilientPopulationEvent resilientEvent;
 
 	private final String airlift = "Airlift";
 	private final String forecast = "Forecast";
@@ -24,23 +25,20 @@ public class EventCardAction {
 		forecastEvent = new ForecastEvent(board);
 		nightEvent = new OneQueitNightEvent(board);
 		grantEvent = new GovernmentGrantEvent(board);
+		resilientEvent = new ResilientPopulationEvent(board);
 	}
 
 	public boolean excuteEventCard() {
 		if (playerCard.cardName.equals(airlift)) {
-			airliftEvent.airlift();
-			return true;
+			return airliftEvent.airlift();
 		} else if (playerCard.cardName.equals(forecast)) {
-			forecastEvent.forecast();
-			return true;
+			return forecastEvent.forecast();
 		} else if (playerCard.cardName.equals(oneQuietNight)) {
-			nightEvent.skipNextInfection();
-			return true;
+			return nightEvent.skipNextInfection();
 		} else if (playerCard.cardName.equals(governmentGrant)) {
-			grantEvent.addResearchStation();
-			return true;
+			return grantEvent.addResearchStation();
 		} else if (playerCard.cardName.equals(resilientPopulation)) {
-			return true;
+			return resilientEvent.resilientPopulation();
 		}
 		return false;
 	}
