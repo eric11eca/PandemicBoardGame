@@ -146,8 +146,11 @@ public abstract class Player {
 
 	public void discoverCure(ArrayList<PlayerCard> cards) {
 		if (isResearchStation()) {
-			discoverCure.discoverCure(cards);
-			consumeAction();
+			if (discoverCure.discoverCure(cards)) {
+				for (PlayerCard playercard : cards) {
+				}
+				consumeAction();
+			}
 		} else {
 			throw new RuntimeException("You are not at the research Station!!");
 		}

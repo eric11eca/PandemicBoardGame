@@ -69,12 +69,6 @@ public class TestDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
-
-		medic.hand.put(redCityName1, redCity1);
-		medic.hand.put(redCityName2, redCity2);
-		medic.hand.put(redCityName3, redCity3);
-		medic.hand.put(redCityName4, redCity4);
-		medic.hand.put(redCityName5, redCity5);
 		medicDiscoverCure.discoverCure(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
 	}
