@@ -10,10 +10,11 @@ public class AirliftEvent {
 		board = gameBoard;
 	}
 	
-	public void airlift() {
+	public boolean airlift() {
 		int playeridx = board.idxofPlayerAirlift;
 		Player player = board.currentPlayers.get(playeridx);
 		String cityName = board.nameofCityAirlift;
 		player.location = board.cities.get(cityName);
+		return true;
 	}
 }

@@ -1,5 +1,6 @@
 package Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public abstract class Player {
 	public String cardToBeDiscard;
 	public boolean handOverFlow = false;
 	public Board board;
-	Random random;
+	public Random random;
 	DiscoverCure discoverCure;
 
 	public Player(Board gameBoard) {
@@ -55,12 +56,14 @@ public abstract class Player {
 		return cardUsed;
 	}
 
-	public boolean discardCard(String cardName) {
+	public void discardCard(String cardName) {
 		if (hand.containsKey(cardName)) {
+			PlayerCard playerCard = hand.get(cardName);
 			hand.remove(cardName);
-			return true;
+			board.discardPlayerCard.put(cardName, playerCard);
+		} else {
+			throw new RuntimeException("This card does not exist in the hand");
 		}
-		return false;
 	}
 
 	public void drive(City destination) {
@@ -98,12 +101,9 @@ public abstract class Player {
 		} else {
 			if (cityCardName.equals(playerLocationCityName)) {
 				City destination = randomDestination();
-				System.out.println(destination.cityName);
 				while (destination.cityName.equals(playerLocationCityName)) {
 					destination = randomDestination();
-					System.out.println(destination.cityName);
 				}
-				System.out.println("Before assign location: " + destination.cityName);
 				location = destination;
 				discardCard(cityCard.cardName);
 				consumeAction();
@@ -146,11 +146,20 @@ public abstract class Player {
 		consumeAction();
 	}
 
-	public void discoverCure() {
-		if(location.researchStation) {
-			discoverCure.discoverCure();
-			consumeAction();
+	public void discoverCure(ArrayList<PlayerCard> cards) {
+		if (isResearchStation()) {
+			if (discoverCure.discoverCure(cards)) {
+				for (PlayerCard playercard : cards) {
+					discardCard(playercard.cardName);
+				}
+				consumeAction();
+			}
+		} else {
+			throw new RuntimeException("You are not at the research Station!!");
 		}
 	}
 
+	private boolean isResearchStation() {
+		return location.researchStation;
+	}
 }

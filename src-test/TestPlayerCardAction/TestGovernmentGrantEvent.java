@@ -28,9 +28,10 @@ public class TestGovernmentGrantEvent {
 		board.cityWithGrant = cityName;
 		City city_old = board.cities.get(cityName);
 		assertFalse(city_old.researchStation);
-		grant.addResearchStation();
+		boolean used = grant.addResearchStation();
 		City city_new = board.cities.get(cityName);
 		assertTrue(city_new.researchStation);
+		assertTrue(used);
 	}
 
 }

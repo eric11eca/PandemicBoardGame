@@ -1,6 +1,8 @@
 package TestPlayers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,16 +11,17 @@ import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
 import Player.OperationsExpert;
-import Player.Player;
 
 public class TestOperationsExpert {
 	OperationsExpert operationsExpert;
 	City location;
 	Board board;
+
 	@Before
 	public void setup() {
 		board = new Board();
 		operationsExpert = new OperationsExpert(board);
+		operationsExpert.location = new City();
 		location = operationsExpert.location;
 	}
 
@@ -29,8 +32,8 @@ public class TestOperationsExpert {
 		assertTrue(location.researchStation);
 		assertEquals(operationsExpert.action, 3);
 	}
-	
-	@Test 
+
+	@Test
 	public void testMoveToAnotherCity() {
 		String cityName = "NewYork";
 		String new_cityName = "Chicago";

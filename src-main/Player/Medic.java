@@ -1,18 +1,12 @@
 package Player;
 
-import java.util.Random;
-
 import Initialize.Board;
 
 public class Medic extends Player {
 
 	public Medic(Board gameBoard) {
 		super(gameBoard);
-	}
-
-	public Medic(Board gameBoard, Random random) {
-		super(gameBoard, random);
-		discoverCure = new DiscoverCureNormal(hand, gameBoard.curedDiseases);
+		discoverCure = new DiscoverCureNormal(gameBoard.curedDiseases);
 	}
 
 	public void removeAllCubes() {
@@ -23,7 +17,7 @@ public class Medic extends Player {
 			}
 		}
 		if (!allCured) {
-			action--;
+			consumeAction();
 		}
 		location.diseaseCubes.clear();
 	}

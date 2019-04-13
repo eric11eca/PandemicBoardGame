@@ -1,5 +1,6 @@
 package TestPlayerCommonActions;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -14,26 +15,36 @@ import Initialize.City;
 import Player.Dispatcher;
 import Player.Player;
 
-public class TestReceiveDiscardCityCard {
+public class TestReceiveCard {
 	private Board board;
-	private City city;
 	private ArrayList<PlayerCard> citycards;
+	Player player;
 
 	@Before
 	public void setup() {
-		city = new City();
 		board = new Board();
-		city.cityName = "city";
+		player = new Dispatcher(board);
+		
 		String[] cities = { "A", "B", "C", "D", "E", "F", "G", "H" };
 		citycards = new ArrayList<>();
 		for (String city : cities) {
 			citycards.add(new PlayerCard(Board.CardType.CITYCARD, city));
 		}
 	}
+	
+	@Test 
+	public void testHandOverFlow() {
+		for (int i = 0; i < 7; i++) {
+			player.receiveCard(citycards.get(i));
+		}
+		player.cardToBeDiscard = "C";
+		player.receiveCard(citycards.get(7));
+		assertTrue(player.handOverFlow);
+		assertEquals(1, board.discardPlayerCard.size());
+	}
 
 	@Test
 	public void testNormalReceiveAndDiscardCityCard() {
-		Player player = new Dispatcher(board);
 		player.receiveCard(citycards.get(0));
 		assertTrue(player.hand.containsKey(citycards.get(0).cardName));
 		player.discardCard(citycards.get(0).cardName);

@@ -1,4 +1,5 @@
 package TestPlayerCommonActions;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -18,8 +19,8 @@ public class TestDirectFlight {
 
 	@Before
 	public void setup() {
-		player = new Medic(board);
 		board = new Board();
+		player = new Medic(board);
 		player.board = board;
 		String newyork = "NewYork";
 		City newyorkCity = new City(newyork);
