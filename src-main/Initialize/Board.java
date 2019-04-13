@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import Card.PlayerCard;
 import Player.Player;
@@ -23,7 +24,7 @@ public class Board {
 	public int epidemicCardNum = 0;
 	int initialHandCard = 0;
 	public int outbreakCount = 0;
-	public int infectionRate = 0;
+	public Stack<Integer> infectionRateTrack = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	
 	public String cityWithGrant;
