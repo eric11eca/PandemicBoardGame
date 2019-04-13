@@ -15,13 +15,22 @@ public class TestResilientPopulationEvent {
 	@Before
 	public void setup() {
 		board = new Board();
+		String infect1 = "a";
+		String infect2 = "b";
+		String infect3 = "c";
+		board.discardInfectionCard.add(infect1);
+		board.discardInfectionCard.add(infect2);
+		board.discardInfectionCard.add(infect3);
 		resilientPopulationEvent = new ResilientPopulationEvent(board);
 	}
 
 	@Test
 	public void testresilientPopulation() {
+		String infect = "c";
+		board.cardRemovedByResilient = infect;
 		boolean used = resilientPopulationEvent.resilientPopulation();
 		assertTrue(used);
+		assertFalse(board.discardInfectionCard.contains(infect));
 	}
 
 }

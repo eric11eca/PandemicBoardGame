@@ -25,14 +25,12 @@ public class Board {
 	int outbreakCount = 0;
 	int infectionRate;
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
-
-	public boolean inQueitNight = false;
-
+	
 	public String cityWithGrant;
-
 	public int idxofPlayerAirlift;
 	public String nameofCityAirlift;
-
+	public boolean inQueitNight = false;
+	public String cardRemovedByResilient;
 	public Map<String, String> infectionCardForecast = new HashMap<>();
 	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
 
@@ -44,5 +42,7 @@ public class Board {
 	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();
 	public List<String> validInfectionCard = new ArrayList<String>();
 	public List<String> discardInfectionCard = new ArrayList<String>();
+
+	
 
 }

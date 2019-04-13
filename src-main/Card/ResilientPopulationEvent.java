@@ -10,6 +10,8 @@ public class ResilientPopulationEvent {
 	}
 	
 	public boolean resilientPopulation() {
+		String cardToBeRemoved = board.cardRemovedByResilient;
+		board.discardInfectionCard.remove(cardToBeRemoved);
 		return true;
 	}
 }
