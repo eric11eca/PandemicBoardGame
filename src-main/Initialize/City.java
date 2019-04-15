@@ -11,6 +11,7 @@ public class City {
 	public HashMap<String, Integer> diseaseCubes;
 	public boolean researchStation;
 	public HashSet<City> neighbors;
+	public boolean isInOutbreak = false;
 
 	public City() {
 		this.diseaseCubes = new HashMap<String, Integer>();

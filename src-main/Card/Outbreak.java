@@ -1,7 +1,6 @@
 package Card;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import Initialize.Board;
 import Initialize.City;
@@ -13,15 +12,16 @@ public class Outbreak {
 		board = gameBoard;
 	}
 
-	public void moveOutbreakMarkForward() {
+	public boolean moveOutbreakMarkForward() {
 		board.outbreakMark += 1;
 		if(board.outbreakMark == 8) {
 			board.gameEnd = true;
 			board.playerLose = true;
 		}
+		return true;
 	}
 	
-	public void infectConnectedCities(City currentCity) {
+	public boolean infectConnectedCities(City currentCity) {
 		String disease = currentCity.color;
 		HashSet<City> infectedNeighbors = new HashSet<>();
 		for(City city : currentCity.neighbors) {
@@ -30,6 +30,15 @@ public class Outbreak {
 			infectedNeighbors.add(city);
 		}
 		currentCity.neighbors = infectedNeighbors;
+		return true;
+	}
+	
+	public boolean performeOutbreak(City currentCity) {
+		boolean outbreak = false;
+		currentCity.isInOutbreak = true;
+		outbreak = moveOutbreakMarkForward();
+		outbreak = infectConnectedCities(currentCity);
+		return outbreak;
 	}
 	
 }
