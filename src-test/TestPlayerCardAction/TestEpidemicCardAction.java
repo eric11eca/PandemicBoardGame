@@ -3,6 +3,7 @@ package TestPlayerCardAction;
 import static org.junit.Assert.*;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -87,6 +88,17 @@ public class TestEpidemicCardAction {
 		assertFalse(oldDiscardInfectionCards.equals(newDiscardInfectionCards));
 	}
 	
-
+	@Test 
+	public void testNewInfectionCardDeck() {
+		board.validInfectionCard.add("Paris");
+		board.discardInfectionCard.add("Chicaco");
+		board.discardInfectionCard.add("NewYork");
+		board.discardInfectionCard.add("London");
+		board.discardInfectionCard.add("Atlanta");
+		epidemicCardAction.makingNewInfectionCardDeck();
+		int newSize = board.validInfectionCard.size();
+		assertEquals(5, newSize);
+		assertTrue(board.discardInfectionCard.isEmpty());
+	}
 
 }

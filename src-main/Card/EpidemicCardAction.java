@@ -43,7 +43,11 @@ public class EpidemicCardAction {
 		Collections.shuffle(board.discardInfectionCard);
 	}
 	
-
+	public void makingNewInfectionCardDeck() {
+		List<String> moreInfectionCards = board.discardInfectionCard;
+		board.validInfectionCard.addAll(0, moreInfectionCards);
+		board.discardInfectionCard.clear();
+	}
 	
 	
 	
