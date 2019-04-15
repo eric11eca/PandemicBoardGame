@@ -23,8 +23,8 @@ public class Board {
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;
 	int initialHandCard = 0;
-	public int outbreakCount = 0;
 	public Stack<Integer> infectionRateTrack = new Stack<>();
+	public int outbreakMark = 0;
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	
 	public String cityWithGrant;
@@ -44,6 +44,8 @@ public class Board {
 	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();
 	public List<String> validInfectionCard = new ArrayList<String>();
 	public List<String> discardInfectionCard = new ArrayList<String>();
+
+	
 
 	
 
