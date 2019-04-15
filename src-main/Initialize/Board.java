@@ -35,6 +35,7 @@ public class Board {
 	public Map<String, String> infectionCardForecast = new HashMap<>();
 	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
 
+	public Set<String> eradicatedDiseases = new HashSet<String>();
 	public Set<String> curedDiseases = new HashSet<String>();
 	public Map<String, City> cities = new HashMap<String, City>();
 	public List<String> totalRoles = new ArrayList<String>();
@@ -43,6 +44,8 @@ public class Board {
 	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();
 	public List<String> validInfectionCard = new ArrayList<String>();
 	public List<String> discardInfectionCard = new ArrayList<String>();
+
+	
 
 	
 
