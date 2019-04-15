@@ -45,6 +45,10 @@ public class Board {
 	public List<String> validInfectionCard = new ArrayList<String>();
 	public List<String> discardInfectionCard = new ArrayList<String>();
 
+	public boolean gameEnd = false;
+	public boolean playerLose = false;
+	public boolean playerWin = false;
+
 	
 
 	
