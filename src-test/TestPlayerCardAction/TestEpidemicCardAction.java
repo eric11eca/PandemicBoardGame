@@ -2,6 +2,8 @@ package TestPlayerCardAction;
 
 import static org.junit.Assert.*;
 
+import java.util.Collections;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -71,5 +73,20 @@ public class TestEpidemicCardAction {
 		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
 	}
+	
+	@Test
+	public void testReshuffleDiscardInfectionCardDeck() {
+		board.discardInfectionCard.add("Chicaco");
+		board.discardInfectionCard.add("NewYork");
+		board.discardInfectionCard.add("London");
+		board.discardInfectionCard.add("Atlanta");
+		
+		String oldDiscardInfectionCards = board.discardInfectionCard.toString();
+		epidemicCardAction.reshuffleDiscardInfectionDeck();
+		String newDiscardInfectionCards = board.discardInfectionCard.toString();
+		assertFalse(oldDiscardInfectionCards.equals(newDiscardInfectionCards));
+	}
+	
+
 
 }
