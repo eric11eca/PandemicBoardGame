@@ -22,11 +22,10 @@ public class EpidemicCardAction {
 		String infection = board.validInfectionCard.get(size-1);
 		City city = board.cities.get(infection);
 		String disease = city.color;
-		if(!board.eradicatedDiseases.contains(disease)) {
-			while(city.diseaseCubes.get(disease) != 3) {
-				int numOfCubes = city.diseaseCubes.get(disease);
-				city.diseaseCubes.put(disease, numOfCubes++);
-			}
+		//if(!board.eradicatedDiseases.contains(disease))
+		while(city.diseaseCubes.get(disease) != 3) {
+			int numOfCubes = city.diseaseCubes.get(disease);
+			city.diseaseCubes.put(disease, numOfCubes+1);
 		}
 	}
 	

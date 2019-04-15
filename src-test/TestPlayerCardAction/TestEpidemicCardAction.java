@@ -66,6 +66,7 @@ public class TestEpidemicCardAction {
 	
 	@Test
 	public void testInfectionOfNewDisease() {
+		board.validInfectionCard.add("cityB");
 		epidemicCardAction.infect();
 		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
