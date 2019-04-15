@@ -28,8 +28,8 @@ public class TestOutbreak {
 		city2.cityName = "NewYork";
 		city2.color = "YELLOW";
 		city2.diseaseCubes.put("RED", 0);
-		city.neighbors.add(city1);
-		city.neighbors.add(city2);
+		city.neighbors.put(city1.cityName, city1);
+		city.neighbors.put(city2.cityName, city2);
 		outBreak = new Outbreak(board);
 	}
 
@@ -51,10 +51,12 @@ public class TestOutbreak {
 	public void testPlaceDiseaseCubeOnConnectedCities() {
 		boolean infected = outBreak.infectConnectedCities(city);
 		assertTrue(infected);
-		for(City neighbor : city.neighbors) {
-			int numOfCubes = neighbor.diseaseCubes.get("RED");
-			assertEquals(1, numOfCubes);
-		}	
+		City neighbor1 = city.neighbors.get("Chicago");
+		City neighbor2 = city.neighbors.get("NewYork");
+		int numOfCubesCity1 = neighbor1.diseaseCubes.get("RED");
+		int numOfCubesCity2 = neighbor2.diseaseCubes.get("RED");
+		assertEquals(1, numOfCubesCity1);
+		assertEquals(1, numOfCubesCity2);
 	}
 	
 	@Test

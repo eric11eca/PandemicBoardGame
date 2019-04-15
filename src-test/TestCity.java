@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -26,23 +27,17 @@ public class TestCity {
 		City c3 = new City();
 		
 		c1.cityName = "Atalanta";
-		c2.cityName = "New York";
+		c2.cityName = "NewYork";
 		c3.cityName = "Boston";
 		
-		city.neighbors.add(c1); 
-		city.neighbors.add(c2); 
-		city.neighbors.add(c3);
-		
-		HashSet<String> cityNames = new HashSet<String>();
-		
-		cityNames.add("Atalanta");
-		cityNames.add("New York");
-		cityNames.add("Boston");
-		
-		Iterator<City> it = city.neighbors.iterator();
-	    while(it.hasNext()){
-	        assertTrue(cityNames.contains(it.next().cityName));
-	    } 
+		city.neighbors.put(c1.cityName, c1); 
+		city.neighbors.put(c2.cityName, c2); 
+		city.neighbors.put(c3.cityName, c3);
+			
+		Set<String> neighbors = city.neighbors.keySet();
+		assertTrue(neighbors.contains("Atalanta"));
+		assertTrue(neighbors.contains("NewYork"));
+		assertTrue(neighbors.contains("Boston"));
 	}
 	
 	@Test

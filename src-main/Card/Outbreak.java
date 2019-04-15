@@ -1,6 +1,7 @@
 package Card;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import Initialize.Board;
 import Initialize.City;
@@ -23,11 +24,12 @@ public class Outbreak {
 	
 	public boolean infectConnectedCities(City currentCity) {
 		String disease = currentCity.color;
-		HashSet<City> infectedNeighbors = new HashSet<>();
-		for(City city : currentCity.neighbors) {
+		Map<String, City> infectedNeighbors = new HashMap<>();
+		for(String cityName : currentCity.neighbors.keySet()) {
+			City city = currentCity.neighbors.get(cityName);
 			int currentNum = city.diseaseCubes.get(disease);
 			city.diseaseCubes.put(disease, currentNum+1);
-			infectedNeighbors.add(city);
+			infectedNeighbors.put(cityName, city);
 		}
 		currentCity.neighbors = infectedNeighbors;
 		return true;

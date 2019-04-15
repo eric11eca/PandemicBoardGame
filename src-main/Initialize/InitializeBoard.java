@@ -47,7 +47,7 @@ public class InitializeBoard {
 			for (int i = 5; i < cityData.size(); i++) {
 				String neighborName = cityData.get(i);
 				City neighbor = board.cities.get(neighborName);
-				city.neighbors.add(neighbor);
+				city.neighbors.put(neighbor.cityName, neighbor);
 			}
 		}
 	}

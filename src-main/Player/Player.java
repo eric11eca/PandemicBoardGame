@@ -67,7 +67,7 @@ public abstract class Player {
 	}
 
 	public void drive(City destination) {
-		if (location.neighbors.contains(destination)) {
+		if (location.neighbors.containsKey(destination.cityName)) {
 			location = destination;
 		} else {
 			throw new RuntimeException("Invalid destination: Not a neighbour!!");

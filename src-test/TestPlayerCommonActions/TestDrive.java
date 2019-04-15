@@ -28,7 +28,7 @@ public class TestDrive {
 		neighborCity = new City();
 		neighborCity.cityName = "Atlanta";
 
-		location.neighbors.add(neighborCity);
+		location.neighbors.put("Atlanta", neighborCity);
 
 		notNeighborCity = new City();
 		notNeighborCity.cityName = "Shanghai";

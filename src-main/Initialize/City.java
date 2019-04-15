@@ -1,6 +1,6 @@
 package Initialize;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 
 public class City {
 	public int x;
@@ -8,15 +8,15 @@ public class City {
 	public String cityName;
 	public String color;
 	public int population;
-	public HashMap<String, Integer> diseaseCubes;
+	public Map<String, Integer> diseaseCubes;
 	public boolean researchStation;
-	public HashSet<City> neighbors;
+	public Map<String, City> neighbors;
 	public boolean isInOutbreak = false;
 
 	public City() {
 		this.diseaseCubes = new HashMap<String, Integer>();
 		this.researchStation = false;
-		this.neighbors = new HashSet<City>();
+		this.neighbors = new HashMap<>();
 	}
 	
 	public City(String name){
