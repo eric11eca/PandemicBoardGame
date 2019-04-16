@@ -24,14 +24,20 @@ public class Outbreak {
 	
 	public boolean infectConnectedCities(City currentCity) {
 		String disease = currentCity.color;
-		Map<String, City> infectedNeighbors = new HashMap<>();
 		for(String cityName : currentCity.neighbors.keySet()) {
 			City city = currentCity.neighbors.get(cityName);
-			int currentNum = city.diseaseCubes.get(disease);
-			city.diseaseCubes.put(disease, currentNum+1);
-			infectedNeighbors.put(cityName, city);
+			if(!city.isInOutbreak) {
+				int currentNum = city.diseaseCubes.get(disease);
+				if(currentNum >= 3) {
+					performeOutbreak(city);
+				} else {
+					city.diseaseCubes.put(disease, currentNum+1);
+					if(city.diseaseCubes.get(disease) == 3) {
+						performeOutbreak(city);
+					}
+				}
+			}
 		}
-		currentCity.neighbors = infectedNeighbors;
 		return true;
 	}
 	
@@ -40,7 +46,7 @@ public class Outbreak {
 		currentCity.isInOutbreak = true;
 		outbreak = moveOutbreakMarkForward();
 		outbreak = infectConnectedCities(currentCity);
-		return outbreak;
+		return outbreak; 
 	}
 	
 }
