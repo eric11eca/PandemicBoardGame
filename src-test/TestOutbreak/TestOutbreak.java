@@ -189,4 +189,18 @@ public class TestOutbreak {
 		assertEquals(3, numOfCubesCity1);
 		assertEquals(0, numOfCubesCity3);
 	}
+	
+	@Test
+	public void testEndGameInChainReactionWhenNoMoreDiseaseCubeLeft() {
+		board.remainDiseaseCube.put("RED", 0);
+		city1.diseaseCubes.put("RED", 3);
+		city1.neighbors.put(city3.cityName, city3);
+		outBreak.performeOutbreak(city);
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
+		int numOfCubesCity3 = city3.diseaseCubes.get("RED");
+		assertEquals(3, numOfCubesCity1);
+		assertEquals(0, numOfCubesCity3);
+	}
 }
