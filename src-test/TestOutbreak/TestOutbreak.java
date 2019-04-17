@@ -122,6 +122,16 @@ public class TestOutbreak {
 		assertTrue(1 == city3.diseaseCubes.get("BLUE"));
 		assertTrue(1 == city4.diseaseCubes.get("BLACK"));
 	}
+	
+	@Test public void testChainReactionWithCityAlreadyInOutbreak() {
+		city.neighbors.put(city3.cityName, city3);
+		city3.isInOutbreak = true;
+		board.outbreakMark += 1;
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		outBreak.continueRestOfOutbreaks(continueOutbreak);
+		assertEquals(1, board.outbreakMark);
+		assertTrue(0 == city3.diseaseCubes.get("RED"));
+	}
 
 	
 
