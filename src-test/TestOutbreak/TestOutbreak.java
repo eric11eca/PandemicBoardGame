@@ -160,4 +160,16 @@ public class TestOutbreak {
 		assertEquals(0, numOfCubesCity1);
 		assertEquals(0, numOfCubesCity2);
 	}
+	
+	@Test 
+	public void testEndGameWhenNoMoreDiseaseCubeLeft() {
+		board.remainDiseaseCube.put("RED", 0);
+		outBreak.performeOutbreak(city);
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
+		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
+		assertEquals(0, numOfCubesCity1);
+		assertEquals(0, numOfCubesCity2);
+	}
 }
