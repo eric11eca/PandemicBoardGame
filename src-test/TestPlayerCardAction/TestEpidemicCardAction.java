@@ -72,6 +72,8 @@ public class TestEpidemicCardAction {
 		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
 		assertTrue(21 == board.remainDiseaseCube.get("RED"));
+		assertTrue(board.validInfectionCard.isEmpty());
+		assertFalse(board.discardInfectionCard.isEmpty());
 	}
 	
 	@Test
