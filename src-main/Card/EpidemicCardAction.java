@@ -29,25 +29,39 @@ public class EpidemicCardAction {
 		String disease = city.color;
 		if(!board.eradicatedDiseases.contains(disease)) {
 			while(city.diseaseCubes.get(disease) != 3) {
-				if(board.remainDiseaseCube.get(disease) == 0){
+				int remainingCubes = board.remainDiseaseCube.get(disease);
+				if(remainingCubes == 0){
 					board.gameEnd = true;
 					board.playerLose = true;
 					return;
 				}
 				int numOfCubes = city.diseaseCubes.get(disease);
 				city.diseaseCubes.put(disease, numOfCubes+1);	
+				board.remainDiseaseCube.put(disease, remainingCubes-1);
 			}
 			outbreak.performeOutbreak(city);
 		}
 	}
 	
-	public void reshuffleDiscardInfectionDeck() {
+	public boolean reshuffleDiscardInfectionDeck() {
 		Collections.shuffle(board.discardInfectionCard);
+		return true;
 	}
 	
 	public void makingNewInfectionCardDeck() {
 		List<String> moreInfectionCards = board.discardInfectionCard;
 		board.validInfectionCard.addAll(0, moreInfectionCards);
 		board.discardInfectionCard.clear();
+	}
+	
+	public void performeEpidemic() {
+		increaseInfectionRate();
+		infect();
+		if(board.gameEnd == true) {
+			return;
+		}
+		if(reshuffleDiscardInfectionDeck()) {
+			makingNewInfectionCardDeck();
+		}
 	}
 }

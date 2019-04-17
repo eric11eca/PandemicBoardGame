@@ -38,6 +38,7 @@ public class TestEpidemicCardAction {
 		board.cities.put(city2.cityName, city2);
 		board.eradicatedDiseases.add(city1.color);		
 		epidemicCardAction = new EpidemicCardAction(board);
+		board.remainDiseaseCube.put("RED", 24);
 	}
 	
 	@Test
@@ -70,6 +71,7 @@ public class TestEpidemicCardAction {
 		epidemicCardAction.infect();
 		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
+		assertTrue(21 == board.remainDiseaseCube.get("RED"));
 	}
 	
 	@Test
@@ -80,9 +82,10 @@ public class TestEpidemicCardAction {
 		board.discardInfectionCard.add("Atlanta");
 		
 		String oldDiscardInfectionCards = board.discardInfectionCard.toString();
-		epidemicCardAction.reshuffleDiscardInfectionDeck();
+		boolean reshuffled = epidemicCardAction.reshuffleDiscardInfectionDeck();
 		String newDiscardInfectionCards = board.discardInfectionCard.toString();
 		assertFalse(oldDiscardInfectionCards.equals(newDiscardInfectionCards));
+		assertTrue(reshuffled);
 	}
 	
 	@Test 
@@ -119,5 +122,28 @@ public class TestEpidemicCardAction {
 		assertTrue(0 == city.diseaseCubes.get("RED"));
 		assertFalse(city.isInOutbreak);
 	}
-
+	
+	@Test
+	public void testPerformeEpidemic() {
+		board.infectionRateTrack.pop();
+		board.infectionRateTrack.pop();
+		board.discardInfectionCard.add("Chicaco");
+		board.discardInfectionCard.add("NewYork");
+		board.discardInfectionCard.add("London");
+		board.discardInfectionCard.add("Atlanta");
+		board.validInfectionCard.add("cityB");
+		
+		epidemicCardAction.performeEpidemic();
+		assertTrue(3 == board.infectionRateTrack.peek());
+		
+		City city = board.cities.get("cityB");
+		assertTrue(3 == city.diseaseCubes.get("RED"));
+		assertTrue(city.isInOutbreak);
+		
+		int newSize = board.validInfectionCard.size();
+		assertEquals(5, newSize);
+		assertTrue(board.discardInfectionCard.isEmpty());
+	}
+	
+	
 }
