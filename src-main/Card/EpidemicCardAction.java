@@ -41,6 +41,8 @@ public class EpidemicCardAction {
 			}
 			outbreak.performeOutbreak(city);
 		}
+		board.validInfectionCard.remove(size-1);
+		board.discardInfectionCard.add(infection);
 	}
 	
 	public boolean reshuffleDiscardInfectionDeck() {

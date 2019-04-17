@@ -145,5 +145,13 @@ public class TestEpidemicCardAction {
 		assertTrue(board.discardInfectionCard.isEmpty());
 	}
 	
-	
+	@Test
+	public void testEndGameWhenPerformeEpidemic() {
+		board.remainDiseaseCube.put("RED", 0);
+		board.validInfectionCard.add("cityB");
+		epidemicCardAction.performeEpidemic();
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		assertEquals(1, board.validInfectionCard.size());
+	}
 }
