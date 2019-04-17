@@ -8,9 +8,11 @@ import Initialize.City;
 
 public class EpidemicCardAction {
 	Board board;
+	Outbreak outbreak;
 	
 	public EpidemicCardAction(Board gameBoard) {
 		board = gameBoard;
+		outbreak = new Outbreak(board);
 	}
 
 	public void increaseInfectionRate() {
@@ -30,6 +32,7 @@ public class EpidemicCardAction {
 				int numOfCubes = city.diseaseCubes.get(disease);
 				city.diseaseCubes.put(disease, numOfCubes+1);	
 			}
+			outbreak.performeOutbreak(city);
 		}
 	}
 	

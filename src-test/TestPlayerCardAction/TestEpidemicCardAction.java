@@ -97,5 +97,15 @@ public class TestEpidemicCardAction {
 		assertEquals(5, newSize);
 		assertTrue(board.discardInfectionCard.isEmpty());
 	}
+	
+	@Test
+	public void testInfectWithOutbreak() {
+		board.validInfectionCard.add("cityB");
+		epidemicCardAction.infect();
+		City city = board.cities.get("cityB");
+		assertTrue(3 == city.diseaseCubes.get("RED"));
+		assertTrue(city.isInOutbreak);
+		assertEquals(1, board.outbreakMark);
+	}
 
 }
