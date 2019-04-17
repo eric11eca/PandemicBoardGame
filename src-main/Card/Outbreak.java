@@ -34,7 +34,7 @@ public class Outbreak {
 				if(currentNum >= 3) {
 					continueOutbreak.add(city);
 				} else {
-					if(board.remainDiseaseCube.get(disease) < 1) {
+					if(board.remainDiseaseCube.get(disease) == 0) {
 						gameEnd = true;
 						board.gameEnd = true;
 						board.playerLose = true;
