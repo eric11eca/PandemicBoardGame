@@ -8,14 +8,17 @@ import Initialize.City;
 
 public class Outbreak {
 	Board board;
+	Boolean gameEnd;
 	
 	public Outbreak(Board gameBoard) {
 		board = gameBoard;
+		gameEnd = false;
 	}
-
+	
 	public void moveOutbreakMarkForward() {
 		board.outbreakMark += 1;
 		if(board.outbreakMark == 8) {
+			gameEnd = true;
 			board.gameEnd = true;
 			board.playerLose = true;
 		}
@@ -31,7 +34,15 @@ public class Outbreak {
 				if(currentNum >= 3) {
 					continueOutbreak.add(city);
 				} else {
+					if(board.remainDiseaseCube.get(disease) < 1) {
+						gameEnd = true;
+						board.gameEnd = true;
+						board.playerLose = true;
+						return continueOutbreak;
+					}
 					city.diseaseCubes.put(disease, currentNum+1);
+					int remainingCube = board.remainDiseaseCube.get(disease);
+					board.remainDiseaseCube.put(disease, remainingCube - 1);
 					if(city.diseaseCubes.get(disease) == 3) {
 						continueOutbreak.add(city);
 					}
@@ -45,13 +56,22 @@ public class Outbreak {
 		for(int i = 0; i < continueOutbreak.size(); i++) {
 			City city = continueOutbreak.get(i);
 			performeOutbreak(city);
+			if(gameEnd) {
+				return;
+			}
 		}
 	}
 	
 	public void performeOutbreak(City currentCity) {
 		currentCity.isInOutbreak = true;
 		moveOutbreakMarkForward();
+		if(gameEnd) {
+			return;
+		}
 		List<City> continueOutbreak = infectConnectedCities(currentCity);
+		if(gameEnd) {
+			return;
+		}
 		if(!continueOutbreak.isEmpty()) {
 			continueRestOfOutbreaks(continueOutbreak);
 		}

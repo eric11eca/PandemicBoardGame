@@ -54,6 +54,10 @@ public class TestOutbreak {
 		board.cities.put(city2.cityName, city2);
 		board.cities.put(city3.cityName, city3);
 		board.cities.put(city4.cityName, city4);
+		board.remainDiseaseCube.put("RED", 24);
+		board.remainDiseaseCube.put("BLUE", 24);
+		board.remainDiseaseCube.put("BLACK", 24);
+		board.remainDiseaseCube.put("YELLOW", 24);
 		outBreak = new Outbreak(board);
 	}
 
@@ -79,6 +83,7 @@ public class TestOutbreak {
 		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
 		assertEquals(1, numOfCubesCity1);
 		assertEquals(1, numOfCubesCity2);
+		assertTrue(22 == board.remainDiseaseCube.get("RED"));
 	}
 	
 	@Test
@@ -143,8 +148,16 @@ public class TestOutbreak {
 		int numOfCubesCity = city1.diseaseCubes.get("RED");
 		assertEquals(3, numOfCubesCity);
 	}
-
 	
-
-
+	@Test 
+	public void testEndGameWhenOutbreakMarkIsMaximum() {
+		board.outbreakMark = 7;
+		outBreak.performeOutbreak(city);
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
+		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
+		assertEquals(0, numOfCubesCity1);
+		assertEquals(0, numOfCubesCity2);
+	}
 }
