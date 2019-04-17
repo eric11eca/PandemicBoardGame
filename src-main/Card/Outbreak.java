@@ -1,16 +1,18 @@
 package Card;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import Initialize.Board;
 import Initialize.City;
 
 public class Outbreak {
 	Board board;
+	public List<City> continueOutbreak;
 	
 	public Outbreak(Board gameBoard) {
 		board = gameBoard;
+		continueOutbreak = new ArrayList<>();
 	}
 
 	public boolean moveOutbreakMarkForward() {
@@ -29,11 +31,11 @@ public class Outbreak {
 			if(!city.isInOutbreak) {
 				int currentNum = city.diseaseCubes.get(disease);
 				if(currentNum >= 3) {
-					performeOutbreak(city);
+					continueOutbreak.add(city);
 				} else {
 					city.diseaseCubes.put(disease, currentNum+1);
 					if(city.diseaseCubes.get(disease) == 3) {
-						performeOutbreak(city);
+						continueOutbreak.add(city);
 					}
 				}
 			}
@@ -47,6 +49,14 @@ public class Outbreak {
 		outbreak = moveOutbreakMarkForward();
 		outbreak = infectConnectedCities(currentCity);
 		return outbreak; 
+	}
+	
+	public boolean continueRestOfOutbreaks() {
+		boolean allOutbreakFinished = false;
+		for(City city : continueOutbreak) {
+			allOutbreakFinished = performeOutbreak(city);
+		}
+		return allOutbreakFinished;
 	}
 	
 }
