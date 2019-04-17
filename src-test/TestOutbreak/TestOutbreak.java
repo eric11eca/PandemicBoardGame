@@ -132,6 +132,17 @@ public class TestOutbreak {
 		assertEquals(1, board.outbreakMark);
 		assertTrue(0 == city3.diseaseCubes.get("RED"));
 	}
+	
+	@Test
+	public void testPerformeOutbreakWithChainReaction() {
+		city1.diseaseCubes.put("RED", 3);
+		outBreak.performeOutbreak(city);
+		assertTrue(city.isInOutbreak);
+		assertTrue(city1.isInOutbreak);
+		assertTrue(2 == board.outbreakMark);
+		int numOfCubesCity = city1.diseaseCubes.get("RED");
+		assertEquals(3, numOfCubesCity);
+	}
 
 	
 
