@@ -37,7 +37,7 @@ public class TestOutbreak {
 		city2.diseaseCubes.put("RED", 0);
 		city3 = new City();
 		city3.cityName = "London";
-		city3.color = "RED";
+		city3.color = "BLUE";
 		city3.diseaseCubes.put("RED", 0);
 		city3.diseaseCubes.put("BLUE", 0);
 		city3.diseaseCubes.put("BLACK", 0);
@@ -141,12 +141,15 @@ public class TestOutbreak {
 	@Test
 	public void testPerformeOutbreakWithChainReaction() {
 		city1.diseaseCubes.put("RED", 3);
+		city1.neighbors.put(city3.cityName, city3);
 		outBreak.performeOutbreak(city);
 		assertTrue(city.isInOutbreak);
 		assertTrue(city1.isInOutbreak);
 		assertTrue(2 == board.outbreakMark);
-		int numOfCubesCity = city1.diseaseCubes.get("RED");
-		assertEquals(3, numOfCubesCity);
+		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
+		int numOdCubesCity3 = city3.diseaseCubes.get("BLUE");
+		assertEquals(3, numOfCubesCity1);
+		assertEquals(1, numOdCubesCity3);
 	}
 	
 	@Test 
@@ -171,5 +174,19 @@ public class TestOutbreak {
 		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
 		assertEquals(0, numOfCubesCity1);
 		assertEquals(0, numOfCubesCity2);
+	}
+	
+	@Test
+	public void testEndGameInChainReactionWhenOutbreakMarkIsMaximum() {
+		board.outbreakMark = 6;
+		city1.diseaseCubes.put("RED", 3);
+		city1.neighbors.put(city3.cityName, city3);
+		outBreak.performeOutbreak(city);
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
+		int numOfCubesCity3 = city3.diseaseCubes.get("RED");
+		assertEquals(3, numOfCubesCity1);
+		assertEquals(0, numOfCubesCity3);
 	}
 }
