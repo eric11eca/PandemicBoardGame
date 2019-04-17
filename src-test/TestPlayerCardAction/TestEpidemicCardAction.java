@@ -107,5 +107,17 @@ public class TestEpidemicCardAction {
 		assertTrue(city.isInOutbreak);
 		assertEquals(1, board.outbreakMark);
 	}
+	
+	@Test 
+	public void testEndGameDuringInfection() {
+		board.validInfectionCard.add("cityB");
+		board.remainDiseaseCube.put("RED", 0);
+		epidemicCardAction.infect();
+		City city = board.cities.get("cityB");
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		assertTrue(0 == city.diseaseCubes.get("RED"));
+		assertFalse(city.isInOutbreak);
+	}
 
 }

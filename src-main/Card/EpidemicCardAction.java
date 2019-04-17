@@ -29,6 +29,11 @@ public class EpidemicCardAction {
 		String disease = city.color;
 		if(!board.eradicatedDiseases.contains(disease)) {
 			while(city.diseaseCubes.get(disease) != 3) {
+				if(board.remainDiseaseCube.get(disease) == 0){
+					board.gameEnd = true;
+					board.playerLose = true;
+					return;
+				}
 				int numOfCubes = city.diseaseCubes.get(disease);
 				city.diseaseCubes.put(disease, numOfCubes+1);	
 			}
@@ -45,8 +50,4 @@ public class EpidemicCardAction {
 		board.validInfectionCard.addAll(0, moreInfectionCards);
 		board.discardInfectionCard.clear();
 	}
-	
-	
-	
-	
 }
