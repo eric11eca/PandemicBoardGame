@@ -2,6 +2,8 @@ package TestOutbreak;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +17,9 @@ public class TestOutbreak {
 	City city;
 	City city1;
 	City city2;
+	City city3;
+	City city4;
+	
 	@Before 
 	public void setup() {
 		board = new Board();
@@ -30,11 +35,25 @@ public class TestOutbreak {
 		city2.cityName = "NewYork";
 		city2.color = "BLACK";
 		city2.diseaseCubes.put("RED", 0);
+		city3 = new City();
+		city3.cityName = "London";
+		city3.color = "RED";
+		city3.diseaseCubes.put("RED", 0);
+		city3.diseaseCubes.put("BLUE", 0);
+		city3.diseaseCubes.put("BLACK", 0);
+		city4 = new City();
+		city4.cityName = "Austin";
+		city4.color = "BLACK";
+		city4.diseaseCubes.put("RED", 0);
+		city4.diseaseCubes.put("BLUE", 0);
+		city4.diseaseCubes.put("BLACK", 0);
 		city.neighbors.put(city1.cityName, city1);
 		city.neighbors.put(city2.cityName, city2);
 		board.cities.put(city.cityName, city);
 		board.cities.put(city1.cityName, city1);
 		board.cities.put(city2.cityName, city2);
+		board.cities.put(city3.cityName, city3);
+		board.cities.put(city4.cityName, city4);
 		outBreak = new Outbreak(board);
 	}
 
@@ -54,8 +73,8 @@ public class TestOutbreak {
 	
 	@Test
 	public void testPlaceDiseaseCubeOnConnectedCities() {
-		boolean infected = outBreak.infectConnectedCities(city);
-		assertTrue(infected);
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		assertTrue(continueOutbreak.isEmpty());
 		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
 		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
 		assertEquals(1, numOfCubesCity1);
@@ -64,67 +83,47 @@ public class TestOutbreak {
 	
 	@Test
 	public void testPerformeOutbreak() {
-		boolean outbreakPerformed = outBreak.performeOutbreak(city);
+		outBreak.performeOutbreak(city);
 		assertTrue(city.isInOutbreak);
-		assertTrue(outbreakPerformed);
+		assertTrue(1 == board.outbreakMark);
+		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
+		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
+		assertEquals(1, numOfCubesCity1);
+		assertEquals(1, numOfCubesCity2);
 	}
 	
 	@Test 
 	public void testInfecAndCauseOtherOutbreaks() {
 		city1.diseaseCubes.put("RED", 2);
 		city2.diseaseCubes.put("RED", 3);
-		boolean infected = outBreak.infectConnectedCities(city);
-		assertTrue(infected);
-		assertEquals(city1, outBreak.continueOutbreak.get(0));
-		assertEquals(city2, outBreak.continueOutbreak.get(1));
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		assertTrue(!continueOutbreak.isEmpty());
+		assertEquals(city1, continueOutbreak.get(0));
+		assertEquals(city2, continueOutbreak.get(1));
 	}
 	
-	//@Test
+	@Test
 	public void testChainReaction() {
-		City city1 = board.cities.get("Chicago");
-		City city2 = board.cities.get("NewYork");
-		
 		city1.diseaseCubes.put("RED", 2);
 		city2.diseaseCubes.put("RED", 3);
-
-		boolean outbreak = outBreak.performeOutbreak(city);
+		city1.neighbors.put(city3.cityName, city3);
+		city2.neighbors.put(city4.cityName, city4);
 		
-		assertTrue(outbreak);
-		assertTrue(city.isInOutbreak);
+		board.outbreakMark += 1;
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		outBreak.continueRestOfOutbreaks(continueOutbreak);
+		
 		assertEquals(3, board.outbreakMark);
-		
 		assertTrue(city1.isInOutbreak);
 		assertTrue(city2.isInOutbreak);
 		
 		assertTrue(3 == city1.diseaseCubes.get("RED"));
 		assertTrue(3 == city2.diseaseCubes.get("RED"));
+		assertTrue(1 == city3.diseaseCubes.get("BLUE"));
+		assertTrue(1 == city4.diseaseCubes.get("BLACK"));
 	}
 
 	
-	@Test
-	public void testChainReactionWithCityAlreadyHadOutbrek() {
-		City city1 = board.cities.get("Chicago");
-		
-		City city3 = new City();
-		city3.cityName = "London";
-		city3.color = "BLACK";
-		city3.diseaseCubes.put("RED", 0);
-		city3.diseaseCubes.put("BLUE", 0);
-		
-		board.cities.put(city3.cityName, city3);
-		city.neighbors.put(city3.cityName, city3);
-		city1.neighbors.put(city3.cityName, city3);
-		city1.diseaseCubes.put("RED", 3);
 
-		boolean outbreak1 = outBreak.performeOutbreak(city);
-		assertTrue(outbreak1);
-		assertTrue(city1.isInOutbreak);
-		assertTrue(city3.isInOutbreak);
-		
-		boolean outbreak2 = outBreak.performeOutbreak(city1);
-		assertTrue(outbreak2);
-		assertTrue(0 == city3.diseaseCubes.get("BLUE"));
-		assertTrue(1 == city3.diseaseCubes.get("RED"));
-	}
 
 }

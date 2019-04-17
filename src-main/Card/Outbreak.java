@@ -8,24 +8,22 @@ import Initialize.City;
 
 public class Outbreak {
 	Board board;
-	public List<City> continueOutbreak;
 	
 	public Outbreak(Board gameBoard) {
 		board = gameBoard;
-		continueOutbreak = new ArrayList<>();
 	}
 
-	public boolean moveOutbreakMarkForward() {
+	public void moveOutbreakMarkForward() {
 		board.outbreakMark += 1;
 		if(board.outbreakMark == 8) {
 			board.gameEnd = true;
 			board.playerLose = true;
 		}
-		return true;
 	}
 	
-	public boolean infectConnectedCities(City currentCity) {
+	public List<City> infectConnectedCities(City currentCity) {
 		String disease = currentCity.color;
+		List<City> continueOutbreak = new ArrayList<>();
 		for(String cityName : currentCity.neighbors.keySet()) {
 			City city = currentCity.neighbors.get(cityName);
 			if(!city.isInOutbreak) {
@@ -40,23 +38,25 @@ public class Outbreak {
 				}
 			}
 		}
-		return true;
+		return continueOutbreak;
 	}
 	
-	public boolean performeOutbreak(City currentCity) {
-		boolean outbreak = false;
-		currentCity.isInOutbreak = true;
-		outbreak = moveOutbreakMarkForward();
-		outbreak = infectConnectedCities(currentCity);
-		return outbreak; 
-	}
-	
-	public boolean continueRestOfOutbreaks() {
-		boolean allOutbreakFinished = false;
-		for(City city : continueOutbreak) {
-			allOutbreakFinished = performeOutbreak(city);
+	public void continueRestOfOutbreaks(List<City> continueOutbreak) {
+		for(int i = 0; i < continueOutbreak.size(); i++) {
+			City city = continueOutbreak.get(i);
+			performeOutbreak(city);
 		}
-		return allOutbreakFinished;
 	}
+	
+	public void performeOutbreak(City currentCity) {
+		currentCity.isInOutbreak = true;
+		moveOutbreakMarkForward();
+		List<City> continueOutbreak = infectConnectedCities(currentCity);
+		if(!continueOutbreak.isEmpty()) {
+			continueRestOfOutbreaks(continueOutbreak);
+		}
+	}
+	
+
 	
 }
