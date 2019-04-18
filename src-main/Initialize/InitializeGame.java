@@ -80,51 +80,11 @@ public class InitializeGame {
 	}
 	
 	public void startCreationofBoard(){
-		//createInfoPanel();
 		StartGame();
 	}
 
-	private void createInfoPanel() {
-		gui.panel =  new JPanel();
-		gui.panel.setLayout(null);
-		gui.panel.setSize(1600, 800);
-		gui.panel.setPreferredSize(new Dimension(1000,800 ));
-		int x= 0;
-		String  Pstring = "";
-		while(x < players){
-		 Pstring = Pstring + "P" +(x+1) +", Atlanta.  ";
-		 x++;
-		}
-		String Cstring= "";
-		for(int z = 3; z > 0; z--){
-			for(int y = 0; y < 3; y++){
-		Cstring = Cstring + board.validInfectionCard.remove(0) + ": " +z+" cubes. ";}
-		}
-		JLabel label = new JLabel("Current locations: Reasearch stations: Atlanta.  " + Pstring);
-				/*("KEY: p# is player #"
-				+	"   R is research station     B,R,G and b are Black Red Green and Blue cubes");*/
-		
-		label.setSize(600, 200);
-		label.setLocation(0, 0);
-		JLabel cubelabel = new JLabel(Cstring);
-		/*("KEY: p# is player #"
-		+	"   R is research station     B,R,G and b are Black Red Green and Blue cubes");*/
-
-		cubelabel.setSize(1200, 200);
-		cubelabel.setLocation(0, 30);
-		board.infectionRate = 2;
-		JLabel outbreaksandinfection = new JLabel("outbreaks = "+board.outbreakCount+".  infection rate = "+board.infectionRate + ". PlayerDeck has "+board.validPlayerCard.size()+" left.");
-		outbreaksandinfection.setSize(500, 200);
-		outbreaksandinfection.setLocation(600, 0);
-		gui.panel.add(cubelabel);
-		gui.panel.add(outbreaksandinfection);
-		gui.panel.add(label);
-		
-		
-	}
-
+	
 	private void StartGame() {
-		// TODO Auto-generated method stub
 		gui.board = board;
 		gui.loadInitialGame();
 	}

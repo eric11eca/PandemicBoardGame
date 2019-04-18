@@ -45,8 +45,11 @@ public class DrawingBoard {
 		File picture = new File("Main Picture.png");
 		img = ImageIO.read(picture);
 		g = img.createGraphics();
-		drawInfect(board.infectionRate);
-		drawOutBreaks(board.outbreakCount);
+		if(!board.infectionRateTrack.isEmpty()) {
+			drawInfect(board.infectionRateTrack.peek());
+		}
+		
+		drawOutBreaks(board.outbreakMark);
 		for (City city : board.cities.values()) {
 			if (city.researchStation) {
 				drawResearch(city);

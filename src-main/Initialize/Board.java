@@ -51,7 +51,7 @@ public class Board {
 	public Set<String> eradicatedDiseases = new HashSet<String>();
 	public Set<String> curedDiseases = new HashSet<String>();
 	public Map<String, City> cities = new HashMap<String, City>();
-	public List<String> totalRoles = new ArrayList<String>();
+	public List<String> roleCardDeck = new ArrayList<String>();
 	public List<Player> currentPlayers = new ArrayList<Player>();
 	public List<PlayerCard> validPlayerCard = new ArrayList<PlayerCard>();
 	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();

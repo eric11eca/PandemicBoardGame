@@ -28,7 +28,7 @@ public class TestInitializePlayerData {
 	@Test
 	public void testAddRoles(){
 		initializePlayerData.addRole();
-		assertEquals(7,board.totalRoles.size());
+		assertEquals(7,board.roleCardDeck.size());
 	}
 	
 	@Test

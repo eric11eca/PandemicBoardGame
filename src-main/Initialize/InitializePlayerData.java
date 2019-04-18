@@ -17,22 +17,22 @@ public class InitializePlayerData {
 	}
 
 	public void addRole() {
-		board.totalRoles.add("Dispatcher");
-		board.totalRoles.add("Medic");
-		board.totalRoles.add("OperationsExpert");
-		board.totalRoles.add("QuarantineSpecialist");
-		board.totalRoles.add("Researcher");
-		board.totalRoles.add("Scientist");
-		board.totalRoles.add("ContingencyPlanner");
+		board.roleCardDeck.add("Dispatcher");
+		board.roleCardDeck.add("Medic");
+		board.roleCardDeck.add("OperationsExpert");
+		board.roleCardDeck.add("QuarantineSpecialist");
+		board.roleCardDeck.add("Researcher");
+		board.roleCardDeck.add("Scientist");
+		board.roleCardDeck.add("ContingencyPlanner");
 	}
 
 	public void createPlayers() {
-		Collections.shuffle(board.totalRoles);
+		Collections.shuffle(board.roleCardDeck);
 
 		for (int i = 0; i < board.playernumber; i++) {
 			Class<?> clazz = null;
 			try {
-				clazz = Class.forName(prefix + board.totalRoles.get(i));
+				clazz = Class.forName(prefix + board.roleCardDeck.get(i));
 			} catch (ClassNotFoundException e2) {
 				e2.printStackTrace();
 				throw new RuntimeException(e2);

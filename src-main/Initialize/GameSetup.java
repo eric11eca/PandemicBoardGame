@@ -1,7 +1,6 @@
 package Initialize;
 
 import Action.GameAction;
-import Card.PlayerCard;
 import Player.Player;
 
 public class GameSetup {
@@ -17,7 +16,7 @@ public class GameSetup {
 		initGame = new InitializeGame(board, this);
 		initBoard = new InitializeBoard(board);
 		initPlayerData = new InitializePlayerData(board);
-		gameAction = new GameAction(board);
+		
 	}
 
 	public void startGameSetup() {
@@ -40,6 +39,11 @@ public class GameSetup {
 		initBoard.shuffleCards();
 		initBoard.initializeRemainDiseaseCube();
 		initBoard.initializeDiseaseCube();
+		initBoard.initializeInfectionRateTrack();
+		initBoard.initializeRoleDeck();
+		initBoard.initializeCurrentPlayers();
+		
+		gameAction = new GameAction(board);
 
 		initPlayerData.addRole();
 		initPlayerData.createPlayers();
@@ -58,6 +62,8 @@ public class GameSetup {
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
 		initGame.startCreationofBoard();
+		
+		
 	}
 	
 	public void oneTurn() {

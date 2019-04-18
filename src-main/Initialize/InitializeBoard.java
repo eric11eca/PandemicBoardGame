@@ -7,6 +7,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Card.PlayerCard;
 import Parse.CityDataParser;
+import Player.ContingencyPlanner;
+import Player.Dispatcher;
+import Player.Medic;
+import Player.OperationsExpert;
+import Player.Player;
+import Player.QuarantineSpecialist;
+import Player.Scientist;
 
 public class InitializeBoard {
 	public Board board;
@@ -50,6 +57,54 @@ public class InitializeBoard {
 				city.neighbors.put(neighborName, neighbor);
 			}
 		}
+	}
+	
+	public void initializeRoleDeck() {
+		board.roleCardDeck.add("Scientist");
+		board.roleCardDeck.add("Medic");
+		board.roleCardDeck.add("OperationsExpert");
+		board.roleCardDeck.add("ContingencyPlanner");
+		board.roleCardDeck.add("Dispatcher");
+		board.roleCardDeck.add("QuarantineSpecialist");
+	}
+	
+	public void initializeCurrentPlayers() {
+		Collections.shuffle(board.roleCardDeck);
+		for (int i = 0; i < board.playernumber; i++) {
+			String roleName = board.roleCardDeck.get(i);
+			Player player;
+			switch(roleName) {
+			case "Scientist":
+				player = new Scientist(board);
+				board.currentPlayers.add(player);
+			case "Medic":
+		    	player = new Medic(board);
+		    	board.currentPlayers.add(player);
+			case "OperationsExpert":
+				player = new OperationsExpert(board);
+				board.currentPlayers.add(player);
+			case "ContingencyPlanner":
+				player = new ContingencyPlanner(board);
+				board.currentPlayers.add(player);
+			case "Dispatcher":
+				player = new Dispatcher(board);
+				board.currentPlayers.add(player);
+			case "QuarantineSpecialist":
+				player = new QuarantineSpecialist(board);
+				board.currentPlayers.add(player);
+			}
+			
+		}
+	}
+	
+	public void initializeInfectionRateTrack() {
+		board.infectionRateTrack.push(4);
+		board.infectionRateTrack.push(4);
+		board.infectionRateTrack.push(3);
+		board.infectionRateTrack.push(3);
+		board.infectionRateTrack.push(2);
+		board.infectionRateTrack.push(2);
+		board.infectionRateTrack.push(2);
 	}
 
 	public void initializeRemainDiseaseCube() {
