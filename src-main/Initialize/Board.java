@@ -49,6 +49,8 @@ public class Board {
 	public boolean playerLose = false;
 	public boolean playerWin = false;
 
+	public int currentPlayerIndex = 0;
+
 	
 
 	
