@@ -50,5 +50,4 @@ public class TestGameActionOneTurn {
 		assertEquals(2, board.discardPlayerCard.size());
 		assertTrue(board.discardPlayerCard.containsKey("Chicago"));
 	}
-
 }

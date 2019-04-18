@@ -1,11 +1,13 @@
 package Initialize;
 
+import Action.GameAction;
 import Card.PlayerCard;
 import Player.Player;
 
 public class GameSetup {
 
 	public Board board;
+	public GameAction gameAction;
 	public InitializeGame initGame;
 	public InitializeBoard initBoard;
 	public InitializePlayerData initPlayerData;
@@ -15,6 +17,7 @@ public class GameSetup {
 		initGame = new InitializeGame(board, this);
 		initBoard = new InitializeBoard(board);
 		initPlayerData = new InitializePlayerData(board);
+		gameAction = new GameAction(board);
 	}
 
 	public void startGameSetup() {
@@ -55,21 +58,14 @@ public class GameSetup {
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
 		initGame.startCreationofBoard();
-
 	}
 	
 	public void oneTurn() {
 		for (Player player : board.currentPlayers) {
-			PlayerCard playerCard = player.hand.get(board.nameofCardBeingPlayed);
-			String cardName = playerCard.cardName;
-			
-			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
-				player.directFlight(playerCard);
-			} else if (playerCard.cardType.equals(Board.CardType.EVENTCARD)) {
-				player.useEventCard(cardName);
-			}
-			
-			
+			board.currentPlayer = player;
+			gameAction.doAction(board.actionName);
+			gameAction.drawTwoPlayerCards();
+			gameAction.infection();
 		}
 	}
 

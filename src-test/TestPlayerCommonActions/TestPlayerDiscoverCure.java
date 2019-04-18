@@ -82,4 +82,17 @@ public class TestPlayerDiscoverCure {
 		medic.discoverCure(cards);
 		assertEquals(5, medic.hand.size());
 	}
+	
+	@Test
+	public void testWinGameAfterDiscoverAllCures() {
+		medic.location = new City();
+		medic.location.researchStation = true;
+		board.curedDiseases.add("BLUE");
+		board.curedDiseases.add("BLACK");
+		board.curedDiseases.add("YELLOW");
+		medic.discoverCure(cards);
+		assertEquals(4, board.curedDiseases.size());
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerWin);
+	}
 }

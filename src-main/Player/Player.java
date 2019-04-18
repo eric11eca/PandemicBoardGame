@@ -154,6 +154,12 @@ public abstract class Player {
 				}
 				consumeAction();
 			}
+			
+			if(board.curedDiseases.size() == 4) {
+				board.gameEnd = true;
+				board.playerWin = true;
+			}
+			
 		} else {
 			throw new RuntimeException("You are not at the research Station!!");
 		}

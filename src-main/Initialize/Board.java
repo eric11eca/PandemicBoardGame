@@ -17,20 +17,33 @@ public class Board {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
 
-	public String nameofCardBeingPlayed;
-
+	public String actionName;
+	
+	int initialHandCard = 0;
 	public int playernumber = 0;
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;
-	int initialHandCard = 0;
-	public Stack<Integer> infectionRateTrack = new Stack<>();
 	public int outbreakMark = 0;
+	public int remainResearchStation = 6;
+	public Stack<Integer> infectionRateTrack = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	
-	public String cityWithGrant;
+	
+	public String eventCardName;
+	public String cityCardNameDirect;
+	public String cityCardNameCharter;
+	public String diseaseBeingTreated;
+	public String driveDestinationName;
+	public String shuttleDestinationName;
+	public ArrayList<PlayerCard> cardsToCureDisease;
+	
+	public Player currentPlayer;
+	public int currentPlayerIndex = 0;
+	
 	public int idxofPlayerAirlift;
-	public String nameofCityAirlift;
 	public boolean inQueitNight = false;
+	public String cityWithGrant;
+	public String nameofCityAirlift;
 	public String cardRemovedByResilient;
 	public Map<String, String> infectionCardForecast = new HashMap<>();
 	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
@@ -48,13 +61,4 @@ public class Board {
 	public boolean gameEnd = false;
 	public boolean playerLose = false;
 	public boolean playerWin = false;
-
-	public int currentPlayerIndex = 0;
-
-	
-
-	
-
-	
-
 }
