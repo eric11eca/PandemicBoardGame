@@ -64,7 +64,23 @@ public class GameSetup {
 		for (Player player : board.currentPlayers) {
 			board.currentPlayer = player;
 			gameAction.doAction(board.actionName);
+			if(board.gameEnd) {
+				if(board.playerWin) {
+					System.out.println("Players Win!");
+				} else {
+					System.out.println("Player Losses!");
+				}
+				return;
+			}
 			gameAction.drawTwoPlayerCards();
+			if(board.gameEnd) {
+				if(board.playerWin) {
+					System.out.println("Players Win!");
+				} else {
+					System.out.println("Player Losses!");
+				}
+				return;
+			}
 			gameAction.infection();
 		}
 	}
