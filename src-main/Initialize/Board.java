@@ -18,7 +18,6 @@ public class Board {
 	}
 
 	public String actionName;
-	
 	int initialHandCard = 0;
 	public int playernumber = 0;
 	public int initialhandcard = 0;
@@ -28,14 +27,13 @@ public class Board {
 	public Stack<Integer> infectionRateTrack = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	
-	
 	public String eventCardName;
 	public String cityCardNameDirect;
 	public String cityCardNameCharter;
 	public String diseaseBeingTreated;
 	public String driveDestinationName;
 	public String shuttleDestinationName;
-	public ArrayList<PlayerCard> cardsToCureDisease;
+	public ArrayList<PlayerCard> cardsToCureDisease = new ArrayList<>();
 	
 	public Player currentPlayer;
 	public int currentPlayerIndex = 0;

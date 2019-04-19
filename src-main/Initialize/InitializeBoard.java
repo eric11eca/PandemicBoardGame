@@ -3,6 +3,7 @@ package Initialize;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import Card.PlayerCard;
@@ -76,30 +77,87 @@ public class InitializeBoard {
 			switch(roleName) {
 			case "Scientist":
 				player = new Scientist(board);
+				player.role = "Scientist";
 				board.currentPlayers.add(player);
 				break;
 			case "Medic":
 		    	player = new Medic(board);
+		    	player.role = "Medic";
 		    	board.currentPlayers.add(player);
 		    	break;
 			case "OperationsExpert":
 				player = new OperationsExpert(board);
+				player.role = "OperationsExpert";
 				board.currentPlayers.add(player);
 				break;
 			case "ContingencyPlanner":
 				player = new ContingencyPlanner(board);
+				player.role = "ContingencyPlanner";
 				board.currentPlayers.add(player);
 				break;
 			case "Dispatcher":
 				player = new Dispatcher(board);
+				player.role = "Dispatcher";
 				board.currentPlayers.add(player);
 				break;
 			case "QuarantineSpecialist":
 				player = new QuarantineSpecialist(board);
+				player.role = "QuarantineSpecialist";
 				board.currentPlayers.add(player);
 				break;
 			}
 			
+		}
+	}
+	
+	public void initializeSpecialEndGameDemo() {
+		board.curedDiseases.add("YELLOW");
+		board.curedDiseases.add("BLACK");
+		board.curedDiseases.add("BLUE");
+		
+		List<PlayerCard> cardsTobeRemoved= new ArrayList<>();
+		Player player = board.currentPlayers.get(0);
+		Set<String> handNames =  player.hand.keySet();
+		
+		if(board.initialhandcard == 4) {
+			int i = 0;
+			for (String name : handNames) {
+				if(i == 2) {
+					break;
+				}
+				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
+				i += 2;
+			}
+		} else if (board.initialhandcard == 3) {
+			int i = 0;
+			for (String name : handNames) {
+				if(i == 1) {
+					break;
+				}
+				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
+				i += 2;
+			}
+		}
+		
+		for(PlayerCard card : cardsTobeRemoved) {
+			board.validPlayerCard.remove(card);
+		}
+		
+		for(PlayerCard playerCard : board.validPlayerCard) {
+			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
+				if(playerCard.color.equals("RED")) {
+					player.hand.put(playerCard.cardName, playerCard);
+					cardsTobeRemoved.add(playerCard);
+					board.discardPlayerCard.put(playerCard.cardName, playerCard);
+				}
+				if(player.hand.size() == 7) {
+					break;
+				}
+			}
+		}
+		
+		for(PlayerCard card : cardsTobeRemoved) {
+			board.validPlayerCard.remove(card);
 		}
 	}
 	
@@ -157,7 +215,9 @@ public class InitializeBoard {
 	}
 
 	public void initializePlayerCard(Board.CardType cardType, String cardName) {
-		board.validPlayerCard.add(new PlayerCard(cardType, cardName));
+		PlayerCard cityCard = new PlayerCard(cardType, cardName);
+		cityCard.color = board.cities.get(cardName).color;
+		board.validPlayerCard.add(cityCard);
 	}
 
 	public void initializeEpidemicCard(int validPlayerNum) {

@@ -1,10 +1,17 @@
 package Initialize;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
+
 import Action.GameAction;
 import Player.Player;
 
 public class GameSetup {
-
 	public Board board;
 	public GameAction gameAction;
 	public InitializeGame initGame;
@@ -44,10 +51,6 @@ public class GameSetup {
 		initBoard.initializeRoleDeck();
 		initBoard.initializeCurrentPlayers();
 
-		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
-
-		// initPlayerData.addRole();
-		// initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
 
@@ -59,11 +62,13 @@ public class GameSetup {
 		}
 
 		board.cities.put("Atlanta", atlanta);
+		
+		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
+		initBoard.initializeSpecialEndGameDemo();
 
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
 		initGame.startCreationofBoard();
-
 	}
 
 	public void oneTurn() {
@@ -79,8 +84,8 @@ public class GameSetup {
 			if (board.currentPlayer.action == 0) {
 				board.currentPlayer.action = 4;
 				board.currentPlayerIndex++;
-				if (board.currentPlayerIndex==board.playernumber){
-					board.currentPlayerIndex=0;
+				if (board.currentPlayerIndex == board.playernumber){
+					board.currentPlayerIndex = 0;
 				}
 				gameAction.drawTwoPlayerCards();
 				if (board.gameEnd) {

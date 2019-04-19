@@ -14,7 +14,8 @@ import Initialize.City;
 public abstract class Player {
 	public Map<String, PlayerCard> hand = new HashMap<>();
 	public City location;
-	public int action = 4;
+	public String role;
+	public int action;
 	public PlayerCard specialEventCard;
 	public String cardToBeDiscard;
 	public boolean handOverFlow = false;
@@ -29,10 +30,11 @@ public abstract class Player {
 	public Player(Board gameBoard, Random random) {
 		board = gameBoard;
 		this.random = random;
+		action = 4;
 	}
 
 	public void receiveCard(PlayerCard playerCard) {
-		if (hand.size() >= 7) {
+		if (hand.size() > 7) {
 			handOverFlow = true;
 			discardCard(cardToBeDiscard);
 		} else {
