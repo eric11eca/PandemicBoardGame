@@ -1,4 +1,4 @@
-package TestPlayerCommonActions;
+package TestPlayers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,13 +16,14 @@ import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
 import Player.Medic;
+import Player.OperationsExpert;
 import Player.Player;
 import Player.StationBuilder;
 import Player.StationBuilderNormal;
 
 public class TestBuildStation {
 
-	Player normalPlayer;
+	Player medic, operationsExpert;
 	Board board;
 	City playerLocatedCity, cityWithStation, playerNotLocatedCity;
 	String playerLocation, notPlayerLocation, theNameOfCityWithStation;
@@ -33,8 +34,9 @@ public class TestBuildStation {
 	@Before
 	public void setup() {
 		board = new Board();
-		normalPlayer = new Medic(board);
-		normalPlayer.action = 4;
+		medic = new Medic(board);
+		medic.action = 4;
+		operationsExpert = new OperationsExpert(board);
 		playerLocation = "PlayerLocation";
 		playerLocatedCity = new City(playerLocation);
 		playerLocatedCity.researchStation = false;
@@ -44,11 +46,12 @@ public class TestBuildStation {
 		theNameOfCityWithStation = "theNameOfCityWithStation";
 		cityWithStation = new City(theNameOfCityWithStation);
 		cityWithStation.researchStation = true;
-		normalPlayer.location = playerLocatedCity;
-
+		
+		medic.location = playerLocatedCity;
+		operationsExpert.location = playerLocatedCity;
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
-		normalPlayer.hand.put(playerLocation, cityCard);
-
+		medic.hand.put(playerLocation, cityCard);
+		operationsExpert.hand.put(playerLocation, cityCard);
 		board.cities.put(playerLocation, playerLocatedCity);
 		board.cities.put(notPlayerLocation, playerNotLocatedCity);
 		board.cities.put(theNameOfCityWithStation, cityWithStation);
@@ -69,26 +72,52 @@ public class TestBuildStation {
 	}
 
 	@Test
-	public void testBuildStationAtTheSameCityCard() {
+	public void testBuildStationAtTheSameCityCardNormal() {
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
-		normalPlayer.hand.put(playerLocation, cityCard);
-		normalPlayer.buildStation();
+		medic.hand.put(playerLocation, cityCard);
+		medic.buildStation();
 		assertTrue(playerLocatedCity.researchStation);
-		assertEquals(3, normalPlayer.action);
-		assertEquals(0, normalPlayer.hand.size());
+		assertEquals(3, medic.action);
+		assertEquals(0, medic.hand.size());
+	}
+	
+	@Test
+	public void testBuildStationAtTheSameCityCardOperationsExpert() {
+		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
+		operationsExpert.hand.put(playerLocation, cityCard);
+		operationsExpert.buildStation();
+		assertTrue(playerLocatedCity.researchStation);
+		assertEquals(3, operationsExpert.action);
+		assertEquals(1, operationsExpert.hand.size());
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testBuildStationWithTheLocationHasStation() {
-		City location = normalPlayer.location;
+	public void testBuildStationWithTheLocationHasStationNormal() {
+		City location = medic.location;
 		location.researchStation = true;
-		normalPlayer.buildStation();
+		medic.buildStation();
 	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testBuildStationWithTheLocationHasStationOperationsExpert() {
+		City location = operationsExpert.location;
+		location.researchStation = true;
+		operationsExpert.buildStation();
+	}
+	
 
 	@Test(expected = RuntimeException.class)
-	public void testBuildStationWithoutRightCityCard() {
-		normalPlayer.hand.remove(playerLocation);
-		normalPlayer.buildStation();
+	public void testBuildStationWithoutSameCityCardNormal() {
+		medic.hand.remove(playerLocation);
+		medic.buildStation();
+	}
+	
+	@Test
+	public void testBuildStationWithoutSameCityCardOperationsExpert() {
+		operationsExpert.hand.remove(playerLocation);
+		operationsExpert.buildStation();
+		assertTrue(playerLocatedCity.researchStation);
+		assertTrue(board.currentResearchStation.containsKey(playerLocation));
 	}
 
 	@Test
@@ -96,18 +125,18 @@ public class TestBuildStation {
 		addCurrentStation();
 		StationBuilder stationBuilderMock = EasyMock.partialMockBuilder(StationBuilderNormal.class)
 				.addMockedMethod("returnRandomResearchStationCity")
-				.withConstructor(normalPlayer, board).createMock();
+				.withConstructor(medic, board).createMock();
 		
-		normalPlayer.buildStationModel = stationBuilderMock;	
+		medic.buildStationModel = stationBuilderMock;	
 		EasyMock.expect(stationBuilderMock.returnRandomResearchStationCity())
 			.andReturn(cityWithResearchStation1);
 		EasyMock.replay(stationBuilderMock);
 		
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
-		normalPlayer.hand.put(playerLocation, cityCard);
-		normalPlayer.buildStation();
-		assertEquals(0, normalPlayer.hand.size());
-		assertEquals(3, normalPlayer.action);
+		medic.hand.put(playerLocation, cityCard);
+		medic.buildStation();
+		assertEquals(0, medic.hand.size());
+		assertEquals(3, medic.action);
 		assertFalse(cityWithResearchStation1.researchStation);
 		assertFalse(board.currentResearchStation.containsKey(city1));
 		assertTrue(board.currentResearchStation.containsValue(playerLocatedCity));
@@ -129,7 +158,7 @@ public class TestBuildStation {
 		addCurrentStation();
 		Random random = EasyMock.createMock(Random.class);
 
-		normalPlayer.random = random;
+		medic.random = random;
 		board.currentResearchStation = EasyMock.createNiceMock(HashMap.class);
 		EasyMock.expect(random.nextInt(6)).andReturn(0);
 
@@ -138,10 +167,8 @@ public class TestBuildStation {
 
 		EasyMock.expect(board.currentResearchStation.values()).andReturn(cities);
 		EasyMock.replay(board.currentResearchStation, random);
-
-		StationBuilder stationBuilder = normalPlayer.buildStationModel;
-
-		assertEquals(city1, normalPlayer.buildStationModel.returnRandomResearchStationCity().cityName);
+		
+		assertEquals(city1, medic.buildStationModel.returnRandomResearchStationCity().cityName);
 	}
 
 
