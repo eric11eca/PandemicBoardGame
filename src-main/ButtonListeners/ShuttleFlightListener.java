@@ -6,12 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 
 import Initialize.Board;
+import Panel.GUI;
 
 public class ShuttleFlightListener implements ActionListener {
 
 	Board board;
 
-	public ShuttleFlightListener(Board board) {
+	public ShuttleFlightListener(Board board, GUI gui) {
 		this.board = board;
 	}
 

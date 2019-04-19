@@ -103,30 +103,30 @@ public class InitializeGame {
 	private void createButtons() {
 		JButton drive = new JButton("Drive/Ferry");
 		drive.setToolTipText("Move to a city connected by a white line to the one you are in.");
-		DriveListener driveListener = new DriveListener(board);
+		DriveListener driveListener = new DriveListener(board, gui);
 		drive.addActionListener(driveListener);
 
 		JButton flight = new JButton("Direct Flight");
 		flight.setToolTipText("Discard a City card to move to the city named on the card.");
-		FlightListener flightListener = new FlightListener(board);
+		FlightListener flightListener = new FlightListener(board, gui);
 		flight.addActionListener(flightListener);
 
 		JButton cFlight = new JButton("Charter Flight");
 		cFlight.setToolTipText("Discard the City card that matches the city you are in to move to any city.");
-		CharterFlightListener cFlightListener = new CharterFlightListener(board);
-		drive.addActionListener(cFlightListener);
+		CharterFlightListener cFlightListener = new CharterFlightListener(board, gui);
+		cFlight.addActionListener(cFlightListener);
 
 		JButton sFlight = new JButton("Shuttle Flight");
 		sFlight.setToolTipText(
 				"Move from a city with a research station to any other city that has a research station.");
-		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board);
+		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board, gui);
 		sFlight.addActionListener(sFlightListener);
 
 		JButton buildResearchStation = new JButton("Build Reasearch Station");
 		buildResearchStation.setToolTipText("Discard the City card that matches the city you are in to place a research"
 				+ " station there.\n Take the research station from the pile next to the board.\n If all"
 				+ " 6 research stations have been built,\n take a research station from anywhere" + " on the board.");
-		BuildResearchStationListener buildResearchStationListener = new BuildResearchStationListener(board);
+		BuildResearchStationListener buildResearchStationListener = new BuildResearchStationListener(board, gui);
 		buildResearchStation.addActionListener(buildResearchStationListener);
 
 		JButton treatDisease = new JButton("Treat Disease");
@@ -134,7 +134,7 @@ public class InitializeGame {
 				+ " supply next to the board.\n If this disease color has been cured (see"
 				+ " Discover a Cure below),\n remove all cubes of that color from the city you" + " are in.\n"
 				+ " If the last cube of a cured disease is removed from the board, this disease" + " is eradicated.");
-		TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board);
+		TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board, gui);
 		treatDisease.addActionListener(treatDiseaseListener);
 
 		JButton shareKnowledge = new JButton("Share Knowledge");
@@ -144,7 +144,7 @@ public class InitializeGame {
 				+ " The other player must also be in the city with you.\n Both of you need to" + " agree to do this.\n"
 				+ " If the player who gets the card now has more than 7 cards,\n that player must"
 				+ " immediately discard a card or play an Event card.");
-		ShareKnowledgeListener shareKnowledgeListener = new ShareKnowledgeListener(board);
+		ShareKnowledgeListener shareKnowledgeListener = new ShareKnowledgeListener(board, gui);
 		shareKnowledge.addActionListener(shareKnowledgeListener);
 
 		JButton discoverCure = new JButton("Discover a cure");
@@ -152,7 +152,7 @@ public class InitializeGame {
 				+ " hand to cure the disease of that color.\n Move the disease’s cure marker to its"
 				+ " Cure Indicator.\n"
 				+ " If no cubes of this color are on the board, this disease is now eradicated. ");
-		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board);
+		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board, gui);
 		discoverCure.addActionListener(discoverCureListener);
 
 		HashMap<String, JButton> buttons = new HashMap<>();

@@ -1,35 +1,59 @@
 package ButtonListeners;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Initialize.Board;
+import Panel.GUI;
 
 public class CharterFlightListener implements ActionListener {
 	
-	Board board;
+	private Board board;
+	private JPanel panel;
+	private GUI gui;
 	
-	public CharterFlightListener(Board board){
+	public CharterFlightListener(Board board, GUI gui){
 		this.board=board;
+		this.gui = gui;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String[] cityOptions = new String[5];
+		System.out.println("charter");
+		String[] cityOptions = new String[47];
+		int incr = 0;
+		for(String i: board.cities.keySet()){
+			if(!i.equals(board.currentPlayer.location.cityName)){
+				cityOptions[incr] = i;
+				incr++;
+			}
+		}
 		JComboBox<String> options = new JComboBox<String>(cityOptions);
 		options.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
                 confirmCity(evt,options);
             }
 		});
-
+		panel = new JPanel();
+		panel.add(options);
+		gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
 		 String chosenCity = options.getSelectedItem().toString();
-		 //Make the buttons and call the methods
+		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
+			if (choice == 0) {
+				board.driveDestinationName = chosenCity;
+				// fly to city
+				gui.removePanel(panel);
+			} else {
+
+			}
 		
 	}
 

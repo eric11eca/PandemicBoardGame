@@ -57,6 +57,7 @@ public class DrawingBoard {
 			drawCubes(city);
 
 		}
+		g.setColor(Color.RED);
 		g.setFont(new Font("UNCURED", 12, 12));
 		g.drawString("UNCURED", 425, 770);
 		g.drawString("UNCURED", 425 + 68, 770);
@@ -66,6 +67,7 @@ public class DrawingBoard {
 		int currentPlayerNum = 0;
 		for (Player player : board.currentPlayers) {
 			currentPlayerNum++;
+			
 			drawPlayer(player.location, Integer.toString(currentPlayerNum));
 		}
 

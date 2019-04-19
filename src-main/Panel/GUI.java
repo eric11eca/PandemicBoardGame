@@ -1,4 +1,5 @@
 package Panel;
+
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +19,8 @@ public class GUI {
 	JPanel buttonPanel;
 	public JPanel panel;
 	public Board board;
+	public JPanel mainPanel;
+
 	public GUI() {
 		frame = new JFrame();
 		frame.setSize(1900, 1900);
@@ -25,16 +28,21 @@ public class GUI {
 	}
 
 	private void setPanels(JLabel label) {
-		JPanel mainPanel = new JPanel();
-		mainPanel.add(label);
+		mainPanel = new JPanel();
 		frame.add(label, BorderLayout.PAGE_END);
 		mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
 	}
 
 	public void addPanel(JPanel panel) {
-		System.out.println("print");
+
 		frame.add(panel);
+	}
+
+	public void addPanel(JPanel panel, String east) {
+		
+		frame.add(panel, east);
+		loadBoardImage();
 	}
 
 	public void removePanel(JPanel panel) {
@@ -50,7 +58,7 @@ public class GUI {
 	private void loadBoardImage() {
 		try {
 			JLabel label = new JLabel();
-			DrawingBoard draw = new DrawingBoard(board, frame, label); 
+			DrawingBoard draw = new DrawingBoard(board, frame, label);
 			draw.repaint();
 			setPanels(label);
 
@@ -59,11 +67,8 @@ public class GUI {
 		}
 
 	}
-	
-	
-	
-	
-	public void setButtonPanel(JPanel buttonPanel){
+
+	public void setButtonPanel(JPanel buttonPanel) {
 		this.buttonPanel = buttonPanel;
 	}
 

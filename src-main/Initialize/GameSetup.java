@@ -45,8 +45,8 @@ public class GameSetup {
 		
 		gameAction = new GameAction(board);
 
-		initPlayerData.addRole();
-		initPlayerData.createPlayers();
+//		initPlayerData.addRole();
+//		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
 

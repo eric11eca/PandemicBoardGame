@@ -77,21 +77,27 @@ public class InitializeBoard {
 			case "Scientist":
 				player = new Scientist(board);
 				board.currentPlayers.add(player);
+				break;
 			case "Medic":
 		    	player = new Medic(board);
 		    	board.currentPlayers.add(player);
+		    	break;
 			case "OperationsExpert":
 				player = new OperationsExpert(board);
 				board.currentPlayers.add(player);
+				break;
 			case "ContingencyPlanner":
 				player = new ContingencyPlanner(board);
 				board.currentPlayers.add(player);
+				break;
 			case "Dispatcher":
 				player = new Dispatcher(board);
 				board.currentPlayers.add(player);
+				break;
 			case "QuarantineSpecialist":
 				player = new QuarantineSpecialist(board);
 				board.currentPlayers.add(player);
+				break;
 			}
 			
 		}
