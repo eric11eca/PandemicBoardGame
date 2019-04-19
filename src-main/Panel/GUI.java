@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import Initialize.Board;
 
@@ -20,15 +21,18 @@ public class GUI {
 	public JPanel panel;
 	public Board board;
 	public JPanel mainPanel;
+	DrawingBoard draw;
 
 	public GUI() {
 		frame = new JFrame();
 		frame.setSize(1900, 1900);
 		frame.show();
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	private void setPanels(JLabel label) {
 		mainPanel = new JPanel();
+		JLabel boardLabel = label;
 		frame.add(label, BorderLayout.PAGE_END);
 		mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
@@ -58,7 +62,7 @@ public class GUI {
 	private void loadBoardImage() {
 		try {
 			JLabel label = new JLabel();
-			DrawingBoard draw = new DrawingBoard(board, frame, label);
+			draw = new DrawingBoard(board, frame, label);
 			draw.repaint();
 			setPanels(label);
 
@@ -66,6 +70,16 @@ public class GUI {
 			System.out.println("File not found " + e.getMessage());
 		}
 
+	}
+	
+	public void updateImage(){
+		try {
+			draw.repaint();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void setButtonPanel(JPanel buttonPanel) {

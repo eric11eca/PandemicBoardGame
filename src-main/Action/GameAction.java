@@ -16,8 +16,6 @@ public class GameAction {
 		board = gameBoard;
 		epidemic = new EpidemicCardAction(board);
 		infectAction = new InfectionCardAction(board);
-		int currentPlayerIdx = board.currentPlayerIndex;
-		board.currentPlayer = board.currentPlayers.get(currentPlayerIdx);
 	}
 	
 	public void drawTwoPlayerCards() {

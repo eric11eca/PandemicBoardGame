@@ -13,10 +13,11 @@ public class GameSetup {
 
 	public GameSetup() {
 		board = new Board();
+		gameAction = new GameAction(board);
 		initGame = new InitializeGame(board, this);
 		initBoard = new InitializeBoard(board);
 		initPlayerData = new InitializePlayerData(board);
-		
+
 	}
 
 	public void startGameSetup() {
@@ -42,11 +43,11 @@ public class GameSetup {
 		initBoard.initializeInfectionRateTrack();
 		initBoard.initializeRoleDeck();
 		initBoard.initializeCurrentPlayers();
-		
-		gameAction = new GameAction(board);
 
-//		initPlayerData.addRole();
-//		initPlayerData.createPlayers();
+		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
+
+		// initPlayerData.addRole();
+		// initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
 
@@ -62,33 +63,37 @@ public class GameSetup {
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
 		initGame.startCreationofBoard();
-		
-		
+
 	}
-	
+
 	public void oneTurn() {
-		for (Player player : board.currentPlayers) {
-			board.currentPlayer = player;
 			gameAction.doAction(board.actionName);
-			if(board.gameEnd) {
-				if(board.playerWin) {
+			if (board.gameEnd) {
+				if (board.playerWin) {
 					System.out.println("Players Win!");
 				} else {
 					System.out.println("Player Losses!");
 				}
 				return;
 			}
-			gameAction.drawTwoPlayerCards();
-			if(board.gameEnd) {
-				if(board.playerWin) {
-					System.out.println("Players Win!");
-				} else {
-					System.out.println("Player Losses!");
+			if (board.currentPlayer.action == 0) {
+				board.currentPlayer.action = 4;
+				board.currentPlayerIndex++;
+				if (board.currentPlayerIndex==board.playernumber){
+					board.currentPlayerIndex=0;
 				}
-				return;
+				gameAction.drawTwoPlayerCards();
+				if (board.gameEnd) {
+					if (board.playerWin) {
+						System.out.println("Players Win!");
+					} else {
+						System.out.println("Player Losses!");
+					}
+					return;
+				}
+				gameAction.infection();
+				board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 			}
-			gameAction.infection();
-		}
 	}
 
 }

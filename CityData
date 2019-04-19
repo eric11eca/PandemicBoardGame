@@ -1,8 +1,8 @@
 SanFrancisco,BLUE,884363,67,157,Chicago,LosAngeles,Tokyo,Manila
-Chicago,BLUE,2716000,200,121,SanFransisco,LosAngeles,MexicoCity,Atlanta,Montreal
+Chicago,BLUE,2716000,200,121,SanFrancisco,LosAngeles,MexicoCity,Atlanta,Montreal
 Atlanta,BLUE,486290,240,196,Chicago,Washington,Miami
 NewYork,BLUE,8623000,385,130,Montreal,Washington,London,Madrid
-Montreal,BLUE,1705000,306,119,NewYork,Chicago
+Montreal,BLUE,1705000,306,119,NewYork,Chicago, Washington
 Washington,BLUE,7536000,349,192,Miami,Atlanta,Montreal,NewYork
 Madrid,BLUE,3166000,563,169,NewYork,London,Paris,SaoPaulo,Algiers
 London,BLUE,8136000,577,68,NewYork,Essen,Paris,Madrid
@@ -36,7 +36,7 @@ Johannesburg,YELLOW,957441,766,542,Kinshasa,Khartowm
 BuenosAires,YELLOW,2890000,382,589,SaoPaulo,Bogota
 Beijing,RED,21540000,1147,125,Shanghai,Seoul
 Seoul,RED,9776000,1237,123,Beijing,Shanghai,Tokyo
-Shanghai,RED,26320000,1152,198,Beijing,Seoul,Tokyo,Hongkong
+Shanghai,RED,26320000,1152,198,Beijing,Seoul,Tokyo,Hongkong,Taipei
 Hongkong,RED,7392000,1162,283,Shanghai,Taipei,Kolkata,Bangkok,HoChiMinhCity,Manila
 HoChiMinhCity,RED,8637000,1167,402,Bangkok,Jakarta,Manila,Hongkong
 Taipei,RED,2674000,1243,268,Shanghai,Hongkong,Osaka,Manila

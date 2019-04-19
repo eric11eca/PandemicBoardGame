@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Action.GameAction;
 import ButtonListeners.BuildResearchStationListener;
 import ButtonListeners.CharterFlightListener;
 import ButtonListeners.DListener;
@@ -103,7 +104,7 @@ public class InitializeGame {
 	private void createButtons() {
 		JButton drive = new JButton("Drive/Ferry");
 		drive.setToolTipText("Move to a city connected by a white line to the one you are in.");
-		DriveListener driveListener = new DriveListener(board, gui);
+		DriveListener driveListener = new DriveListener(board, gui, setup);
 		drive.addActionListener(driveListener);
 
 		JButton flight = new JButton("Direct Flight");
