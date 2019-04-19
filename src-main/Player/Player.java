@@ -17,10 +17,12 @@ public abstract class Player {
 	public int action = 4;
 	public PlayerCard specialEventCard;
 	public String cardToBeDiscard;
+	
 	public boolean handOverFlow = false;
 	public Board board;
 	public Random random;
 	DiscoverCure discoverCure;
+	public StationBuilder buildStationModel;
 
 	public Player(Board gameBoard) {
 		this(gameBoard, new Random());
@@ -167,5 +169,9 @@ public abstract class Player {
 
 	private boolean isResearchStation() {
 		return location.researchStation;
+	}
+
+	public void buildStation() {
+		buildStationModel.buildStation();
 	}
 }
