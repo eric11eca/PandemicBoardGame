@@ -114,7 +114,7 @@ public class InitializeGame {
 
 		JButton cFlight = new JButton("Charter Flight");
 		cFlight.setToolTipText("Discard the City card that matches the city you are in to move to any city.");
-		CharterFlightListener cFlightListener = new CharterFlightListener(board, gui);
+		CharterFlightListener cFlightListener = new CharterFlightListener(board, gui, setup);
 		cFlight.addActionListener(cFlightListener);
 
 		JButton sFlight = new JButton("Shuttle Flight");

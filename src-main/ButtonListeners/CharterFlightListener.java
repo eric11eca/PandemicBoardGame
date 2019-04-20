@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Initialize.Board;
+import Initialize.GameSetup;
 import Panel.GUI;
 
 public class CharterFlightListener implements ActionListener {
@@ -16,10 +17,12 @@ public class CharterFlightListener implements ActionListener {
 	private Board board;
 	private JPanel panel;
 	private GUI gui;
+	private GameSetup gameSetup;
 	
-	public CharterFlightListener(Board board, GUI gui){
+	public CharterFlightListener(Board board, GUI gui, GameSetup gameSetup){
 		this.board=board;
 		this.gui = gui;
+		this.gameSetup = gameSetup;
 	}
 
 	@Override
@@ -49,8 +52,10 @@ public class CharterFlightListener implements ActionListener {
 		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.driveDestinationName = chosenCity;
-				// fly to city
+				board.actionName = "CharterFlight";
+				gameSetup.oneTurn();
 				gui.removePanel(panel);
+				gui.updateImage();
 			} else {
 
 			}

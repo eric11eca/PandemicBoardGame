@@ -42,6 +42,7 @@ public class DrawingBoard {
 	}
 
 	public void repaint() throws IOException {
+		System.out.println("repainting");
 		File picture = new File("Main Picture.png");
 		img = ImageIO.read(picture);
 		g = img.createGraphics();

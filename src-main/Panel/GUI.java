@@ -22,6 +22,7 @@ public class GUI {
 	public Board board;
 	public JPanel mainPanel;
 	DrawingBoard draw;
+	JLabel label = new JLabel();
 
 	public GUI() {
 		frame = new JFrame();
@@ -30,10 +31,9 @@ public class GUI {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
-	private void setPanels(JLabel label) {
+	private void setPanels(JLabel labelToSet) {
 		mainPanel = new JPanel();
-		JLabel boardLabel = label;
-		frame.add(label, BorderLayout.PAGE_END);
+		frame.add(labelToSet, BorderLayout.PAGE_END);
 		mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
 	}
@@ -61,7 +61,7 @@ public class GUI {
 
 	private void loadBoardImage() {
 		try {
-			JLabel label = new JLabel();
+			
 			draw = new DrawingBoard(board, frame, label);
 			draw.repaint();
 			setPanels(label);
@@ -73,13 +73,7 @@ public class GUI {
 	}
 	
 	public void updateImage(){
-		try {
-			draw.repaint();
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadBoardImage();
 	}
 
 	public void setButtonPanel(JPanel buttonPanel) {
