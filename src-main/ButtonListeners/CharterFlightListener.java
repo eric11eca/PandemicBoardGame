@@ -51,7 +51,7 @@ public class CharterFlightListener implements ActionListener {
 		 String chosenCity = options.getSelectedItem().toString();
 		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
-				board.driveDestinationName = chosenCity;
+				board.cityCardNameCharter = chosenCity;
 				board.actionName = "CharterFlight";
 				gameSetup.oneTurn();
 				gui.removePanel(panel);

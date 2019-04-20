@@ -1,5 +1,6 @@
 package ButtonListeners;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -7,16 +8,24 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Initialize.Board;
+import Initialize.GameSetup;
 import Panel.GUI;
 
 public class TreatDiseaseListener implements ActionListener {
 	
 	Board board;
+	private GameSetup gameSetup;
+	private GUI gui;
+	private JPanel panel;
 	
-	public TreatDiseaseListener(Board board, GUI gui){
+	public TreatDiseaseListener(Board board, GUI gui, GameSetup gameSetup ){
 		this.board=board;
+		this.gui = gui;
+		this.gameSetup = gameSetup;
 	}
 
 	@Override
@@ -36,12 +45,24 @@ public class TreatDiseaseListener implements ActionListener {
                 confirmRemoveDisease(evt,options);
             }
 		});
+		panel = new JPanel();
+		panel.add(options);
+		gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 
 	protected void confirmRemoveDisease(ActionEvent evt, JComboBox<String> options) {
-		// TODO Auto-generated method stub
+		 String chosenCity = options.getSelectedItem().toString();
+		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to treat this disease", "Are you sure you want to treat this disease", JOptionPane.YES_NO_OPTION);
+			if (choice == 0) {
+				board.diseaseBeingTreated = chosenCity;
+				board.actionName = "TreatDisease";
+				gameSetup.oneTurn();
+				gui.removePanel(panel);
+				gui.updateImage();
+			} else {
+
+			}
 		
 	}
-
 }

@@ -109,7 +109,7 @@ public class InitializeGame {
 
 		JButton flight = new JButton("Direct Flight");
 		flight.setToolTipText("Discard a City card to move to the city named on the card.");
-		FlightListener flightListener = new FlightListener(board, gui);
+		FlightListener flightListener = new FlightListener(board, gui, setup);
 		flight.addActionListener(flightListener);
 
 		JButton cFlight = new JButton("Charter Flight");
@@ -135,7 +135,7 @@ public class InitializeGame {
 				+ " supply next to the board.\n If this disease color has been cured (see"
 				+ " Discover a Cure below),\n remove all cubes of that color from the city you" + " are in.\n"
 				+ " If the last cube of a cured disease is removed from the board, this disease" + " is eradicated.");
-		TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board, gui);
+		TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board, gui, setup);
 		treatDisease.addActionListener(treatDiseaseListener);
 
 		JButton shareKnowledge = new JButton("Share Knowledge");

@@ -35,6 +35,7 @@ public class GameSetup {
 		initBoard.eventCardNames.add("Government Grant");
 		initBoard.eventCardNames.add("Airlift");
 
+		
 		initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
