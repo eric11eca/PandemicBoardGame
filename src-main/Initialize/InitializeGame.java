@@ -1,14 +1,15 @@
 package Initialize;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
-import Action.GameAction;
 import ButtonListeners.BuildResearchStationListener;
 import ButtonListeners.CharterFlightListener;
 import ButtonListeners.DListener;
@@ -24,10 +25,12 @@ import Panel.*;
 public class InitializeGame {
 	public int players = 0;
 	public int epidemicNumber = 0;
-	private GUI gui;
+	
 	JPanel buttonPanel;
-	private Board board;
 	GameSetup setup;
+	
+	private Board board;
+	private GUI gui;
 
 	public InitializeGame(Board board, GameSetup setup) {
 		this.board = board;
@@ -79,16 +82,11 @@ public class InitializeGame {
 	}
 
 	public void SetDifficulty(int epidemics, JPanel panelToClose) {
-		// System.out.println(epidemics);
-
 		epidemicNumber = epidemics;
 		board.epidemicCardNum = epidemics;
 		gui.removePanel(panelToClose);
 		createButtons();
 		setup.startGameSetup();
-//		createInfoPanel();
-//		StartGame();
-
 	}
 	
 	public void startCreationofBoard(){
@@ -153,7 +151,7 @@ public class InitializeGame {
 				+ " hand to cure the disease of that color.\n Move the disease’s cure marker to its"
 				+ " Cure Indicator.\n"
 				+ " If no cubes of this color are on the board, this disease is now eradicated. ");
-		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board, gui);
+		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board, gui, setup);
 		discoverCure.addActionListener(discoverCureListener);
 
 		HashMap<String, JButton> buttons = new HashMap<>();
@@ -191,5 +189,4 @@ public class InitializeGame {
 		}
 
 	}
-
 }

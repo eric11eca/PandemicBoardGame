@@ -1,17 +1,18 @@
 package Panel;
 
 import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+import javax.swing.border.TitledBorder;
 
 import Initialize.Board;
 
@@ -23,6 +24,14 @@ public class GUI {
 	public JPanel mainPanel;
 	DrawingBoard draw;
 	JLabel label = new JLabel();
+	
+	static final int SCREEN_HEIGHT = 1080;
+	static final int SCREEN_WIDTH = 1920;
+	static final double WIDTH_SCALE = 0.4;
+	private static final double HEIGHT_SCALE = 1.8;
+	
+	public static final String WINING_MESSAGE = "\n CONGRADULATIONS, \n YOU WIN!";
+	public static final String LOSING_MESSAGE = "\n SORRY, YOU LOSE, \n WNNA TRY AGAIN?";
 
 	public GUI() {
 		frame = new JFrame();
@@ -78,6 +87,39 @@ public class GUI {
 
 	public void setButtonPanel(JPanel buttonPanel) {
 		this.buttonPanel = buttonPanel;
+	}
+
+	public void gameEnd(String message) {
+		JPanel messageBoard = new JPanel();
+		final JTextArea cs = new JTextArea();
+
+		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
+		border.setTitleJustification(TitledBorder.LEFT);
+		cs.setBorder(border);
+		cs.setEditable(false);
+		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
+		cs.setFont(cs.getFont().deriveFont(48f));
+		messageBoard.add(cs);
+		cs.append(message);
+		cs.setForeground(Color.RED);
+		addPanel(messageBoard, BorderLayout.EAST);
+	}
+	
+	public void displayMessage(ArrayList<String> messages, JPanel messageBoard) {
+		final JTextArea cs = new JTextArea();
+
+		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
+		border.setTitleJustification(TitledBorder.LEFT);
+		cs.setBorder(border);
+		cs.setEditable(false);
+		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
+		cs.setFont(cs.getFont().deriveFont(28f));
+		messageBoard.add(cs);
+		for(int i = 0; i < messages.size(); i++) {
+			cs.append(messages.get(i));
+		}
+		cs.setForeground(Color.RED);
+		addPanel(messageBoard, BorderLayout.EAST);
 	}
 
 }

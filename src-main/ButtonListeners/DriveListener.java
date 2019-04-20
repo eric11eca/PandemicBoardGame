@@ -9,7 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Action.GameAction;
 import Initialize.Board;
 import Initialize.GameSetup;
 import Panel.GUI;
@@ -49,8 +48,7 @@ public class DriveListener implements ActionListener {
 
 	}
 
-	protected void confirmCity(ActionEvent evt, JComboBox<String> options, String chosenCity) {
-		
+	protected void confirmCity(ActionEvent evt, JComboBox<String> options, String chosenCity) {	
 		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to drive", "Are you sure you want to drive", JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.driveDestinationName = chosenCity;
