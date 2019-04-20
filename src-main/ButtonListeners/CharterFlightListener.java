@@ -27,7 +27,17 @@ public class CharterFlightListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("charter");
+		boolean flag = false;
+		for(String i: board.currentPlayer.hand.keySet()){
+			if(i.equals(board.currentPlayer.location.cityName)){
+					flag = true;
+			}
+		}
+		if(flag == false){
+			return;
+		}
+	
+		
 		String[] cityOptions = new String[47];
 		int incr = 0;
 		for(String i: board.cities.keySet()){
@@ -52,6 +62,7 @@ public class CharterFlightListener implements ActionListener {
 		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.cityCardNameCharter = chosenCity;
+				System.out.println(chosenCity);
 				board.actionName = "CharterFlight";
 				gameSetup.oneTurn();
 				gui.removePanel(panel);

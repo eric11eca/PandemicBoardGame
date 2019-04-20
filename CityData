@@ -13,7 +13,7 @@ St.Petersburg,BLUE,263255,794,31,Moscow,Essen,Istanbul
 Moscow,BLACK,11920000,851,100,St.Petersburg,Istanbul,Tehran
 Istanbul,BLACK,15070000,766,159,Milan,Algiers,Moscow,St.Petersburg,Cairo,Baghdad
 Algiers,BLACK,42008054,676,226,Madrid,Paris,Istanbul,Cairo
-Cairo,BLACK,19500000,755,247,Algiers,Istanbul,Baghdad,Riyadh,Khartowm
+Cairo,BLACK,19500000,755,247,Algiers,Istanbul,Baghdad,Riyadh,Khartoum
 Baghdad,BLACK,7216000,842,213,Istanbul,Cairo,Riyadh,Karachi,Tehran
 Tehran,BLACK,8694000,920,149,Moscow,Baghdad,Karachi,Delhi
 Karachi,BLACK,14910000,939,245,Baghdad,Riyadh,Mumbai,Delhi
@@ -29,10 +29,10 @@ Bogota,YELLOW,8081000,295,383,Miami,MexicoCity,Lima,SaoPaulo
 Lima,YELLOW,9751717,257,494,MexicoCity,Bogota,Santiago
 SaoPaulo,YELLOW,14710000,443,510,Bogota,BuenosAires,Lagos
 Santiago,YELLOW,5614000,272,610,Lima
-Lagos,YELLOW,21000000,643,367,SaoPaulo,Khartowm,Kinshasa
-Kinshasa,YELLOW,9464000,707,438,Lagos,Johannesburg,Khartowm
+Lagos,YELLOW,21000000,643,367,SaoPaulo,Khartoum,Kinshasa
+Kinshasa,YELLOW,9464000,707,438,Lagos,Johannesburg,Khartoum
 Khartoum,YELLOW,1974647,774,347,Cairo,Lagos,Kinshasa
-Johannesburg,YELLOW,957441,766,542,Kinshasa,Khartowm
+Johannesburg,YELLOW,957441,766,542,Kinshasa,Khartoum
 BuenosAires,YELLOW,2890000,382,589,SaoPaulo,Bogota
 Beijing,RED,21540000,1147,125,Shanghai,Seoul
 Seoul,RED,9776000,1237,123,Beijing,Shanghai,Tokyo

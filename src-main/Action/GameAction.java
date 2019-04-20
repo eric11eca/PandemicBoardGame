@@ -43,7 +43,15 @@ public class GameAction {
 			City driveDestination = board.cities.get(board.driveDestinationName);
 			board.currentPlayer.drive(driveDestination);
 		} else if (actionName.equals("CharterFlight")) {
-			PlayerCard cityCard = board.currentPlayer.hand.get(board.cityCardNameCharter);
+			System.out.println("\n");
+			for(String i :board.currentPlayer.hand.keySet()){
+				System.out.println(i);
+			}
+			System.out.println("looking for " + board.cityCardNameCharter);
+			
+			System.out.println( board.currentPlayer.hand.get(board.cityCardNameCharter));
+			PlayerCard cityCard = board.currentPlayer.hand.get(board.currentPlayer.location.cityName);
+			System.out.println(cityCard.cardName);
 			board.currentPlayer.characterFlight(cityCard);
 		} else if (actionName.equals("ShuttleFlight")) {
 			City shuttleDestination = board.cities.get(board.shuttleDestinationName);

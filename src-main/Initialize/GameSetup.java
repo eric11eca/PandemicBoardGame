@@ -65,7 +65,7 @@ public class GameSetup {
 		board.cities.put("Atlanta", atlanta);
 		
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
-		initBoard.initializeSpecialEndGameDemo();
+	
 
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);

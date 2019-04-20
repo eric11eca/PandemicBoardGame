@@ -37,6 +37,10 @@ public class TreatDiseaseListener implements ActionListener {
 				colors.add(i);
 			}
 		}
+		colors.add("Cancel");
+		if(colorsmap.size() == 0){
+			return;
+		}
 		String[] colorOptions = colors.toArray(new String[colors.size()]);
 
 		JComboBox<String> options = new JComboBox<String>(colorOptions);
@@ -53,6 +57,10 @@ public class TreatDiseaseListener implements ActionListener {
 
 	protected void confirmRemoveDisease(ActionEvent evt, JComboBox<String> options) {
 		 String chosenCity = options.getSelectedItem().toString();
+		 if(chosenCity.equals("Cancel")){
+			 gui.removePanel(panel);
+			 return;
+		 }
 		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to treat this disease", "Are you sure you want to treat this disease", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.diseaseBeingTreated = chosenCity;
