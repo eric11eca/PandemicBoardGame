@@ -39,6 +39,7 @@ public class DiscardListener implements ActionListener{
 					board.currentPlayer.cardToBeDiscard.add(cardOptions[i].getText());
 			}
 			
+			
 		}
 		
 	}
