@@ -7,5 +7,6 @@ public class Scientist extends Player {
 	public Scientist(Board gameBoard) {
 		super(gameBoard);
 		discoverCure = new DiscoverCureScientist(gameBoard.curedDiseases);
+		buildStationModel = new StationBuilderNormal(this,gameBoard);
 	}
 }

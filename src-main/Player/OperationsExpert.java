@@ -6,11 +6,7 @@ public class OperationsExpert extends Player {
 	public OperationsExpert(Board gameBoard) {
 		super(gameBoard);
 		discoverCure = new DiscoverCureNormal(gameBoard.curedDiseases);
-	}
-
-	public void buildResearchStation() {
-		location.researchStation = true;
-		consumeAction();
+		buildStationModel = new StationBuilderOperationsExpert(this, gameBoard);
 	}
 
 	public void moveToAnotherCity(String cityName) {
@@ -22,5 +18,4 @@ public class OperationsExpert extends Player {
 			}
 		}
 	}
-
 }

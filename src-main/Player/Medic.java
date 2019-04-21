@@ -7,6 +7,7 @@ public class Medic extends Player {
 	public Medic(Board gameBoard) {
 		super(gameBoard);
 		discoverCure = new DiscoverCureNormal(gameBoard.curedDiseases);
+		buildStationModel = new StationBuilderNormal(this, gameBoard);
 	}
 
 	public void removeAllCubes() {
