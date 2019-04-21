@@ -20,11 +20,9 @@ public class CityDataParser {
 				citiesData.add(citydata);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 			throw new RuntimeException("path: " + path, e);
 		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException("path: " + path + "is empty", e);
+			throw new RuntimeException(e);
 		}
 		return citiesData;
 	}

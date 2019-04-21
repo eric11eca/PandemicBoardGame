@@ -26,14 +26,6 @@ public class TestOperationsExpert {
 	}
 
 	@Test
-	public void testBuildResearchStation() {
-		assertFalse(location.researchStation);
-		operationsExpert.buildResearchStation();
-		assertTrue(location.researchStation);
-		assertEquals(operationsExpert.action, 3);
-	}
-
-	@Test
 	public void testMoveToAnotherCity() {
 		String cityName = "NewYork";
 		String new_cityName = "Chicago";

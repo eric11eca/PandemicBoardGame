@@ -7,6 +7,7 @@ public class ContingencyPlanner extends Player {
 	public ContingencyPlanner(Board gameBoard) {
 		super(gameBoard);
 		discoverCure = new DiscoverCureNormal(gameBoard.curedDiseases);
+		buildStationModel = new StationBuilderNormal(this, gameBoard);
 	}
 
 	public void pickFromDiscardPlayerCard(String cardName) {
