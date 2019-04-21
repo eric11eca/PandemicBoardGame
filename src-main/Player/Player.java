@@ -18,7 +18,7 @@ public abstract class Player {
 	public int action;
 	public PlayerCard specialEventCard;
 	public String cardToBeDiscard;
-	
+
 	public boolean handOverFlow = false;
 	public Board board;
 	public Random random;
@@ -159,12 +159,12 @@ public abstract class Player {
 				}
 				consumeAction();
 			}
-			
-			if(board.curedDiseases.size() == 4) {
+
+			if (board.curedDiseases.size() == 4) {
 				board.gameEnd = true;
 				board.playerWin = true;
 			}
-			
+
 		} else {
 			throw new RuntimeException("You are not at the research Station!!");
 		}
@@ -176,5 +176,34 @@ public abstract class Player {
 
 	public void buildStation() {
 		buildStationModel.buildStation();
+	}
+
+	public void shareKnowledge(Player playerToShare, PlayerCard citycard, boolean isGivingAway) {
+		if (citycard.cardType != Board.CardType.CITYCARD) {
+			throw new RuntimeException("Event card cannot be shared");
+		}
+		if (isGivingAway) {
+			if (checkHand(this, citycard)) {
+				giveCard(this, playerToShare, citycard);
+			} else {
+				throw new RuntimeException("You don't have this city card");
+			}
+		} else {
+			if (checkHand(playerToShare, citycard)) {
+				giveCard(playerToShare, this, citycard);
+			} else {
+				throw new RuntimeException("Your friend doesn't have this city card");
+			}
+		}
+		consumeAction();
+	}
+
+	private boolean checkHand(Player player, PlayerCard citycard) {
+		return player.hand.containsKey(citycard.cardName);
+	}
+
+	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
+		giver.discardCard(citycard.cardName);
+		receiver.receiveCard(citycard);
 	}
 }
