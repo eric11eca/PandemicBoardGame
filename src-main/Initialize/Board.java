@@ -59,4 +59,5 @@ public class Board {
 	public boolean gameEnd = false;
 	public boolean playerLose = false;
 	public boolean playerWin = false;
+	
 }

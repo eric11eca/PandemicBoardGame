@@ -51,11 +51,12 @@ public class DriveListener implements ActionListener {
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options, String chosenCity) {	
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to drive", "Are you sure you want to drive", JOptionPane.YES_NO_OPTION);
+		
 		if(chosenCity.equals("Cancel")){
 			 gui.removePanel(panel);
 			 return;
 		 }
+		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to drive", "Are you sure you want to drive", JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.driveDestinationName = chosenCity;
 			board.actionName = "Drive";

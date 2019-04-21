@@ -38,11 +38,10 @@ public class FlightListener implements ActionListener {
 				cityOptions.add(i);
 			}
 		}
-		cityOptions.add("Cancel");
-		
 		if(cityOptions.size() == 0){
 			return;
 		}
+		cityOptions.add("Cancel");
 		String[] cityOptionsArray = cityOptions.toArray(new String[cityOptions.size()]);
 		JComboBox<String> options = new JComboBox<String>(cityOptionsArray);
 		options.addActionListener(new ActionListener(){

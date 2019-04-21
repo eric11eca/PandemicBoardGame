@@ -16,7 +16,7 @@ Algiers,BLACK,42008054,676,226,Madrid,Paris,Istanbul,Cairo
 Cairo,BLACK,19500000,755,247,Algiers,Istanbul,Baghdad,Riyadh,Khartoum
 Baghdad,BLACK,7216000,842,213,Istanbul,Cairo,Riyadh,Karachi,Tehran
 Tehran,BLACK,8694000,920,149,Moscow,Baghdad,Karachi,Delhi
-Karachi,BLACK,14910000,939,245,Baghdad,Riyadh,Mumbai,Delhi
+Karachi,BLACK,14910000,939,245,Baghdad,Riyadh,Mumbai,Delhi, Tehran
 Mumbai,BLACK,18410000,949,323,Karachi,Chennai,Delhi
 Riyadh ,BLACK,5188000,853,306,Cairo,Baghdad,Karachi
 Delhi,BLACK,18980000,1016,218,Tehran,Karachi,Mumbai,Chennai,Kolkata
