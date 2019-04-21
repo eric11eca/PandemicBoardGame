@@ -30,6 +30,8 @@ public class TestReceiveCard {
 		for (String city : cities) {
 			citycards.add(new PlayerCard(Board.CardType.CITYCARD, city));
 		}
+		
+		player.hand.put("C", citycards.get(2));
 	}
 	
 	@Test 
@@ -37,9 +39,8 @@ public class TestReceiveCard {
 		for (int i = 0; i < 7; i++) {
 			player.receiveCard(citycards.get(i));
 		}
-		player.cardToBeDiscard = "C";
+		player.cardToBeDiscard.add("C");
 		player.receiveCard(citycards.get(7));
-		assertTrue(player.handOverFlow);
 		assertEquals(1, board.discardPlayerCard.size());
 	}
 

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import ButtonListeners.DiscardListener;
 import Initialize.Board;
 
 public class GUI {
@@ -120,6 +123,21 @@ public class GUI {
 		}
 		cs.setForeground(Color.RED);
 		addPanel(messageBoard, BorderLayout.EAST);
+	}
+	
+	public void showPlayerHand(){
+		ArrayList<String> currentHand = new ArrayList<>();
+		for(String cardName: board.currentPlayer.hand.keySet()){
+			currentHand.add(cardName);
+		}
+		JCheckBox[] cardOptions = new JCheckBox[currentHand.size()];
+		for (int i = 0; i < currentHand.size(); i++) {
+			JCheckBox cardOption = new JCheckBox(currentHand.get(i));
+			cardOptions[i] = cardOption;
+		}
+		
+		JButton discardButton = new JButton("Discard");
+		DiscardListener discardListener = new DiscardListener(this, board, cardOptions);
 	}
 
 }
