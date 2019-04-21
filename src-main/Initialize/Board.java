@@ -33,6 +33,7 @@ public class Board {
 	public String diseaseBeingTreated;
 	public String driveDestinationName;
 	public String shuttleDestinationName;
+	public Object stationToRemove;
 	public ArrayList<PlayerCard> cardsToCureDisease = new ArrayList<>();
 	
 	public Player currentPlayer;
@@ -59,5 +60,6 @@ public class Board {
 	public boolean gameEnd = false;
 	public boolean playerLose = false;
 	public boolean playerWin = false;
+	
 	
 }

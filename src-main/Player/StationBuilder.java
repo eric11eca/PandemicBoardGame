@@ -26,9 +26,9 @@ public class StationBuilder {
 		}
 		City playerLocation = player.location;
 		if(board.currentResearchStation.size() == 6) {
-			City randomCity = player.buildStationModel.returnRandomResearchStationCity();
-			board.currentResearchStation.remove(randomCity.cityName);
-			randomCity.researchStation = false;
+			City city = board.cities.get(board.stationToRemove);
+			board.currentResearchStation.remove(city.cityName);
+			city.researchStation = false;
 		}
 		playerLocation.researchStation = true;
 		board.currentResearchStation.put(playerLocation.cityName, playerLocation);
