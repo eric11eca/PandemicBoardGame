@@ -3,6 +3,7 @@ package Player;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ public abstract class Player {
 	public String role;
 	public int action;
 	public PlayerCard specialEventCard;
-	public String cardToBeDiscard;
+	public List<String> cardToBeDiscard;
 	public boolean handOverFlow = false;
 	public Board board;
 	public Random random;
@@ -25,6 +26,7 @@ public abstract class Player {
 
 	public Player(Board gameBoard) {
 		this(gameBoard, new Random());
+		cardToBeDiscard = new ArrayList<>();
 	}
 
 	public Player(Board gameBoard, Random random) {
@@ -36,7 +38,8 @@ public abstract class Player {
 	public void receiveCard(PlayerCard playerCard) {
 		if (hand.size() > 7) {
 			handOverFlow = true;
-			discardCard(cardToBeDiscard);
+			for (int i = 0; i < cardToBeDiscard.size(); i++)
+				discardCard(cardToBeDiscard.get(i));
 		} else {
 			hand.put(playerCard.cardName, playerCard);
 		}
@@ -157,12 +160,12 @@ public abstract class Player {
 				}
 				consumeAction();
 			}
-			
-			if(board.curedDiseases.size() == 4) {
+
+			if (board.curedDiseases.size() == 4) {
 				board.gameEnd = true;
 				board.playerWin = true;
 			}
-			
+
 		} else {
 			throw new RuntimeException("You are not at the research Station!!");
 		}
