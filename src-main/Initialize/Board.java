@@ -33,7 +33,8 @@ public class Board {
 	public String diseaseBeingTreated;
 	public String driveDestinationName;
 	public String shuttleDestinationName;
-	public ArrayList<PlayerCard> cardsToCureDisease = new ArrayList<>();
+	public List<String> cardToBeDiscard = new ArrayList<>();
+	public List<PlayerCard> cardsToCureDisease = new ArrayList<>();
 	
 	public Player currentPlayer;
 	public int currentPlayerIndex = 0;

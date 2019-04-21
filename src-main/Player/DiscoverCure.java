@@ -1,6 +1,7 @@
 package Player;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import Card.PlayerCard;
@@ -10,23 +11,23 @@ public class DiscoverCure {
 	public Set<String> curedDiseases;
 	public int cardCount;
 
-	public boolean discoverCure(ArrayList<PlayerCard> cards) {
-		if (cards.size() != cardCount) {
+	public boolean discoverCure(List<PlayerCard> cardsToCureDisease) {
+		if (cardsToCureDisease.size() != cardCount) {
 			throw new RuntimeException("Please select valid number of cards");
 		}
-		if (!validCardType(cards)) {
+		if (!validCardType(cardsToCureDisease)) {
 			throw new RuntimeException("City card only");
 		}
-		if (!checkCureColor(cards)) {
+		if (!checkCureColor(cardsToCureDisease)) {
 			throw new RuntimeException("Invalid City Card");
 		}
-		String curedColor = cards.get(0).color;
+		String curedColor = cardsToCureDisease.get(0).color;
 		return curedDiseases.add(curedColor);
 	}
 
-	public boolean validCardType(ArrayList<PlayerCard> cards) {
+	public boolean validCardType(List<PlayerCard> cardsToCureDisease) {
 		Board.CardType cityCardType = Board.CardType.CITYCARD;
-		for (PlayerCard playerCard : cards) {
+		for (PlayerCard playerCard : cardsToCureDisease) {
 			if (playerCard.cardType != cityCardType) {
 				return false;
 			}
@@ -34,10 +35,10 @@ public class DiscoverCure {
 		return true;
 	}
 
-	public boolean checkCureColor(ArrayList<PlayerCard> cards) {
-		String color = cards.get(0).color;
-		for (int i = 1; i < cards.size(); i++) {
-			if (!color.equals(cards.get(i).color)) {
+	public boolean checkCureColor(List<PlayerCard> cardsToCureDisease) {
+		String color = cardsToCureDisease.get(0).color;
+		for (int i = 1; i < cardsToCureDisease.size(); i++) {
+			if (!color.equals(cardsToCureDisease.get(i).color)) {
 				return false;
 			}
 		}

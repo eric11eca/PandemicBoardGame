@@ -90,13 +90,6 @@ public class DiscoverCureListener implements ActionListener {
 	protected void cureDisease() {
 		board.actionName = "CureDisease";
 		gameSetup.oneTurn();
-		if(board.gameEnd) {
-			if(board.playerWin) {
-				gui.gameEnd(GUI.WINING_MESSAGE);
-			} else if (board.playerLose){
-				gui.gameEnd(GUI.LOSING_MESSAGE);
-			}
-		}
 		gui.removePanel(panel);
 		gui.updateImage();
 	}

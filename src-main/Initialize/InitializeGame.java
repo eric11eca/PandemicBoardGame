@@ -30,7 +30,7 @@ public class InitializeGame {
 	GameSetup setup;
 	
 	private Board board;
-	private GUI gui;
+	public GUI gui;
 
 	public InitializeGame(Board board, GameSetup setup) {
 		this.board = board;

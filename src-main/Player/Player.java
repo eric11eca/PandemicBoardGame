@@ -18,7 +18,6 @@ public abstract class Player {
 	public String role;
 	public int action;
 	public PlayerCard specialEventCard;
-	public List<String> cardToBeDiscard;
 	public boolean handOverFlow = false;
 	public Board board;
 	public Random random;
@@ -27,7 +26,6 @@ public abstract class Player {
 
 	public Player(Board gameBoard) {
 		this(gameBoard, new Random());
-		cardToBeDiscard = new ArrayList<>();
 	}
 
 	public Player(Board gameBoard, Random random) {
@@ -37,12 +35,9 @@ public abstract class Player {
 	}
 
 	public void receiveCard(PlayerCard playerCard) {
-		if (hand.size() >= 7) {
-			handOverFlow = true;
-			for (int i = 0; i < cardToBeDiscard.size(); i++)
-				discardCard(cardToBeDiscard.get(i));
-		} else {
-			hand.put(playerCard.cardName, playerCard);
+		hand.put(playerCard.cardName, playerCard);
+		if (hand.size() > 7) {
+			throw new RuntimeException("Player hand overflows");
 		}
 	}
 
@@ -62,14 +57,18 @@ public abstract class Player {
 		return cardUsed;
 	}
 
-	public void discardCard(String cardName) {
-		if (hand.containsKey(cardName)) {
-			PlayerCard playerCard = hand.get(cardName);
-			hand.remove(cardName);
-			board.discardPlayerCard.put(cardName, playerCard);
-		} else {
-			throw new RuntimeException("This card does not exist in the hand");
+	public void discardCard() {
+		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
+			String cardName = board.cardToBeDiscard.get(i);
+			if (hand.containsKey(cardName)) {
+				PlayerCard playerCard = hand.get(cardName);
+				hand.remove(cardName);
+				board.discardPlayerCard.put(cardName, playerCard);
+			} else {
+				throw new RuntimeException("This card does not exist in the hand");
+			}
 		}
+		board.cardToBeDiscard.clear();
 	}
 
 	public void drive(City destination) {
@@ -112,7 +111,8 @@ public abstract class Player {
 					destination = randomDestination();
 				}
 				location = destination;
-				discardCard(cityCard.cardName);
+				board.cardToBeDiscard.add(cityCard.cardName);
+				discardCard();
 				consumeAction();
 			} else {
 				throw new IllegalArgumentException("The name of city card is different from your location");
@@ -153,11 +153,12 @@ public abstract class Player {
 		consumeAction();
 	}
 
-	public void discoverCure(ArrayList<PlayerCard> cards) {
+	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
 		if (isResearchStation()) {
-			if (discoverCure.discoverCure(cards)) {
-				for (PlayerCard playercard : cards) {
-					discardCard(playercard.cardName);
+			if (discoverCure.discoverCure(cardsToCureDisease)) {
+				for (PlayerCard playercard : cardsToCureDisease) {
+					board.cardToBeDiscard.add(playercard.cardName);
+					discardCard();
 				}
 				consumeAction();
 			}
