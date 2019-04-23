@@ -19,22 +19,23 @@ public class GameAction {
 
 	public void drawTwoPlayerCards() {
 		for (int i = 0; i < 2; i++) {
-			PlayerCard playerCard = board.validPlayerCard.get(0);
-			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
-				epidemic.performeEpidemic();
-			} else {
-				try {
-					board.currentPlayer.receiveCard(playerCard);
-					board.validPlayerCard.remove(0);
-					board.discardPlayerCard.put(playerCard.cardName, playerCard);
-				} catch (RuntimeException e) {
-					board.validPlayerCard.remove(0);
-					board.discardPlayerCard.put(playerCard.cardName, playerCard);
-					throw new RuntimeException();
-				}
+			PlayerCard playerCard = null;
+			try {
+				playerCard = board.validPlayerCard.get(0);
+			}catch(IndexOutOfBoundsException e) {
+				board.playerLose = true;
+				board.gameEnd = true;
+				throw new RuntimeException("END GAME. Run out of player card");
 			}
-
-		}
+			if(playerCard.cardType == Board.CardType.EPIDEMIC) {
+				epidemic.performeEpidemic();	
+				continue;
+			}
+					
+			board.currentPlayer.receiveCard(playerCard);
+			board.validPlayerCard.remove(0);
+			board.discardPlayerCard.put(playerCard.cardName, playerCard);
+		} 
 	}
 
 	public void doAction(String actionName) {

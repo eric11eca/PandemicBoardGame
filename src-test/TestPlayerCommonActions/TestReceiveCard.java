@@ -1,6 +1,5 @@
 package TestPlayerCommonActions;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -11,7 +10,6 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
-import Initialize.City;
 import Player.Dispatcher;
 import Player.Player;
 
@@ -33,16 +31,7 @@ public class TestReceiveCard {
 		
 		player.hand.put("C", citycards.get(2));
 	}
-	
-	@Test 
-	public void testHandOverFlow() {
-		for (int i = 0; i < 7; i++) {
-			player.receiveCard(citycards.get(i));
-		}
-		player.cardToBeDiscard.add("C");
-		player.receiveCard(citycards.get(7));
-		assertEquals(1, board.discardPlayerCard.size());
-	}
+
 
 	@Test
 	public void testNormalReceiveAndDiscardCityCard() {
