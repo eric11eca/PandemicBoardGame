@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
-import ButtonListeners.PickCardsToBeDiscard;
+import Card.DiscardCard;
 import Initialize.Board;
 
 public class GUI {
@@ -126,7 +124,7 @@ public class GUI {
 	}
 	
 	public void showPlayerHand(){
-		PickCardsToBeDiscard pickCardsToBeDiscard = new PickCardsToBeDiscard(this, board);
+		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board);
 		pickCardsToBeDiscard.pickCardsPrompt();
 	}
 
