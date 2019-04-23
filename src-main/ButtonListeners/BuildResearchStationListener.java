@@ -6,14 +6,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import Initialize.Board;
+import Initialize.GameSetup;
 import Panel.GUI;
 
 public class BuildResearchStationListener implements ActionListener {
 	
 	Board board;
+	private GUI gui;
+	private GameSetup gameSetup;
 	
-	public BuildResearchStationListener(Board board, GUI gui){
+	public BuildResearchStationListener(Board board, GUI gui, GameSetup GameSetup){
 		this.board=board;
+		this.gui = gui;
+		this.gameSetup = GameSetup;
 	}
 
 	@Override
