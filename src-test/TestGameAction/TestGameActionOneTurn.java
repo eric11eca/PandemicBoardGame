@@ -76,7 +76,7 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		assertEquals(1, medic.hand.size());
 	}
-
+	
 	@Test(expected = RuntimeException.class)
 	public void testLackOfPlayerCards() {
 		action.drawTwoPlayerCards();
