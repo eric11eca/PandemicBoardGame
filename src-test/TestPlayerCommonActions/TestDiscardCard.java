@@ -13,7 +13,6 @@ import Player.Player;
 public class TestDiscardCard {
 	Board board;
 	Player player;
-
 	
 	@Before
 	public void setup() {
@@ -28,7 +27,8 @@ public class TestDiscardCard {
 	@Test
 	public void testDiscardCard() {
 		String cardName = "B";
-		player.discardCard(cardName);
+		board.cardToBeDiscard.add(cardName);
+		player.discardCard();
 		assertEquals(1, player.hand.size());
 		assertEquals(1, board.discardPlayerCard.size());
 	}
@@ -36,7 +36,8 @@ public class TestDiscardCard {
 	@Test (expected = RuntimeException.class)
 	public void testDiscardCardWithInvalidCardName() {
 		String cardName = "C";
-		player.discardCard(cardName);
+		board.cardToBeDiscard.add(cardName);
+		player.discardCard();
 	}
 
 }
