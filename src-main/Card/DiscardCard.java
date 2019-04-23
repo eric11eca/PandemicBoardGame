@@ -61,6 +61,7 @@ public class DiscardCard {
 					board.cardToBeDiscard = cardTobeDiscard;
 					gui.removePanel(panel);
 					gui.updateImage();
+					
 				}
 			}
 		});
