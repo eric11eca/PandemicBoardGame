@@ -48,7 +48,7 @@ public class DrawingBoard {
 		img = ImageIO.read(picture);
 		g = img.createGraphics();
 		if(!board.infectionRateTrack.isEmpty()) {
-			drawInfect(board.infectionRateTrack.peek());
+			drawInfect(7 - board.infectionRateTrack.size());
 		}
 		
 		drawOutBreaks(board.outbreakMark);

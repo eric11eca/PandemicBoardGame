@@ -125,7 +125,7 @@ public class InitializeGame {
 		buildResearchStation.setToolTipText("Discard the City card that matches the city you are in to place a research"
 				+ " station there.\n Take the research station from the pile next to the board.\n If all"
 				+ " 6 research stations have been built,\n take a research station from anywhere" + " on the board.");
-		BuildResearchStationListener buildResearchStationListener = new BuildResearchStationListener(board, gui);
+		BuildResearchStationListener buildResearchStationListener = new BuildResearchStationListener(board, gui, setup);
 		buildResearchStation.addActionListener(buildResearchStationListener);
 
 		JButton treatDisease = new JButton("Treat Disease");
