@@ -1,6 +1,5 @@
 package Player;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,6 @@ public abstract class Player {
 	public String role;
 	public int action;
 	public PlayerCard specialEventCard;
-	public boolean handOverFlow = false;
 	public Board board;
 	public Random random;
 	DiscoverCure discoverCure;
@@ -162,12 +160,12 @@ public abstract class Player {
 				}
 				consumeAction();
 			}
-			
-			if(board.curedDiseases.size() == 4) {
+
+			if (board.curedDiseases.size() == 4) {
 				board.gameEnd = true;
 				board.playerWin = true;
 			}
-			
+
 		} else {
 			throw new RuntimeException("You are not at the research Station!!");
 		}

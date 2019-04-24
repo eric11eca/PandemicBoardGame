@@ -2,6 +2,7 @@ package TestGameAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -60,6 +61,7 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		assertEquals(7, medic.hand.size());
 		assertEquals(3, board.validPlayerCard.size());
+		fail();
 	}
 
 	@Test
