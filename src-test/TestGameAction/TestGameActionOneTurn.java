@@ -54,14 +54,13 @@ public class TestGameActionOneTurn {
 		}
 	}
 
-	@Test
+	@Test (expected = RuntimeException.class)
 	public void testDrawTwoCityCardsWithPlayerExceedHandLimit() {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
 		action.drawTwoPlayerCards();
 		assertEquals(7, medic.hand.size());
 		assertEquals(3, board.validPlayerCard.size());
-		fail();
 	}
 
 	@Test
