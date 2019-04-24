@@ -180,4 +180,34 @@ public abstract class Player {
 	public void buildStation() {
 		buildStationModel.buildStation();
 	}
+
+	public void shareKnowledge(Player playerToShare, PlayerCard citycard, boolean isGivingAway) {
+		if (citycard.cardType != Board.CardType.CITYCARD) {
+			throw new RuntimeException("Event card cannot be shared");
+		}
+		if (isGivingAway) {
+			if (checkHand(this, citycard)) {
+				giveCard(this, playerToShare, citycard);
+			} else {
+				throw new RuntimeException("You don't have this city card");
+			}
+		} else {
+			if (checkHand(playerToShare, citycard)) {
+				giveCard(playerToShare, this, citycard);
+			} else {
+				throw new RuntimeException("Your friend doesn't have this city card");
+			}
+		}
+		consumeAction();
+	}
+
+	private boolean checkHand(Player player, PlayerCard citycard) {
+		return player.hand.containsKey(citycard.cardName);
+	}
+
+	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
+		board.cardToBeDiscard.add(citycard.cardName);
+		giver.discardCard();
+		receiver.receiveCard(citycard);
+	}
 }
