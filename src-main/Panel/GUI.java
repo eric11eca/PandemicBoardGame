@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
-import Card.DiscardCard;
+import ButtonListeners.DiscardCard;
 import Initialize.Board;
 
 public class GUI {

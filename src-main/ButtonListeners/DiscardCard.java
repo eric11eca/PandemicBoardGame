@@ -1,4 +1,4 @@
-package Card;
+package ButtonListeners;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Card.PlayerCard;
 import Initialize.Board;
 import Panel.GUI;
 
@@ -59,6 +60,7 @@ public class DiscardCard {
 					selected = 0;
 				} else {
 					board.cardToBeDiscard = cardTobeDiscard;
+					board.currentPlayer.discardCard();
 					gui.removePanel(panel);
 					gui.updateImage();
 					
