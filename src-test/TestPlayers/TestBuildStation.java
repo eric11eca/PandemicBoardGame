@@ -1,14 +1,8 @@
 package TestPlayers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-
-import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,8 +12,6 @@ import Initialize.City;
 import Player.Medic;
 import Player.OperationsExpert;
 import Player.Player;
-import Player.StationBuilder;
-import Player.StationBuilderNormal;
 
 public class TestBuildStation {
 
@@ -46,7 +38,7 @@ public class TestBuildStation {
 		theNameOfCityWithStation = "theNameOfCityWithStation";
 		cityWithStation = new City(theNameOfCityWithStation);
 		cityWithStation.researchStation = true;
-		
+
 		medic.location = playerLocatedCity;
 		operationsExpert.location = playerLocatedCity;
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
@@ -80,7 +72,7 @@ public class TestBuildStation {
 		assertEquals(3, medic.action);
 		assertEquals(0, medic.hand.size());
 	}
-	
+
 	@Test
 	public void testBuildStationAtTheSameCityCardOperationsExpert() {
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
@@ -97,88 +89,26 @@ public class TestBuildStation {
 		location.researchStation = true;
 		medic.buildStation();
 	}
-	
+
 	@Test(expected = RuntimeException.class)
 	public void testBuildStationWithTheLocationHasStationOperationsExpert() {
 		City location = operationsExpert.location;
 		location.researchStation = true;
 		operationsExpert.buildStation();
 	}
-	
 
 	@Test(expected = RuntimeException.class)
 	public void testBuildStationWithoutSameCityCardNormal() {
 		medic.hand.remove(playerLocation);
 		medic.buildStation();
 	}
-	
+
 	@Test
 	public void testBuildStationWithoutSameCityCardOperationsExpert() {
 		operationsExpert.hand.remove(playerLocation);
 		operationsExpert.buildStation();
 		assertTrue(playerLocatedCity.researchStation);
 		assertTrue(board.currentResearchStation.containsKey(playerLocation));
-	}
-
-	@Test
-	public void testBuildMoreThanSixStation() {
-		addCurrentStation();
-		StationBuilder stationBuilderMock = EasyMock.partialMockBuilder(StationBuilderNormal.class)
-				.addMockedMethod("returnRandomResearchStationCity")
-				.withConstructor(medic, board).createMock();
-		
-		medic.buildStationModel = stationBuilderMock;	
-		EasyMock.expect(stationBuilderMock.returnRandomResearchStationCity())
-			.andReturn(cityWithResearchStation1);
-		EasyMock.replay(stationBuilderMock);
-		
-		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
-		medic.hand.put(playerLocation, cityCard);
-		medic.buildStation();
-		assertEquals(0, medic.hand.size());
-		assertEquals(3, medic.action);
-		assertFalse(cityWithResearchStation1.researchStation);
-		assertFalse(board.currentResearchStation.containsKey(city1));
-		assertTrue(board.currentResearchStation.containsValue(playerLocatedCity));
-		assertTrue(playerLocatedCity.researchStation);
-	}
-	
-	private void addCurrentStation() {
-		board.currentResearchStation.put(city1, cityWithResearchStation1);
-		board.currentResearchStation.put(city2, cityWithResearchStation2);
-		board.currentResearchStation.put(city3, cityWithResearchStation3);
-		board.currentResearchStation.put(city4, cityWithResearchStation4);
-		board.currentResearchStation.put(city5, cityWithResearchStation5);
-		board.currentResearchStation.put(city6, cityWithResearchStation6);
-	}
-	
-
-	@Test
-	public void testRandomAndBuildMoreThanSixStation() {
-		addCurrentStation();
-		Random random = EasyMock.createMock(Random.class);
-
-		medic.random = random;
-		board.currentResearchStation = EasyMock.createNiceMock(HashMap.class);
-		EasyMock.expect(random.nextInt(6)).andReturn(0);
-
-		ArrayList<City> cities = new ArrayList<City>();
-		addCities(cities);
-
-		EasyMock.expect(board.currentResearchStation.values()).andReturn(cities);
-		EasyMock.replay(board.currentResearchStation, random);
-		
-		assertEquals(city1, medic.buildStationModel.returnRandomResearchStationCity().cityName);
-	}
-
-
-	private void addCities(ArrayList<City> cities) {
-		cities.add(cityWithResearchStation1);
-		cities.add(cityWithResearchStation2);
-		cities.add(cityWithResearchStation3);
-		cities.add(cityWithResearchStation4);
-		cities.add(cityWithResearchStation5);
-		cities.add(cityWithResearchStation6);
 	}
 
 }

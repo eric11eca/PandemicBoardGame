@@ -1,7 +1,5 @@
 package Player;
 
-import java.util.Collection;
-
 import Initialize.Board;
 import Initialize.City;
 
@@ -13,25 +11,18 @@ public class StationBuilder {
 		board = gameBoard;
 	}
 	
-	public City returnRandomResearchStationCity() {
-		Collection<City> cities = board.currentResearchStation.values();
-		int randomInt = player.random.nextInt(6);
-		City city = (cities.toArray(new City[0]))[randomInt];
-		return city;
-	}
-	
 	public void buildStation() {
 		if(player.location.researchStation) {
 			throw new RuntimeException("This location already has research station.");
 		}
 		City playerLocation = player.location;
-		if(board.currentResearchStation.size() == 6) {
-			City city = board.cities.get(board.stationToRemove);
-			board.currentResearchStation.remove(city.cityName);
-			city.researchStation = false;
-		}
 		playerLocation.researchStation = true;
 		board.currentResearchStation.put(playerLocation.cityName, playerLocation);
 		player.consumeAction();
+	}
+	
+	public void removeStation(City stationToRemove) {
+		board.currentResearchStation.remove(stationToRemove.cityName);
+		stationToRemove.researchStation = false;
 	}
 }
