@@ -59,6 +59,8 @@ public class GameAction {
 			board.currentPlayer.shuttleFlight(shuttleDestination);
 		} else if (actionName.equals("BuildResearch")){
 			board.currentPlayer.buildStation();
+		} else if (actionName.equals("ShareKnowledge")){
+			board.currentPlayer.shareKnowledge();
 		}
 	}
 

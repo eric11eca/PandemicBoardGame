@@ -143,7 +143,7 @@ public class InitializeGame {
 				+ " The other player must also be in the city with you.\n Both of you need to" + " agree to do this.\n"
 				+ " If the player who gets the card now has more than 7 cards,\n that player must"
 				+ " immediately discard a card or play an Event card.");
-		ShareKnowledgeListener shareKnowledgeListener = new ShareKnowledgeListener(board, gui);
+		ShareKnowledgeListener shareKnowledgeListener = new ShareKnowledgeListener(board, gui, setup);
 		shareKnowledge.addActionListener(shareKnowledgeListener);
 
 		JButton discoverCure = new JButton("Discover a cure");
