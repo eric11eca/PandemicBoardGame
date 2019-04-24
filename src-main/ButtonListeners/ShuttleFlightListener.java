@@ -1,36 +1,70 @@
 package ButtonListeners;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import Initialize.Board;
+import Initialize.GameSetup;
 import Panel.GUI;
 
 public class ShuttleFlightListener implements ActionListener {
 
 	Board board;
+	private JPanel panel;
+	GameSetup gameSetup;
+	GUI gui;
 
-	public ShuttleFlightListener(Board board, GUI gui) {
+	public ShuttleFlightListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
+		this.gui = gui;
+		this.gameSetup = gameSetup;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String[] cityOptions = new String[5];
-		JComboBox<String> options = new JComboBox<String>(cityOptions);
-		options.addActionListener(new ActionListener(){
+
+		ArrayList<String> cityOptions = new ArrayList<>();
+		for (String i : board.currentResearchStation.keySet()) {
+			cityOptions.add(i);
+		}
+		cityOptions.add("Cancel");
+		String[] cityNames = cityOptions.toArray(new String[cityOptions.size()]);
+		JComboBox<String> options = new JComboBox<String>(cityNames);
+		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-                confirmCity(evt,options);
-            }
+				confirmCity(evt, options);
+			}
 		});
+		panel = new JPanel();
+		panel.add(options);
+		gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
-		 String chosenCity = options.getSelectedItem().toString();
-		 //Make the buttons and call the methods
-		
+		String chosenCity = options.getSelectedItem().toString();
+		if (chosenCity.equals("Cancel")) {
+			gui.removePanel(panel);
+			return;
+		} else {
+			int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to take a shuttle",
+					"Are you sure you want to take a shuttle", JOptionPane.YES_NO_OPTION);
+			if (choice == 0) {
+				board.shuttleDestinationName = chosenCity;
+				board.actionName = "ShuttleFlight";
+				gameSetup.oneTurn();
+				gui.removePanel(panel);
+				gui.updateImage();
+			} else {
+
+			}
+		}
+
 	}
 }

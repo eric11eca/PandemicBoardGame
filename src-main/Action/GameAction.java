@@ -57,6 +57,8 @@ public class GameAction {
 		} else if (actionName.equals("ShuttleFlight")) {
 			City shuttleDestination = board.cities.get(board.shuttleDestinationName);
 			board.currentPlayer.shuttleFlight(shuttleDestination);
+		} else if (actionName.equals("BuildResearch")){
+			board.currentPlayer.buildStation();
 		}
 	}
 

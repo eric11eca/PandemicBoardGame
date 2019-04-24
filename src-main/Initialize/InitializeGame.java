@@ -118,7 +118,7 @@ public class InitializeGame {
 		JButton sFlight = new JButton("Shuttle Flight");
 		sFlight.setToolTipText(
 				"Move from a city with a research station to any other city that has a research station.");
-		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board, gui);
+		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board, gui,setup);
 		sFlight.addActionListener(sFlightListener);
 
 		JButton buildResearchStation = new JButton("Build Reasearch Station");

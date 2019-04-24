@@ -34,6 +34,7 @@ public class Board {
 	public String diseaseBeingTreated;
 	public String driveDestinationName;
 	public String shuttleDestinationName;
+	public Object stationToRemove;
 	public List<String> cardToBeDiscard = new ArrayList<>();
 	public List<PlayerCard> cardsToCureDisease = new ArrayList<>();
 	
