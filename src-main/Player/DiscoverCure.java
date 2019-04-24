@@ -12,15 +12,15 @@ public class DiscoverCure {
 	public int cardCount;
 
 	public boolean discoverCure(List<PlayerCard> cardsToCureDisease) {
-//		if (cardsToCureDisease.size() != cardCount) {
-//			throw new RuntimeException("Please select valid number of cards");
-//		}
-//		if (!validCardType(cardsToCureDisease)) {
-//			throw new RuntimeException("City card only");
-//		}
-//		if (!checkCureColor(cardsToCureDisease)) {
-//			throw new RuntimeException("Invalid City Card");
-//		}
+		if (cardsToCureDisease.size() != cardCount) {
+			throw new RuntimeException("Please select valid number of cards");
+		}
+		if (!validCardType(cardsToCureDisease)) {
+			throw new RuntimeException("City card only");
+		}
+		if (!checkCureColor(cardsToCureDisease)) {
+			throw new RuntimeException("Invalid City Card");
+		}
 		String curedColor = cardsToCureDisease.get(0).color;
 		return curedDiseases.add(curedColor);
 	}
