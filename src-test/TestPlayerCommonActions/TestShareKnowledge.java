@@ -38,9 +38,11 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1GiveSuccess() {
-		boolean isGivingAway = true;
 		player1.receiveCard(citycard);
-		player1.shareKnowledge(player2, citycard, isGivingAway);
+		board.playerToShare = player2;
+		board.cityToShare = citycard;
+		board.isGiving = true;
+		player1.shareKnowledge();
 		assertEquals(player1.location, player2.location);
 		assertFalse(player1.hand.containsKey(cityName));
 		assertTrue(player2.hand.containsKey(cityName));
@@ -50,9 +52,11 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1ReceiveSuccess() {
-		boolean isGivingAway = false;
 		player2.receiveCard(citycard);
-		player1.shareKnowledge(player2, citycard, isGivingAway);
+		board.playerToShare = player2;
+		board.cityToShare = citycard;
+		board.isGiving = false;
+		player1.shareKnowledge();
 		assertEquals(player1.location, player2.location);
 		assertFalse(player2.hand.containsKey(cityName));
 		assertTrue(player1.hand.containsKey(cityName));
@@ -62,20 +66,26 @@ public class TestShareKnowledge {
 
 	@Test(expected = RuntimeException.class)
 	public void testShareKnowledegePlayer1GiveEventCard() {
-		boolean isGivingAway = true;
-		player1.shareKnowledge(player2, eventcard, isGivingAway);
+		board.playerToShare = player2;
+		board.cityToShare = citycard;
+		board.isGiving = true;
+		player1.shareKnowledge();
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void testPlayer1GiveAwayInvalidCitycard() {
-		boolean isGivingAway = true;
-		player1.shareKnowledge(player2, citycard, isGivingAway);
+		board.playerToShare = player2;
+		board.cityToShare = citycard;
+		board.isGiving = true;
+		player1.shareKnowledge();
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void testPlayer1ReceiveInvalidCitycard() {
-		boolean isGivingAway = false;
-		player1.shareKnowledge(player2, citycard, isGivingAway);
+		board.playerToShare = player2;
+		board.cityToShare = citycard;
+		board.isGiving = false;
+		player1.shareKnowledge();
 	}
 
 }

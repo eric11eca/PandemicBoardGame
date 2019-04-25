@@ -8,5 +8,4 @@ public class Pandemic {
 		GameSetup game = new GameSetup();
     }
 	
-	
 }
