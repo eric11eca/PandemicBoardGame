@@ -157,15 +157,19 @@ public abstract class Player {
 			if (discoverCure.discoverCure(cardsToCureDisease)) {
 				for (PlayerCard playercard : cardsToCureDisease) {
 					board.cardToBeDiscard.add(playercard.cardName);
-					discardCard();
 				}
 				consumeAction();
 			}
+			
+			System.out.println("cured size: " + board.curedDiseases.size());
 
 			if (board.curedDiseases.size() == 4) {
 				board.gameEnd = true;
 				board.playerWin = true;
+				return;
 			}
+			
+			discardCard();
 
 		} else {
 			throw new RuntimeException("You are not at the research Station!!");

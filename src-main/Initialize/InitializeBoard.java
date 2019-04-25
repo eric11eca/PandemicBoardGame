@@ -85,7 +85,7 @@ public class InitializeBoard {
 					break;
 				}
 				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
-				i += 2;
+				i += 1;
 			}
 		} else if (board.initialhandcard == 3) {
 			int i = 0;
@@ -94,11 +94,12 @@ public class InitializeBoard {
 					break;
 				}
 				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
-				i += 2;
+				i += 1;
 			}
 		}
 		
 		for(PlayerCard card : cardsTobeRemoved) {
+			player.hand.remove(card.cardName);
 			board.validPlayerCard.remove(card);
 		}
 		

@@ -3,6 +3,8 @@ package ButtonListeners;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +18,7 @@ import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.GameSetup;
 import Panel.GUI;
+import Player.Player;
 
 public class DiscoverCureListener implements ActionListener {
 	private Board board;
@@ -32,21 +35,33 @@ public class DiscoverCureListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Discovering a cure");
-		Map<String, PlayerCard> playerHand = board.currentPlayer.hand;
+		Player player = board.currentPlayer;
+		Map<String, PlayerCard> playerHand = player.hand;
 		Set<String> handNames = playerHand.keySet();
-		ArrayList<String> discardCards = new ArrayList<String>();
 		ArrayList<String> cityCards = new ArrayList<>();
-		int incr = 0;
+		
 		for (String cardName : handNames) {
-			if(board.currentPlayer.hand.get(cardName).cardType==Board.CardType.CITYCARD)
+			if(playerHand.get(cardName).cardType.equals(Board.CardType.CITYCARD))
 				cityCards.add(cardName);
-			incr++;
 		}
+		
 		String[] cards = cityCards.toArray(new String[cityCards.size()]);
 		JCheckBox[] options = new JCheckBox[handNames.size()];
+		
 		panel = new JPanel();
 		for (int i = 0; i < cards.length; i++) {
-			JCheckBox cardOption = new JCheckBox(cards[i] + "(" + playerHand.get(cards[i]).color+")");
+			JCheckBox cardOption = new JCheckBox(cards[i] + 
+					"(" + playerHand.get(cards[i]).color+")");
+			cardOption.addItemListener(new ItemListener() {
+			    @Override
+			    public void itemStateChanged(ItemEvent e) {
+			        if(e.getStateChange() == ItemEvent.SELECTED) {
+			            cardOption.setSelected(true);
+			        } else {
+			            cardOption.setSelected(false);
+			        };
+			    }
+			});
 			options[i] = cardOption;
 			panel.add(cardOption);
 		}
@@ -55,35 +70,37 @@ public class DiscoverCureListener implements ActionListener {
 		comfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				
-				for(int i=0;i<options.length;i++){
+				for(int i = 0; i < options.length; i++){
 					if(options[i].isSelected()){
-						discardCards.add(getCardName(options[i].getText()));
+						String cardName = getCardName(options[i].getText());
+						PlayerCard card = player.hand.get(cardName);
+						board.cardsToCureDisease.add(card);
 					}
 				}
-				String color =board.cities.get(discardCards.get(0)).color;
-				int count = 0;
-				for(int i = 0;i<discardCards.size();i++){
+				
+				//String color = board.cities.get(discardCards.get(0)).color;
+				
+				/*for(int i = 0; i<discardCards.size(); i++){
 					if(!board.cities.get(discardCards.get(0)).color.equals(color)){
 						JOptionPane.showMessageDialog(null, 
 								"Please only discard city cards of the same color.");
 						return;
 					}
-					else{
-						count++;
-					}
-				}
-				board.cardToBeDiscard = discardCards;
+				}*/
+				
+				//board.cardToBeDiscard = discardCards;
 				cureDisease();
 			}
 		});
 		panel.add(comfirm);
 		gui.addPanel(panel, BorderLayout.CENTER);
+		
 	}
 	
 	protected String getCardName(String text) {
 		StringBuilder toReturn = new StringBuilder();
-		for (int i = 0;i<text.length();i++){
-			if (text.charAt(i)!='('){
+		for (int i = 0; i < text.length(); i++){
+			if (text.charAt(i) != '('){
 				toReturn.append(text.charAt(i));
 			}
 			else{
@@ -95,7 +112,13 @@ public class DiscoverCureListener implements ActionListener {
 
 	protected void cureDisease() {
 		board.actionName = "CureDisease";
-		gameSetup.oneTurn();
+		try{
+			gameSetup.oneTurn();
+		} catch(RuntimeException e) {
+			JOptionPane.showMessageDialog(null, 
+			  "Please use city cards with same color to cure a disease.");
+		}
+		
 		gui.removePanel(panel);
 		gui.updateImage();
 	}
