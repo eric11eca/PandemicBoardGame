@@ -3,6 +3,7 @@ package ButtonListeners;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -27,25 +28,22 @@ public class CharterFlightListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean flag = false;
-		for(String i: board.currentPlayer.hand.keySet()){
-			if(i.equals(board.currentPlayer.location.cityName)){
-					flag = true;
-			}
-		}
-		if(flag == false){
+		Set<String> hand = board.currentPlayer.hand.keySet();
+		String playerLocationCityName = board.currentPlayer.location.cityName;
+		if(!hand.contains(playerLocationCityName)) {
 			return;
 		}
-	
-		
+
 		String[] cityOptions = new String[47];
-		int incr = 0;
-		for(String i: board.cities.keySet()){
-			if(!i.equals(board.currentPlayer.location.cityName)){
-				cityOptions[incr] = i;
-				incr++;
+		int counter = 0;
+		for(String cityname: board.cities.keySet()){
+		String locationCityName = board.currentPlayer.location.cityName;
+			if(!cityname.equals(locationCityName)){
+				cityOptions[counter] = cityname;
+				counter++;
 			}
 		}
+		
 		JComboBox<String> options = new JComboBox<String>(cityOptions);
 		options.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
@@ -59,7 +57,7 @@ public class CharterFlightListener implements ActionListener {
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
 		 String chosenCity = options.getSelectedItem().toString();
-		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
+		 int choice = JOptionPane.showConfirmDialog(null, "Charter Flight", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.cityCardNameCharter = chosenCity;
 				System.out.println(chosenCity);
