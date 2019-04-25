@@ -57,7 +57,7 @@ public class DriveListener implements ActionListener {
 			 gui.removePanel(panel);
 			 return;
 		 }
-		int choice = JOptionPane.showConfirmDialog(null, "Drive", "Are you sure you want to drive", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to drive", "Drive", JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.driveDestinationName = chosenCity;
 			board.actionName = "Drive";

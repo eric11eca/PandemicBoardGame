@@ -31,6 +31,7 @@ public class CharterFlightListener implements ActionListener {
 		Set<String> hand = board.currentPlayer.hand.keySet();
 		String playerLocationCityName = board.currentPlayer.location.cityName;
 		if(!hand.contains(playerLocationCityName)) {
+			JOptionPane.showConfirmDialog(null, "You don't have current city card", "No Valid Card", JOptionPane.OK_OPTION);
 			return;
 		}
 
@@ -57,7 +58,7 @@ public class CharterFlightListener implements ActionListener {
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
 		 String chosenCity = options.getSelectedItem().toString();
-		 int choice = JOptionPane.showConfirmDialog(null, "Charter Flight", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
+		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Charter Flight", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.cityCardNameCharter = chosenCity;
 				System.out.println(chosenCity);
