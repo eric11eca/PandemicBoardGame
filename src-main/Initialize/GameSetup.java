@@ -68,7 +68,8 @@ public class GameSetup {
 		board.cities.put("Atlanta", atlanta);
 		
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
-	
+
+		initBoard.initializeSpecialEndGameDemo();
 
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
@@ -76,62 +77,57 @@ public class GameSetup {
 	}
 
 	public void oneTurn() {
-//			JPanel messageBoard = new JPanel();
-//			ArrayList<String> messages = new ArrayList<>();
-//			initGame.gui.removePanel(messageBoard);
-//			initGame.gui.updateImage();
+		JPanel messageBoard = new JPanel();
+		ArrayList<String> messages = new ArrayList<>();
+		initGame.gui.removePanel(messageBoard);
+		initGame.gui.updateImage();
 			
-			gameAction.doAction(board.actionName);
+		gameAction.doAction(board.actionName);
 			
-			String doingActionMessage = "\n Player doing action now."; 
-		    String currentAction = MessageFormat.format("\n Current action: {0}", 
+		String doingActionMessage = "\n Player doing action now."; 
+	    String currentAction = MessageFormat.format("\n Current action: {0}", 
 														board.currentPlayer.action);
-//			messages.add(doingActionMessage);
-//			messages.add(currentAction);
-//			initGame.gui.displayMessage(messages, messageBoard);
+	    messages.add(doingActionMessage);
+		messages.add(currentAction);
+		initGame.gui.displayMessage(messages, messageBoard);
 			
-			if (board.gameEnd) {
-				if (board.playerWin) {
-					initGame.gui.gameEnd(GUI.WINING_MESSAGE);
-				} else {
-					initGame.gui.gameEnd(GUI.LOSING_MESSAGE);
-				}
-				return;
+		if (board.gameEnd) {
+			if (board.playerWin) {
+				initGame.gui.gameEnd(GUI.WINING_MESSAGE);
+			} else {
+				initGame.gui.gameEnd(GUI.LOSING_MESSAGE);
 			}
+			return;
+		}
 			
-			if (board.currentPlayer.action == 0) {
-				String drawingCards = "\n Player drawing cards now.";
-//				messages.add(drawingCards);
-//				initGame.gui.displayMessage(messages, messageBoard);				
-				System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
+		if (board.currentPlayer.action == 0) {
+			String drawingCards = "\n Player drawing cards now.";
+			messages.add(drawingCards);
+			initGame.gui.displayMessage(messages, messageBoard);				
+			System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
 				
-				board.currentPlayer.action = 4;
+			try {
+				gameAction.drawTwoPlayerCards();
 				board.currentPlayerIndex++;
 				if (board.currentPlayerIndex == board.playernumber){
 					board.currentPlayerIndex = 0;
 				}
-				
-				try {
-					gameAction.drawTwoPlayerCards();
-				} catch (RuntimeException e) {
-					initGame.gui.showPlayerHand();
-				}
-				
-				System.out.println("hand size: " + board.currentPlayer.hand.size());
-				System.out.println("hand after drawing: " + board.currentPlayer.hand.keySet().toString());
-				
-				if (board.gameEnd) {
-					if (board.playerWin) {
-						System.out.println("Players Win!");
-					} else {
-						System.out.println("Player Losses!");
-					}
-					return;
-				}
-				
-				gameAction.infection();
-				board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
+			} catch (RuntimeException e) {
+				initGame.gui.showPlayerHand();
 			}
+				
+			if (board.gameEnd) {
+				if (board.playerWin) {
+					System.out.println("Players Win!");		
+				} else {
+					System.out.println("Player Losses!");
+				}
+				return;
+			}
+			
+			gameAction.infection();
+			board.currentPlayer.action = 4;
+			board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
+		}
 	}
-
 }

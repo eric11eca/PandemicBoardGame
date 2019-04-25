@@ -17,7 +17,6 @@ public class Board {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
 
-
 	public String actionName;
 	int initialHandCard = 0;
 	public int playernumber = 0;

@@ -1,14 +1,12 @@
 package Initialize;
 
-import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.util.HashMap;
 
-import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
 
 import ButtonListeners.BuildResearchStationListener;
 import ButtonListeners.CharterFlightListener;
@@ -20,7 +18,7 @@ import ButtonListeners.PlayerListener;
 import ButtonListeners.ShareKnowledgeListener;
 import ButtonListeners.ShuttleFlightListener;
 import ButtonListeners.TreatDiseaseListener;
-import Panel.*;
+import Panel.GUI;
 
 public class InitializeGame {
 	public int players = 0;
@@ -148,7 +146,7 @@ public class InitializeGame {
 
 		JButton discoverCure = new JButton("Discover a cure");
 		discoverCure.setToolTipText("At any research station, discard 5 City cards of the same color from your"
-				+ " hand to cure the disease of that color.\n Move the disease’s cure marker to its"
+				+ " hand to cure the disease of that color.\n Move the diseaseï¿½s cure marker to its"
 				+ " Cure Indicator.\n"
 				+ " If no cubes of this color are on the board, this disease is now eradicated. ");
 		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board, gui, setup);
@@ -187,6 +185,6 @@ public class InitializeGame {
 			}
 			x++;
 		}
-
+		buttonPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 	}
 }
