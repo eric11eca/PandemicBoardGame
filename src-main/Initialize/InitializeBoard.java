@@ -69,6 +69,59 @@ public class InitializeBoard {
 		board.roleCardDeck.add("QuarantineSpecialist");
 	}
 	
+	public void initializeSpecialEndGameDemo() {
+		board.curedDiseases.add("YELLOW");
+		board.curedDiseases.add("BLACK");
+		board.curedDiseases.add("BLUE");
+		
+		List<PlayerCard> cardsTobeRemoved= new ArrayList<>();
+		Player player = board.currentPlayers.get(0);
+		Set<String> handNames =  player.hand.keySet();
+		
+		if(board.initialhandcard == 4) {
+			int i = 0;
+			for (String name : handNames) {
+				if(i == 2) {
+					break;
+				}
+				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
+				i += 2;
+			}
+		} else if (board.initialhandcard == 3) {
+			int i = 0;
+			for (String name : handNames) {
+				if(i == 1) {
+					break;
+				}
+				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
+				i += 2;
+			}
+		}
+		
+		for(PlayerCard card : cardsTobeRemoved) {
+			board.validPlayerCard.remove(card);
+		}
+		
+		for(PlayerCard playerCard : board.validPlayerCard) {
+			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
+				if(playerCard.color.equals("RED")) {
+					player.hand.put(playerCard.cardName, playerCard);
+					cardsTobeRemoved.add(playerCard);
+					board.discardPlayerCard.put(playerCard.cardName, playerCard);
+				}
+				if(player.hand.size() == 7) {
+					break;
+				}
+			}
+		}
+		
+		for(PlayerCard card : cardsTobeRemoved) {
+			board.validPlayerCard.remove(card);
+		}
+		System.out.println("demo hand: " + board.currentPlayer.hand.keySet().toString());
+	}
+
+	
 	public void initializeCurrentPlayers() {
 		Collections.shuffle(board.roleCardDeck);
 		for (int i = 0; i < board.playernumber; i++) {

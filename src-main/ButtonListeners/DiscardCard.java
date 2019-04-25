@@ -3,6 +3,8 @@ package ButtonListeners;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,16 @@ public class DiscardCard {
 		
 		for (String name : handNames) {
 			JCheckBox cardOption = new JCheckBox(name);
+			cardOption.addItemListener(new ItemListener() {
+			    @Override
+			    public void itemStateChanged(ItemEvent e) {
+			        if(e.getStateChange() == ItemEvent.SELECTED) {
+			            cardOption.setSelected(true);
+			        } else {
+			            cardOption.setSelected(false);
+			        };
+			    }
+			});
 			options.add(cardOption);
 			panel.add(cardOption);
 		}
@@ -65,6 +77,8 @@ public class DiscardCard {
 					if (board.currentPlayerIndex == board.playernumber){
 						board.currentPlayerIndex = 0;
 					}
+					System.out.println("hand size: " + board.currentPlayer.hand.size());
+					System.out.println("hand after drawing: " + board.currentPlayer.hand.keySet().toString());
 					gui.removePanel(panel);
 					gui.updateImage();
 				}
