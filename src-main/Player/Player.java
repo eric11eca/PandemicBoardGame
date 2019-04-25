@@ -72,7 +72,7 @@ public abstract class Player {
 
 	public void drive(City destination) {
 		if (location.neighbors.containsKey(destination.cityName)) {
-			location = destination;
+			moveTo(destination);
 			consumeAction();
 		} else {
 			throw new RuntimeException("Invalid destination: Not a neighbour!!");
@@ -83,9 +83,11 @@ public abstract class Player {
 		if (cityCard.cardName.equals(location.cityName)) {
 			throw new IllegalArgumentException("Cannot direct flight to current city");
 		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
-			hand.remove(cityCard.cardName);
+			board.cardToBeDiscard.add(cityCard.cardName);
+			discardCard();
 			consumeAction();
-			location = board.cities.get(cityCard.cardName);
+			City destination = board.cities.get(cityCard.cardName);
+			moveTo(destination);
 		} else {
 			throw new IllegalArgumentException("Illegal Argument Type");
 		}
@@ -97,33 +99,22 @@ public abstract class Player {
 		}
 		action--;
 	}
-
-	public void characterFlight(PlayerCard cityCard) {
-		String cityCardName = cityCard.cardName;
-		String playerLocationCityName = location.cityName;
-		if (cityCard.cardType != Board.CardType.CITYCARD) {
-			throw new IllegalArgumentException("Not a cityCard");
-		} else {
-			if (cityCardName.equals(playerLocationCityName)) {
-				City destination = randomDestination();
-				while (destination.cityName.equals(playerLocationCityName)) {
-					destination = randomDestination();
-				}
-				location = destination;
-				board.cardToBeDiscard.add(cityCard.cardName);
-				discardCard();
-				consumeAction();
-			} else {
-				throw new IllegalArgumentException("The name of city card is different from your location");
-			}
-		}
+	
+	public void moveTo(City destination) {
+		location = destination;
 	}
-
-	public City randomDestination() {
-		Collection<City> cities = board.cities.values();
-		int randomInt = random.nextInt(cities.size());
-		City destination = (cities.toArray(new City[0]))[randomInt];
-		return destination;
+	
+	public void discardCardAndMoveTo(City destination) {
+		discardCard();
+		moveTo(destination);
+	}
+	
+	public void charterFlight() {	
+		String destinationName = board.cityCardNameCharter;
+		City destination = board.cities.get(destinationName);
+		board.cardToBeDiscard.add(location.cityName); 
+		discardCardAndMoveTo(destination);
+		consumeAction();
 	}
 
 	public void shuttleFlight(City destination) {
