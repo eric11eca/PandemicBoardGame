@@ -49,7 +49,7 @@ public class InitializeGame {
 		btn3p.addActionListener(action2);
 		btn4p.addActionListener(action3);
 		buttonPanel = new JPanel();
-		gui = new GUI();
+		gui = new GUI(setup);
 		gui.addPanel(pnl);
 
 	}

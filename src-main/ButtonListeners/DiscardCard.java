@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 
 import Card.PlayerCard;
 import Initialize.Board;
+import Initialize.GameSetup;
 import Panel.GUI;
 
 public class DiscardCard {
@@ -24,10 +25,12 @@ public class DiscardCard {
 	private GUI gui;
 	private JPanel panel;
 	private int selected = 0;
+	private GameSetup gameSetup;
 
-	public DiscardCard(GUI gui, Board board){
+	public DiscardCard(GUI gui, Board board, GameSetup gameSetup){
 		this.board=board;
 		this.gui=gui;
+		this.gameSetup = gameSetup;
 	}
 
 	public void pickCardsPrompt() {
@@ -81,6 +84,7 @@ public class DiscardCard {
 					System.out.println("hand after drawing: " + board.currentPlayer.hand.keySet().toString());
 					gui.removePanel(panel);
 					gui.updateImage();
+					gameSetup.changePlayer();
 				}
 			}
 		});

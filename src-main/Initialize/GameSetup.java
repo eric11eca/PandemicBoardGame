@@ -107,27 +107,38 @@ public class GameSetup {
 			System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
 				
 			try {
-				gameAction.drawTwoPlayerCards();
-				board.currentPlayerIndex++;
-				if (board.currentPlayerIndex == board.playernumber){
-					board.currentPlayerIndex = 0;
+				for (int j = 0; j < board.currentPlayers.size(); j++) {
+					if (board.currentPlayer.equals(board.currentPlayers.get(j)))
+						System.out.println("Player "+j + 1+" is currently playing");
 				}
+				gameAction.drawTwoPlayerCards();
+				changePlayer();
+				
 			} catch (RuntimeException e) {
 				initGame.gui.showPlayerHand();
 			}
-				
-			if (board.gameEnd) {
-				if (board.playerWin) {
-					System.out.println("Players Win!");		
-				} else {
-					System.out.println("Player Losses!");
-				}
-				return;
-			}
 			
-			gameAction.infection();
-			board.currentPlayer.action = 4;
-			board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 		}
+	}
+
+	public void changePlayer() {
+		board.currentPlayerIndex++;
+		if (board.currentPlayerIndex == board.playernumber){
+			board.currentPlayerIndex = 0;
+		}
+			
+		if (board.gameEnd) {
+			if (board.playerWin) {
+				System.out.println("Players Win!");		
+			} else {
+				System.out.println("Player Losses!");
+			}
+			return;
+		}
+		
+		gameAction.infection();
+		board.currentPlayer.action = 4;
+		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
+		
 	}
 }
