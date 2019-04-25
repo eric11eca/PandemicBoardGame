@@ -3,10 +3,17 @@ package Panel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,11 +27,13 @@ import Initialize.Board;
 public class GUI {
 	JFrame frame;
 	JPanel buttonPanel;
-	public JPanel panel;
+	public ArrayList<JPanel> panels = new ArrayList<>();
 	public Board board;
 	public JPanel mainPanel;
 	DrawingBoard draw;
+	public int test = 0;
 	JLabel label = new JLabel();
+	public ArrayList<JLabel> hands = new ArrayList<>();
 	
 	static final int SCREEN_HEIGHT = 1080;
 	static final int SCREEN_WIDTH = 1920;
@@ -65,7 +74,17 @@ public class GUI {
 
 	public void loadInitialGame() {
 		loadBoardImage();
+		updateAndDrawHand();
 
+	}
+
+	private void updateAndDrawHand() {
+		for(int x = 0; x < board.playernumber ; x++){
+			System.out.println("updating hand of "+(x+1) );
+			updateAndDrawaHand(x, "Hand of player "+ (x+1) );
+			
+		}
+		
 	}
 
 	private void loadBoardImage() {
@@ -81,8 +100,30 @@ public class GUI {
 
 	}
 	
+	public void updateAndDrawaHand(int player, String playerName ){
+		Set<String> hand = new HashSet<String>();
+		hand.add(playerName);
+		hand.addAll(board.currentPlayers.get(player).hand.keySet());
+		JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setSize(200, 200);
+		panel.setPreferredSize(new Dimension(800, 800));
+		options.setLocation(300, player *25);
+		options.setSize(150, 20);
+		panel.add(options);
+		panels.add(panel);
+		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
+	}
+	
 	public void updateImage(){
 		loadBoardImage();
+		for(JPanel panel: panels){
+			removePanel(panel);
+		}
+		updateAndDrawHand();
+		System.out.println("repainted");
+		test++;
 	}
 
 	public void setButtonPanel(JPanel buttonPanel) {
