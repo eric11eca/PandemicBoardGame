@@ -30,13 +30,13 @@ public class DriveListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		Set<String> cityOptions = board.currentPlayer.location.neighbors.keySet();
 		String[] cities = new String[cityOptions.size() + 1];
-		int incr = 0;
+		int i = 0;
 		for (String city : cityOptions) {
-			cities[incr] = city;
-			incr++;
+			cities[i] = city;
+			i++;
 		}
+		cities[i] = "Cancel";
 		
-		cities[incr] = "Cancel";
 		JComboBox<String> options = new JComboBox<String>(cities);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -44,6 +44,7 @@ public class DriveListener implements ActionListener {
 				confirmCity(evt, options, chosenCity);
 			}
 		});
+		
 		panel = new JPanel();
 		panel.add(options);
 		gui.addPanel(panel, BorderLayout.CENTER);
@@ -56,7 +57,7 @@ public class DriveListener implements ActionListener {
 			 gui.removePanel(panel);
 			 return;
 		 }
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to drive", "Are you sure you want to drive", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, "Drive", "Are you sure you want to drive", JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.driveDestinationName = chosenCity;
 			board.actionName = "Drive";
