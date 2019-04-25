@@ -14,14 +14,14 @@ import Initialize.GameSetup;
 import Panel.GUI;
 
 public class CharterFlightListener implements ActionListener {
-	
+
 	private Board board;
 	private JPanel panel;
 	private GUI gui;
 	private GameSetup gameSetup;
-	
-	public CharterFlightListener(Board board, GUI gui, GameSetup gameSetup){
-		this.board=board;
+
+	public CharterFlightListener(Board board, GUI gui, GameSetup gameSetup) {
+		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;
 	}
@@ -30,26 +30,28 @@ public class CharterFlightListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Set<String> hand = board.currentPlayer.hand.keySet();
 		String playerLocationCityName = board.currentPlayer.location.cityName;
-		if(!hand.contains(playerLocationCityName)) {
-			JOptionPane.showConfirmDialog(null, "You don't have current city card", "No Valid Card", JOptionPane.OK_OPTION);
+		if (!hand.contains(playerLocationCityName)) {
+			JOptionPane.showConfirmDialog(null, "You don't have current city card", "No Valid Card",
+					JOptionPane.OK_OPTION);
 			return;
 		}
 
 		String[] cityOptions = new String[47];
 		int counter = 0;
-		for(String cityname: board.cities.keySet()){
-		String locationCityName = board.currentPlayer.location.cityName;
-			if(!cityname.equals(locationCityName)){
+		for (String cityname : board.cities.keySet()) {
+			String locationCityName = board.currentPlayer.location.cityName;
+			if (!cityname.equals(locationCityName)) {
 				cityOptions[counter] = cityname;
 				counter++;
 			}
 		}
-		
-		JComboBox<String> options = new JComboBox<String>(cityOptions);
-		options.addActionListener(new ActionListener(){
+
+		String[] concatColorOptions = board.colorConcator.concatColor(cityOptions, board.cities);
+		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
+		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-                confirmCity(evt,options);
-            }
+				confirmCity(evt, options);
+			}
 		});
 		panel = new JPanel();
 		panel.add(options);
@@ -57,19 +59,20 @@ public class CharterFlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
-		 String chosenCity = options.getSelectedItem().toString();
-		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Charter Flight", JOptionPane.YES_NO_OPTION);
-			if (choice == 0) {
-				board.cityCardNameCharter = chosenCity;
-				System.out.println(chosenCity);
-				board.actionName = "CharterFlight";
-				gameSetup.oneTurn();
-				gui.removePanel(panel);
-				gui.updateImage();
-			} else {
+		String chosenCity = options.getSelectedItem().toString();
+		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Charter Flight",
+				JOptionPane.YES_NO_OPTION);
+		if (choice == 0) {
+			board.cityCardNameCharter = chosenCity;
+			System.out.println(chosenCity);
+			board.actionName = "CharterFlight";
+			gameSetup.oneTurn();
+			gui.removePanel(panel);
+			gui.updateImage();
+		} else {
 
-			}
-		
+		}
+
 	}
 
 }

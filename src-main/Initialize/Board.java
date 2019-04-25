@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import Card.PlayerCard;
+import Parse.ListOfCityWithColorGenerator;
 import Player.Player;
 import javafx.util.Pair;
 
@@ -16,9 +17,9 @@ public class Board {
 	public enum CardType {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
-
+	public ListOfCityWithColorGenerator colorConcator = new ListOfCityWithColorGenerator();
+	
 	public String actionName;
-	int initialHandCard = 0;
 	public int playernumber = 0;
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;
