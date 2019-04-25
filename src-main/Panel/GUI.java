@@ -133,7 +133,6 @@ public class GUI {
 	public void gameEnd(String message) {
 		JPanel messageBoard = new JPanel();
 		final JTextArea cs = new JTextArea();
-
 		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
 		border.setTitleJustification(TitledBorder.LEFT);
 		cs.setBorder(border);

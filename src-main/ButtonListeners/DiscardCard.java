@@ -41,8 +41,6 @@ public class DiscardCard {
 			panel.add(cardOption);
 		}
 		
-		int cardNumberToDiscard = board.currentPlayer.hand.size()-7;
-		
 		JButton comfirm = new JButton("comfirm");
 		comfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -60,10 +58,15 @@ public class DiscardCard {
 					selected = 0;
 				} else {
 					board.cardToBeDiscard = cardTobeDiscard;
+					System.out.println("player in exception: " + board.currentPlayerIndex);
+					System.out.println("hand while drawing: " + board.currentPlayer.hand.keySet().toString());
 					board.currentPlayer.discardCard();
+					board.currentPlayerIndex++;
+					if (board.currentPlayerIndex == board.playernumber){
+						board.currentPlayerIndex = 0;
+					}
 					gui.removePanel(panel);
 					gui.updateImage();
-					
 				}
 			}
 		});

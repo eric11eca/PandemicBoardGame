@@ -76,19 +76,19 @@ public class GameSetup {
 	}
 
 	public void oneTurn() {
-//			JPanel messageBoard = new JPanel();
-//			ArrayList<String> messages = new ArrayList<>();
-//			initGame.gui.removePanel(messageBoard);
-//			initGame.gui.updateImage();
+			JPanel messageBoard = new JPanel();
+			ArrayList<String> messages = new ArrayList<>();
+			initGame.gui.removePanel(messageBoard);
+			initGame.gui.updateImage();
 			
 			gameAction.doAction(board.actionName);
 			
 			String doingActionMessage = "\n Player doing action now."; 
 		    String currentAction = MessageFormat.format("\n Current action: {0}", 
 														board.currentPlayer.action);
-//			messages.add(doingActionMessage);
-//			messages.add(currentAction);
-//			initGame.gui.displayMessage(messages, messageBoard);
+			messages.add(doingActionMessage);
+			messages.add(currentAction);
+			initGame.gui.displayMessage(messages, messageBoard);
 			
 			if (board.gameEnd) {
 				if (board.playerWin) {
@@ -101,15 +101,9 @@ public class GameSetup {
 			
 			if (board.currentPlayer.action == 0) {
 				String drawingCards = "\n Player drawing cards now.";
-//				messages.add(drawingCards);
-//				initGame.gui.displayMessage(messages, messageBoard);				
+				messages.add(drawingCards);
+				initGame.gui.displayMessage(messages, messageBoard);				
 				System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
-				
-				board.currentPlayer.action = 4;
-				board.currentPlayerIndex++;
-				if (board.currentPlayerIndex == board.playernumber){
-					board.currentPlayerIndex = 0;
-				}
 				
 				try {
 					gameAction.drawTwoPlayerCards();
@@ -120,17 +114,29 @@ public class GameSetup {
 				System.out.println("hand size: " + board.currentPlayer.hand.size());
 				System.out.println("hand after drawing: " + board.currentPlayer.hand.keySet().toString());
 				
+				board.currentPlayer.action = 4;
+				
 				if (board.gameEnd) {
 					if (board.playerWin) {
 						System.out.println("Players Win!");
+						
+						board.currentPlayerIndex++;
+						if (board.currentPlayerIndex == board.playernumber){
+							board.currentPlayerIndex = 0;
+						}
+						
 					} else {
 						System.out.println("Player Losses!");
 					}
+					
+					gameAction.infection();
+					board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 					return;
 				}
 				
-				gameAction.infection();
-				board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
+				
+				
+				
 			}
 	}
 
