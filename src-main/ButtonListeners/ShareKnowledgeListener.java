@@ -86,7 +86,8 @@ public class ShareKnowledgeListener implements ActionListener {
 				options[count] = i;
 				count++;
 			}
-			JComboBox<String> list = new JComboBox<String>(options);
+			String[] concatColorOptions = board.colorConcator.concatColor(options, board.cities);
+			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
 			panel.add(list);
 			gui.addPanel(panel, BorderLayout.CENTER);
 			list.addActionListener(new ActionListener(){
@@ -112,7 +113,8 @@ public class ShareKnowledgeListener implements ActionListener {
 				options[count] = i;
 				count++;
 			}
-			JComboBox<String> list = new JComboBox<String>(options);
+			String[] concatColorOptions = board.colorConcator.concatColor(options, board.cities);
+			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
 			panel.add(list);
 			gui.addPanel(panel, BorderLayout.CENTER);
 			list.addActionListener(new ActionListener(){
