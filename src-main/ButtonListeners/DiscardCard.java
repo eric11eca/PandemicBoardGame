@@ -76,10 +76,6 @@ public class DiscardCard {
 					System.out.println("player in exception: " + board.currentPlayerIndex);
 					System.out.println("hand while drawing: " + board.currentPlayer.hand.keySet().toString());
 					board.currentPlayer.discardCard();
-					board.currentPlayerIndex++;
-					if (board.currentPlayerIndex == board.playernumber){
-						board.currentPlayerIndex = 0;
-					}
 					System.out.println("hand size: " + board.currentPlayer.hand.size());
 					System.out.println("hand after drawing: " + board.currentPlayer.hand.keySet().toString());
 					gui.removePanel(panel);

@@ -2,7 +2,7 @@ SanFrancisco,BLUE,884363,67,157,Chicago,LosAngeles,Tokyo,Manila
 Chicago,BLUE,2716000,200,121,SanFrancisco,LosAngeles,MexicoCity,Atlanta,Montreal
 Atlanta,BLUE,486290,240,196,Chicago,Washington,Miami
 NewYork,BLUE,8623000,385,130,Montreal,Washington,London,Madrid
-Montreal,BLUE,1705000,306,119,NewYork,Chicago, Washington
+Montreal,BLUE,1705000,306,119,NewYork,Chicago,Washington
 Washington,BLUE,7536000,349,192,Miami,Atlanta,Montreal,NewYork
 Madrid,BLUE,3166000,563,169,NewYork,London,Paris,SaoPaulo,Algiers
 London,BLUE,8136000,577,68,NewYork,Essen,Paris,Madrid
@@ -18,7 +18,7 @@ Baghdad,BLACK,7216000,842,213,Istanbul,Cairo,Riyadh,Karachi,Tehran
 Tehran,BLACK,8694000,920,149,Moscow,Baghdad,Karachi,Delhi
 Karachi,BLACK,14910000,939,245,Baghdad,Riyadh,Mumbai,Delhi, Tehran
 Mumbai,BLACK,18410000,949,323,Karachi,Chennai,Delhi
-Riyadh ,BLACK,5188000,853,306,Cairo,Baghdad,Karachi
+Riyadh,BLACK,5188000,853,306,Cairo,Baghdad,Karachi
 Delhi,BLACK,18980000,1016,218,Tehran,Karachi,Mumbai,Chennai,Kolkata
 Chennai,BLACK,15800,1031,377,Mumbai,Delhi,Kolkata,Bangkok,Jakarta
 Kolkata,BLACK,4497000,1088,242,Delhi,Chennai,Bangkok,Hongkong
