@@ -8,7 +8,7 @@ Madrid,BLUE,3166000,563,169,NewYork,London,Paris,SaoPaulo,Algiers
 London,BLUE,8136000,577,68,NewYork,Essen,Paris,Madrid
 Paris,BLUE,2141000,654,119,London,Madrid,Milan,Essen,Algiers
 Milan,BLUE,1352000,723,100,Essen,Paris,Istanbul
-Essen,BLUE,582624,679,50,London,Milan,St.Petersburg
+Essen,BLUE,582624,679,50,London,Milan,St.Petersburg,Paris
 St.Petersburg,BLUE,263255,794,31,Moscow,Essen,Istanbul
 Moscow,BLACK,11920000,851,100,St.Petersburg,Istanbul,Tehran
 Istanbul,BLACK,15070000,766,159,Milan,Algiers,Moscow,St.Petersburg,Cairo,Baghdad
@@ -16,7 +16,7 @@ Algiers,BLACK,42008054,676,226,Madrid,Paris,Istanbul,Cairo
 Cairo,BLACK,19500000,755,247,Algiers,Istanbul,Baghdad,Riyadh,Khartoum
 Baghdad,BLACK,7216000,842,213,Istanbul,Cairo,Riyadh,Karachi,Tehran
 Tehran,BLACK,8694000,920,149,Moscow,Baghdad,Karachi,Delhi
-Karachi,BLACK,14910000,939,245,Baghdad,Riyadh,Mumbai,Delhi, Tehran
+Karachi,BLACK,14910000,939,245,Baghdad,Riyadh,Mumbai,Delhi,Tehran
 Mumbai,BLACK,18410000,949,323,Karachi,Chennai,Delhi
 Riyadh ,BLACK,5188000,853,306,Cairo,Baghdad,Karachi
 Delhi,BLACK,18980000,1016,218,Tehran,Karachi,Mumbai,Chennai,Kolkata
@@ -25,13 +25,13 @@ Kolkata,BLACK,4497000,1088,242,Delhi,Chennai,Bangkok,Hongkong
 LosAngeles,YELLOW,4000000,88,261,SanFrancisco,Chicago,MexicoCity,Sydney
 MexicoCity,YELLOW,8851000,183,295,LosAngeles,Chicago,Miami,Bogota,Lima
 Miami,YELLOW,463347,305,279,Bogota,MexicoCity,Atlanta,Washington
-Bogota,YELLOW,8081000,295,383,Miami,MexicoCity,Lima,SaoPaulo
+Bogota,YELLOW,8081000,295,383,Miami,MexicoCity,Lima,SaoPaulo,BuenosAires
 Lima,YELLOW,9751717,257,494,MexicoCity,Bogota,Santiago
-SaoPaulo,YELLOW,14710000,443,510,Bogota,BuenosAires,Lagos
+SaoPaulo,YELLOW,14710000,443,510,Bogota,BuenosAires,Lagos,Madrid
 Santiago,YELLOW,5614000,272,610,Lima
 Lagos,YELLOW,21000000,643,367,SaoPaulo,Khartoum,Kinshasa
 Kinshasa,YELLOW,9464000,707,438,Lagos,Johannesburg,Khartoum
-Khartoum,YELLOW,1974647,774,347,Cairo,Lagos,Kinshasa
+Khartoum,YELLOW,1974647,774,347,Cairo,Lagos,Kinshasa,Johannesburg
 Johannesburg,YELLOW,957441,766,542,Kinshasa,Khartoum
 BuenosAires,YELLOW,2890000,382,589,SaoPaulo,Bogota
 Beijing,RED,21540000,1147,125,Shanghai,Seoul
@@ -42,7 +42,7 @@ HoChiMinhCity,RED,8637000,1167,402,Bangkok,Jakarta,Manila,Hongkong
 Taipei,RED,2674000,1243,268,Shanghai,Hongkong,Osaka,Manila
 Tokyo,RED,9273000,1313,161,Seoul,SanFrancisco,Shanghai,Osaka
 Osaka,RED,2691000,1320,239,Taipei,Tokyo
-Manila,RED,1780000,1265,395,Taipei,Hongkong,HoChiMinhCity,SanFrancisco
+Manila,RED,1780000,1265,395,Taipei,Hongkong,HoChiMinhCity,SanFrancisco,Sydney
 Jakarta,RED,9608000,1101,465,Chennai,Bangkok,HoChiMinhCity,Sydney
 Sydney,RED,4452000,1327,605,Manila,Jakarta,LosAngeles
 Bangkok,RED,8281000,1102,327,Kolkata,Chennai,Jakarta,HoChiMinhCity,Hongkong
