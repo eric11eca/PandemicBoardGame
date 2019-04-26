@@ -45,7 +45,6 @@ public class CharterFlightListener implements ActionListener {
 				counter++;
 			}
 		}
-
 		String[] concatColorOptions = board.colorConcator.concatColor(cityOptions, board.cities);
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {

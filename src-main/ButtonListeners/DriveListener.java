@@ -35,9 +35,9 @@ public class DriveListener implements ActionListener {
 			cities[i] = city;
 			i++;
 		}
-		cities[i] = "Cancel";
-		
-		JComboBox<String> options = new JComboBox<String>(cities);
+		String[] concatColorOptions = board.colorConcator.concatColor(cities, board.cities);
+		concatColorOptions[i] = "Cancel";
+		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				chosenCity = options.getSelectedItem().toString();

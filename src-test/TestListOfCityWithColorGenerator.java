@@ -36,4 +36,13 @@ public class TestListOfCityWithColorGenerator {
 		String actual = sb.toString();
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void testWithInvalidCity() {
+		String[] cityname = {"Cancel"};
+		String[] cityWithColor = generator.concatColor(cityname, board.cities);
+		String expected = "Cancel";
+		String actual = cityWithColor[0];
+		assertEquals(expected, actual);
+	}
 }
