@@ -14,14 +14,14 @@ import Initialize.GameSetup;
 import Panel.GUI;
 
 public class FlightListener implements ActionListener {
-	
+
 	Board board;
 	private JPanel panel;
 	GameSetup gameSetup;
 	private GUI gui;
-	
-	public FlightListener(Board board, GUI gui, GameSetup gameSetup){
-		this.board=board;
+
+	public FlightListener(Board board, GUI gui, GameSetup gameSetup) {
+		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;
 	}
@@ -29,22 +29,24 @@ public class FlightListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<String> cityOptions = new ArrayList<>();
-		
-		for(String i: board.currentPlayer.hand.keySet()){
-			if(!i.equals(board.currentPlayer.location.cityName) && board.currentPlayer.hand.get(i).cardType.equals(Board.CardType.CITYCARD)){
+
+		for (String i : board.currentPlayer.hand.keySet()) {
+			if (!i.equals(board.currentPlayer.location.cityName)
+					&& board.currentPlayer.hand.get(i).cardType.equals(Board.CardType.CITYCARD)) {
 				cityOptions.add(i);
 			}
 		}
-		if(cityOptions.size() == 0){
+		if (cityOptions.size() == 0) {
 			return;
 		}
 		cityOptions.add("Cancel");
 		String[] cityOptionsArray = cityOptions.toArray(new String[cityOptions.size()]);
-		JComboBox<String> options = new JComboBox<String>(cityOptionsArray);
-		options.addActionListener(new ActionListener(){
+		String[] concatColorOptions = board.colorConcator.concatColor(cityOptionsArray, board.cities);
+		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
+		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-                confirmCity(evt,options);
-            }
+				confirmCity(evt, options);
+			}
 		});
 		panel = new JPanel();
 		panel.add(options);
@@ -52,22 +54,23 @@ public class FlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
-		 String chosenCity = options.getSelectedItem().toString();
-		 if(chosenCity.equals("Cancel")){
-			 gui.removePanel(panel);
-			 return;
-		 }
-		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly", JOptionPane.YES_NO_OPTION);
-			if (choice == 0) {
-				board.cityCardNameDirect= chosenCity;
-				board.actionName = "DirectFlight";
-				gameSetup.oneTurn();
-				gui.removePanel(panel);
-				gui.updateImage();
-			} else {
+		String chosenCity = options.getSelectedItem().toString();
+		if (chosenCity.equals("Cancel")) {
+			gui.removePanel(panel);
+			return;
+		}
+		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly",
+				JOptionPane.YES_NO_OPTION);
+		if (choice == 0) {
+			board.cityCardNameDirect = chosenCity;
+			board.actionName = "DirectFlight";
+			gameSetup.oneTurn();
+			gui.removePanel(panel);
+			gui.updateImage();
+		} else {
 
-			}
-		
+		}
+
 	}
 
 }

@@ -35,7 +35,8 @@ public class ShuttleFlightListener implements ActionListener {
 		}
 		cityOptions.add("Cancel");
 		String[] cityNames = cityOptions.toArray(new String[cityOptions.size()]);
-		JComboBox<String> options = new JComboBox<String>(cityNames);
+		String[] concatColorOptions = board.colorConcator.concatColor(cityNames, board.cities);
+		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				confirmCity(evt, options);

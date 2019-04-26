@@ -29,7 +29,7 @@ public class BuildResearchStationListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure", "Are you sure", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, "Are you sure", "Build Research Station", JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			if (board.currentResearchStation.size() == 6) {
 				ArrayList<String> cityOptions = new ArrayList<>();
