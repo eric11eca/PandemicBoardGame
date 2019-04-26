@@ -1,17 +1,6 @@
 package Initialize;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.TitledBorder;
-
 import Action.GameAction;
-import Panel.GUI;
 import Player.Player;
 
 public class GameSetup {
@@ -77,39 +66,22 @@ public class GameSetup {
 	}
 
 	public void oneTurn() {
-		JPanel messageBoard = new JPanel();
-		ArrayList<String> messages = new ArrayList<>();
-		initGame.gui.removePanel(messageBoard);
-		initGame.gui.updateImage();
-			
 		gameAction.doAction(board.actionName);
-			
-		String doingActionMessage = "\n Player doing action now."; 
-	    String currentAction = MessageFormat.format("\n Current action: {0}", 
-														board.currentPlayer.action);
-	    messages.add(doingActionMessage);
-		messages.add(currentAction);
-		initGame.gui.displayMessage(messages, messageBoard);
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				initGame.gui.gameEnd(GUI.WINING_MESSAGE);
+				initGame.gui.gameEnd("Congradulation, You Win!");
 			} else {
-				initGame.gui.gameEnd(GUI.LOSING_MESSAGE);
+				initGame.gui.gameEnd("Sorry, You Lose.");
 			}
 			return;
 		}
 			
 		if (board.currentPlayer.action == 0) {
-			String drawingCards = "\n Player drawing cards now.";
-			messages.add(drawingCards);
-			initGame.gui.displayMessage(messages, messageBoard);				
-			System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
-				
 			try {
 				gameAction.drawTwoPlayerCards();
 			} catch (RuntimeException e) {
-				if(board.currentPlayer.hand.size()<=7){
+				if(board.currentPlayer.hand.size() <= 7){
 					changePlayer();
 				}
 				else{
@@ -130,11 +102,9 @@ public class GameSetup {
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				System.out.println("Players Win!");	
-				initGame.gui.gameEnd("You win");
+				initGame.gui.gameEnd("Congradulation, You Win!");
 			} else {
-				System.out.println("Player Losses!");
-				initGame.gui.gameEnd("You lose");
+				initGame.gui.gameEnd("Sorry, You Lose.");
 			}
 			return;
 		}

@@ -73,11 +73,7 @@ public class DiscardCard {
 					selected = 0;
 				} else {
 					board.cardToBeDiscard = cardTobeDiscard;
-					System.out.println("player in exception: " + board.currentPlayerIndex);
-					System.out.println("hand while drawing: " + board.currentPlayer.hand.keySet().toString());
 					board.currentPlayer.discardCard();
-					System.out.println("hand size: " + board.currentPlayer.hand.size());
-					System.out.println("hand after drawing: " + board.currentPlayer.hand.keySet().toString());
 					gui.removePanel(panel);
 					gui.updateImage();
 					gameSetup.changePlayer();
