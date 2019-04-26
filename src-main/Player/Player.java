@@ -34,9 +34,7 @@ public abstract class Player {
 
 	public void receiveCard(PlayerCard playerCard) {
 		hand.put(playerCard.cardName, playerCard);
-		if (hand.size() > 7) {
-			throw new RuntimeException("Player hand overflows");
-		}
+		
 	}
 
 	public boolean useEventCard(String cardName) {

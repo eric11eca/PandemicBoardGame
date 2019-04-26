@@ -78,9 +78,7 @@ public class GUI {
 
 	private void updateAndDrawHand() {
 		for(int x = 0; x < board.playernumber ; x++){
-			System.out.println("updating hand of "+(x+1) );
 			updateAndDrawaHand(x, "Hand of player "+ (x+1) );
-			
 		}
 		
 	}
@@ -120,7 +118,6 @@ public class GUI {
 			removePanel(panel);
 		}
 		updateAndDrawHand();
-		System.out.println("repainted");
 		test++;
 	}
 
@@ -162,6 +159,7 @@ public class GUI {
 	}
 	
 	public void showPlayerHand(){
+		System.out.println(board.currentPlayerIndex);
 		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
 		pickCardsToBeDiscard.pickCardsPrompt();
 	}

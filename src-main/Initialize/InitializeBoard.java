@@ -181,6 +181,10 @@ public class InitializeBoard {
 	}
 
 	public void initializeCity(City city) {
+		city.diseaseCubes.put("RED", 0);
+		city.diseaseCubes.put("BLUE", 0);
+		city.diseaseCubes.put("BLACK", 0);
+		city.diseaseCubes.put("YELLOW", 0);
 		board.cities.put(city.cityName, city);
 	}
 

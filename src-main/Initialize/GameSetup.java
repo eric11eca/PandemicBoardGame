@@ -69,7 +69,7 @@ public class GameSetup {
 		
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 
-		initBoard.initializeSpecialEndGameDemo();
+		//initBoard.initializeSpecialEndGameDemo();
 
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
@@ -107,16 +107,17 @@ public class GameSetup {
 			System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
 				
 			try {
-				for (int j = 0; j < board.currentPlayers.size(); j++) {
-					if (board.currentPlayer.equals(board.currentPlayers.get(j)))
-						System.out.println("Player "+j + 1+" is currently playing");
-				}
 				gameAction.drawTwoPlayerCards();
-				changePlayer();
-				
 			} catch (RuntimeException e) {
-				initGame.gui.showPlayerHand();
+				if(board.currentPlayer.hand.size()<=7){
+					changePlayer();
+				}
+				else{
+					initGame.gui.showPlayerHand();
+				}
+				return;
 			}
+			changePlayer();
 			
 		}
 	}
@@ -139,6 +140,5 @@ public class GameSetup {
 		gameAction.infection();
 		board.currentPlayer.action = 4;
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
-		
 	}
 }
