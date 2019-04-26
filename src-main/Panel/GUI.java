@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
@@ -126,18 +127,19 @@ public class GUI {
 	}
 
 	public void gameEnd(String message) {
-		JPanel messageBoard = new JPanel();
-		final JTextArea cs = new JTextArea();
-		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
-		border.setTitleJustification(TitledBorder.LEFT);
-		cs.setBorder(border);
-		cs.setEditable(false);
-		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
-		cs.setFont(cs.getFont().deriveFont(48f));
-		messageBoard.add(cs);
-		cs.append(message);
-		cs.setForeground(Color.RED);
-		addPanel(messageBoard, BorderLayout.EAST);
+//		JPanel messageBoard = new JPanel();
+//		final JTextArea cs = new JTextArea();
+//		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
+//		border.setTitleJustification(TitledBorder.LEFT);
+//		cs.setBorder(border);
+//		cs.setEditable(false);
+//		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
+//		cs.setFont(cs.getFont().deriveFont(48f));
+//		messageBoard.add(cs);
+//		cs.append(message);
+//		cs.setForeground(Color.RED);
+//		addPanel(messageBoard, BorderLayout.EAST);
+		JOptionPane.showMessageDialog(null, message);
 	}
 	
 	public void displayMessage(ArrayList<String> messages, JPanel messageBoard) {

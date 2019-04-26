@@ -130,9 +130,11 @@ public class GameSetup {
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				System.out.println("Players Win!");		
+				System.out.println("Players Win!");	
+				initGame.gui.gameEnd("You win");
 			} else {
 				System.out.println("Player Losses!");
+				initGame.gui.gameEnd("You lose");
 			}
 			return;
 		}

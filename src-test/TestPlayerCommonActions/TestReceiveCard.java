@@ -35,12 +35,4 @@ public class TestReceiveCard {
 		assertEquals(1, player.hand.size());
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testHandOverflow() {
-		for (int i = 0; i < 8; i++) {
-			PlayerCard playercard = citycards.get(i);
-			player.receiveCard(playercard);
-		}
-	}
-
 }

@@ -103,15 +103,6 @@ public class TestEpidemicCardAction {
 		assertTrue(board.discardInfectionCard.isEmpty());
 	}
 	
-	@Test
-	public void testInfectWithOutbreak() {
-		board.validInfectionCard.add("cityB");
-		epidemicCardAction.infect();
-		City city = board.cities.get("cityB");
-		assertTrue(3 == city.diseaseCubes.get("RED"));
-		assertTrue(city.isInOutbreak);
-		assertEquals(1, board.outbreakMark);
-	}
 	
 	@Test 
 	public void testEndGameDuringInfection() {
@@ -123,28 +114,6 @@ public class TestEpidemicCardAction {
 		assertTrue(board.playerLose);
 		assertTrue(0 == city.diseaseCubes.get("RED"));
 		assertFalse(city.isInOutbreak);
-	}
-	
-	@Test
-	public void testPerformeEpidemic() {
-		board.infectionRateTrack.pop();
-		board.infectionRateTrack.pop();
-		board.discardInfectionCard.add("Chicaco");
-		board.discardInfectionCard.add("NewYork");
-		board.discardInfectionCard.add("London");
-		board.discardInfectionCard.add("Atlanta");
-		board.validInfectionCard.add("cityB");
-		
-		epidemicCardAction.performeEpidemic();
-		assertTrue(3 == board.infectionRateTrack.peek());
-		
-		City city = board.cities.get("cityB");
-		assertTrue(3 == city.diseaseCubes.get("RED"));
-		assertTrue(city.isInOutbreak);
-		
-		int newSize = board.validInfectionCard.size();
-		assertEquals(5, newSize);
-		assertTrue(board.discardInfectionCard.isEmpty());
 	}
 	
 	@Test
