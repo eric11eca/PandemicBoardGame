@@ -34,6 +34,15 @@ public class TestReceiveCard {
 		player.receiveCard(citycards.get(0));
 		assertEquals(1, player.hand.size());
 	}
+	
+	@Test
+	public void testNormalReceiveSevenCard() {
+		for (int i = 0; i < 7; i++) {
+			PlayerCard playercard = citycards.get(i);
+			player.receiveCard(playercard);
+		}
+		assertEquals(7, player.hand.size());
+	}
 
 	@Test(expected = RuntimeException.class)
 	public void testHandOverflow() {
