@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 
 import ButtonListeners.DiscardCard;
 import Initialize.Board;
+import Initialize.GameSetup;
 
 public class GUI {
 	JFrame frame;
@@ -30,6 +31,7 @@ public class GUI {
 	public int test = 0;
 	JLabel label = new JLabel();
 	public ArrayList<JLabel> hands = new ArrayList<>();
+	GameSetup gameSetup;
 	
 	static final int SCREEN_HEIGHT = 1080;
 	static final int SCREEN_WIDTH = 1920;
@@ -39,8 +41,9 @@ public class GUI {
 	public static final String WINING_MESSAGE = "\n CONGRADULATIONS, \n YOU WIN!";
 	public static final String LOSING_MESSAGE = "\n SORRY, YOU LOSE, \n WNNA TRY AGAIN?";
 
-	public GUI() {
+	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
+		this.gameSetup = gameSetup;
 		frame.setSize(1900, 1900);
 		frame.show();
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -75,9 +78,7 @@ public class GUI {
 
 	private void updateAndDrawHand() {
 		for(int x = 0; x < board.playernumber ; x++){
-			System.out.println("updating hand of "+(x+1) );
 			updateAndDrawaHand(x, "Hand of player "+ (x+1) );
-			
 		}
 		
 	}
@@ -117,7 +118,6 @@ public class GUI {
 			removePanel(panel);
 		}
 		updateAndDrawHand();
-		System.out.println("repainted");
 		test++;
 	}
 
@@ -159,7 +159,8 @@ public class GUI {
 	}
 	
 	public void showPlayerHand(){
-		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board);
+		System.out.println(board.currentPlayerIndex);
+		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
 		pickCardsToBeDiscard.pickCardsPrompt();
 	}
 

@@ -33,9 +33,7 @@ public abstract class Player {
 
 	public void receiveCard(PlayerCard playerCard) {
 		hand.put(playerCard.cardName, playerCard);
-		if (hand.size() > 7) {
-			throw new RuntimeException("Player hand overflows");
-		}
+		
 	}
 
 	public boolean useEventCard(String cardName) {
@@ -55,9 +53,13 @@ public abstract class Player {
 	}
 
 	public void discardCard() {
-		
+
 		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
 			String cardName = board.cardToBeDiscard.get(i);
+			for (int j = 0; j < board.currentPlayers.size(); j++) {
+				if (board.currentPlayer.equals(board.currentPlayers.get(j)))
+					System.out.println("Player "+j + 1+" is currently playing");
+			}
 			if (hand.containsKey(cardName)) {
 				PlayerCard playerCard = hand.get(cardName);
 				hand.remove(cardName);

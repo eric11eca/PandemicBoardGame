@@ -69,7 +69,7 @@ public class GameSetup {
 		
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 
-		initBoard.initializeSpecialEndGameDemo();
+		//initBoard.initializeSpecialEndGameDemo();
 
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
@@ -108,26 +108,37 @@ public class GameSetup {
 				
 			try {
 				gameAction.drawTwoPlayerCards();
-				board.currentPlayerIndex++;
-				if (board.currentPlayerIndex == board.playernumber){
-					board.currentPlayerIndex = 0;
-				}
 			} catch (RuntimeException e) {
-				initGame.gui.showPlayerHand();
-			}
-				
-			if (board.gameEnd) {
-				if (board.playerWin) {
-					System.out.println("Players Win!");		
-				} else {
-					System.out.println("Player Losses!");
+				if(board.currentPlayer.hand.size()<=7){
+					changePlayer();
+				}
+				else{
+					initGame.gui.showPlayerHand();
 				}
 				return;
 			}
+			changePlayer();
 			
-			gameAction.infection();
-			board.currentPlayer.action = 4;
-			board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 		}
+	}
+
+	public void changePlayer() {
+		board.currentPlayerIndex++;
+		if (board.currentPlayerIndex == board.playernumber){
+			board.currentPlayerIndex = 0;
+		}
+			
+		if (board.gameEnd) {
+			if (board.playerWin) {
+				System.out.println("Players Win!");		
+			} else {
+				System.out.println("Player Losses!");
+			}
+			return;
+		}
+		
+		gameAction.infection();
+		board.currentPlayer.action = 4;
+		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 	}
 }

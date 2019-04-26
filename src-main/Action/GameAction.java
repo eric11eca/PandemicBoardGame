@@ -19,23 +19,30 @@ public class GameAction {
 
 	public void drawTwoPlayerCards() {
 		for (int i = 0; i < 2; i++) {
+			System.out.println(i);
 			PlayerCard playerCard = null;
 			try {
 				playerCard = board.validPlayerCard.get(0);
-			}catch(IndexOutOfBoundsException e) {
+			} catch (IndexOutOfBoundsException e) {
 				board.playerLose = true;
 				board.gameEnd = true;
 				throw new RuntimeException("END GAME. Run out of player card");
 			}
-			if(playerCard.cardType == Board.CardType.EPIDEMIC) {
-				epidemic.performeEpidemic();	
-				continue;
+			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
+				System.out.println("Epidemic");
+				epidemic.performeEpidemic();
+				System.out.println("Epidemic 2");
+				board.validPlayerCard.remove(0);
+			} else {
+				board.currentPlayer.receiveCard(playerCard);
+				board.validPlayerCard.remove(0);
+				board.discardPlayerCard.put(playerCard.cardName, playerCard);
 			}
-					
-			board.currentPlayer.receiveCard(playerCard);
-			board.validPlayerCard.remove(0);
-			board.discardPlayerCard.put(playerCard.cardName, playerCard);
-		} 
+		}
+		if (board.currentPlayer.hand.size() > 7) {
+			System.out.println(board.currentPlayer.hand.keySet() + " Current Player hand ");
+			throw new RuntimeException("Player hand overflows");
+		}
 	}
 
 	public void doAction(String actionName) {
@@ -56,9 +63,9 @@ public class GameAction {
 		} else if (actionName.equals("ShuttleFlight")) {
 			City shuttleDestination = board.cities.get(board.shuttleDestinationName);
 			board.currentPlayer.shuttleFlight(shuttleDestination);
-		} else if (actionName.equals("BuildResearch")){
+		} else if (actionName.equals("BuildResearch")) {
 			board.currentPlayer.buildStation();
-		} else if (actionName.equals("ShareKnowledge")){
+		} else if (actionName.equals("ShareKnowledge")) {
 			board.currentPlayer.shareKnowledge();
 		}
 	}
