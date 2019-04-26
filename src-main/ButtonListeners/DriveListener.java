@@ -40,7 +40,7 @@ public class DriveListener implements ActionListener {
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				chosenCity = options.getSelectedItem().toString();
+				chosenCity = (options.getSelectedItem().toString().split(" "))[0];
 				confirmCity(evt, options, chosenCity);
 			}
 		});

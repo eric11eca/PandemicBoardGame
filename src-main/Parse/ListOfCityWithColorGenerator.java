@@ -11,11 +11,11 @@ public class ListOfCityWithColorGenerator {
 			try {
 				String color = cities.get(citynames[i]).color;
 				StringBuilder concatColorWithCity = new StringBuilder();
+				concatColorWithCity.append(citynames[i]);
+				concatColorWithCity.append(" ");
 				concatColorWithCity.append("[");
 				concatColorWithCity.append(color);
 				concatColorWithCity.append("]");
-				concatColorWithCity.append(" ");
-				concatColorWithCity.append(citynames[i]);
 				cityWithColor[i] = concatColorWithCity.toString();
 			}catch(NullPointerException e) {
 				cityWithColor[i] = citynames[i];

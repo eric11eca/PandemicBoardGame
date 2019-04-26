@@ -58,7 +58,7 @@ public class CharterFlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
-		String chosenCity = options.getSelectedItem().toString();
+		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
 		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Charter Flight",
 				JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {

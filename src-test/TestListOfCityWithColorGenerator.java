@@ -24,8 +24,8 @@ public class TestListOfCityWithColorGenerator {
 
 	@Test
 	public void testGenerateLostOfCityWithColor() {
-		String expected = "[BLUE] city1, [BLUE] city2, [RED] city3, [RED] city4, [BLACK] city5, [BLACK] city6, "
-				+ "[YELLOW] city7, [YELLOW] city8, [RED] city9, [RED] city10";
+		String expected = "city1 [BLUE], city2 [BLUE], city3 [RED], city4 [RED], city5 [BLACK], city6 [BLACK], "
+				+ "city7 [YELLOW], city8 [YELLOW], city9 [RED], city10 [RED]";
 		String[] cityWithColor = generator.concatColor(citynames, board.cities);
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < citynames.length - 1; i++) {

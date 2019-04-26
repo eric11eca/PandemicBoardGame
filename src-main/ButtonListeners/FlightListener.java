@@ -54,7 +54,7 @@ public class FlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
-		String chosenCity = options.getSelectedItem().toString();
+		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
 		if (chosenCity.equals("Cancel")) {
 			gui.removePanel(panel);
 			return;

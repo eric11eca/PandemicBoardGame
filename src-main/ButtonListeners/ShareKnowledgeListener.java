@@ -94,7 +94,7 @@ public class ShareKnowledgeListener implements ActionListener {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					String card = list.getSelectedItem().toString();
+					String card = (list.getSelectedItem().toString().split(" "))[0];
 					board.actionName = "ShareKnowledge";
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
@@ -121,7 +121,7 @@ public class ShareKnowledgeListener implements ActionListener {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					String card = list.getSelectedItem().toString();
+					String card = (list.getSelectedItem().toString().split(" "))[0];
 					board.actionName = "ShareKnowledge";
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
