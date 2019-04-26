@@ -18,7 +18,7 @@ public class ListOfCityWithColorGenerator {
 				concatColorWithCity.append(citynames[i]);
 				cityWithColor[i] = concatColorWithCity.toString();
 			}catch(NullPointerException e) {
-				cityWithColor[i] = "Cancel";
+				cityWithColor[i] = citynames[i];
 			}
 		}
 		return cityWithColor;
