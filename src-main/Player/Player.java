@@ -56,10 +56,6 @@ public abstract class Player {
 
 		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
 			String cardName = board.cardToBeDiscard.get(i);
-			for (int j = 0; j < board.currentPlayers.size(); j++) {
-				if (board.currentPlayer.equals(board.currentPlayers.get(j)))
-					System.out.println("Player "+j + 1+" is currently playing");
-			}
 			if (hand.containsKey(cardName)) {
 				PlayerCard playerCard = hand.get(cardName);
 				hand.remove(cardName);
@@ -153,8 +149,6 @@ public abstract class Player {
 				consumeAction();
 			}
 			
-			System.out.println("cured size: " + board.curedDiseases.size());
-
 			if (board.curedDiseases.size() == 4) {
 				board.gameEnd = true;
 				board.playerWin = true;
