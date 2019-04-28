@@ -127,18 +127,6 @@ public class GUI {
 	}
 
 	public void gameEnd(String message) {
-//		JPanel messageBoard = new JPanel();
-//		final JTextArea cs = new JTextArea();
-//		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
-//		border.setTitleJustification(TitledBorder.LEFT);
-//		cs.setBorder(border);
-//		cs.setEditable(false);
-//		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
-//		cs.setFont(cs.getFont().deriveFont(48f));
-//		messageBoard.add(cs);
-//		cs.append(message);
-//		cs.setForeground(Color.RED);
-//		addPanel(messageBoard, BorderLayout.EAST);
 		JOptionPane.showMessageDialog(null, message);
 	}
 	
