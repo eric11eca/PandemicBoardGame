@@ -5,9 +5,11 @@ import Initialize.City;
 
 public class InfectionCardAction {
 	private Board board;
+	private Outbreak outbreak;
 
 	public InfectionCardAction(Board gameBoard) {
 		this.board = gameBoard;
+		outbreak = new Outbreak(board);
 	}
 
 	public void drawOneInfactionCard() {
@@ -31,6 +33,10 @@ public class InfectionCardAction {
 		if (city.diseaseCubes.containsKey(diseaseColor)) {
 			numOfCubes = city.diseaseCubes.get(diseaseColor);
 			numOfCubes += 1;
+		}
+		if(numOfCubes > 3) {
+			outbreak.performeOutbreak(city);
+			return;
 		}
 		city.diseaseCubes.put(diseaseColor, numOfCubes);
 		int colorCubes = board.remainDiseaseCube.get(diseaseColor);
