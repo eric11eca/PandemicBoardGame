@@ -2,7 +2,6 @@ package TestGameAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,9 +61,32 @@ public class TestGameActionOneTurn {
 		assertEquals(7, medic.hand.size());
 		assertEquals(3, board.validPlayerCard.size());
 	}
+	
+	@Test
+	public void testHandLimitWithSizeEqualToLimit() {
+		initializePlayerCard(citynames, true);
+		initializePlayerCard(handCardNames, false);
+		medic.hand.remove("city1");
+		action.drawTwoPlayerCards();
+		assertEquals(7, medic.hand.size());
+		assertEquals(3, board.validPlayerCard.size());
+	}
+	
+	@Test
+	public void testHandLimitWithSizeUnderLimit() {
+		initializePlayerCard(citynames, true);
+		initializePlayerCard(handCardNames, false);
+		medic.hand.remove("city1");
+		medic.hand.remove("city2");
+		action.drawTwoPlayerCards();
+		assertEquals(6, medic.hand.size());
+		assertEquals(3, board.validPlayerCard.size());
+	}
 
 	@Test
 	public void testDrawOneCityCardAndOneEpidemicCard() {
+		board.infectionRateTrack.push(4);
+		board.infectionRateTrack.push(2);
 		PlayerCard epidemicCard = new PlayerCard(Board.CardType.EPIDEMIC, "EPIDEMIC");
 		board.validPlayerCard.add(epidemicCard);
 		String infectCityName = "Infect";
@@ -76,10 +98,46 @@ public class TestGameActionOneTurn {
 		board.remainDiseaseCube.put("BLUE", 13);
 		action.drawTwoPlayerCards();
 		assertEquals(1, medic.hand.size());
+		assertTrue(4 == board.infectionRateTrack.peek());
 	}
 	
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testLackOfPlayerCards() {
+		int oldHandSize = medic.hand.size();
+		board.validPlayerCard.clear();
 		action.drawTwoPlayerCards();
+		assertTrue(board.gameEnd);
+		assertTrue(board.playerLose);
+		int newHandSize = medic.hand.size();
+		assertEquals(oldHandSize, newHandSize);
+	}
+	
+	@Test
+	public void testInfectionPhase() {
+		board.remainDiseaseCube.put("RED", 24);
+		board.remainDiseaseCube.put("BLUE", 24);
+		board.validInfectionCard.add("cityA");
+		board.validInfectionCard.add("cityB");
+		City cityA = new City();
+		City cityB = new City();
+		cityA.cityName = "cityA";
+		cityB.cityName = "cityB";
+		cityA.color = "RED";
+		cityB.color = "BLUE";
+		cityA.diseaseCubes.put("RED", 0);
+		cityB.diseaseCubes.put("BLUE", 0);
+		board.cities.put("cityA", cityA);
+		board.cities.put("cityB", cityB);
+		
+		board.infectionRateTrack.push(2);
+		action.infection();
+		int newValidInfectionPileSize = board.validInfectionCard.size();
+		int newDiscardInfectionPileSize = board.discardInfectionCard.size();
+		assertEquals(0, newValidInfectionPileSize);
+		assertEquals(2, newDiscardInfectionPileSize);
+		assertTrue(23 == board.remainDiseaseCube.get("RED"));
+		assertTrue(23 == board.remainDiseaseCube.get("BLUE"));
+		assertTrue(1 == cityA.diseaseCubes.get("RED"));
+		assertTrue(1 == cityB.diseaseCubes.get("BLUE"));
 	}
 }

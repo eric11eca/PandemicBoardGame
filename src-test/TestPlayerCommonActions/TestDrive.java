@@ -34,12 +34,13 @@ public class TestDrive {
 		notNeighborCity.cityName = "Shanghai";
 
 		player.location = location;
-
+		player.action = 4;
 	}
 
 	@Test
 	public void testNeighborDrive() {
 		player.drive(neighborCity);
+		assertEquals(3, player.action);
 		assertEquals(player.location.cityName, "Atlanta");
 	}
 

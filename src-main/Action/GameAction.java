@@ -19,19 +19,16 @@ public class GameAction {
 
 	public void drawTwoPlayerCards() {
 		for (int i = 0; i < 2; i++) {
-			System.out.println(i);
 			PlayerCard playerCard = null;
-			try {
-				playerCard = board.validPlayerCard.get(0);
-			} catch (IndexOutOfBoundsException e) {
+			if(board.validPlayerCard.isEmpty()) {	
 				board.playerLose = true;
 				board.gameEnd = true;
-				throw new RuntimeException("END GAME. Run out of player card");
+				return;
+			} else {
+				playerCard = board.validPlayerCard.get(0);
 			}
 			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
-				System.out.println("Epidemic");
 				epidemic.performeEpidemic();
-				System.out.println("Epidemic 2");
 				board.validPlayerCard.remove(0);
 			} else {
 				board.currentPlayer.receiveCard(playerCard);
@@ -39,8 +36,8 @@ public class GameAction {
 				board.discardPlayerCard.put(playerCard.cardName, playerCard);
 			}
 		}
+		
 		if (board.currentPlayer.hand.size() > 7) {
-			System.out.println(board.currentPlayer.hand.keySet() + " Current Player hand ");
 			throw new RuntimeException("Player hand overflows");
 		}
 	}

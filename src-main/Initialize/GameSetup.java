@@ -103,11 +103,9 @@ public class GameSetup {
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				System.out.println("Players Win!");	
-				initGame.gui.gameEnd("You win");
+				initGame.gui.gameEnd("Congradulation, You Win!");
 			} else {
-				System.out.println("Player Losses!");
-				initGame.gui.gameEnd("You lose");
+				initGame.gui.gameEnd("Sorry, You Lose.");
 			}
 			return;
 		}
