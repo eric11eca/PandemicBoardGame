@@ -31,6 +31,7 @@ public class TestDiscardCard {
 		player.discardCard();
 		assertEquals(1, player.hand.size());
 		assertEquals(1, board.discardPlayerCard.size());
+		assertEquals(0, board.cardToBeDiscard.size());
 	}
 	
 	@Test (expected = RuntimeException.class)
