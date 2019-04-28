@@ -69,7 +69,7 @@ public class GameSetup {
 		
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 
-		//initBoard.initializeSpecialEndGameDemo();
+		initBoard.initializeSpecialEndGameDemo();
 
 		int validPlayerNum = 53 - board.initialhandcard * board.playernumber;
 		initBoard.initializeEpidemicCard(validPlayerNum);
@@ -79,61 +79,30 @@ public class GameSetup {
 	}
 
 	public void oneTurn() {
-		JPanel messageBoard = new JPanel();
-		ArrayList<String> messages = new ArrayList<>();
-		initGame.gui.removePanel(messageBoard);
-		initGame.gui.updateImage();
-		System.out.println("current player: " + board.currentPlayer.role);
-		System.out.println("hand entering action: " + board.currentPlayer.hand.keySet().toString());
 		gameAction.doAction(board.actionName);
-		
-			
-		//String doingActionMessage = "\n Player doing action now."; 
-	    //String currentAction = MessageFormat.format("\n Current action: {0}", 
-														//board.currentPlayer.action);
-	    //messages.add(doingActionMessage);
-		//messages.add(currentAction);
-		//initGame.gui.displayMessage(messages, messageBoard);
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				System.out.print("win!");
-				initGame.gui.gameEnd(GUI.WINING_MESSAGE);
+				initGame.gui.gameEnd("Congradulation, You Win!");
 			} else {
-				initGame.gui.gameEnd(GUI.LOSING_MESSAGE);
+				initGame.gui.gameEnd("Sorry, You Lose.");
 			}
 			return;
 		}
 			
 		if (board.currentPlayer.action == 0) {
-			String drawingCards = "\n Player drawing cards now.";
-			messages.add(drawingCards);
-			initGame.gui.displayMessage(messages, messageBoard);				
-			System.out.println("hand before drawing: " + board.currentPlayer.hand.keySet().toString());
-				
 			try {
 				gameAction.drawTwoPlayerCards();
-				board.currentPlayerIndex++;
-				if (board.currentPlayerIndex == board.playernumber){
-					board.currentPlayerIndex = 0;
-				}
 			} catch (RuntimeException e) {
-				initGame.gui.showPlayerHand();
-			}
-				
-			if (board.gameEnd) {
-				if (board.playerWin) {
-					System.out.println("Players Win!");		
-				} else {
-					System.out.println("Player Losses!");
+				if(board.currentPlayer.hand.size() <= 7){
+					changePlayer();
+				}
+				else{
+					initGame.gui.showPlayerHand();
 				}
 				return;
 			}
 			changePlayer();
-			
-			gameAction.infection();
-			board.currentPlayer.action = 4;
-			board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 		}
 	}
 
