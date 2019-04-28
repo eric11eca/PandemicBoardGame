@@ -6,14 +6,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.PlayerCard;
 import Initialize.Board;
-import Initialize.City;
 import Initialize.InitializeBoard;
 import Initialize.InitializePlayerData;
-import Player.ContingencyPlanner;
-import Player.Player;
-import Player.Scientist;
 
 public class TestInitializePlayerData {
 	InitializePlayerData initializePlayerData;
