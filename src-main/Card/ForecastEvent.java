@@ -29,9 +29,8 @@ public class ForecastEvent {
 		}
 	}
 	
-	public boolean forecast() {
+	public void forecast() {
 		reviewCard();
 		arrangeCard();
-		return true;
 	}
 }

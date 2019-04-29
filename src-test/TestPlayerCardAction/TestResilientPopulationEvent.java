@@ -28,8 +28,7 @@ public class TestResilientPopulationEvent {
 	public void testresilientPopulation() {
 		String infect = "c";
 		board.cardRemovedByResilient = infect;
-		boolean used = resilientPopulationEvent.resilientPopulation();
-		assertTrue(used);
+		resilientPopulationEvent.resilientPopulation();
 		assertFalse(board.discardInfectionCard.contains(infect));
 	}
 

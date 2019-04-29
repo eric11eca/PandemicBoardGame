@@ -21,9 +21,8 @@ public class TestOneQueitNight {
 	@Test
 	public void testSkipNextInfection() {
 		assertFalse(board.inQueitNight);
-		boolean used = night.skipNextInfection();
+		night.skipNextInfection();
 		assertTrue(board.inQueitNight);
-		assertTrue(used);
 	}
 
 }

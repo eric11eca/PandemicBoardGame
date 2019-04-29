@@ -30,7 +30,7 @@ public class TestEventCardAction {
 								.addMockedMethod("airlift")
 								.withConstructor(board)
 								.createMock();
-		EasyMock.expect(airlift.airlift()).andReturn(true);
+		airlift.airlift();
 		
 		EasyMock.replay(airlift);
 		String cardName = "Airlift";
@@ -49,7 +49,7 @@ public class TestEventCardAction {
 								.addMockedMethod("forecast")
 								.withConstructor(board)
 								.createMock();
-		EasyMock.expect(forecast.forecast()).andReturn(true);
+		forecast.forecast();
 		
 		EasyMock.replay(forecast);
 		String cardName = "Forecast";
@@ -68,7 +68,7 @@ public class TestEventCardAction {
 				.addMockedMethod("skipNextInfection")
 				.withConstructor(board)
 				.createMock();
-		EasyMock.expect(oneNight.skipNextInfection()).andReturn(true);
+		oneNight.skipNextInfection();
 
 		EasyMock.replay(oneNight);
 		String cardName = "OneQuietNight";
@@ -87,7 +87,7 @@ public class TestEventCardAction {
 				.addMockedMethod("addResearchStation")
 				.withConstructor(board)
 				.createMock();
-		EasyMock.expect(grant.addResearchStation()).andReturn(true);
+		grant.addResearchStation();
 
 		EasyMock.replay(grant);
 		String cardName = "GovernmentGrant";
@@ -106,7 +106,7 @@ public class TestEventCardAction {
 				.addMockedMethod("resilientPopulation")
 				.withConstructor(board)
 				.createMock();
-		EasyMock.expect(resilient.resilientPopulation()).andReturn(true);
+		resilient.resilientPopulation();
 
 		EasyMock.replay(resilient);
 		String cardName = "ResilientPopulation";

@@ -10,11 +10,10 @@ public class GovernmentGrantEvent {
 		board = gameBoard;
 	}
 
-	public boolean addResearchStation() {
+	public void addResearchStation() {
 		String cityName = board.cityWithGrant;
 		City city = board.cities.get(cityName);
 		city.researchStation = true;
 		board.cities.put(cityName, city);
-		return true;
 	}
 }

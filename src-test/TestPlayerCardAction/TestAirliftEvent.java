@@ -46,10 +46,9 @@ public class TestAirliftEvent {
 		Player player_old = board.currentPlayers.get(index);
 		assertEquals("Atlanta", player_old.location.cityName);
 		
-		boolean used = airlift.airlift();
+		airlift.airlift();
 		Player player_new = board.currentPlayers.get(index);
 		assertEquals("Chicago", player_new.location.cityName);
-		assertTrue(used);
 	}
 
 }

@@ -33,7 +33,6 @@ public abstract class Player {
 
 	public void receiveCard(PlayerCard playerCard) {
 		hand.put(playerCard.cardName, playerCard);
-		
 	}
 
 	public boolean useEventCard(String cardName) {
@@ -53,7 +52,6 @@ public abstract class Player {
 	}
 
 	public void discardCard() {
-
 		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
 			String cardName = board.cardToBeDiscard.get(i);
 			if (hand.containsKey(cardName)) {
