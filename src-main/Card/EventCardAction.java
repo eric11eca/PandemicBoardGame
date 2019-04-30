@@ -28,7 +28,7 @@ public class EventCardAction {
 		resilientEvent = new ResilientPopulationEvent(board);
 	}
 
-	public boolean excuteEventCard() {
+	public boolean executeEventCard() {
 		if (playerCard.cardName.equals(airlift)) {
 			airliftEvent.airlift();
 			return true;

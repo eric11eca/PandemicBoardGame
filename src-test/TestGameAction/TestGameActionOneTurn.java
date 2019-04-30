@@ -85,8 +85,8 @@ public class TestGameActionOneTurn {
 
 	@Test
 	public void testDrawOneCityCardAndOneEpidemicCard() {
-		board.infectionRateTrack.push(4);
-		board.infectionRateTrack.push(2);
+		board.infectionRateTracker.push(4);
+		board.infectionRateTracker.push(2);
 		PlayerCard epidemicCard = new PlayerCard(Board.CardType.EPIDEMIC, "EPIDEMIC");
 		board.validPlayerCard.add(epidemicCard);
 		String infectCityName = "Infect";
@@ -98,7 +98,7 @@ public class TestGameActionOneTurn {
 		board.remainDiseaseCube.put("BLUE", 13);
 		action.drawTwoPlayerCards();
 		assertEquals(1, medic.hand.size());
-		assertTrue(4 == board.infectionRateTrack.peek());
+		assertTrue(4 == board.infectionRateTracker.peek());
 	}
 	
 	@Test
@@ -129,7 +129,7 @@ public class TestGameActionOneTurn {
 		board.cities.put("cityA", cityA);
 		board.cities.put("cityB", cityB);
 		
-		board.infectionRateTrack.push(2);
+		board.infectionRateTracker.push(2);
 		action.infection();
 		int newValidInfectionPileSize = board.validInfectionCard.size();
 		int newDiscardInfectionPileSize = board.discardInfectionCard.size();

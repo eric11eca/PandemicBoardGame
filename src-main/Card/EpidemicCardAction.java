@@ -16,9 +16,9 @@ public class EpidemicCardAction {
 	}
 
 	public void increaseInfectionRate() {
-		int size = board.infectionRateTrack.size();
+		int size = board.infectionRateTracker.size();
 		if (size > 1) {
-			board.infectionRateTrack.pop();
+			board.infectionRateTracker.pop();
 		}
 	}
 
@@ -60,7 +60,7 @@ public class EpidemicCardAction {
 		board.discardInfectionCard.clear();
 	}
 
-	public void performeEpidemic() {
+	public void performEpidemic() {
 		increaseInfectionRate();
 		infect();
 		if (board.gameEnd == true) {

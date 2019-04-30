@@ -25,7 +25,7 @@ public class Board {
 	public int epidemicCardNum = 0;
 	public int outbreakMark = 0;
 	public Map<String, City> currentResearchStation = new HashMap<>();
-	public Stack<Integer> infectionRateTrack = new Stack<>();
+	public Stack<Integer> infectionRateTracker = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	
 	public String eventCardName;

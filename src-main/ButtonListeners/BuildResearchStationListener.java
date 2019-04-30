@@ -16,7 +16,6 @@ import Panel.GUI;
 public class BuildResearchStationListener implements ActionListener {
 	
 	Board board;
-	
 	GameSetup gameSetup;
 	GUI gui;
 	JPanel panel;

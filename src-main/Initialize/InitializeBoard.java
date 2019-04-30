@@ -165,13 +165,13 @@ public class InitializeBoard {
 	}
 
 	public void initializeInfectionRateTrack() {
-		board.infectionRateTrack.push(4);
-		board.infectionRateTrack.push(4);
-		board.infectionRateTrack.push(3);
-		board.infectionRateTrack.push(3);
-		board.infectionRateTrack.push(2);
-		board.infectionRateTrack.push(2);
-		board.infectionRateTrack.push(2);
+		board.infectionRateTracker.push(4);
+		board.infectionRateTracker.push(4);
+		board.infectionRateTracker.push(3);
+		board.infectionRateTracker.push(3);
+		board.infectionRateTracker.push(2);
+		board.infectionRateTracker.push(2);
+		board.infectionRateTracker.push(2);
 	}
 
 	public void initializeRemainDiseaseCube() {

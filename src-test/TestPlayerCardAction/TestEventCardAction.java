@@ -38,7 +38,7 @@ public class TestEventCardAction {
 		EventCardAction eventCardAction = new EventCardAction(board, card);
 		eventCardAction.airliftEvent = airlift;
 		
-		boolean eventCardPlayed = eventCardAction.excuteEventCard();
+		boolean eventCardPlayed = eventCardAction.executeEventCard();
 		assertTrue(eventCardPlayed);
 		EasyMock.verify(airlift);;
 	}
@@ -57,7 +57,7 @@ public class TestEventCardAction {
 		eventCardAction = new EventCardAction(board, card);
 		eventCardAction.forecastEvent = forecast;
 		
-		boolean eventCardPlayed = eventCardAction.excuteEventCard();
+		boolean eventCardPlayed = eventCardAction.executeEventCard();
 		assertTrue(eventCardPlayed);
 		EasyMock.verify(forecast);
 	}
@@ -76,7 +76,7 @@ public class TestEventCardAction {
 		eventCardAction = new EventCardAction(board, card);
 		eventCardAction.nightEvent = oneNight;
 		
-		boolean eventCardPlayed = eventCardAction.excuteEventCard();
+		boolean eventCardPlayed = eventCardAction.executeEventCard();
 		assertTrue(eventCardPlayed);
 		EasyMock.verify(oneNight);
 	}
@@ -95,7 +95,7 @@ public class TestEventCardAction {
 		eventCardAction = new EventCardAction(board, card);
 		eventCardAction.grantEvent = grant;
 		
-		boolean eventCardPlayed = eventCardAction.excuteEventCard();
+		boolean eventCardPlayed = eventCardAction.executeEventCard();
 		assertTrue(eventCardPlayed);
 		EasyMock.verify(grant);
 	}
@@ -114,7 +114,7 @@ public class TestEventCardAction {
 		eventCardAction = new EventCardAction(board, card);
 		eventCardAction.resilientEvent = resilient;
 		
-		boolean eventCardPlayed = eventCardAction.excuteEventCard();
+		boolean eventCardPlayed = eventCardAction.executeEventCard();
 		assertTrue(eventCardPlayed);
 		EasyMock.verify(resilient);
 	}
@@ -124,7 +124,7 @@ public class TestEventCardAction {
 		String cardName = " ";
 		PlayerCard card = new PlayerCard(Board.CardType.EVENTCARD, cardName);
 		eventCardAction = new EventCardAction(board, card);
-		boolean eventCardPlayed = eventCardAction.excuteEventCard();
+		boolean eventCardPlayed = eventCardAction.executeEventCard();
 		assertFalse(eventCardPlayed);
 	}
 

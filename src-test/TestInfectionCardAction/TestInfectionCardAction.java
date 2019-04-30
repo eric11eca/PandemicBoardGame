@@ -34,7 +34,7 @@ public class TestInfectionCardAction {
 	@Test
 	public void testRegularDrawInfactionCard() {
 		board.validInfectionCard.add(cityName);
-		infect.drawOneInfactionCard();
+		infect.drawOneInfectionCard();
 		City infectedCity = board.cities.get(cityName);
 		Map<String, Integer> diseaseCubes = infectedCity.diseaseCubes;
 		int redCube = diseaseCubes.get(this.diseaseColor);
@@ -43,7 +43,7 @@ public class TestInfectionCardAction {
 
 	@Test(expected = RuntimeException.class)
 	public void testDrawEmptyInfactionCardPile() {
-		infect.drawOneInfactionCard();
+		infect.drawOneInfectionCard();
 	}
 
 	@Test

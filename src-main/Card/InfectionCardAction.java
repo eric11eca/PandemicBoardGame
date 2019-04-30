@@ -12,7 +12,7 @@ public class InfectionCardAction {
 		outbreak = new Outbreak(board);
 	}
 
-	public void drawOneInfactionCard() {
+	public void drawOneInfectionCard() {
 		int top = board.validInfectionCard.size() - 1;
 		if (top == -1) {
 			throw new RuntimeException("PLAYER LOSS: RUN OUT OF INFACTION CARDS");

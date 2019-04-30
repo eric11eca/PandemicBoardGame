@@ -18,13 +18,13 @@ public class TestEpidemicCardAction {
 	public void setup() {
 		board = new Board();
 		
-		board.infectionRateTrack.push(4);
-		board.infectionRateTrack.push(4);
-		board.infectionRateTrack.push(3);
-		board.infectionRateTrack.push(3);
-		board.infectionRateTrack.push(2);
-		board.infectionRateTrack.push(2);
-		board.infectionRateTrack.push(2);
+		board.infectionRateTracker.push(4);
+		board.infectionRateTracker.push(4);
+		board.infectionRateTracker.push(3);
+		board.infectionRateTracker.push(3);
+		board.infectionRateTracker.push(2);
+		board.infectionRateTracker.push(2);
+		board.infectionRateTracker.push(2);
 		
 		City city1 = new City();
 		city1.cityName = "cityA";
@@ -44,7 +44,7 @@ public class TestEpidemicCardAction {
 	@Test
 	public void testInfectionRateIncrease() {
 		epidemicCardAction.increaseInfectionRate();
-		assertTrue(2 == board.infectionRateTrack.peek());
+		assertTrue(2 == board.infectionRateTracker.peek());
 	}
 	
 	@Test
@@ -52,9 +52,9 @@ public class TestEpidemicCardAction {
 		for (int i = 0; i < 6; i++) {
 			epidemicCardAction.increaseInfectionRate();
 		}
-		assertTrue(4 == board.infectionRateTrack.peek());
+		assertTrue(4 == board.infectionRateTracker.peek());
 		epidemicCardAction.increaseInfectionRate();
-		assertTrue(4 == board.infectionRateTrack.peek());
+		assertTrue(4 == board.infectionRateTracker.peek());
 	}
 	
 	@Test
@@ -118,16 +118,16 @@ public class TestEpidemicCardAction {
 	
 	@Test
 	public void testPerformeEpidemic() {
-		board.infectionRateTrack.pop();
-		board.infectionRateTrack.pop();
+		board.infectionRateTracker.pop();
+		board.infectionRateTracker.pop();
 		board.discardInfectionCard.add("Chicaco");
 		board.discardInfectionCard.add("NewYork");
 		board.discardInfectionCard.add("London");
 		board.discardInfectionCard.add("Atlanta");
 		board.validInfectionCard.add("cityB");
 		
-		epidemicCardAction.performeEpidemic();
-		assertTrue(3 == board.infectionRateTrack.peek());
+		epidemicCardAction.performEpidemic();
+		assertTrue(3 == board.infectionRateTracker.peek());
 		
 		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
@@ -153,7 +153,7 @@ public class TestEpidemicCardAction {
 	public void testEndGameWhenPerformeEpidemic() {
 		board.remainDiseaseCube.put("RED", 0);
 		board.validInfectionCard.add("cityB");
-		epidemicCardAction.performeEpidemic();
+		epidemicCardAction.performEpidemic();
 		assertTrue(board.gameEnd);
 		assertTrue(board.playerLose);
 		assertEquals(1, board.validInfectionCard.size());

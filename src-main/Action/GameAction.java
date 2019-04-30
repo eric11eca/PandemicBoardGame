@@ -28,7 +28,7 @@ public class GameAction {
 				playerCard = board.validPlayerCard.get(0);
 			}
 			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
-				epidemic.performeEpidemic();
+				epidemic.performEpidemic();
 				board.validPlayerCard.remove(0);
 			} else {
 				board.currentPlayer.receiveCard(playerCard);
@@ -68,8 +68,8 @@ public class GameAction {
 	}
 
 	public void infection() {
-		for (int i = 0; i < board.infectionRateTrack.peek(); i++) {
-			infectAction.drawOneInfactionCard();
+		for (int i = 0; i < board.infectionRateTracker.peek(); i++) {
+			infectAction.drawOneInfectionCard();
 		}
 	}
 
