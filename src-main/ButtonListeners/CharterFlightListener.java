@@ -49,7 +49,7 @@ public class CharterFlightListener implements ActionListener {
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				confirmCity(evt, options);
+				confirmCity(options);
 			}
 		});
 		panel = new JPanel();
@@ -57,7 +57,7 @@ public class CharterFlightListener implements ActionListener {
 		gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
-	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
+	protected void confirmCity(JComboBox<String> options) {
 		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
 		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Charter Flight",
 				JOptionPane.YES_NO_OPTION);

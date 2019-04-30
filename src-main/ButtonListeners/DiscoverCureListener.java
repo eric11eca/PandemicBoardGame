@@ -77,18 +77,6 @@ public class DiscoverCureListener implements ActionListener {
 						board.cardsToCureDisease.add(card);
 					}
 				}
-				
-				//String color = board.cities.get(discardCards.get(0)).color;
-				
-				/*for(int i = 0; i<discardCards.size(); i++){
-					if(!board.cities.get(discardCards.get(0)).color.equals(color)){
-						JOptionPane.showMessageDialog(null, 
-								"Please only discard city cards of the same color.");
-						return;
-					}
-				}*/
-				
-				//board.cardToBeDiscard = discardCards;
 				cureDisease();
 			}
 		});
