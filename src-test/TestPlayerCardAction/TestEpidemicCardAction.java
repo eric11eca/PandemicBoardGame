@@ -60,7 +60,7 @@ public class TestEpidemicCardAction {
 	@Test
 	public void testInfectionOfEradicatedDisease() {
 		board.validInfectionCard.add("cityA");
-		epidemicCardAction.infect();
+		epidemicCardAction.epidemicInfect();
 		City city = board.cities.get("cityA");
 		assertTrue(0 == city.diseaseCubes.get("YELLOW"));
 	}
@@ -68,23 +68,25 @@ public class TestEpidemicCardAction {
 	@Test
 	public void testInfectionOfNewDisease() {
 		board.validInfectionCard.add("cityB");
-		epidemicCardAction.infect();
+		epidemicCardAction.epidemicInfect();
 		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
 		assertTrue(21 == board.remainDiseaseCube.get("RED"));
 		assertTrue(board.validInfectionCard.isEmpty());
 		assertFalse(board.discardInfectionCard.isEmpty());
+		assertFalse(city.isInOutbreak);
 	}
 	
 	@Test 
 	public void testInfectionCausingOutbreak() {
 		board.validInfectionCard.add("cityB");
 		City cityB = board.cities.get("cityB");
-		cityB.diseaseCubes.put(cityB.color, 1);
-		epidemicCardAction.infect();
+		cityB.diseaseCubes.put(cityB.color, 2);
+		board.remainDiseaseCube.put(cityB.color, 22);
+		epidemicCardAction.epidemicInfect();
 		assertTrue(cityB.isInOutbreak);
 		assertTrue(3 == cityB.diseaseCubes.get("RED"));
-		assertTrue(22 == board.remainDiseaseCube.get("RED"));
+		assertTrue(21 == board.remainDiseaseCube.get("RED"));
 		assertTrue(board.validInfectionCard.isEmpty());
 		assertFalse(board.discardInfectionCard.isEmpty());
 	}
@@ -141,7 +143,7 @@ public class TestEpidemicCardAction {
 	public void testEndGameDuringInfection() {
 		board.validInfectionCard.add("cityB");
 		board.remainDiseaseCube.put("RED", 0);
-		epidemicCardAction.infect();
+		epidemicCardAction.epidemicInfect();
 		City city = board.cities.get("cityB");
 		assertTrue(board.gameEnd);
 		assertTrue(board.playerLose);

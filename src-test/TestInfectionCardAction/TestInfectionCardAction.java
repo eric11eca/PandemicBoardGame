@@ -2,6 +2,7 @@ package TestInfectionCardAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
@@ -59,14 +60,15 @@ public class TestInfectionCardAction {
 	@Test
 	public void testInfectCityWithEixstingDisease() {
 		City city_old = board.cities.get(cityName);
-		city_old.diseaseCubes.put(diseaseColor, 1);
+		city_old.diseaseCubes.put(diseaseColor, 2);
 		board.cities.put(cityName, city_old);
 		infect.infectCity(cityName, diseaseColor);
 		City city_new = board.cities.get(cityName);
 		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
-		assertEquals(2, numOfRedCubes);
+		assertEquals(3, numOfRedCubes);
 		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor);
-		assertEquals(22, numOfRemainRedCubes);
+		assertEquals(21, numOfRemainRedCubes);
+		assertFalse(city_new.isInOutbreak);
 	}
 
 	@Test
@@ -79,6 +81,18 @@ public class TestInfectionCardAction {
 		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
 		assertEquals(1, numOfRedCubes);
 		assertFalse(board.inQueitNight);
+	}
+	
+	@Test
+	public void testInfectCitywithOutbreak() {
+		City city = board.cities.get(cityName);
+		city.diseaseCubes.put(diseaseColor, 3);
+		infect.infectCity(cityName, diseaseColor);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		assertEquals(3, numOfRedCubes);
+		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor);
+		assertEquals(24, numOfRemainRedCubes);
+		assertTrue(city.isInOutbreak);
 	}
 
 }

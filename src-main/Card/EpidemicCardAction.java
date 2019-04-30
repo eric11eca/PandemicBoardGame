@@ -22,14 +22,14 @@ public class EpidemicCardAction {
 		}
 	}
 
-	public void infect() {
+	public void epidemicInfect() {
 		int size = board.validInfectionCard.size();
 		String infection = board.validInfectionCard.get(size - 1);
 		City city = board.cities.get(infection);
 		String disease = city.color;
 		if (!board.eradicatedDiseases.contains(disease)) {
 			int addCubeCount = 0;
-			while (city.diseaseCubes.get(disease) != 3) {
+			while (city.diseaseCubes.get(disease) < 3) {
 				int remainingCubes = board.remainDiseaseCube.get(disease);
 				if (remainingCubes == 0) {
 					board.gameEnd = true;
@@ -41,7 +41,7 @@ public class EpidemicCardAction {
 				board.remainDiseaseCube.put(disease, remainingCubes - 1);
 				addCubeCount++;
 			}
-			if (addCubeCount != 3) {
+			if (addCubeCount < 3) {
 				outbreak.performeOutbreak(city);
 			}
 		}
@@ -62,7 +62,7 @@ public class EpidemicCardAction {
 
 	public void performEpidemic() {
 		increaseInfectionRate();
-		infect();
+		epidemicInfect();
 		if (board.gameEnd == true) {
 			return;
 		}
