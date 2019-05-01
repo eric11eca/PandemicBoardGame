@@ -63,7 +63,7 @@ public class CharterFlightListener implements ActionListener {
 				JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.cityCardNameCharter = chosenCity;
-			board.actionName = "CharterFlight";
+			board.actionName = Board.ActionName.CHARTERFLIGHT;
 			gameSetup.oneTurn();
 			gui.removePanel(panel);
 			gui.updateImage();

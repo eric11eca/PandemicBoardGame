@@ -12,7 +12,7 @@ import ButtonListeners.CharterFlightListener;
 import ButtonListeners.DListener;
 import ButtonListeners.DiscoverCureListener;
 import ButtonListeners.DriveListener;
-import ButtonListeners.FlightListener;
+import ButtonListeners.DirectFlightListener;
 import ButtonListeners.PlayerListener;
 import ButtonListeners.ShareKnowledgeListener;
 import ButtonListeners.ShuttleFlightListener;
@@ -104,7 +104,7 @@ public class InitializeGame {
 
 		JButton flight = new JButton("Direct Flight");
 		flight.setToolTipText("Discard a City card to move to the city named on the card.");
-		FlightListener flightListener = new FlightListener(board, gui, setup);
+		DirectFlightListener flightListener = new DirectFlightListener(board, gui, setup);
 		flight.addActionListener(flightListener);
 
 		JButton cFlight = new JButton("Charter Flight");

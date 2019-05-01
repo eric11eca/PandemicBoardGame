@@ -63,7 +63,7 @@ public class TreatDiseaseListener implements ActionListener {
 		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to treat this disease", "Are you sure you want to treat this disease", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.diseaseBeingTreated = chosenCity;
-				board.actionName = "TreatDisease";
+				board.actionName = Board.ActionName.TREATDISEASE;
 				gameSetup.oneTurn();
 				gui.removePanel(panel);
 				gui.updateImage();

@@ -42,27 +42,27 @@ public class GameAction {
 		}
 	}
 
-	public void doAction(String actionName) {
-		if (actionName.equals("DirectFlight")) {
+	public void doAction(Board.ActionName actionName) {
+		if (actionName == Board.ActionName.DIRECTFLIGHT) {
 			PlayerCard cityCard = board.currentPlayer.hand.get(board.cityCardNameDirect);
 			board.currentPlayer.directFlight(cityCard);
-		} else if (actionName.equals("PlayEventCard")) {
+		} else if (actionName == Board.ActionName.PLAYEVENTCARD) {
 			board.currentPlayer.useEventCard(board.eventCardName);
-		} else if (actionName.equals("CureDisease")) {
+		} else if (actionName == Board.ActionName.CUREDISEASE) {
 			board.currentPlayer.discoverCure(board.cardsToCureDisease);
-		} else if (actionName.equals("TreatDisease")) {
+		} else if (actionName == Board.ActionName.TREATDISEASE) {
 			board.currentPlayer.treat(board.diseaseBeingTreated);
-		} else if (actionName.equals("Drive")) {
+		} else if (actionName == Board.ActionName.DRIVE) {
 			City driveDestination = board.cities.get(board.driveDestinationName);
 			board.currentPlayer.drive(driveDestination);
-		} else if (actionName.equals("CharterFlight")) {
+		} else if (actionName == Board.ActionName.CHARTERFLIGHT) {
 			board.currentPlayer.charterFlight();
-		} else if (actionName.equals("ShuttleFlight")) {
+		} else if (actionName == Board.ActionName.SHUTTLEFLIGHT) {
 			City shuttleDestination = board.cities.get(board.shuttleDestinationName);
 			board.currentPlayer.shuttleFlight(shuttleDestination);
-		} else if (actionName.equals("BuildResearch")) {
+		} else if (actionName == Board.ActionName.BUILDRESEARCH) {
 			board.currentPlayer.buildStation();
-		} else if (actionName.equals("ShareKnowledge")) {
+		} else if (actionName == Board.ActionName.SHAREKNOWLEDGE) {
 			board.currentPlayer.shareKnowledge();
 		}
 	}

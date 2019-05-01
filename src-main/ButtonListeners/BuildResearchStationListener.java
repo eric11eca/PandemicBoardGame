@@ -54,7 +54,7 @@ public class BuildResearchStationListener implements ActionListener {
 				gui.addPanel(panel, BorderLayout.CENTER);
 
 			} else {
-				board.actionName = "BuildResearch";
+				board.actionName = Board.ActionName.BUILDRESEARCH;
 				gameSetup.oneTurn();
 				gui.updateImage();
 			}
@@ -67,10 +67,10 @@ public class BuildResearchStationListener implements ActionListener {
 			 gui.removePanel(panel);
 			 return;
 		 }
-		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this research station", "Are you sure you want to remove this research station", JOptionPane.YES_NO_OPTION);
+		 int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this research station", "Build Research Station", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.stationToRemove= chosenCity;
-				board.actionName = "BuilResearch";
+				board.actionName = Board.ActionName.BUILDRESEARCH;
 				gameSetup.oneTurn();
 				gui.removePanel(panel);
 				gui.updateImage();

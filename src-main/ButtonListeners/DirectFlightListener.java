@@ -13,14 +13,14 @@ import Initialize.Board;
 import Initialize.GameSetup;
 import Panel.GUI;
 
-public class FlightListener implements ActionListener {
+public class DirectFlightListener implements ActionListener {
 
 	Board board;
 	private JPanel panel;
 	GameSetup gameSetup;
 	private GUI gui;
 
-	public FlightListener(Board board, GUI gui, GameSetup gameSetup) {
+	public DirectFlightListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;
@@ -59,11 +59,11 @@ public class FlightListener implements ActionListener {
 			gui.removePanel(panel);
 			return;
 		}
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Are you sure you want to fly",
+		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Direct Flight",
 				JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.cityCardNameDirect = chosenCity;
-			board.actionName = "DirectFlight";
+			board.actionName = Board.ActionName.DIRECTFLIGHT;
 			gameSetup.oneTurn();
 			gui.removePanel(panel);
 			gui.updateImage();

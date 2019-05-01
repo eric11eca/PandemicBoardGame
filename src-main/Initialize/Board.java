@@ -17,9 +17,15 @@ public class Board {
 	public enum CardType {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
+	
+	public enum ActionName {
+		DIRECTFLIGHT, PLAYEVENTCARD, CUREDISEASE, TREATDISEASE, DRIVE,
+		CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDRESEARCH, SHAREKNOWLEDGE;
+	}
+	
 	public ListOfCityWithColorGenerator colorConcator = new ListOfCityWithColorGenerator();
 	
-	public String actionName;
+	public ActionName actionName;
 	public int playernumber = 0;
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;

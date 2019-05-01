@@ -58,7 +58,7 @@ public class ShuttleFlightListener implements ActionListener {
 					"Are you sure you want to take a shuttle", JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.shuttleDestinationName = chosenCity;
-				board.actionName = "ShuttleFlight";
+				board.actionName = Board.ActionName.SHUTTLEFLIGHT;
 				gameSetup.oneTurn();
 				gui.removePanel(panel);
 				gui.updateImage();
