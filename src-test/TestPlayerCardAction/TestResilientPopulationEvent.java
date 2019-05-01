@@ -28,7 +28,7 @@ public class TestResilientPopulationEvent {
 	public void testresilientPopulation() {
 		String infect = "c";
 		board.cardRemovedByResilient = infect;
-		resilientPopulationEvent.resilientPopulation();
+		resilientPopulationEvent.executeEvent();
 		assertFalse(board.discardInfectionCard.contains(infect));
 	}
 

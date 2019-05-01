@@ -5,23 +5,23 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.OneQueitNightEvent;
+import Card.OneQuietNightEvent;
 import Initialize.Board;
 
 public class TestOneQueitNight {
 	Board board;
-	OneQueitNightEvent night;
+	OneQuietNightEvent night;
 	
 	@Before
 	public void setup() {
 		board = new Board();
-		night = new OneQueitNightEvent(board);
+		night = new OneQuietNightEvent(board);
 	}
 
 	@Test
 	public void testSkipNextInfection() {
 		assertFalse(board.inQueitNight);
-		night.skipNextInfection();
+		night.executeEvent();
 		assertTrue(board.inQueitNight);
 	}
 

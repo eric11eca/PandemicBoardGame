@@ -81,7 +81,7 @@ public class TestForecastEvent {
 	
 	@Test 
 	public void testForecast() {
-		forecast.forecast();
+		forecast.executeEvent();
 		assertEquals(6, board.infectionCardForecast.size());
 		assertEquals("Cairo", board.validInfectionCard.get(0));
 		assertEquals("TaiPei", board.validInfectionCard.get(3));
