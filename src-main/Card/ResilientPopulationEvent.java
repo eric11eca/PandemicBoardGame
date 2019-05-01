@@ -2,14 +2,15 @@ package Card;
 
 import Initialize.Board;
 
-public class ResilientPopulationEvent {
+public class ResilientPopulationEvent implements EventCard {
 	Board board;
 	
 	public ResilientPopulationEvent(Board gameBoard) {
 		board = gameBoard;
 	}
-	
-	public void resilientPopulation() {
+
+	@Override
+	public void executeEvent() {
 		String cardToBeRemoved = board.cardRemovedByResilient;
 		board.discardInfectionCard.remove(cardToBeRemoved);
 	}

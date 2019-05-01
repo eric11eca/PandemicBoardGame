@@ -5,7 +5,7 @@ import java.util.List;
 import Initialize.Board;
 import javafx.util.Pair;
 
-public class ForecastEvent {
+public class ForecastEvent implements EventCard{
 	private Board board;
 	
 	public ForecastEvent(Board gameBoard) {
@@ -28,8 +28,9 @@ public class ForecastEvent {
 			board.validInfectionCard.add(newAddress, infection);
 		}
 	}
-	
-	public void forecast() {
+
+	@Override
+	public void executeEvent() {
 		reviewCard();
 		arrangeCard();
 	}

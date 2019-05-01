@@ -3,14 +3,15 @@ package Card;
 import Initialize.Board;
 import Initialize.City;
 
-public class GovernmentGrantEvent {
+public class GovernmentGrantEvent implements EventCard{
 	private Board board;
 	
 	public GovernmentGrantEvent(Board gameBoard) {
 		board = gameBoard;
 	}
 
-	public void addResearchStation() {
+	@Override
+	public void executeEvent() {
 		String cityName = board.cityWithGrant;
 		City city = board.cities.get(cityName);
 		city.researchStation = true;

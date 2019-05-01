@@ -3,14 +3,15 @@ package Card;
 import Initialize.Board;
 import Player.Player;
 
-public class AirliftEvent {
+public class AirliftEvent implements EventCard{
 	private Board board;
 	
 	public AirliftEvent(Board gameBoard) {
 		board = gameBoard;
 	}
-	
-	public void airlift() {
+
+	@Override
+	public void executeEvent() {
 		int playeridx = board.idxofPlayerAirlift;
 		Player player = board.currentPlayers.get(playeridx);
 		String cityName = board.nameofCityAirlift;

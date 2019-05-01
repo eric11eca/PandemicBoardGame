@@ -1,50 +1,41 @@
 package Card;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import Initialize.Board;
 
 public class EventCardAction {
 	Board board;
 	PlayerCard playerCard;
-
+	
+	private Map<String, EventCard> eventCards = new HashMap<>();
 	public AirliftEvent airliftEvent;
 	public ForecastEvent forecastEvent;
-	public OneQueitNightEvent nightEvent;
+	public OneQuietNightEvent nightEvent;
 	public GovernmentGrantEvent grantEvent;
 	public ResilientPopulationEvent resilientEvent;
-
-	private final String airlift = "Airlift";
-	private final String forecast = "Forecast";
-	private final String oneQuietNight = "OneQuietNight";
-	private final String governmentGrant = "GovernmentGrant";
-	private final String resilientPopulation = "ResilientPopulation";
 
 	public EventCardAction(Board gameBoard, PlayerCard card) {
 		board = gameBoard;
 		playerCard = card;
 		airliftEvent = new AirliftEvent(board);
+		eventCards.put("Airlift", airliftEvent);
 		forecastEvent = new ForecastEvent(board);
-		nightEvent = new OneQueitNightEvent(board);
+		eventCards.put("Forecast", forecastEvent);
+		nightEvent = new OneQuietNightEvent(board);
+		eventCards.put("OnQuietNight", nightEvent);
 		grantEvent = new GovernmentGrantEvent(board);
+		eventCards.put("GovernmentGrant", grantEvent);
 		resilientEvent = new ResilientPopulationEvent(board);
+		eventCards.put("ResilientPopulation", resilientEvent);
 	}
 
-	public boolean executeEventCard() {
-		if (playerCard.cardName.equals(airlift)) {
-			airliftEvent.airlift();
+	public boolean executeEventCard(String eventName) {
+		if(eventCards.containsKey(eventName)) {
+			eventCards.get(eventName).executeEvent();
 			return true;
-		} else if (playerCard.cardName.equals(forecast)) {
-			forecastEvent.forecast();
-			return true;
-		} else if (playerCard.cardName.equals(oneQuietNight)) {
-			nightEvent.skipNextInfection();
-			return true;
-		} else if (playerCard.cardName.equals(governmentGrant)) {
-			grantEvent.addResearchStation();
-			return true;
-		} else if (playerCard.cardName.equals(resilientPopulation)) {
-			resilientEvent.resilientPopulation();
-			return true;
-		} 
+		}
 		return false;
 	}
 }
