@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Parse.CityDataParser;
 import Player.ContingencyPlannerAction;
@@ -129,6 +130,8 @@ public class InitializeBoard {
 		PlayerData operationsExpertData = new PlayerData();
 		PlayerData quarantineSpecialistData = new PlayerData();
 		
+		EventCardAction eventCardAction = new EventCardAction(board);
+		
 		scientistData.role = Board.Roles.SCIENTIST;
 		medicData.role = Board.Roles.MEDIC;
 		researcherData.role = Board.Roles.RESEARCHER;
@@ -137,13 +140,13 @@ public class InitializeBoard {
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
 		
-		Player scientist = new Player(board, scientistData);
-		Player medic = new Player(board, medicData);
-		Player researcher = new Player(board, researcherData);
-		Player dispatcher = new Player(board, dispatcherData);
-		Player contingencyPlanner = new Player(board, contingencyPlannerData);
-		Player operationsExpert = new Player(board, operationsExpertData);
-		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
+		Player scientist = new Player(board, scientistData, eventCardAction);
+		Player medic = new Player(board, medicData, eventCardAction);
+		Player researcher = new Player(board, researcherData, eventCardAction);
+		Player dispatcher = new Player(board, dispatcherData, eventCardAction);
+		Player contingencyPlanner = new Player(board, contingencyPlannerData, eventCardAction);
+		Player operationsExpert = new Player(board, operationsExpertData, eventCardAction);
+		Player quarantineSpecialist = new Player(board, quarantineSpecialistData, eventCardAction);
 
 		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medic.specialSkill = new MedicAction(board, medicData);

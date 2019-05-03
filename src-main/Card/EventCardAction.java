@@ -16,9 +16,8 @@ public class EventCardAction {
 	public GovernmentGrantEvent grantEvent;
 	public ResilientPopulationEvent resilientEvent;
 
-	public EventCardAction(Board gameBoard, PlayerCard card) {
+	public EventCardAction(Board gameBoard) {
 		board = gameBoard;
-		playerCard = card;
 		airliftEvent = new AirliftEvent(board);
 		eventCards.put("Airlift", airliftEvent);
 		forecastEvent = new ForecastEvent(board);

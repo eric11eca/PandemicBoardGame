@@ -1,7 +1,6 @@
 package Player;
 
 import java.util.List;
-import java.util.Random;
 
 import Card.EventCardAction;
 import Card.PlayerCard;
@@ -12,18 +11,13 @@ public class Player {
 	public PlayerData playerData;
 	public SpecialSkill specialSkill;
 	private Board board;
-	private Random random;
+	private EventCardAction eventCardAction;
 	
-	
-	public Player(Board gameBoard, PlayerData playerData) {
-		this(gameBoard, new Random());
+	public Player(Board gameBoard, PlayerData playerData, EventCardAction eventCardAction) {
+		this.board = gameBoard;
 		this.playerData = playerData;
+		this.eventCardAction = eventCardAction;
 		playerData.action = 4;
-	}
-
-	public Player(Board gameBoard, Random random) {
-		board = gameBoard;
-		this.random = random;
 	}
 	
 	public void receiveCard(PlayerCard playerCard) {
@@ -33,14 +27,11 @@ public class Player {
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
-			EventCardAction eventCardAction = new EventCardAction(board, playerData.specialEventCard);
 			cardUsed = eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
 		} else {
-			PlayerCard card = playerData.hand.get(cardName);
-			EventCardAction eventCardAction = new EventCardAction(board, card);
 			cardUsed = eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
