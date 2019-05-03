@@ -14,13 +14,13 @@ public class MedicAction implements SpecialSkill{
 	}
 
 	public void removeAllCubes() {
-		Boolean allCured = true;
-		for (String diseas : medicData.location.diseaseCubes.keySet()) {
-			if (!board.curedDiseases.contains(diseas)) {
-				allCured = false;
+		for (String diseaseColor : medicData.location.diseaseCubes.keySet()) {
+			if (board.curedDiseases.contains(diseaseColor)) {
+				int numOfCube = medicData.location.diseaseCubes.get(diseaseColor);
+				board.remainDiseaseCube.put(diseaseColor, board.remainDiseaseCube.get(diseaseColor) + numOfCube);
+				medicData.location.diseaseCubes.put(diseaseColor, 0);
 			}
 		}
-		medicData.location.diseaseCubes.clear();
 	}
 
 	@Override
