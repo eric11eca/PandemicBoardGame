@@ -74,11 +74,10 @@ public class TestInfectionCardAction {
 	@Test
 	public void testInfectCityOnQueitNight() {
 		board.inQueitNight = true;
-		City city_old = board.cities.get(cityName);
-		city_old.diseaseCubes.put(diseaseColor, 1);
+		City city = board.cities.get(cityName);
+		city.diseaseCubes.put(diseaseColor, 1);
 		infect.infectCity(cityName, diseaseColor);
-		City city_new = board.cities.get(cityName);
-		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
 		assertEquals(1, numOfRedCubes);
 		assertFalse(board.inQueitNight);
 	}
@@ -94,5 +93,27 @@ public class TestInfectionCardAction {
 		assertEquals(24, numOfRemainRedCubes);
 		assertTrue(city.isInOutbreak);
 	}
-
+	
+	@Test public void testInfectWhenQuarantineSpecialistExist() {
+		City city = board.cities.get(cityName);
+		city.currentRoles.add(Board.Roles.QUARANTINESPECIALIST);
+		city.diseaseCubes.put(diseaseColor, 1);
+		infect.infectCity(cityName, diseaseColor);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		assertEquals(1, numOfRedCubes);
+	}
+	
+	@Test public void testInfectWhenQuarantineSpecialistExistInNeighbor() {
+		City city = board.cities.get(cityName);
+		City city1 = new City();
+		city1.cityName = "Chicago";
+		city1.currentRoles.add(Board.Roles.QUARANTINESPECIALIST);
+		board.cities.put(cityName, city1);
+		city.neighbors.put(cityName, city1);
+		city.diseaseCubes.put(diseaseColor, 1);
+		infect.infectCity(cityName, diseaseColor);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		assertEquals(1, numOfRedCubes);
+		assertFalse(board.inQueitNight);
+	}
 }

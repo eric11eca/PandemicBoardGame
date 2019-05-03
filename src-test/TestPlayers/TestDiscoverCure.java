@@ -13,8 +13,6 @@ import Initialize.Board;
 import Player.DiscoverCure;
 import Player.DiscoverCureNormal;
 import Player.DiscoverCureScientist;
-import Player.Player;
-import Player.PlayerData;
 
 public class TestDiscoverCure {
 	Board board;	

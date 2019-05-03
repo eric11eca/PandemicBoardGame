@@ -12,8 +12,6 @@ public class Player {
 	public PlayerData playerData;
 	public SpecialSkill specialSkill;
 	private Board board;
-	private Random random;
-	
 	
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
@@ -23,7 +21,6 @@ public class Player {
 
 	public Player(Board gameBoard, Random random) {
 		board = gameBoard;
-		this.random = random;
 	}
 	
 	public void receiveCard(PlayerCard playerCard) {
@@ -92,6 +89,7 @@ public class Player {
 	
 	public void moveTo(City destination) {
 		playerData.location = destination;
+		destination.currentRoles.add(this.playerData.role);
 	}
 	
 	public void discardCardAndMoveTo(City destination) {
@@ -111,6 +109,7 @@ public class Player {
 		if (playerData.location.researchStation) {
 			if (destination.researchStation) {
 				playerData.location = destination;
+				destination.currentRoles.add(this.playerData.role);
 				consumeAction();
 			} else {
 				throw new RuntimeException("Invalid shuttle flight: Destination doesn't have the station.");

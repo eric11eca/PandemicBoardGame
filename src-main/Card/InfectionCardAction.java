@@ -27,8 +27,21 @@ public class InfectionCardAction {
 		if (board.inQueitNight) {
 			board.inQueitNight = false;
 			return;
-		}
+		}                                                        
+		
 		City city = board.cities.get(cityName);
+		
+		if(city.currentRoles.contains(Board.Roles.QUARANTINESPECIALIST)) {
+			return;
+		}
+		
+		for(String neighborName : city.neighbors.keySet()) {
+			City neighbor = city.neighbors.get(neighborName);
+			if(neighbor.currentRoles.contains(Board.Roles.QUARANTINESPECIALIST)) {
+				return;
+			}
+		}
+		
 		int numOfCubes = 1;
 		if (city.diseaseCubes.containsKey(diseaseColor)) {
 			numOfCubes = city.diseaseCubes.get(diseaseColor);
