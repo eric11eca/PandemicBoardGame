@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
@@ -14,6 +15,7 @@ public class TestShuttleFlight {
 	Board board;
 	Player player;
 	PlayerData playerData;
+	EventCardAction eventCardAction;
 	City locationWithStation, locationNoStation;
 	City destinationWithStation, destinationNoStation;
 
@@ -36,7 +38,9 @@ public class TestShuttleFlight {
 
 		this.destinationNoStation = new City(city4);
 		this.destinationNoStation.researchStation = false;
-		player = new Player(board, playerData);
+		
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Player.Player;
@@ -22,6 +23,7 @@ public class TestShareKnowledge {
 	PlayerCard citycard;
 	String eventName;
 	PlayerCard eventcard;
+	EventCardAction eventCardAction;
 
 	@Before
 	public void setup() {
@@ -34,8 +36,9 @@ public class TestShareKnowledge {
 		eventcard = new PlayerCard(Board.CardType.EVENTCARD, eventName);
 		playerData1.action = 4;
 		playerData2.action = 4;
-		player1 = new Player(board, playerData1);
-		player2 = new Player(board, playerData2);
+		eventCardAction = new EventCardAction(board);
+		player1 = new Player(board, playerData1, eventCardAction);
+		player2 = new Player(board, playerData2, eventCardAction);
 	}
 
 	@Test

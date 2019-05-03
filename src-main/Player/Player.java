@@ -23,7 +23,7 @@ public class Player {
 	public void receiveCard(PlayerCard playerCard) {
 		playerData.hand.put(playerCard.cardName, playerCard);
 	}
-
+	
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
@@ -151,6 +151,7 @@ public class Player {
 
 	public void buildStation() {
 		playerData.buildStationModel.buildStation();
+		consumeAction();
 	}
 
 	public void shareKnowledge() {

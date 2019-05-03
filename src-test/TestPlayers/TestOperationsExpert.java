@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -18,6 +19,7 @@ public class TestOperationsExpert {
 	Player player;
 	PlayerData playerData;
 	OperationsExpertAction operationsExpertAction;
+	EventCardAction eventCardAction;
 	
 
 	@Before
@@ -28,7 +30,8 @@ public class TestOperationsExpert {
 		playerData.location = new City();
 		location = playerData.location;
 		operationsExpertAction = new OperationsExpertAction(board, playerData);
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData,eventCardAction);
 		player.specialSkill = operationsExpertAction;
 	}
 

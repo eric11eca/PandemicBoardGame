@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Player.Player;
@@ -13,6 +14,7 @@ import Player.PlayerData;
 public class TestDiscardCard {
 	Board board;
 	Player player;
+	EventCardAction eventCardAction;
 	PlayerData playerData;
 	
 	@Before
@@ -23,7 +25,8 @@ public class TestDiscardCard {
 		for (String city : cities) {
 			playerData.hand.put(city, new PlayerCard(Board.CardType.CITYCARD, city));
 		}
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

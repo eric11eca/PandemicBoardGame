@@ -1,11 +1,12 @@
 package TestPlayerCardAction;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import Card.AirliftEvent;
+import Card.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
@@ -22,19 +23,18 @@ public class TestAirliftEvent {
 	public void setup() {
 		board = new Board();
 		airlift = new AirliftEvent(board);
-		playerData = new PlayerData();	
+		player = new Player(board, new PlayerData(), new EventCardAction(board));	
 		City city = new City();
 		city.cityName = "Atlanta";
-		playerData.location = city;
-		player = new Player(board, playerData);
+		player.playerData.location = city;
 		board.currentPlayers.add(player);
+		board.currentPlayer = player;
 	}
 	
 	@Test
 	public void testAirlift() {
 		board.idxofPlayerAirlift = 0;
 		board.nameofCityAirlift = "Chicago";
-		
 		City city1 = new City();
 		City city2 = new City();
 		
@@ -43,10 +43,11 @@ public class TestAirliftEvent {
 		
 		board.cities.put("Atlanta", city1);
 		board.cities.put("Chicago", city2);
-		assertEquals("Atlanta", playerData.location.cityName);	
+		
+		assertEquals("Atlanta", board.currentPlayer.playerData.location.cityName);	
 		
 		airlift.executeEvent();
-		assertEquals("Chicago", playerData.location.cityName);
+		assertEquals("Chicago", board.currentPlayer.playerData.location.cityName);
 	}
 
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -16,6 +17,7 @@ public class TestDirectFlight {
 	Player player;
 	PlayerData playerData;
 	PlayerCard eventCard;
+	EventCardAction eventCardAction;
 	PlayerCard newyorkCityCard, chicagoCityCard;
 	
 
@@ -36,7 +38,8 @@ public class TestDirectFlight {
 		playerData.hand.put(newyorkCityCard.cardName, newyorkCityCard);
 		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
 		playerData.hand.put(eventCard.cardName, eventCard);
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Action.GameAction;
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -20,7 +21,7 @@ public class TestGameActionOneTurn {
 	PlayerData playerData;
 	String[] citynames = { "Chicago", "NewYork", "London", "Washington" };
 	String[] handCardNames = { "city1", "city2", "city3", "city4", "city5", "city6" };
-
+	EventCardAction eventCardAction;
 	@Before
 	public void setup() {
 		board = new Board();
@@ -30,7 +31,8 @@ public class TestGameActionOneTurn {
 		board.validPlayerCard.add(playercard);
 
 		playerData = new PlayerData();
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 		board.currentPlayers.add(player);
 		board.currentPlayer = player;
 	}

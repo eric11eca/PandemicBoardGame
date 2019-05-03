@@ -6,8 +6,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Card.AirliftEvent;
 import Card.EventCardAction;
+import Card.ForecastEvent;
+import Card.GovernmentGrantEvent;
+import Card.OneQuietNightEvent;
 import Card.PlayerCard;
+import Card.ResilientPopulationEvent;
 import Parse.CityDataParser;
 import Player.ContingencyPlannerAction;
 import Player.MedicAction;
@@ -20,13 +25,12 @@ public class InitializeBoard {
 	public CityDataParser cityDataParser;
 	public String cityDataPath = "CityData";
 	public ThreadLocalRandom random;
-	public ArrayList<String> eventCardNames;
-
+	
+	
 	public InitializeBoard(Board mainBoard) {
 		random = ThreadLocalRandom.current();
 		this.board = mainBoard;
 		this.cityDataParser = new CityDataParser();
-		this.eventCardNames = new ArrayList<String>();
 	}
 
 	public void initializeWithCityData() {
@@ -75,8 +79,8 @@ public class InitializeBoard {
 		board.curedDiseases.add("BLUE");
 		
 		List<PlayerCard> cardsTobeRemoved= new ArrayList<>();
-		PlayerData playerData = board.currentPlayers.get(0).playerData;
-		Set<String> handNames =  playerData.hand.keySet();
+		Player player = board.currentPlayers.get(0);
+		Set<String> handNames =  player.playerData.hand.keySet();
 		
 		if(board.initialhandcard == 4) {
 			int i = 0;
@@ -99,18 +103,18 @@ public class InitializeBoard {
 		}
 		
 		for(PlayerCard card : cardsTobeRemoved) {
-			playerData.hand.remove(card.cardName);
+			player.playerData.hand.remove(card.cardName);
 			board.validPlayerCard.remove(card);
 		}
 		
 		for(PlayerCard playerCard : board.validPlayerCard) {
 			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
 				if(playerCard.color.equals("RED")) {
-					playerData.hand.put(playerCard.cardName, playerCard);
+					player.playerData.hand.put(playerCard.cardName, playerCard);
 					cardsTobeRemoved.add(playerCard);
 					board.discardPlayerCard.put(playerCard.cardName, playerCard);
 				}
-				if(playerData.hand.size() == 7) {
+				if(player.playerData.hand.size() == 7) {
 					break;
 				}
 			}
@@ -119,6 +123,27 @@ public class InitializeBoard {
 		for(PlayerCard card : cardsTobeRemoved) {
 			board.validPlayerCard.remove(card);
 		}
+	}
+	
+	public void initializeEventCard() {
+		board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "Airlift"));
+		board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "Forecast"));
+		board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "OneQuietNight"));
+		board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "GovernmentGrant"));
+		board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, "ResilientPopulation"));
+	}
+	
+	public void initializeEventCardAction() {
+		AirliftEvent airlift = new AirliftEvent(board);
+		board.eventCards.put("Airlift", airlift);
+		ForecastEvent forcast = new ForecastEvent(board);
+		board.eventCards.put("Forecast", forcast);
+		OneQuietNightEvent oneQuiteNight = new OneQuietNightEvent(board);
+		board.eventCards.put("OneQuietNight", oneQuiteNight);
+		GovernmentGrantEvent governmentGrant = new GovernmentGrantEvent(board);
+		board.eventCards.put("GovernmentGrant", governmentGrant);
+		ResilientPopulationEvent resilientPopulation = new ResilientPopulationEvent(board);
+		board.eventCards.put("ResilientPopulation", resilientPopulation);
 	}
 
 	public void initializePlayerTable() {
@@ -253,12 +278,6 @@ public class InitializeBoard {
 			}
 			board.validPlayerCard.add(randomIdx + count, new PlayerCard(cardType, ""));
 			count += 1;
-		}
-	}
-
-	public void initializeEventCard() {
-		for (String cardName : eventCardNames) {
-			board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
 		}
 	}
 

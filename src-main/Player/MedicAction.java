@@ -4,28 +4,23 @@ import Initialize.Board;
 
 public class MedicAction implements SpecialSkill{
 	private Board board;
-	private PlayerData playerData;
-	private Player player;
+	private PlayerData medicData;
 	
 	public MedicAction(Board gameBoard, PlayerData currentPlayer) {
 		board = gameBoard;
-		playerData = currentPlayer;
-		playerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		playerData.buildStationModel = new StationBuilderNormal(playerData, board);
-		player = new Player(board, playerData);
+		medicData = currentPlayer;
+		medicData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		medicData.buildStationModel = new StationBuilderNormal(medicData, board);
 	}
 
 	public void removeAllCubes() {
 		Boolean allCured = true;
-		for (String diseas : playerData.location.diseaseCubes.keySet()) {
+		for (String diseas : medicData.location.diseaseCubes.keySet()) {
 			if (!board.curedDiseases.contains(diseas)) {
 				allCured = false;
 			}
 		}
-		if (!allCured) {
-			player.consumeAction();
-		}
-		playerData.location.diseaseCubes.clear();
+		medicData.location.diseaseCubes.clear();
 	}
 
 	@Override

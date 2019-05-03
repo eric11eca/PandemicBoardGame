@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Player.ContingencyPlannerAction;
@@ -19,12 +20,14 @@ public class TestContingencyPlanner {
 	PlayerData contingencyPlannerData;
 	ContingencyPlannerAction contingencyPlannerAction;
 	String specialCardName = "Airlift";
+	EventCardAction eventCardAction;
 	@Before
 	public void setup() {
 		board = new Board();
 		contingencyPlannerData = new PlayerData();
 		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
-		contingencyPlanner = new Player(board, contingencyPlannerData);
+		eventCardAction = new EventCardAction(board);
+		contingencyPlanner = new Player(board, contingencyPlannerData, eventCardAction);
 		contingencyPlannerAction = new ContingencyPlannerAction(board, contingencyPlannerData);
 		contingencyPlanner.specialSkill = contingencyPlannerAction;
 	}
@@ -46,7 +49,7 @@ public class TestContingencyPlanner {
 		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, specialCardName);
 		contingencyPlannerData.specialEventCard = playerCard;
 		board.idxofPlayerAirlift = 0;
-		board.currentPlayers.add(0, contingencyPlanner);
+		board.currentPlayers.add(this.contingencyPlanner);
 		String cardName1 = "Chicago";
 		String cardName2 = "New York";
 		PlayerCard playerCard1 = new PlayerCard(Board.CardType.CITYCARD, cardName1);

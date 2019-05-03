@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import Card.EventCard;
 import Card.PlayerCard;
 import Parse.ListOfCityWithColorGenerator;
 import Player.Player;
@@ -23,14 +24,9 @@ public class Board {
 		CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDRESEARCH, SHAREKNOWLEDGE;
 	}
 	
-	
 	public enum Roles{
-		SCIENTIST, MEDIC, 
-		CONTINGENCYPLANNER, 
-		DISPATCHER, 
-		OPERATIONSEXPERT, 
-		QUARANTINESPECIALIST, 
-		RESEARCHER;
+		SCIENTIST, MEDIC, CONTINGENCYPLANNER, DISPATCHER, OPERATIONSEXPERT, 
+		QUARANTINESPECIALIST, RESEARCHER;
 	}
 	
 	
@@ -55,6 +51,7 @@ public class Board {
 	public Object stationToRemove;
 	public Player playerToShare;
 	public PlayerCard cityToShare;
+	public Map<String, EventCard> eventCards = new HashMap<>();
 	public boolean isGiving;
 	public List<String> cardToBeDiscard = new ArrayList<>();
 	public List<PlayerCard> cardsToCureDisease = new ArrayList<>();

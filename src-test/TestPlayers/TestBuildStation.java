@@ -6,17 +6,19 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
 import Player.MedicAction;
 import Player.OperationsExpertAction;
-import Player.PlayerData;
 import Player.Player;
+import Player.PlayerData;
 
 public class TestBuildStation {
 	Board board;
 	PlayerData medic, operationsExpert;
+	EventCardAction eventCardAction;
 	MedicAction medicAction;
 	OperationsExpertAction operationsExpertAction;
 	Player playerActionMedic, playerActionOperation;
@@ -25,7 +27,7 @@ public class TestBuildStation {
 	String city1, city2, city3, city4, city5, city6;
 	City cityWithResearchStation1, cityWithResearchStation2, cityWithResearchStation3, cityWithResearchStation4,
 			cityWithResearchStation5, cityWithResearchStation6;
-
+	
 	@Before
 	public void setup() {
 		board = new Board();
@@ -37,8 +39,9 @@ public class TestBuildStation {
 		operationsExpert.role = Board.Roles.OPERATIONSEXPERT;
 		operationsExpert.action = 4;
 		operationsExpertAction = new OperationsExpertAction(board, operationsExpert);
-		playerActionMedic = new Player(board, medic);
-		playerActionOperation = new Player(board, operationsExpert);
+		eventCardAction = new EventCardAction(board);
+		playerActionMedic = new Player(board, medic, eventCardAction);
+		playerActionOperation = new Player(board, operationsExpert, eventCardAction);
 		playerLocation = "PlayerLocation";
 		playerLocatedCity = new City(playerLocation);
 		playerLocatedCity.researchStation = false;

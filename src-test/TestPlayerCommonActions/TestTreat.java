@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
@@ -17,7 +18,7 @@ public class TestTreat {
 	City city;
 	String blue = "BLUE";
 	String yellow = "YELLOW";
-
+	EventCardAction eventCardAction;
 	@Before
 	public void setup() {
 		board = new Board();
@@ -25,7 +26,8 @@ public class TestTreat {
 		city = new City();
 		playerData.location = city;
 		playerData.location.diseaseCubes.put(blue, 0);
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

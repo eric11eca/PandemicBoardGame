@@ -32,12 +32,12 @@ public class ShareKnowledgeListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String currentCity = board.currentPlayer.playerData.location.cityName;
-		ArrayList<Player> playerDatas = new ArrayList<>();
+		ArrayList<Player> players = new ArrayList<>();
 		int count = 0;
 		for (int i = 0; i < board.currentPlayers.size(); i++) {
 			if (board.currentPlayers.get(i).playerData.location.cityName.equals(currentCity)) {
 				if (!board.currentPlayer.equals(board.currentPlayers.get(i))) {
-					playerDatas.add(board.currentPlayers.get(i));
+					players.add(board.currentPlayers.get(i));
 					count++;
 				}
 			}
@@ -56,9 +56,9 @@ public class ShareKnowledgeListener implements ActionListener {
 		}
 		panel = new JPanel();
 
-		for (int i = 0; i < playerDatas.size(); i++) {
+		for (int i = 0; i < players.size(); i++) {
 			for (int j = 0; j < board.currentPlayers.size(); j++) {
-				if (board.currentPlayers.get(j).equals(playerDatas.get(i))) {
+				if (board.currentPlayers.get(j).equals(players.get(i))) {
 					JButton player = new JButton(Integer.toString(j + 1));
 					player.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent evt) {

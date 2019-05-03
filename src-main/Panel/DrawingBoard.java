@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
-import Player.PlayerData;
 
 public class DrawingBoard {
 	private Map<String, Color> nameToColor;
@@ -67,7 +66,6 @@ public class DrawingBoard {
 		int currentPlayerNum = 0;
 		for (Player player : board.currentPlayers) {
 			currentPlayerNum++;
-			
 			drawPlayer(player.playerData.location, Integer.toString(currentPlayerNum));
 		}
 
