@@ -75,7 +75,7 @@ public class DrawingBoard {
 		ImageIcon icon = new ImageIcon(img);
 		label.setIcon(icon);
 		frame.setVisible(true);
-		frame.show();
+		//frame.show();
 	}
 
 	public void drawInfect(int i) {

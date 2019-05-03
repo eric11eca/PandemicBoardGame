@@ -1,5 +1,9 @@
 package Initialize;
 
+import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+
 import Action.GameAction;
 import Player.Player;
 
@@ -9,8 +13,15 @@ public class GameSetup {
 	public InitializeGame initGame;
 	public InitializeBoard initBoard;
 	public InitializePlayerData initPlayerData;
+	private HashMap<String,String> errorMessages;
 
 	public GameSetup() {
+		errorMessages = new HashMap<>();
+		errorMessages.put("NoCityCardException", "You don't have the city card to build a research station here");
+		errorMessages.put("IncorrectNumberOfCardsException", "You don't have the right number of cards");
+		errorMessages.put("CityColorException", "Please only select cards of the same color");
+		errorMessages.put("CityCardException", "Please only select city cards");
+		
 		board = new Board();
 		gameAction = new GameAction(board);
 		initGame = new InitializeGame(board, this);
@@ -65,7 +76,11 @@ public class GameSetup {
 	}
 
 	public void oneTurn() {
-		gameAction.doAction(board.actionName);
+		try{
+			gameAction.doAction(board.actionName);
+		} catch (RuntimeException e){
+				JOptionPane.showMessageDialog(null,errorMessages.get(e.getMessage()));
+		}
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
