@@ -8,23 +8,25 @@ import org.junit.Test;
 import Card.AirliftEvent;
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
 import Player.Player;
+import Player.PlayerData;
 
 
 public class TestAirliftEvent {
 	Board board;
 	AirliftEvent airlift;
 	Player player;
+	PlayerData playerData;
 	
 	@Before 
 	public void setup() {
 		board = new Board();
 		airlift = new AirliftEvent(board);
-		player = new Medic(board);
+		playerData = new PlayerData();	
 		City city = new City();
 		city.cityName = "Atlanta";
-		player.location = city;
+		playerData.location = city;
+		player = new Player(board, playerData);
 		board.currentPlayers.add(player);
 	}
 	
@@ -41,14 +43,10 @@ public class TestAirliftEvent {
 		
 		board.cities.put("Atlanta", city1);
 		board.cities.put("Chicago", city2);
-
-		int index = board.idxofPlayerAirlift;
-		Player player_old = board.currentPlayers.get(index);
-		assertEquals("Atlanta", player_old.location.cityName);
+		assertEquals("Atlanta", playerData.location.cityName);	
 		
 		airlift.executeEvent();
-		Player player_new = board.currentPlayers.get(index);
-		assertEquals("Chicago", player_new.location.cityName);
+		assertEquals("Chicago", playerData.location.cityName);
 	}
 
 }

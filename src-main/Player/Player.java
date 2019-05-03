@@ -1,8 +1,6 @@
 package Player;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import Card.EventCardAction;
@@ -10,43 +8,40 @@ import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
 
-public abstract class Player {
-	public Map<String, PlayerCard> hand = new HashMap<>();
-	public City location;
-	public String role;
-	public int action;
-	public PlayerCard specialEventCard;
-	public Board board;
-	public Random random;
-	DiscoverCure discoverCure;
-	public StationBuilder buildStationModel;
-
-	public Player(Board gameBoard) {
+public class Player {
+	public PlayerData playerData;
+	public SpecialSkill specialSkill;
+	private Board board;
+	private Random random;
+	
+	
+	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
+		this.playerData = playerData;
+		playerData.action = 4;
 	}
 
 	public Player(Board gameBoard, Random random) {
 		board = gameBoard;
 		this.random = random;
-		action = 4;
 	}
-
+	
 	public void receiveCard(PlayerCard playerCard) {
-		hand.put(playerCard.cardName, playerCard);
+		playerData.hand.put(playerCard.cardName, playerCard);
 	}
 
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
-		if (cardName.equals(specialEventCard.cardName)) {
-			EventCardAction eventCardAction = new EventCardAction(board, specialEventCard);
-			cardUsed = eventCardAction.executeEventCard();
+		if (cardName.equals(playerData.specialEventCard.cardName)) {
+			EventCardAction eventCardAction = new EventCardAction(board, playerData.specialEventCard);
+			cardUsed = eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
-				this.specialEventCard = null;
+				playerData.specialEventCard = null;
 			}
 		} else {
-			PlayerCard card = hand.get(cardName);
+			PlayerCard card = playerData.hand.get(cardName);
 			EventCardAction eventCardAction = new EventCardAction(board, card);
-			cardUsed = eventCardAction.executeEventCard();
+			cardUsed = eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
 	}
@@ -54,9 +49,9 @@ public abstract class Player {
 	public void discardCard() {
 		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
 			String cardName = board.cardToBeDiscard.get(i);
-			if (hand.containsKey(cardName)) {
-				PlayerCard playerCard = hand.get(cardName);
-				hand.remove(cardName);
+			if (playerData.hand.containsKey(cardName)) {
+				PlayerCard playerCard = playerData.hand.get(cardName);
+				playerData.hand.remove(cardName);
 				board.discardPlayerCard.put(cardName, playerCard);
 			} else {
 				throw new RuntimeException("This card does not exist in the hand");
@@ -66,7 +61,7 @@ public abstract class Player {
 	}
 
 	public void drive(City destination) {
-		if (location.neighbors.containsKey(destination.cityName)) {
+		if (playerData.location.neighbors.containsKey(destination.cityName)) {
 			moveTo(destination);
 			consumeAction();
 		} else {
@@ -75,7 +70,7 @@ public abstract class Player {
 	}
 
 	public void directFlight(PlayerCard cityCard) {
-		if (cityCard.cardName.equals(location.cityName)) {
+		if (cityCard.cardName.equals(playerData.location.cityName)) {
 			throw new IllegalArgumentException("Cannot direct flight to current city");
 		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
 			board.cardToBeDiscard.add(cityCard.cardName);
@@ -89,14 +84,14 @@ public abstract class Player {
 	}
 
 	public void consumeAction() {
-		if (action <= 0) {
+		if (playerData.action <= 0) {
 			throw new RuntimeException("NO MORE ACTIONS!");
 		}
-		action--;
+		playerData.action -= 1;
 	}
 	
 	public void moveTo(City destination) {
-		location = destination;
+		playerData.location = destination;
 	}
 	
 	public void discardCardAndMoveTo(City destination) {
@@ -107,15 +102,15 @@ public abstract class Player {
 	public void charterFlight() {	
 		String destinationName = board.cityCardNameCharter;
 		City destination = board.cities.get(destinationName);
-		board.cardToBeDiscard.add(location.cityName); 
+		board.cardToBeDiscard.add(playerData.location.cityName); 
 		discardCardAndMoveTo(destination);
 		consumeAction();
 	}
 
 	public void shuttleFlight(City destination) {
-		if (location.researchStation) {
+		if (playerData.location.researchStation) {
 			if (destination.researchStation) {
-				location = destination;
+				playerData.location = destination;
 				consumeAction();
 			} else {
 				throw new RuntimeException("Invalid shuttle flight: Destination doesn't have the station.");
@@ -126,7 +121,7 @@ public abstract class Player {
 	}
 
 	public void treat(String diseaseColor) {
-		int numOfDiseaseCubes = location.diseaseCubes.get(diseaseColor);
+		int numOfDiseaseCubes = playerData.location.diseaseCubes.get(diseaseColor);
 		if (numOfDiseaseCubes == 0) {
 			throw new RuntimeException("The number of " + diseaseColor + "Cube is zero");
 		}
@@ -134,13 +129,13 @@ public abstract class Player {
 		if (board.curedDiseases.contains(diseaseColor)) {
 			removeCounts = numOfDiseaseCubes;
 		}
-		location.diseaseCubes.put(diseaseColor, numOfDiseaseCubes - removeCounts);
+		playerData.location.diseaseCubes.put(diseaseColor, numOfDiseaseCubes - removeCounts);
 		consumeAction();
 	}
 
 	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
 		if (isResearchStation()) {
-			if (discoverCure.discoverCure(cardsToCureDisease)) {
+			if (playerData.discoverCure.discoverCure(cardsToCureDisease)) {
 				for (PlayerCard playercard : cardsToCureDisease) {
 					board.cardToBeDiscard.add(playercard.cardName);
 				}
@@ -152,7 +147,6 @@ public abstract class Player {
 				board.playerWin = true;
 				return;
 			}
-			
 			discardCard();
 
 		} else {
@@ -161,11 +155,11 @@ public abstract class Player {
 	}
 
 	private boolean isResearchStation() {
-		return location.researchStation;
+		return playerData.location.researchStation;
 	}
 
 	public void buildStation() {
-		buildStationModel.buildStation();
+		playerData.buildStationModel.buildStation();
 	}
 
 	public void shareKnowledge() {
@@ -173,13 +167,13 @@ public abstract class Player {
 			throw new RuntimeException("Event card cannot be shared");
 		}
 		if (board.isGiving) {
-			if (checkHand(this, board.cityToShare)) {
+			if (checkHand(playerData, board.cityToShare)) {
 				giveCard(this, board.playerToShare, board.cityToShare);
 			} else {
 				throw new RuntimeException("You don't have this city card");
 			}
 		} else {
-			if (checkHand(board.playerToShare, board.cityToShare)) {
+			if (checkHand(board.playerToShare.playerData, board.cityToShare)) {
 				giveCard(board.playerToShare, this, board.cityToShare);
 			} else {
 				throw new RuntimeException("Your friend doesn't have this city card");
@@ -188,8 +182,8 @@ public abstract class Player {
 		consumeAction();
 	}
 
-	private boolean checkHand(Player player, PlayerCard citycard) {
-		return player.hand.containsKey(citycard.cardName);
+	private boolean checkHand(PlayerData playerData, PlayerCard citycard) {
+		return playerData.hand.containsKey(citycard.cardName);
 	}
 
 	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {

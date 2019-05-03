@@ -11,12 +11,14 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
+import Player.DiscoverCureNormal;
 import Player.Player;
+import Player.PlayerData;
 
 public class TestPlayerDiscoverCure {
 	Board board;
-	Player medic;
+	Player player;
+	PlayerData playerData;
 	String redCityName1, redCityName2, redCityName3, redCityName4, redCityName5;
 	PlayerCard redCity1, redCity2, redCity3, redCity4, redCity5;
 	ArrayList<PlayerCard> cards;
@@ -24,7 +26,8 @@ public class TestPlayerDiscoverCure {
 	@Before
 	public void setup() {
 		board = new Board();
-		medic = new Medic(board);
+		playerData = new PlayerData();
+		
 		redCityName1 = "redCity1";
 		redCityName2 = "redCity2";
 		redCityName3 = "redCity3";
@@ -43,11 +46,11 @@ public class TestPlayerDiscoverCure {
 		redCity4.color = "RED";
 		redCity5.color = "RED";
 
-		medic.hand.put(redCityName1, redCity1);
-		medic.hand.put(redCityName2, redCity2);
-		medic.hand.put(redCityName3, redCity3);
-		medic.hand.put(redCityName4, redCity4);
-		medic.hand.put(redCityName5, redCity5);
+		playerData.hand.put(redCityName1, redCity1);
+		playerData.hand.put(redCityName2, redCity2);
+		playerData.hand.put(redCityName3, redCity3);
+		playerData.hand.put(redCityName4, redCity4);
+		playerData.hand.put(redCityName5, redCity5);
 
 		cards = new ArrayList<PlayerCard>();
 		cards.add(redCity1);
@@ -55,42 +58,46 @@ public class TestPlayerDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
+		
+		playerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		
+		player = new Player(board, playerData);
 	}
 
 	@Test
 	public void testPlayerdiscardCardWhenDiscoverCure() {
-		medic.location = new City();
-		medic.location.researchStation = true;
-		medic.discoverCure(cards);
+		playerData.location = new City();
+		playerData.location.researchStation = true;
+		player.discoverCure(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
-		assertEquals(0, medic.hand.size());
-		assertEquals(3, medic.action);
+		assertEquals(0, playerData.hand.size());
+		assertEquals(3, playerData.action);
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testNotAtResearchStation() {
-		medic.location = new City();
-		medic.location.researchStation = false;
-		medic.discoverCure(cards);
+		playerData.location = new City();
+		playerData.location.researchStation = false;
+		player.discoverCure(cards);
 	}
 
 	@Test
 	public void testDiscoverDiscoveredCure() {
-		medic.location = new City();
-		medic.location.researchStation = true;
+		playerData.location = new City();
+		playerData.location.researchStation = true;
 		board.curedDiseases.add("RED");
-		medic.discoverCure(cards);
-		assertEquals(5, medic.hand.size());
+		player.discoverCure(cards);
+		assertEquals(5, playerData.hand.size());
 	}
 	
 	@Test
 	public void testWinGameAfterDiscoverAllCures() {
-		medic.location = new City();
-		medic.location.researchStation = true;
+		playerData.location = new City();
+		playerData.location.researchStation = true;
 		board.curedDiseases.add("BLUE");
 		board.curedDiseases.add("BLACK");
 		board.curedDiseases.add("YELLOW");
-		medic.discoverCure(cards);
+		player.discoverCure(cards);
 		assertEquals(4, board.curedDiseases.size());
 		assertTrue(board.gameEnd);
 		assertTrue(board.playerWin);

@@ -37,14 +37,15 @@ public class GameAction {
 			}
 		}
 		
-		if (board.currentPlayer.hand.size() > 7) {
+		if (board.currentPlayer.playerData.hand.size() > 7) {
 			throw new RuntimeException("Player hand overflows");
 		}
 	}
 
+
 	public void doAction(Board.ActionName actionName) {
 		if (actionName == Board.ActionName.DIRECTFLIGHT) {
-			PlayerCard cityCard = board.currentPlayer.hand.get(board.cityCardNameDirect);
+			PlayerCard cityCard = board.currentPlayer.playerData.hand.get(board.cityCardNameDirect);
 			board.currentPlayer.directFlight(cityCard);
 		} else if (actionName == Board.ActionName.PLAYEVENTCARD) {
 			board.currentPlayer.useEventCard(board.eventCardName);

@@ -7,19 +7,20 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
 import Player.Player;
+import Player.PlayerData;
 
 public class TestShuttleFlight {
 	Board board;
 	Player player;
+	PlayerData playerData;
 	City locationWithStation, locationNoStation;
 	City destinationWithStation, destinationNoStation;
 
 	@Before
 	public void setup() {
 		board = new Board();
-		player = new Medic(board);
+		playerData = new PlayerData();
 		String city1 = "Chicago";
 		String city2 = "NewYork";
 		String city3 = "Seattle";
@@ -35,15 +36,15 @@ public class TestShuttleFlight {
 
 		this.destinationNoStation = new City(city4);
 		this.destinationNoStation.researchStation = false;
-
+		player = new Player(board, playerData);
 	}
 
 	@Test
 	public void testStationToStation() {
 		this.initialPlayerLocationHasStation(true);
 		player.shuttleFlight(this.destinationWithStation);
-		assertEquals(this.destinationWithStation.cityName, player.location.cityName);
-		assertEquals(3, player.action);
+		assertEquals(this.destinationWithStation.cityName, playerData.location.cityName);
+		assertEquals(3, playerData.action);
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -66,9 +67,9 @@ public class TestShuttleFlight {
 
 	private void initialPlayerLocationHasStation(boolean hasStation) {
 		if (hasStation) {
-			player.location = this.locationWithStation;
+			playerData.location = this.locationWithStation;
 		} else {
-			player.location = this.locationNoStation;
+			playerData.location = this.locationNoStation;
 		}
 	}
 

@@ -16,7 +16,6 @@ import Panel.GUI;
 import Player.Player;
 
 public class ShareKnowledgeListener implements ActionListener {
-
 	Board board;
 	boolean action;
 	JPanel panel;
@@ -32,13 +31,13 @@ public class ShareKnowledgeListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String currentCity = board.currentPlayer.location.cityName;
-		ArrayList<Player> players = new ArrayList<>();
+		String currentCity = board.currentPlayer.playerData.location.cityName;
+		ArrayList<Player> playerDatas = new ArrayList<>();
 		int count = 0;
 		for (int i = 0; i < board.currentPlayers.size(); i++) {
-			if (board.currentPlayers.get(i).location.cityName.equals(currentCity)) {
+			if (board.currentPlayers.get(i).playerData.location.cityName.equals(currentCity)) {
 				if (!board.currentPlayer.equals(board.currentPlayers.get(i))) {
-					players.add(board.currentPlayers.get(i));
+					playerDatas.add(board.currentPlayers.get(i));
 					count++;
 				}
 			}
@@ -57,9 +56,9 @@ public class ShareKnowledgeListener implements ActionListener {
 		}
 		panel = new JPanel();
 
-		for (int i = 0; i < players.size(); i++) {
+		for (int i = 0; i < playerDatas.size(); i++) {
 			for (int j = 0; j < board.currentPlayers.size(); j++) {
-				if (board.currentPlayers.get(j).equals(players.get(i))) {
+				if (board.currentPlayers.get(j).equals(playerDatas.get(i))) {
 					JButton player = new JButton(Integer.toString(j + 1));
 					player.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent evt) {
@@ -80,9 +79,9 @@ public class ShareKnowledgeListener implements ActionListener {
 
 	protected void chooseCard() {
 		if(action){
-			String[] options = new String[board.currentPlayer.hand.size()];
+			String[] options = new String[board.currentPlayer.playerData.hand.size()];
 			int count = 0;
-			for(String i:board.currentPlayer.hand.keySet()){
+			for(String i:board.currentPlayer.playerData.hand.keySet()){
 				options[count] = i;
 				count++;
 			}
@@ -98,7 +97,7 @@ public class ShareKnowledgeListener implements ActionListener {
 					board.actionName = Board.ActionName.SHAREKNOWLEDGE;
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
-					board.cityToShare = board.currentPlayer.hand.get(card);
+					board.cityToShare = board.currentPlayer.playerData.hand.get(card);
 					gameSetup.oneTurn();
 					gui.removePanel(panel);
 					gui.updateImage();
@@ -107,9 +106,9 @@ public class ShareKnowledgeListener implements ActionListener {
 			});
 		}
 		else{
-			String[] options = new String[board.currentPlayers.get(playerNumber).hand.size()];
+			String[] options = new String[board.currentPlayers.get(playerNumber).playerData.hand.size()];
 			int count = 0;
-			for(String i:board.currentPlayers.get(playerNumber).hand.keySet()){
+			for(String i:board.currentPlayers.get(playerNumber).playerData.hand.keySet()){
 				options[count] = i;
 				count++;
 			}
@@ -125,7 +124,7 @@ public class ShareKnowledgeListener implements ActionListener {
 					board.actionName = Board.ActionName.SHAREKNOWLEDGE;
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
-					board.cityToShare = board.currentPlayers.get(playerNumber).hand.get(card);
+					board.cityToShare = board.currentPlayers.get(playerNumber).playerData.hand.get(card);
 					gameSetup.oneTurn();
 					gui.removePanel(panel);
 					gui.updateImage();

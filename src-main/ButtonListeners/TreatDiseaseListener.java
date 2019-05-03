@@ -29,7 +29,7 @@ public class TreatDiseaseListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Map<String, Integer> colorsmap = board.currentPlayer.location.diseaseCubes;
+		Map<String, Integer> colorsmap = board.currentPlayer.playerData.location.diseaseCubes;
 		ArrayList<String> colors = new ArrayList<>();
 		for(String i : colorsmap.keySet()){
 			if(colorsmap.get(i) != 0 ){
@@ -45,7 +45,7 @@ public class TreatDiseaseListener implements ActionListener {
 		JComboBox<String> options = new JComboBox<String>(colorOptions);
 		options.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent evt) {
-                confirmRemoveDisease(evt,options);
+                confirmRemoveDisease(options);
             }
 		});
 		panel = new JPanel();
@@ -54,7 +54,7 @@ public class TreatDiseaseListener implements ActionListener {
 
 	}
 
-	protected void confirmRemoveDisease(ActionEvent evt, JComboBox<String> options) {
+	protected void confirmRemoveDisease(JComboBox<String> options) {
 		 String chosenCity = options.getSelectedItem().toString();
 		 if(chosenCity.equals("Cancel")){
 			 gui.removePanel(panel);

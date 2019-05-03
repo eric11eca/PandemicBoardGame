@@ -8,19 +8,28 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
-import Player.OperationsExpert;
+import Player.OperationsExpertAction;
+import Player.Player;
+import Player.PlayerData;
 
 public class TestOperationsExpert {
-	OperationsExpert operationsExpert;
-	City location;
 	Board board;
+	City location;
+	Player player;
+	PlayerData playerData;
+	OperationsExpertAction operationsExpertAction;
+	
 
 	@Before
 	public void setup() {
 		board = new Board();
-		operationsExpert = new OperationsExpert(board);
-		operationsExpert.location = new City();
-		location = operationsExpert.location;
+		playerData = new PlayerData();
+		playerData.role = Board.Roles.OPERATIONSEXPERT;
+		playerData.location = new City();
+		location = playerData.location;
+		operationsExpertAction = new OperationsExpertAction(board, playerData);
+		player = new Player(board, playerData);
+		player.specialSkill = operationsExpertAction;
 	}
 
 	@Test
@@ -31,10 +40,11 @@ public class TestOperationsExpert {
 		city.cityName = new_cityName;
 		board.cities.put(new_cityName, city);
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, new_cityName);
-		operationsExpert.hand.put(new_cityName, cityCard);
+		playerData.hand.put(new_cityName, cityCard);
 		location.cityName = cityName;
-		operationsExpert.moveToAnotherCity(new_cityName);
-		assertEquals(new_cityName, operationsExpert.location.cityName);
+		operationsExpertAction.cityName = new_cityName;
+		player.specialSkill.specialSkill();
+		assertEquals(new_cityName, playerData.location.cityName);
 	}
 
 }

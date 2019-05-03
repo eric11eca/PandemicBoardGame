@@ -9,14 +9,17 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
-import Player.OperationsExpert;
+import Player.MedicAction;
+import Player.OperationsExpertAction;
+import Player.PlayerData;
 import Player.Player;
 
 public class TestBuildStation {
-
-	Player medic, operationsExpert;
 	Board board;
+	PlayerData medic, operationsExpert;
+	MedicAction medicAction;
+	OperationsExpertAction operationsExpertAction;
+	Player playerActionMedic, playerActionOperation;
 	City playerLocatedCity, cityWithStation, playerNotLocatedCity;
 	String playerLocation, notPlayerLocation, theNameOfCityWithStation;
 	String city1, city2, city3, city4, city5, city6;
@@ -26,9 +29,16 @@ public class TestBuildStation {
 	@Before
 	public void setup() {
 		board = new Board();
-		medic = new Medic(board);
+		medic = new PlayerData();
+		medic.role = Board.Roles.MEDIC;
 		medic.action = 4;
-		operationsExpert = new OperationsExpert(board);
+		medicAction = new MedicAction(board, medic);
+		operationsExpert = new PlayerData();
+		operationsExpert.role = Board.Roles.OPERATIONSEXPERT;
+		operationsExpert.action = 4;
+		operationsExpertAction = new OperationsExpertAction(board, operationsExpert);
+		playerActionMedic = new Player(board, medic);
+		playerActionOperation = new Player(board, operationsExpert);
 		playerLocation = "PlayerLocation";
 		playerLocatedCity = new City(playerLocation);
 		playerLocatedCity.researchStation = false;
@@ -67,7 +77,7 @@ public class TestBuildStation {
 	public void testBuildStationAtTheSameCityCardNormal() {
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
 		medic.hand.put(playerLocation, cityCard);
-		medic.buildStation();
+		playerActionMedic.buildStation();
 		assertTrue(playerLocatedCity.researchStation);
 		assertEquals(3, medic.action);
 		assertEquals(0, medic.hand.size());
@@ -77,7 +87,7 @@ public class TestBuildStation {
 	public void testBuildStationAtTheSameCityCardOperationsExpert() {
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
 		operationsExpert.hand.put(playerLocation, cityCard);
-		operationsExpert.buildStation();
+		playerActionOperation.buildStation();
 		assertTrue(playerLocatedCity.researchStation);
 		assertEquals(3, operationsExpert.action);
 		assertEquals(1, operationsExpert.hand.size());
@@ -87,26 +97,26 @@ public class TestBuildStation {
 	public void testBuildStationWithTheLocationHasStationNormal() {
 		City location = medic.location;
 		location.researchStation = true;
-		medic.buildStation();
+		playerActionMedic.buildStation();
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testBuildStationWithTheLocationHasStationOperationsExpert() {
 		City location = operationsExpert.location;
 		location.researchStation = true;
-		operationsExpert.buildStation();
+		playerActionMedic.buildStation();
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testBuildStationWithoutSameCityCardNormal() {
 		medic.hand.remove(playerLocation);
-		medic.buildStation();
+		playerActionMedic.buildStation();
 	}
 
 	@Test
 	public void testBuildStationWithoutSameCityCardOperationsExpert() {
 		operationsExpert.hand.remove(playerLocation);
-		operationsExpert.buildStation();
+		playerActionOperation.buildStation();
 		assertTrue(playerLocatedCity.researchStation);
 		assertTrue(board.currentResearchStation.containsKey(playerLocation));
 	}

@@ -39,7 +39,7 @@ public class ShuttleFlightListener implements ActionListener {
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				confirmCity(evt, options);
+				confirmCity(options);
 			}
 		});
 		panel = new JPanel();
@@ -48,7 +48,7 @@ public class ShuttleFlightListener implements ActionListener {
 
 	}
 
-	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
+	protected void confirmCity(JComboBox<String> options) {
 		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
 		if (chosenCity.equals("Cancel")) {
 			gui.removePanel(panel);

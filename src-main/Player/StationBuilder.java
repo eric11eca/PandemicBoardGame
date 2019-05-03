@@ -4,18 +4,20 @@ import Initialize.Board;
 import Initialize.City;
 
 public class StationBuilder {
-	Player player;
+	PlayerData playerData;
 	Board board;
-	public StationBuilder(Player actualPlayer, Board gameBoard) {
-		player = actualPlayer;
+	Player player;
+	public StationBuilder(PlayerData actualPlayer, Board gameBoard) {
+		playerData = actualPlayer;
 		board = gameBoard;
+		player = new Player(board, playerData);
 	}
 	
 	public void buildStation() {
-		if(player.location.researchStation) {
+		if(playerData.location.researchStation) {
 			throw new RuntimeException("This location already has research station.");
 		}
-		City playerLocation = player.location;
+		City playerLocation = playerData.location;
 		playerLocation.researchStation = true;
 		board.currentResearchStation.put(playerLocation.cityName, playerLocation);
 		player.consumeAction();

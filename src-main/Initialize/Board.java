@@ -23,8 +23,20 @@ public class Board {
 		CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDRESEARCH, SHAREKNOWLEDGE;
 	}
 	
-	public ListOfCityWithColorGenerator colorConcator = new ListOfCityWithColorGenerator();
 	
+	public enum Roles{
+		SCIENTIST, MEDIC, 
+		CONTINGENCYPLANNER, 
+		DISPATCHER, 
+		OPERATIONSEXPERT, 
+		QUARANTINESPECIALIST, 
+		RESEARCHER;
+	}
+	
+	
+	public Map<Board.Roles, Player> playerTable = new HashMap<>();
+	
+	public ListOfCityWithColorGenerator colorConcator = new ListOfCityWithColorGenerator();
 	public ActionName actionName;
 	public int playernumber = 0;
 	public int initialhandcard = 0;
@@ -58,15 +70,15 @@ public class Board {
 	public Map<String, String> infectionCardForecast = new HashMap<>();
 	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
 
-	public Set<String> eradicatedDiseases = new HashSet<String>();
-	public Set<String> curedDiseases = new HashSet<String>();
-	public Map<String, City> cities = new HashMap<String, City>();
-	public List<String> roleCardDeck = new ArrayList<String>();
-	public List<Player> currentPlayers = new ArrayList<Player>();
-	public List<PlayerCard> validPlayerCard = new ArrayList<PlayerCard>();
+	public Set<String> eradicatedDiseases = new HashSet<>();
+	public Set<String> curedDiseases = new HashSet<>();
+	public Map<String, City> cities = new HashMap<>();
+	public List<Board.Roles> roleCardDeck = new ArrayList<>();
+	public List<Player> currentPlayers = new ArrayList<>();
+	public List<PlayerCard> validPlayerCard = new ArrayList<>();
 	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();
-	public List<String> validInfectionCard = new ArrayList<String>();
-	public List<String> discardInfectionCard = new ArrayList<String>();
+	public List<String> validInfectionCard = new ArrayList<>();
+	public List<String> discardInfectionCard = new ArrayList<>();
 
 	public boolean gameEnd = false;
 	public boolean playerLose = false;

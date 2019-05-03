@@ -8,41 +8,43 @@ import org.junit.Test;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
 import Player.Player;
+import Player.PlayerData;
 
 public class TestDirectFlight {
-	Player player;
-	PlayerCard newyorkCityCard, chicagoCityCard;
-	PlayerCard eventCard;
 	Board board;
+	Player player;
+	PlayerData playerData;
+	PlayerCard eventCard;
+	PlayerCard newyorkCityCard, chicagoCityCard;
+	
 
 	@Before
 	public void setup() {
 		board = new Board();
-		player = new Medic(board);
-		player.board = board;
+		playerData = new PlayerData();
 		String newyork = "NewYork";
 		City newyorkCity = new City(newyork);
 		String chicago = "Chicago";
 		City chicagoCity = new City(chicago);
-		player.location = chicagoCity;
+		playerData.location = chicagoCity;
 		newyorkCityCard = new PlayerCard(Board.CardType.CITYCARD, newyork);
 		chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
 		eventCard = new PlayerCard(Board.CardType.EVENTCARD, "");
 		board.cities.put(newyork, newyorkCity);
 		board.cities.put(chicago, chicagoCity);
-		player.hand.put(newyorkCityCard.cardName, newyorkCityCard);
-		player.hand.put(chicagoCityCard.cardName, chicagoCityCard);
-		player.hand.put(eventCard.cardName, eventCard);
+		playerData.hand.put(newyorkCityCard.cardName, newyorkCityCard);
+		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
+		playerData.hand.put(eventCard.cardName, eventCard);
+		player = new Player(board, playerData);
 	}
 
 	@Test
 	public void testSuccessDirectFlight() {
 		player.directFlight(newyorkCityCard);
-		assertEquals(player.hand.size(), 2);
-		assertEquals(player.action, 3);
-		assertEquals("NewYork", player.location.cityName);
+		assertEquals(playerData.hand.size(), 2);
+		assertEquals(playerData.action, 3);
+		assertEquals("NewYork", playerData.location.cityName);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

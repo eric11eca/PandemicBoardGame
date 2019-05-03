@@ -9,14 +9,15 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
-import Player.Medic;
 import Player.Player;
-import Player.Scientist;
+import Player.PlayerData;
 
 public class TestShareKnowledge {
+	Board board;
 	Player player1;
 	Player player2;
-	Board board;
+	PlayerData playerData1;
+	PlayerData playerData2;
 	String cityName;
 	PlayerCard citycard;
 	String eventName;
@@ -25,14 +26,16 @@ public class TestShareKnowledge {
 	@Before
 	public void setup() {
 		board = new Board();
-		player1 = new Medic(board);
-		player2 = new Scientist(board);
+		playerData1 = new PlayerData();
+		playerData2 = new PlayerData();
 		cityName = "NewYork";
 		citycard = new PlayerCard(Board.CardType.CITYCARD, cityName);
 		eventName = "Event";
 		eventcard = new PlayerCard(Board.CardType.EVENTCARD, eventName);
-		player1.action = 4;
-		player2.action = 4;
+		playerData1.action = 4;
+		playerData2.action = 4;
+		player1 = new Player(board, playerData1);
+		player2 = new Player(board, playerData2);
 	}
 
 	@Test
@@ -42,11 +45,11 @@ public class TestShareKnowledge {
 		board.cityToShare = citycard;
 		board.isGiving = true;
 		player1.shareKnowledge();
-		assertEquals(player1.location, player2.location);
-		assertFalse(player1.hand.containsKey(cityName));
-		assertTrue(player2.hand.containsKey(cityName));
-		assertEquals(3, player1.action);
-		assertEquals(4, player2.action);
+		assertEquals(playerData1.location, playerData2.location);
+		assertFalse(playerData1.hand.containsKey(cityName));
+		assertTrue(playerData2.hand.containsKey(cityName));
+		assertEquals(3, playerData1.action);
+		assertEquals(4, playerData2.action);
 	}
 
 	@Test
@@ -56,11 +59,11 @@ public class TestShareKnowledge {
 		board.cityToShare = citycard;
 		board.isGiving = false;
 		player1.shareKnowledge();
-		assertEquals(player1.location, player2.location);
-		assertFalse(player2.hand.containsKey(cityName));
-		assertTrue(player1.hand.containsKey(cityName));
-		assertEquals(3, player1.action);
-		assertEquals(4, player2.action);
+		assertEquals(playerData1.location, playerData2.location);
+		assertFalse(playerData2.hand.containsKey(cityName));
+		assertTrue(playerData1.hand.containsKey(cityName));
+		assertEquals(3, playerData1.action);
+		assertEquals(4, playerData2.action);
 	}
 
 	@Test(expected = RuntimeException.class)

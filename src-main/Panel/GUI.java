@@ -100,7 +100,7 @@ public class GUI {
 	public void updateAndDrawaHand(int player, String playerName ){
 		Set<String> hand = new HashSet<String>();
 		hand.add(playerName);
-		hand.addAll(board.currentPlayers.get(player).hand.keySet());
+		hand.addAll(board.currentPlayers.get(player).playerData.hand.keySet());
 		JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

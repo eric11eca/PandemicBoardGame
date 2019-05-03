@@ -7,10 +7,11 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
 import Player.Player;
+import Player.PlayerData;
 
 public class TestTreat {
+	PlayerData playerData;
 	Player player;
 	Board board;
 	City city;
@@ -20,10 +21,11 @@ public class TestTreat {
 	@Before
 	public void setup() {
 		board = new Board();
-		player = new Medic(board);
+		playerData = new PlayerData();
 		city = new City();
-		player.location = city;
-		player.location.diseaseCubes.put(blue, 0);
+		playerData.location = city;
+		playerData.location.diseaseCubes.put(blue, 0);
+		player = new Player(board, playerData);
 	}
 
 	@Test
@@ -32,7 +34,7 @@ public class TestTreat {
 		player.treat(blue);
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		assertEquals(0, numOfBlueCubes);
-		assertEquals(3, player.action);
+		assertEquals(3, playerData.action);
 	}
 
 	@Test(expected = RuntimeException.class)

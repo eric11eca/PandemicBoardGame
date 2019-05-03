@@ -28,7 +28,7 @@ public class DriveListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Set<String> cityOptions = board.currentPlayer.location.neighbors.keySet();
+		Set<String> cityOptions = board.currentPlayer.playerData.location.neighbors.keySet();
 		String[] cities = new String[cityOptions.size() + 1];
 		int i = 0;
 		for (String city : cityOptions) {
@@ -41,7 +41,7 @@ public class DriveListener implements ActionListener {
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				chosenCity = (options.getSelectedItem().toString().split(" "))[0];
-				confirmCity(evt, options, chosenCity);
+				confirmCity(options, chosenCity);
 			}
 		});
 		
@@ -51,7 +51,7 @@ public class DriveListener implements ActionListener {
 
 	}
 
-	protected void confirmCity(ActionEvent evt, JComboBox<String> options, String chosenCity) {	
+	protected void confirmCity(JComboBox<String> options, String chosenCity) {	
 		
 		if(chosenCity.equals("Cancel")){
 			 gui.removePanel(panel);

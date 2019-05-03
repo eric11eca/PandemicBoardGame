@@ -8,13 +8,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Card.PlayerCard;
 import Parse.CityDataParser;
-import Player.ContingencyPlanner;
-import Player.Dispatcher;
-import Player.Medic;
-import Player.OperationsExpert;
+import Player.ContingencyPlannerAction;
+import Player.MedicAction;
+import Player.OperationsExpertAction;
 import Player.Player;
-import Player.QuarantineSpecialist;
-import Player.Scientist;
+import Player.PlayerData;
 
 public class InitializeBoard {
 	public Board board;
@@ -61,12 +59,13 @@ public class InitializeBoard {
 	}
 	
 	public void initializeRoleDeck() {
-		board.roleCardDeck.add("Scientist");
-		board.roleCardDeck.add("Medic");
-		board.roleCardDeck.add("OperationsExpert");
-		board.roleCardDeck.add("ContingencyPlanner");
-		board.roleCardDeck.add("Dispatcher");
-		board.roleCardDeck.add("QuarantineSpecialist");
+		board.roleCardDeck.add(Board.Roles.SCIENTIST);
+		board.roleCardDeck.add(Board.Roles.MEDIC);
+		board.roleCardDeck.add(Board.Roles.RESEARCHER);
+		board.roleCardDeck.add(Board.Roles.DISPATCHER);
+		board.roleCardDeck.add(Board.Roles.CONTINGENCYPLANNER);
+		board.roleCardDeck.add(Board.Roles.OPERATIONSEXPERT);
+		board.roleCardDeck.add(Board.Roles.QUARANTINESPECIALIST);
 	}
 	
 	public void initializeSpecialEndGameDemo() {
@@ -75,8 +74,8 @@ public class InitializeBoard {
 		board.curedDiseases.add("BLUE");
 		
 		List<PlayerCard> cardsTobeRemoved= new ArrayList<>();
-		Player player = board.currentPlayers.get(0);
-		Set<String> handNames =  player.hand.keySet();
+		PlayerData playerData = board.currentPlayers.get(0).playerData;
+		Set<String> handNames =  playerData.hand.keySet();
 		
 		if(board.initialhandcard == 4) {
 			int i = 0;
@@ -84,7 +83,7 @@ public class InitializeBoard {
 				if(i == 2) {
 					break;
 				}
-				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
+				cardsTobeRemoved.add(board.currentPlayer.playerData.hand.get(name));
 				i += 1;
 			}
 		} else if (board.initialhandcard == 3) {
@@ -93,24 +92,24 @@ public class InitializeBoard {
 				if(i == 1) {
 					break;
 				}
-				cardsTobeRemoved.add(board.currentPlayer.hand.get(name));
+				cardsTobeRemoved.add(board.currentPlayer.playerData.hand.get(name));
 				i += 1;
 			}
 		}
 		
 		for(PlayerCard card : cardsTobeRemoved) {
-			player.hand.remove(card.cardName);
+			playerData.hand.remove(card.cardName);
 			board.validPlayerCard.remove(card);
 		}
 		
 		for(PlayerCard playerCard : board.validPlayerCard) {
 			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
 				if(playerCard.color.equals("RED")) {
-					player.hand.put(playerCard.cardName, playerCard);
+					playerData.hand.put(playerCard.cardName, playerCard);
 					cardsTobeRemoved.add(playerCard);
 					board.discardPlayerCard.put(playerCard.cardName, playerCard);
 				}
-				if(player.hand.size() == 7) {
+				if(playerData.hand.size() == 7) {
 					break;
 				}
 			}
@@ -119,49 +118,44 @@ public class InitializeBoard {
 		for(PlayerCard card : cardsTobeRemoved) {
 			board.validPlayerCard.remove(card);
 		}
-		System.out.println("demo hand: " + board.currentPlayer.hand.keySet().toString());
 	}
 
-	
-	public void initializeCurrentPlayers() {
-		Collections.shuffle(board.roleCardDeck);
-		for (int i = 0; i < board.playernumber; i++) {
-			String roleName = board.roleCardDeck.get(i);
-			Player player;
-			switch(roleName) {
-			case "Scientist":
-				player = new Scientist(board);
-				player.role = "Scientist";
-				board.currentPlayers.add(player);
-				break;
-			case "Medic":
-		    	player = new Medic(board);
-		    	player.role = "Medic";
-		    	board.currentPlayers.add(player);
-		    	break;
-			case "OperationsExpert":
-				player = new OperationsExpert(board);
-				player.role = "OperationsExpert";
-				board.currentPlayers.add(player);
-				break;
-			case "ContingencyPlanner":
-				player = new ContingencyPlanner(board);
-				player.role = "ContingencyPlanner";
-				board.currentPlayers.add(player);
-				break;
-			case "Dispatcher":
-				player = new Dispatcher(board);
-				player.role = "Dispatcher";
-				board.currentPlayers.add(player);
-				break;
-			case "QuarantineSpecialist":
-				player = new QuarantineSpecialist(board);
-				player.role = "QuarantineSpecialist";
-				board.currentPlayers.add(player);
-				break;
-			}
-			
-		}
+	public void initializePlayerTable() {
+		PlayerData scientistData = new PlayerData();
+		PlayerData medicData = new PlayerData();
+		PlayerData researcherData = new PlayerData();
+		PlayerData dispatcherData = new PlayerData();
+		PlayerData contingencyPlannerData = new PlayerData();
+		PlayerData operationsExpertData = new PlayerData();
+		PlayerData quarantineSpecialistData = new PlayerData();
+		
+		scientistData.role = Board.Roles.SCIENTIST;
+		medicData.role = Board.Roles.MEDIC;
+		researcherData.role = Board.Roles.RESEARCHER;
+		dispatcherData.role = Board.Roles.DISPATCHER;
+		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
+		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
+		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
+		
+		Player scientist = new Player(board, scientistData);
+		Player medic = new Player(board, medicData);
+		Player researcher = new Player(board, researcherData);
+		Player dispatcher = new Player(board, dispatcherData);
+		Player contingencyPlanner = new Player(board, contingencyPlannerData);
+		Player operationsExpert = new Player(board, operationsExpertData);
+		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
+
+		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
+		medic.specialSkill = new MedicAction(board, medicData);
+		contingencyPlanner.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
+		
+		board.playerTable.put(Board.Roles.SCIENTIST, scientist);
+		board.playerTable.put(Board.Roles.MEDIC, medic);
+		board.playerTable.put(Board.Roles.RESEARCHER, researcher);
+		board.playerTable.put(Board.Roles.DISPATCHER, dispatcher);
+		board.playerTable.put(Board.Roles.CONTINGENCYPLANNER, contingencyPlanner);
+		board.playerTable.put(Board.Roles.OPERATIONSEXPERT, operationsExpert);
+		board.playerTable.put(Board.Roles.QUARANTINESPECIALIST, quarantineSpecialist);
 	}
 
 	public void initializeInfectionRateTrack() {

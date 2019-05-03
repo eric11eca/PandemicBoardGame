@@ -30,9 +30,9 @@ public class DirectFlightListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<String> cityOptions = new ArrayList<>();
 
-		for (String i : board.currentPlayer.hand.keySet()) {
-			if (!i.equals(board.currentPlayer.location.cityName)
-					&& board.currentPlayer.hand.get(i).cardType.equals(Board.CardType.CITYCARD)) {
+		for (String i : board.currentPlayer.playerData.hand.keySet()) {
+			if (!i.equals(board.currentPlayer.playerData.location.cityName)
+					&& board.currentPlayer.playerData.hand.get(i).cardType.equals(Board.CardType.CITYCARD)) {
 				cityOptions.add(i);
 			}
 		}
@@ -45,7 +45,7 @@ public class DirectFlightListener implements ActionListener {
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				confirmCity(evt, options);
+				confirmCity(options);
 			}
 		});
 		panel = new JPanel();
@@ -53,7 +53,7 @@ public class DirectFlightListener implements ActionListener {
 		gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
-	protected void confirmCity(ActionEvent evt, JComboBox<String> options) {
+	protected void confirmCity(JComboBox<String> options) {
 		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
 		if (chosenCity.equals("Cancel")) {
 			gui.removePanel(panel);
