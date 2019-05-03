@@ -13,7 +13,7 @@ public class StationBuilder {
 	
 	public void buildStation() {
 		if(player.location.researchStation) {
-			throw new RuntimeException("This location already has research station.");
+			throw new RuntimeException("NoCityCardException");
 		}
 		City playerLocation = player.location;
 		playerLocation.researchStation = true;

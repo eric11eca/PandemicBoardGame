@@ -33,12 +33,12 @@ public class GUI {
 	JLabel label = new JLabel();
 	public ArrayList<JLabel> hands = new ArrayList<>();
 	GameSetup gameSetup;
-	
+
 	static final int SCREEN_HEIGHT = 1080;
 	static final int SCREEN_WIDTH = 1920;
 	static final double WIDTH_SCALE = 0.4;
 	private static final double HEIGHT_SCALE = 1.8;
-	
+
 	public static final String WINING_MESSAGE = "\n CONGRADULATIONS, \n YOU WIN!";
 	public static final String LOSING_MESSAGE = "\n SORRY, YOU LOSE, \n WNNA TRY AGAIN?";
 
@@ -53,7 +53,6 @@ public class GUI {
 
 	private void setPanels(JLabel labelToSet) {
 		frame.add(labelToSet, BorderLayout.PAGE_END);
-		//mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
 	}
 
@@ -63,6 +62,7 @@ public class GUI {
 
 	public void addPanel(JPanel panel, String east) {
 		frame.add(panel, east);
+		panel.setVisible(true);
 		loadBoardImage();
 	}
 
@@ -78,15 +78,28 @@ public class GUI {
 	}
 
 	private void updateAndDrawHand() {
-		for(int x = 0; x < board.playernumber ; x++){
-			updateAndDrawaHand(x, "Hand of player "+ (x+1) );
+		JPanel panel = new JPanel();
+		for (int x = 0; x < board.playernumber; x++) {
+			Set<String> hand = new HashSet<String>();
+			hand.addAll(board.currentPlayers.get(x).hand.keySet());
+			JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
+
+			panel.setLayout(null);
+			panel.setSize(200, 200);
+			panel.setPreferredSize(new Dimension(800, 800));
+			options.setLocation(300, x * 25);
+			options.setSize(150, 20);
+			panel.add(options);
+
 		}
-		
+		panels.add(panel);
+		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
+
 	}
 
 	private void loadBoardImage() {
 		try {
-			
+
 			draw = new DrawingBoard(board, frame, label);
 			draw.repaint();
 			setPanels(label);
@@ -96,26 +109,10 @@ public class GUI {
 		}
 
 	}
-	
-	public void updateAndDrawaHand(int player, String playerName ){
-		Set<String> hand = new HashSet<String>();
-		hand.add(playerName);
-		hand.addAll(board.currentPlayers.get(player).hand.keySet());
-		JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setSize(200, 200);
-		panel.setPreferredSize(new Dimension(800, 800));
-		options.setLocation(300, player *25);
-		options.setSize(150, 20);
-		panel.add(options);
-		panels.add(panel);
-		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
-	}
-	
-	public void updateImage(){
+
+	public void updateImage() {
 		loadBoardImage();
-		for(JPanel panel: panels){
+		for (JPanel panel : panels) {
 			removePanel(panel);
 		}
 		updateAndDrawHand();
@@ -130,7 +127,7 @@ public class GUI {
 	public void gameEnd(String message) {
 		JOptionPane.showMessageDialog(null, message);
 	}
-	
+
 	public void displayMessage(ArrayList<String> messages, JPanel messageBoard) {
 		final JTextArea cs = new JTextArea();
 
@@ -141,15 +138,15 @@ public class GUI {
 		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
 		cs.setFont(cs.getFont().deriveFont(28f));
 		messageBoard.add(cs);
-		for(int i = 0; i < messages.size(); i++) {
+		for (int i = 0; i < messages.size(); i++) {
 			cs.append(messages.get(i));
 		}
 		cs.setForeground(Color.RED);
 		addPanel(messageBoard, BorderLayout.EAST);
 		messages.clear();
 	}
-	
-	public void showPlayerHand(){
+
+	public void showPlayerHand() {
 		System.out.println(board.currentPlayerIndex);
 		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
 		pickCardsToBeDiscard.pickCardsPrompt();
