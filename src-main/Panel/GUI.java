@@ -81,7 +81,7 @@ public class GUI {
 		JPanel panel = new JPanel();
 		for (int x = 0; x < board.playernumber; x++) {
 			Set<String> hand = new HashSet<String>();
-			hand.addAll(board.currentPlayers.get(x).hand.keySet());
+			hand.addAll(board.currentPlayers.get(x).playerData.hand.keySet());
 			JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
 
 			panel.setLayout(null);
