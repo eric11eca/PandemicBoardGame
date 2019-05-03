@@ -28,8 +28,8 @@ public class CharterFlightListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Set<String> hand = board.currentPlayer.hand.keySet();
-		String playerLocationCityName = board.currentPlayer.location.cityName;
+		Set<String> hand = board.currentPlayer.playerData.hand.keySet();
+		String playerLocationCityName = board.currentPlayer.playerData.location.cityName;
 		if (!hand.contains(playerLocationCityName)) {
 			JOptionPane.showConfirmDialog(null, "You don't have current city card", "No Valid Card",
 					JOptionPane.OK_OPTION);
@@ -39,7 +39,7 @@ public class CharterFlightListener implements ActionListener {
 		String[] cityOptions = new String[47];
 		int counter = 0;
 		for (String cityname : board.cities.keySet()) {
-			String locationCityName = board.currentPlayer.location.cityName;
+			String locationCityName = board.currentPlayer.playerData.location.cityName;
 			if (!cityname.equals(locationCityName)) {
 				cityOptions[counter] = cityname;
 				counter++;

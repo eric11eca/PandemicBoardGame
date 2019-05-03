@@ -29,7 +29,7 @@ public class TreatDiseaseListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Map<String, Integer> colorsmap = board.currentPlayer.location.diseaseCubes;
+		Map<String, Integer> colorsmap = board.currentPlayer.playerData.location.diseaseCubes;
 		ArrayList<String> colors = new ArrayList<>();
 		for(String i : colorsmap.keySet()){
 			if(colorsmap.get(i) != 0 ){

@@ -18,7 +18,7 @@ import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.GameSetup;
 import Panel.GUI;
-import Player.Player;
+import Player.PlayerData;
 
 public class DiscoverCureListener implements ActionListener {
 	private Board board;
@@ -35,8 +35,8 @@ public class DiscoverCureListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Discovering a cure");
-		Player player = board.currentPlayer;
-		Map<String, PlayerCard> playerHand = player.hand;
+		PlayerData playerData = board.currentPlayer.playerData;
+		Map<String, PlayerCard> playerHand = playerData.hand;
 		Set<String> handNames = playerHand.keySet();
 		ArrayList<String> cityCards = new ArrayList<>();
 		
@@ -73,7 +73,7 @@ public class DiscoverCureListener implements ActionListener {
 				for(int i = 0; i < options.length; i++){
 					if(options[i].isSelected()){
 						String cardName = getCardName(options[i].getText());
-						PlayerCard card = player.hand.get(cardName);
+						PlayerCard card = playerData.hand.get(cardName);
 						board.cardsToCureDisease.add(card);
 					}
 				}

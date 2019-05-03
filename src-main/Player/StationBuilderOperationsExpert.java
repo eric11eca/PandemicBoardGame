@@ -4,7 +4,7 @@ import Initialize.Board;
 
 public class StationBuilderOperationsExpert extends StationBuilder{
 
-	public StationBuilderOperationsExpert(Player actualPlayer, Board gameBoard) {
+	public StationBuilderOperationsExpert(PlayerData actualPlayer, Board gameBoard) {
 		super(actualPlayer, gameBoard);
 	}
 

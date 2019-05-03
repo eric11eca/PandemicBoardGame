@@ -30,9 +30,9 @@ public class FlightListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		ArrayList<String> cityOptions = new ArrayList<>();
 
-		for (String i : board.currentPlayer.hand.keySet()) {
-			if (!i.equals(board.currentPlayer.location.cityName)
-					&& board.currentPlayer.hand.get(i).cardType.equals(Board.CardType.CITYCARD)) {
+		for (String i : board.currentPlayer.playerData.hand.keySet()) {
+			if (!i.equals(board.currentPlayer.playerData.location.cityName)
+					&& board.currentPlayer.playerData.hand.get(i).cardType.equals(Board.CardType.CITYCARD)) {
 				cityOptions.add(i);
 			}
 		}

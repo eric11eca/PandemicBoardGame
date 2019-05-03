@@ -9,16 +9,22 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
+import Player.MedicAction;
+import Player.PlayerData;
+import Player.Player;
 
 public class TestMedic {
-	Medic medic;
+	MedicAction medicAction;
 	Board board;
+	PlayerData medic;
+	Player player;
 
 	@Before
 	public void setup() {
 		board = new Board();
-		medic = new Medic(board);
+		medic = new PlayerData();
+		medic.role = Board.Roles.MEDIC;
+		medicAction = new MedicAction(board, medic);
 		City city = new City();
 		city.cityName = "a";
 		medic.location = city;
@@ -29,7 +35,7 @@ public class TestMedic {
 		medic.location.diseaseCubes.put("yellow", 2);
 		medic.location.diseaseCubes.put("blue", 1);
 		assertFalse(medic.location.diseaseCubes.isEmpty());
-		medic.removeAllCubes();
+		medicAction.removeAllCubes();
 		assertTrue(medic.location.diseaseCubes.isEmpty());
 		assertEquals(3, medic.action);
 	}
@@ -40,7 +46,7 @@ public class TestMedic {
 		medic.location.diseaseCubes.put("blue", 1);
 		board.curedDiseases.add("yellow");
 		board.curedDiseases.add("blue");
-		medic.removeAllCubes();
+		medicAction.removeAllCubes();
 		assertTrue(medic.location.diseaseCubes.isEmpty());
 		assertEquals(medic.action, 4);
 	}

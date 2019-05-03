@@ -8,13 +8,13 @@ import org.junit.Test;
 import Card.ForecastEvent;
 import Initialize.Board;
 import Initialize.City;
-import Player.Player;
+import Player.PlayerData;
 import javafx.util.Pair;
 
 public class TestForecastEvent {
 	Board board;
 	ForecastEvent forecast;
-	Player player;
+	PlayerData playerData;
 	
 	@Before 
 	public void setup() {

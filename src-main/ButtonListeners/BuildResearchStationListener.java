@@ -34,7 +34,7 @@ public class BuildResearchStationListener implements ActionListener {
 				ArrayList<String> cityOptions = new ArrayList<>();
 				
 				for(String i: board.currentResearchStation.keySet()){
-					if(!i.equals(board.currentPlayer.location.cityName)){
+					if(!i.equals(board.currentPlayer.playerData.location.cityName)){
 						cityOptions.add(i);
 					}
 				}

@@ -13,26 +13,24 @@ import Initialize.Board;
 import Player.DiscoverCure;
 import Player.DiscoverCureNormal;
 import Player.DiscoverCureScientist;
-import Player.Medic;
-import Player.Scientist;
+import Player.Player;
+import Player.PlayerData;
 
 public class TestDiscoverCure {
-	Board board;
-	Medic medic;
-	Scientist scientist;
+	Board board;	
 	DiscoverCure medicDiscoverCure, scientistDiscoverCure;
-	String yellowCityName1, redCityName1, redCityName2, redCityName3, redCityName4, redCityName5, eventName,
-			blueCityName1;
-	PlayerCard yellowCity1, redCity1, redCity2, redCity3, redCity4, redCity5, event, blueCity1;
+	String yellowCityName1, redCityName1, redCityName2, redCityName3, 
+	       redCityName4, redCityName5, eventName, blueCityName1;
+	PlayerCard yellowCity1, redCity1, redCity2, redCity3, 
+	           redCity4, redCity5, event, blueCity1;
 
 	@Before
 	public void setup() {
 		board = new Board();
-		medic = new Medic(board);
+		
 		medicDiscoverCure = new DiscoverCureNormal(board.curedDiseases);
-		scientist = new Scientist(board);
 		scientistDiscoverCure = new DiscoverCureScientist(board.curedDiseases);
-
+		
 		yellowCityName1 = "yellowCity1";
 		redCityName1 = "redCity1";
 		redCityName2 = "redCity2";
@@ -58,7 +56,6 @@ public class TestDiscoverCure {
 		redCity4.color = "RED";
 		redCity5.color = "RED";
 		blueCity1.color = "BLUE";
-
 	}
 
 	@Test

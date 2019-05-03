@@ -42,8 +42,9 @@ public class GameSetup {
 		initBoard.initializeDiseaseCube();
 		initBoard.initializeInfectionRateTrack();
 		initBoard.initializeRoleDeck();
-		initBoard.initializeCurrentPlayers();
-
+		initBoard.initializePlayerTable();
+		
+		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
 
@@ -51,7 +52,7 @@ public class GameSetup {
 		atlanta.researchStation = true;
 
 		for (Player player : board.currentPlayers) {
-			player.location = atlanta;
+			player.playerData.location = atlanta;
 		}
 
 		board.cities.put("Atlanta", atlanta);
@@ -75,11 +76,11 @@ public class GameSetup {
 			return;
 		}
 			
-		if (board.currentPlayer.action == 0) {
+		if (board.currentPlayer.playerData.action == 0) {
 			try {
 				gameAction.drawTwoPlayerCards();
 			} catch (RuntimeException e) {
-				if(board.currentPlayer.hand.size() <= 7){
+				if(board.currentPlayer.playerData.hand.size() <= 7){
 					changePlayer();
 				}
 				else{
@@ -107,7 +108,7 @@ public class GameSetup {
 		}
 		
 		gameAction.infection();
-		board.currentPlayer.action = 4;
+		board.currentPlayer.playerData.action = 4;
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 	}
 }

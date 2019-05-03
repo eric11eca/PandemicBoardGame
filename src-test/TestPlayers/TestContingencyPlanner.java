@@ -9,44 +9,44 @@ import org.junit.Test;
 
 import Card.PlayerCard;
 import Initialize.Board;
-import Player.ContingencyPlanner;
-import Player.Medic;
-import Player.Researcher;
+import Player.ContingencyPlannerAction;
+import Player.PlayerData;
+import Player.Player;
 
 public class TestContingencyPlanner {
 	Board board;
-	ContingencyPlanner contingencyPlanner;
+	Player contingencyPlanner;
+	PlayerData contingencyPlannerData;
+	ContingencyPlannerAction contingencyPlannerAction;
 	String specialCardName = "Airlift";
 	@Before
 	public void setup() {
 		board = new Board();
-		contingencyPlanner = new ContingencyPlanner(board);
+		contingencyPlannerData = new PlayerData();
+		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
+		contingencyPlanner = new Player(board, contingencyPlannerData);
+		contingencyPlannerAction = new ContingencyPlannerAction(board, contingencyPlannerData);
+		contingencyPlanner.specialSkill = contingencyPlannerAction;
 	}
 
 	@Test
 	public void testPickCardFromDispach() {
 		String cardName1 = "Chicago";
-		contingencyPlanner.hand.put(cardName1, new PlayerCard(Board.CardType.CITYCARD, cardName1));
+		contingencyPlannerData.hand.put(cardName1, new PlayerCard(Board.CardType.CITYCARD, cardName1));
 		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, specialCardName);
 		board.discardPlayerCard.put(specialCardName, playerCard);
-		contingencyPlanner.pickFromDiscardPlayerCard(specialCardName);
-		assertEquals(contingencyPlanner.specialEventCard.cardName, specialCardName);
+		contingencyPlannerAction.cardName = specialCardName;
+		contingencyPlanner.specialSkill.specialSkill();;
+		assertEquals(contingencyPlannerData.specialEventCard.cardName, specialCardName);
 		assertFalse(board.discardPlayerCard.containsKey(specialCardName));
 	}
 
 	@Test
 	public void testRemoveSpecialEventCardCompletly() {
 		PlayerCard playerCard = new PlayerCard(Board.CardType.EVENTCARD, specialCardName);
-		contingencyPlanner.specialEventCard = playerCard;
+		contingencyPlannerData.specialEventCard = playerCard;
 		board.idxofPlayerAirlift = 0;
-		
-		Medic medic = new Medic(board);
-		Researcher researcher = new Researcher(board);
-		board.currentPlayers.add(0, medic);
-		board.currentPlayers.add(1, researcher);
-		board.currentPlayers.add(2, contingencyPlanner);
-		
-
+		board.currentPlayers.add(0, contingencyPlanner);
 		String cardName1 = "Chicago";
 		String cardName2 = "New York";
 		PlayerCard playerCard1 = new PlayerCard(Board.CardType.CITYCARD, cardName1);
@@ -57,7 +57,7 @@ public class TestContingencyPlanner {
 
 		boolean cardUsed = contingencyPlanner.useEventCard(specialCardName);
 		assertTrue(cardUsed);
-		assertTrue(contingencyPlanner.specialEventCard == null);
+		assertTrue(contingencyPlannerData.specialEventCard == null);
 		int new_size = board.discardPlayerCard.size();
 		assertEquals(old_size, new_size);
 	}

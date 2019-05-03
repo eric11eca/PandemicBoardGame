@@ -28,7 +28,7 @@ public class DriveListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Set<String> cityOptions = board.currentPlayer.location.neighbors.keySet();
+		Set<String> cityOptions = board.currentPlayer.playerData.location.neighbors.keySet();
 		String[] cities = new String[cityOptions.size() + 1];
 		int i = 0;
 		for (String city : cityOptions) {

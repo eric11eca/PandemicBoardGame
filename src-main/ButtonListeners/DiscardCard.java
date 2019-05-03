@@ -36,7 +36,7 @@ public class DiscardCard {
 	public void pickCardsPrompt() {
 		panel = new JPanel();
 		ArrayList<JCheckBox> options = new ArrayList<>();
-		Map<String, PlayerCard> playerHand = board.currentPlayer.hand;
+		Map<String, PlayerCard> playerHand = board.currentPlayer.playerData.hand;
 		Set<String> handNames = playerHand.keySet();
 		List<String> cardTobeDiscard = new ArrayList<>();
 		

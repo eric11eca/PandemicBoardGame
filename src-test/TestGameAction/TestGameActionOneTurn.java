@@ -3,7 +3,6 @@ package TestGameAction;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,13 +10,14 @@ import Action.GameAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
-import Player.Medic;
 import Player.Player;
+import Player.PlayerData;
 
 public class TestGameActionOneTurn {
 	Board board;
+	Player player;
 	GameAction action;
-	Player medic;
+	PlayerData playerData;
 	String[] citynames = { "Chicago", "NewYork", "London", "Washington" };
 	String[] handCardNames = { "city1", "city2", "city3", "city4", "city5", "city6" };
 
@@ -29,18 +29,19 @@ public class TestGameActionOneTurn {
 		PlayerCard playercard = new PlayerCard(Board.CardType.CITYCARD, "Shanghai");
 		board.validPlayerCard.add(playercard);
 
-		medic = new Medic(board);
-		board.currentPlayers.add(medic);
-		board.currentPlayer = medic;
+		playerData = new PlayerData();
+		player = new Player(board, playerData);
+		board.currentPlayers.add(player);
+		board.currentPlayer = player;
 	}
 
 	@Test
 	public void testDrawTwoPlayerCards() {
 		initializePlayerCard(citynames, true);
-		assertEquals(0, medic.hand.size());
+		assertEquals(0, playerData.hand.size());
 		action.drawTwoPlayerCards();
-		assertEquals(2, medic.hand.size());
-		assertTrue(medic.hand.containsKey("Chicago"));
+		assertEquals(2, playerData.hand.size());
+		assertTrue(playerData.hand.containsKey("Chicago"));
 		assertEquals(3, board.validPlayerCard.size());
 	}
 
@@ -50,7 +51,7 @@ public class TestGameActionOneTurn {
 			if (addToBoard)
 				board.validPlayerCard.add(playercard);
 			else
-				medic.hand.put(playercardName, playercard);
+				playerData.hand.put(playercardName, playercard);
 		}
 	}
 
@@ -59,7 +60,7 @@ public class TestGameActionOneTurn {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
 		action.drawTwoPlayerCards();
-		assertEquals(7, medic.hand.size());
+		assertEquals(7, playerData.hand.size());
 		assertEquals(3, board.validPlayerCard.size());
 	}
 	
@@ -67,9 +68,9 @@ public class TestGameActionOneTurn {
 	public void testHandLimitWithSizeEqualToLimit() {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
-		medic.hand.remove("city1");
+		playerData.hand.remove("city1");
 		action.drawTwoPlayerCards();
-		assertEquals(7, medic.hand.size());
+		assertEquals(7, playerData.hand.size());
 		assertEquals(3, board.validPlayerCard.size());
 	}
 	
@@ -77,10 +78,10 @@ public class TestGameActionOneTurn {
 	public void testHandLimitWithSizeUnderLimit() {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
-		medic.hand.remove("city1");
-		medic.hand.remove("city2");
+		playerData.hand.remove("city1");
+		playerData.hand.remove("city2");
 		action.drawTwoPlayerCards();
-		assertEquals(6, medic.hand.size());
+		assertEquals(6, playerData.hand.size());
 		assertEquals(3, board.validPlayerCard.size());
 	}
 
@@ -98,18 +99,18 @@ public class TestGameActionOneTurn {
 		board.cities.put(infectCityName, infectCity);
 		board.remainDiseaseCube.put("BLUE", 13);
 		action.drawTwoPlayerCards();
-		assertEquals(1, medic.hand.size());
+		assertEquals(1, playerData.hand.size());
 		assertTrue(4 == board.infectionRateTracker.peek());
 	}
 	
 	@Test
 	public void testLackOfPlayerCards() {
-		int oldHandSize = medic.hand.size();
+		int oldHandSize = playerData.hand.size();
 		board.validPlayerCard.clear();
 		action.drawTwoPlayerCards();
 		assertTrue(board.gameEnd);
 		assertTrue(board.playerLose);
-		int newHandSize = medic.hand.size();
+		int newHandSize = playerData.hand.size();
 		assertEquals(oldHandSize, newHandSize);
 	}
 	
