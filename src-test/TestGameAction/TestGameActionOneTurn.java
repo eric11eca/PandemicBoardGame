@@ -3,6 +3,7 @@ package TestGameAction;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -143,5 +144,33 @@ public class TestGameActionOneTurn {
 		assertTrue(23 == board.remainDiseaseCube.get("BLUE"));
 		assertTrue(1 == cityA.diseaseCubes.get("RED"));
 		assertTrue(1 == cityB.diseaseCubes.get("BLUE"));
+	}
+	
+
+	@Test
+	public void testCharterFlight() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.charterFlight();
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.CHARTERFLIGHT);
+		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test
+	public void testBuildStation() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.buildStation();
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.BUILDRESEARCH);
+		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test
+	public void testShareKnowledge() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.shareKnowledge();
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.SHAREKNOWLEDGE);
+		EasyMock.verify(board.currentPlayer);
 	}
 }

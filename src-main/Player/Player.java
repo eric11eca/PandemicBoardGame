@@ -27,12 +27,13 @@ public class Player {
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
-			cardUsed = eventCardAction.executeEventCard(cardName);
+			eventCardAction.executeEventCard(cardName);
+			cardUsed = true;
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
 		} else {
-			cardUsed = eventCardAction.executeEventCard(cardName);
+			eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
 	}
