@@ -140,13 +140,13 @@ public class InitializeBoard {
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
 		
-		Player scientist = new Player(board, scientistData, eventCardAction);
-		Player medic = new Player(board, medicData, eventCardAction);
-		Player researcher = new Player(board, researcherData, eventCardAction);
-		Player dispatcher = new Player(board, dispatcherData, eventCardAction);
-		Player contingencyPlanner = new Player(board, contingencyPlannerData, eventCardAction);
-		Player operationsExpert = new Player(board, operationsExpertData, eventCardAction);
-		Player quarantineSpecialist = new Player(board, quarantineSpecialistData, eventCardAction);
+		Player scientist = new Player(board, scientistData);
+		Player medic = new Player(board, medicData);
+		Player researcher = new Player(board, researcherData);
+		Player dispatcher = new Player(board, dispatcherData);
+		Player contingencyPlanner = new Player(board, contingencyPlannerData);
+		Player operationsExpert = new Player(board, operationsExpertData);
+		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
 
 		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medic.specialSkill = new MedicAction(board, medicData);

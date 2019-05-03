@@ -1,6 +1,7 @@
 package Player;
 
 import java.util.List;
+import java.util.Random;
 
 import Card.EventCardAction;
 import Card.PlayerCard;
@@ -13,12 +14,18 @@ public class Player {
 	private Board board;
 	private EventCardAction eventCardAction;
 	
-	public Player(Board gameBoard, PlayerData playerData, EventCardAction eventCardAction) {
-		this.board = gameBoard;
+	public Player(Board gameBoard, PlayerData playerData) {
+		this(gameBoard, new Random());
+		
 		this.playerData = playerData;
-		this.eventCardAction = eventCardAction;
 		playerData.action = 4;
 	}
+
+
+	public Player(Board gameBoard, Random random) {
+		board = gameBoard;
+	}
+
 	
 	public void receiveCard(PlayerCard playerCard) {
 		playerData.hand.put(playerCard.cardName, playerCard);
@@ -27,11 +34,14 @@ public class Player {
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
+			EventCardAction eventCardAction = new EventCardAction(board);
 			cardUsed = eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
 		} else {
+			PlayerCard card = playerData.hand.get(cardName);
+			EventCardAction eventCardAction = new EventCardAction(board);
 			cardUsed = eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
@@ -83,6 +93,7 @@ public class Player {
 	
 	public void moveTo(City destination) {
 		playerData.location = destination;
+		destination.currentRoles.add(this.playerData.role);
 	}
 	
 	public void discardCardAndMoveTo(City destination) {
@@ -102,6 +113,7 @@ public class Player {
 		if (playerData.location.researchStation) {
 			if (destination.researchStation) {
 				playerData.location = destination;
+				destination.currentRoles.add(this.playerData.role);
 				consumeAction();
 			} else {
 				throw new RuntimeException("Invalid shuttle flight: Destination doesn't have the station.");

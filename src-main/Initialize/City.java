@@ -1,6 +1,8 @@
 package Initialize;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class City {
 	public int x;
@@ -12,6 +14,8 @@ public class City {
 	public boolean researchStation;
 	public Map<String, City> neighbors;
 	public boolean isInOutbreak = false;
+	public boolean underQuarantine = false;
+	public Set<Board.Roles> currentRoles = new HashSet<>();
 
 	public City() {
 		this.diseaseCubes = new HashMap<String, Integer>();

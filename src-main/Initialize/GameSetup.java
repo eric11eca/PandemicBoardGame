@@ -64,6 +64,7 @@ public class GameSetup {
 
 		for (Player player : board.currentPlayers) {
 			player.playerData.location = atlanta;
+			atlanta.currentRoles.add(player.playerData.role);
 		}
 
 		board.cities.put("Atlanta", atlanta);
