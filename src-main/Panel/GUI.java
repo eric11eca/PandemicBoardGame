@@ -46,14 +46,14 @@ public class GUI {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
 		frame.setSize(1900, 1900);
-		frame.show();
+		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		mainPanel = new JPanel();
 	}
 
 	private void setPanels(JLabel labelToSet) {
-		mainPanel = new JPanel();
 		frame.add(labelToSet, BorderLayout.PAGE_END);
-		mainPanel.add(buttonPanel);
+		//mainPanel.add(buttonPanel);
 		frame.add(mainPanel, BorderLayout.WEST);
 	}
 
@@ -124,6 +124,7 @@ public class GUI {
 
 	public void setButtonPanel(JPanel buttonPanel) {
 		this.buttonPanel = buttonPanel;
+		mainPanel.add(buttonPanel);
 	}
 
 	public void gameEnd(String message) {

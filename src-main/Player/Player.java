@@ -39,14 +39,14 @@ public abstract class Player {
 		boolean cardUsed = false;
 		if (cardName.equals(specialEventCard.cardName)) {
 			EventCardAction eventCardAction = new EventCardAction(board, specialEventCard);
-			cardUsed = eventCardAction.executeEventCard();
+			cardUsed = eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
 				this.specialEventCard = null;
 			}
 		} else {
 			PlayerCard card = hand.get(cardName);
 			EventCardAction eventCardAction = new EventCardAction(board, card);
-			cardUsed = eventCardAction.executeEventCard();
+			cardUsed = eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
 	}
