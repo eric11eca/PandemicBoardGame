@@ -102,7 +102,7 @@ public class GUI {
 		eventCards.setSize(150, 20);
 		panel.add(eventCards);
 		JButton eventButton = new JButton("Play Event Card");
-		eventButton.addActionListener(new EventCardListener(board));
+		eventButton.addActionListener(new EventCardListener(board, eventCards));
 		eventButton.setLocation(300, (x + 2) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
