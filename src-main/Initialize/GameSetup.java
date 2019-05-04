@@ -21,13 +21,17 @@ public class GameSetup {
 		errorMessages.put("IncorrectNumberOfCardsException", "You don't have the right number of cards");
 		errorMessages.put("CityColorException", "Please only select cards of the same color");
 		errorMessages.put("CityCardException", "Please only select city cards");
+		errorMessages.put("ResearchStationBuilt", "There is already a research station here");
 		
+		
+	}
+	
+	public void startGame(){
 		board = new Board();
 		gameAction = new GameAction(board);
 		initGame = new InitializeGame(board, this);
 		initBoard = new InitializeBoard(board);
 		initPlayerData = new InitializePlayerData(board);
-
 	}
 
 	public void startGameSetup() {
@@ -80,6 +84,7 @@ public class GameSetup {
 		try{
 			gameAction.doAction(board.actionName);
 		} catch (RuntimeException e){
+				System.out.println(e.getMessage());
 				JOptionPane.showMessageDialog(null,errorMessages.get(e.getMessage()));
 		}
 			

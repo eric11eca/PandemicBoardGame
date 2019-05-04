@@ -6,9 +6,11 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +21,8 @@ import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
 import ButtonListeners.DiscardCard;
+import ButtonListeners.EventCardListener;
+import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.GameSetup;
 
@@ -79,7 +83,8 @@ public class GUI {
 
 	private void updateAndDrawHand() {
 		JPanel panel = new JPanel();
-		for (int x = 0; x < board.playernumber; x++) {
+		int x = 0;
+		for (x = 0; x < board.playernumber; x++) {
 			Set<String> hand = new HashSet<String>();
 			hand.addAll(board.currentPlayers.get(x).playerData.hand.keySet());
 			JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
@@ -92,9 +97,33 @@ public class GUI {
 			panel.add(options);
 
 		}
+		JComboBox<String> eventCards = makeEventCardOptions();
+		eventCards.setLocation(300, (x + 1) * 25);
+		eventCards.setSize(150, 20);
+		panel.add(eventCards);
+		JButton eventButton = new JButton("Play Event Card");
+		eventButton.addActionListener(new EventCardListener(board));
+		eventButton.setLocation(300, (x + 2) * 25);
+		eventButton.setSize(150, 20);
+		panel.add(eventButton);
 		panels.add(panel);
 		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
 
+	}
+
+	private JComboBox<String> makeEventCardOptions() {
+		ArrayList<String> eventCards = new ArrayList<String>();
+		for (int i = 0; i < board.currentPlayers.size(); i++) {
+			Map<String, PlayerCard> playerHand = board.currentPlayers.get(i).playerData.hand;
+			for (String card : playerHand.keySet()) {
+				if (playerHand.get(card).cardType.equals(Board.CardType.EVENTCARD)) {
+					eventCards.add(card);
+				}
+			}
+		}
+		String[] cards = eventCards.toArray(new String[eventCards.size()]);
+		JComboBox<String> eventCardsInHands = new JComboBox<String>(cards);
+		return eventCardsInHands;
 	}
 
 	private void loadBoardImage() {

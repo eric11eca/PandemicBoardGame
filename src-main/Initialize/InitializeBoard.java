@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Card.EventCardAction;
 import Card.PlayerCard;
 import Parse.CityDataParser;
 import Player.ContingencyPlannerAction;
@@ -58,7 +57,7 @@ public class InitializeBoard {
 			}
 		}
 	}
-	
+
 	public void initializeRoleDeck() {
 		board.roleCardDeck.add(Board.Roles.SCIENTIST);
 		board.roleCardDeck.add(Board.Roles.MEDIC);
@@ -68,20 +67,20 @@ public class InitializeBoard {
 		board.roleCardDeck.add(Board.Roles.OPERATIONSEXPERT);
 		board.roleCardDeck.add(Board.Roles.QUARANTINESPECIALIST);
 	}
-	
+
 	public void initializeSpecialEndGameDemo() {
 		board.curedDiseases.add("YELLOW");
 		board.curedDiseases.add("BLACK");
 		board.curedDiseases.add("BLUE");
-		
-		List<PlayerCard> cardsTobeRemoved= new ArrayList<>();
+
+		List<PlayerCard> cardsTobeRemoved = new ArrayList<>();
 		PlayerData playerData = board.currentPlayers.get(0).playerData;
-		Set<String> handNames =  playerData.hand.keySet();
-		
-		if(board.initialhandcard == 4) {
+		Set<String> handNames = playerData.hand.keySet();
+
+		if (board.initialhandcard == 4) {
 			int i = 0;
 			for (String name : handNames) {
-				if(i == 2) {
+				if (i == 2) {
 					break;
 				}
 				cardsTobeRemoved.add(board.currentPlayer.playerData.hand.get(name));
@@ -90,33 +89,33 @@ public class InitializeBoard {
 		} else if (board.initialhandcard == 3) {
 			int i = 0;
 			for (String name : handNames) {
-				if(i == 1) {
+				if (i == 1) {
 					break;
 				}
 				cardsTobeRemoved.add(board.currentPlayer.playerData.hand.get(name));
 				i += 1;
 			}
 		}
-		
-		for(PlayerCard card : cardsTobeRemoved) {
+
+		for (PlayerCard card : cardsTobeRemoved) {
 			playerData.hand.remove(card.cardName);
 			board.validPlayerCard.remove(card);
 		}
-		
-		for(PlayerCard playerCard : board.validPlayerCard) {
-			if(playerCard.cardType.equals(Board.CardType.CITYCARD)) {
-				if(playerCard.color.equals("RED")) {
+
+		for (PlayerCard playerCard : board.validPlayerCard) {
+			if (playerCard.cardType.equals(Board.CardType.CITYCARD)) {
+				if (playerCard.color.equals("RED")) {
 					playerData.hand.put(playerCard.cardName, playerCard);
 					cardsTobeRemoved.add(playerCard);
 					board.discardPlayerCard.put(playerCard.cardName, playerCard);
 				}
-				if(playerData.hand.size() == 7) {
+				if (playerData.hand.size() == 7) {
 					break;
 				}
 			}
 		}
-		
-		for(PlayerCard card : cardsTobeRemoved) {
+
+		for (PlayerCard card : cardsTobeRemoved) {
 			board.validPlayerCard.remove(card);
 		}
 	}
@@ -129,9 +128,7 @@ public class InitializeBoard {
 		PlayerData contingencyPlannerData = new PlayerData();
 		PlayerData operationsExpertData = new PlayerData();
 		PlayerData quarantineSpecialistData = new PlayerData();
-		
-		EventCardAction eventCardAction = new EventCardAction(board);
-		
+
 		scientistData.role = Board.Roles.SCIENTIST;
 		medicData.role = Board.Roles.MEDIC;
 		researcherData.role = Board.Roles.RESEARCHER;
@@ -139,7 +136,7 @@ public class InitializeBoard {
 		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
-		
+
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
 		Player researcher = new Player(board, researcherData);
@@ -151,7 +148,7 @@ public class InitializeBoard {
 		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medic.specialSkill = new MedicAction(board, medicData);
 		contingencyPlanner.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
-		
+
 		board.playerTable.put(Board.Roles.SCIENTIST, scientist);
 		board.playerTable.put(Board.Roles.MEDIC, medic);
 		board.playerTable.put(Board.Roles.RESEARCHER, researcher);

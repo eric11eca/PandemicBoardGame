@@ -13,7 +13,6 @@ public class DispatcherAction {
 		player = new Player(board, dispatcher);
 		dispatcher.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		dispatcher.buildStationModel = new StationBuilderNormal(dispatcher, board);
-		player = new Player(board, dispatcher);
 	}
 
 }

@@ -15,7 +15,7 @@ public class StationBuilder {
 	
 	public void buildStation() {
 		if(playerData.location.researchStation) {
-			throw new RuntimeException("NoCityCardException");
+			throw new RuntimeException("ResearchStationBuilt");
 		}
 		City playerLocation = playerData.location;
 		playerLocation.researchStation = true;
