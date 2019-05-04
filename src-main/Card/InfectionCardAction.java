@@ -15,7 +15,9 @@ public class InfectionCardAction {
 	public void drawOneInfectionCard() {
 		int top = board.validInfectionCard.size() - 1;
 		if (top == -1) {
-			throw new RuntimeException("PLAYER LOSS: RUN OUT OF INFACTION CARDS");
+			board.playerLose=true;
+			board.gameEnd=true;
+			throw new RuntimeException("NoInfectionCards");
 		}
 		String infectCity = board.validInfectionCard.remove(top);
 		String cityColor = board.cities.get(infectCity).color;

@@ -13,15 +13,16 @@ public class GameSetup {
 	public InitializeGame initGame;
 	public InitializeBoard initBoard;
 	public InitializePlayerData initPlayerData;
-	private HashMap<String,String> errorMessages;
+	private HashMap<String,String> messagesToShow;
 
 	public GameSetup() {
-		errorMessages = new HashMap<>();
-		errorMessages.put("NoCityCardException", "You don't have the city card to build a research station here");
-		errorMessages.put("IncorrectNumberOfCardsException", "You don't have the right number of cards");
-		errorMessages.put("CityColorException", "Please only select cards of the same color");
-		errorMessages.put("CityCardException", "Please only select city cards");
-		errorMessages.put("ResearchStationBuilt", "There is already a research station here");
+		messagesToShow = new HashMap<>();
+		messagesToShow.put("NoCityCardException", "You don't have the city card to build a research station here");
+		messagesToShow.put("IncorrectNumberOfCardsException", "You don't have the right number of cards");
+		messagesToShow.put("CityColorException", "Please only select cards of the same color");
+		messagesToShow.put("CityCardException", "Please only select city cards");
+		messagesToShow.put("ResearchStationBuilt", "There is already a research station here");
+		messagesToShow.put("NoInfectionCards", "Players Lose: There are no more infection cards");
 		
 		
 	}
@@ -85,7 +86,7 @@ public class GameSetup {
 			gameAction.doAction(board.actionName);
 		} catch (RuntimeException e){
 				System.out.println(e.getMessage());
-				JOptionPane.showMessageDialog(null,errorMessages.get(e.getMessage()));
+				JOptionPane.showMessageDialog(null,messagesToShow.get(e.getMessage()));
 		}
 			
 		if (board.gameEnd) {
