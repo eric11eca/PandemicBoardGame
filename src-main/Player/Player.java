@@ -153,7 +153,7 @@ public class Player {
 			discardCard();
 
 		} else {
-			throw new RuntimeException("You are not at the research Station!!");
+			throw new RuntimeException("NoStationException");
 		}
 	}
 
@@ -167,7 +167,7 @@ public class Player {
 
 	public void shareKnowledge() {
 		if (board.cityToShare.cardType != Board.CardType.CITYCARD) {
-			throw new RuntimeException("Event card cannot be shared");
+			throw new RuntimeException("CantUseEventCardException");
 		}
 		if (board.isGiving) {
 			if (checkHand(playerData, board.cityToShare)) {

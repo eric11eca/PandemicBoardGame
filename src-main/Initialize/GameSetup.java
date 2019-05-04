@@ -23,6 +23,9 @@ public class GameSetup {
 		messagesToShow.put("CityCardException", "Please only select city cards");
 		messagesToShow.put("ResearchStationBuilt", "There is already a research station here");
 		messagesToShow.put("NoInfectionCards", "Players Lose: There are no more infection cards");
+		messagesToShow.put("NoStationException", "You are not at a research Station!!");
+		messagesToShow.put("CantUseEventCardException", "Event card cannot be shared");
+		
 		
 		
 	}
