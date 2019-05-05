@@ -13,7 +13,7 @@ public class AirliftEvent implements EventCard{
 	@Override
 	public void executeEvent() {
 		int playeridx = board.idxofPlayerAirlift;
-		Player player = board.currentPlayers.get(playeridx);
+		Player player = board.currentPlayers.get(playeridx); 
 		String cityName = board.nameofCityAirlift;
 		player.playerData.location = board.cities.get(cityName);
 	}

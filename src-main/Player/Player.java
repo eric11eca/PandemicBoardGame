@@ -16,7 +16,6 @@ public class Player {
 	
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
-		
 		this.playerData = playerData;
 		playerData.action = 4;
 	}
@@ -34,15 +33,12 @@ public class Player {
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
-			EventCardAction eventCardAction = new EventCardAction(board);
 			cardUsed = eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
 		} else {
-			PlayerCard card = playerData.hand.get(cardName);
-			EventCardAction eventCardAction = new EventCardAction(board);
-			cardUsed = eventCardAction.executeEventCard(cardName);
+			eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
 	}

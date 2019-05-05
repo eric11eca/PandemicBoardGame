@@ -66,7 +66,6 @@ public class DrawingBoard {
 		int currentPlayerNum = 0;
 		for (Player player : board.currentPlayers) {
 			currentPlayerNum++;
-			
 			drawPlayer(player.playerData.location, Integer.toString(currentPlayerNum));
 		}
 

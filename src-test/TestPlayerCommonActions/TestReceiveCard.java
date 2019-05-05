@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Player.Player;
@@ -16,6 +17,7 @@ public class TestReceiveCard {
 	private Board board;
 	Player player;
 	private ArrayList<PlayerCard> citycards;
+	EventCardAction eventCardAction;
 	PlayerData playerData;
 
 	@Before
@@ -28,7 +30,8 @@ public class TestReceiveCard {
 		for (String city : cities) {
 			citycards.add(new PlayerCard(Board.CardType.CITYCARD, city));
 		}
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

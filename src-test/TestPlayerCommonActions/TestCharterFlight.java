@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -20,6 +21,7 @@ public class TestCharterFlight {
 	PlayerData playerData;
 	MedicAction medicAction;
 	PlayerCard locationCityCard, notLocationCityCard, eventCard;
+	EventCardAction eventCardAction;
 	City chicagoCity, newyorkCity, seattleCity, miamiCity;
 
 	@Before
@@ -53,7 +55,8 @@ public class TestCharterFlight {
 		playerData.hand.put(notLocationCityCard.cardName, notLocationCityCard);
 		playerData.hand.put(eventCard.cardName, eventCard);
 		
-		medic = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		medic = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

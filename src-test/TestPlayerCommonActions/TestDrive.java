@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -14,6 +15,7 @@ public class TestDrive {
 	Board board;
 	Player player;
 	PlayerData playerData;
+	EventCardAction eventCardAction;
 	PlayerCard cityCard1;
 	PlayerCard cityCard2;
 	City location, neighborCity, notNeighborCity;
@@ -37,7 +39,8 @@ public class TestDrive {
 		playerData.location = location;
 		playerData.action = 4;
 		
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -19,6 +20,7 @@ public class TestPlayerDiscoverCure {
 	Board board;
 	Player player;
 	PlayerData playerData;
+	EventCardAction eventCardAction;
 	String redCityName1, redCityName2, redCityName3, redCityName4, redCityName5;
 	PlayerCard redCity1, redCity2, redCity3, redCity4, redCity5;
 	ArrayList<PlayerCard> cards;
@@ -61,7 +63,8 @@ public class TestPlayerDiscoverCure {
 		
 		playerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		
-		player = new Player(board, playerData);
+		eventCardAction = new EventCardAction(board);
+		player = new Player(board, playerData, eventCardAction);
 	}
 
 	@Test

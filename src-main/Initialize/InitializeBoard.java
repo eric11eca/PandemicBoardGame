@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import Card.AirliftEvent;
+import Card.ForecastEvent;
+import Card.GovernmentGrantEvent;
+import Card.OneQuietNightEvent;
 import Card.PlayerCard;
+import Card.ResilientPopulationEvent;
 import Parse.CityDataParser;
 import Player.ContingencyPlannerAction;
 import Player.MedicAction;
@@ -119,6 +124,19 @@ public class InitializeBoard {
 			board.validPlayerCard.remove(card);
 		}
 	}
+	
+	public void initializeEventCardAction() {
+		AirliftEvent airlift = new AirliftEvent(board);
+		board.eventCards.put("Airlift", airlift);
+		ForecastEvent forcast = new ForecastEvent(board);
+		board.eventCards.put("Forecast", forcast);
+		OneQuietNightEvent oneQuiteNight = new OneQuietNightEvent(board);
+		board.eventCards.put("OneQuietNight", oneQuiteNight);
+		GovernmentGrantEvent governmentGrant = new GovernmentGrantEvent(board);
+		board.eventCards.put("GovernmentGrant", governmentGrant);
+		ResilientPopulationEvent resilientPopulation = new ResilientPopulationEvent(board);
+		board.eventCards.put("ResilientPopulation", resilientPopulation);
+	}
 
 	public void initializePlayerTable() {
 		PlayerData scientistData = new PlayerData();
@@ -136,7 +154,7 @@ public class InitializeBoard {
 		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
-
+		
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
 		Player researcher = new Player(board, researcherData);

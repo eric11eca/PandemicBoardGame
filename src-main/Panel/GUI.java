@@ -180,5 +180,4 @@ public class GUI {
 		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
 		pickCardsToBeDiscard.pickCardsPrompt();
 	}
-
 }
