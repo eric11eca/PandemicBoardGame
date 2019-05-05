@@ -21,7 +21,6 @@ public class EventCardListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
 		for (int i = 0; i < board.currentPlayers.size(); i++) {
 			Map<String, PlayerCard> playerHand = board.currentPlayers.get(i).playerData.hand;
 			String card = eventCards.getSelectedItem().toString();

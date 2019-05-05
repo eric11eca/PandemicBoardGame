@@ -9,10 +9,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import Card.PlayerCard;
 import Parse.CityDataParser;
 import Player.ContingencyPlannerAction;
+import Player.DiscoverCureNormal;
+import Player.DiscoverCureScientist;
 import Player.MedicAction;
 import Player.OperationsExpertAction;
 import Player.Player;
 import Player.PlayerData;
+import Player.StationBuilderNormal;
+import Player.StationBuilderOperationsExpert;
 
 public class InitializeBoard {
 	public Board board;
@@ -136,6 +140,23 @@ public class InitializeBoard {
 		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
+		
+		
+		scientistData.buildStationModel = new StationBuilderNormal(scientistData, board);
+		medicData.buildStationModel = new StationBuilderNormal(medicData, board);
+		researcherData.buildStationModel = new StationBuilderNormal(researcherData, board);
+		dispatcherData.buildStationModel = new StationBuilderNormal(dispatcherData, board);
+		contingencyPlannerData.buildStationModel = new StationBuilderNormal(contingencyPlannerData, board);
+		quarantineSpecialistData.buildStationModel = new StationBuilderNormal(quarantineSpecialistData, board);
+		operationsExpertData.buildStationModel = new StationBuilderOperationsExpert(operationsExpertData, board);
+		
+		scientistData.discoverCure = new DiscoverCureScientist(board.curedDiseases);
+		medicData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		researcherData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		dispatcherData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		operationsExpertData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		contingencyPlannerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		quarantineSpecialistData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
