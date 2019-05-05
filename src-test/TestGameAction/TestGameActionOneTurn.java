@@ -2,6 +2,11 @@ package TestGameAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -146,7 +151,60 @@ public class TestGameActionOneTurn {
 		assertTrue(1 == cityB.diseaseCubes.get("BLUE"));
 	}
 	
-
+	@Test
+	public void testDirectFlight() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = playerData;
+		PlayerCard citycard = new PlayerCard(Board.CardType.CITYCARD, "Shanghai");
+		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
+		EasyMock.expect(board.currentPlayer.playerData.hand.get(board.cityCardNameDirect)).andReturn(citycard);
+		board.currentPlayer.directFlight(citycard);
+		EasyMock.replay(board.currentPlayer, board.currentPlayer.playerData.hand);
+		action.doAction(Board.ActionName.DIRECTFLIGHT);
+		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.hand);
+	}
+	
+	@Test
+	public void testPlayEventCard() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.eventCardName = "Forecast";
+		EasyMock.expect(board.currentPlayer.useEventCard(board.eventCardName)).andReturn(true);
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.PLAYEVENTCARD);
+		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test
+	public void testDiscoverCure() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		List<PlayerCard> cardsToCureDisease = new ArrayList<>();
+		board.currentPlayer.discoverCure(cardsToCureDisease);
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.CUREDISEASE);
+		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test
+	public void testTreatDisease() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.treat(board.diseaseBeingTreated);
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.TREATDISEASE);
+		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test
+	public void testDrive() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		City city = new City("Shanghai");
+		board.cities = EasyMock.createMock(HashMap.class);
+		EasyMock.expect(board.cities.get(board.driveDestinationName)).andReturn(city);
+		board.currentPlayer.drive(city);
+		EasyMock.replay(board.currentPlayer, board.cities);
+		action.doAction(Board.ActionName.DRIVE);
+		EasyMock.verify(board.currentPlayer, board.cities);
+	}
+	
 	@Test
 	public void testCharterFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -154,6 +212,18 @@ public class TestGameActionOneTurn {
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.CHARTERFLIGHT);
 		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test
+	public void testShuttleFlight() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		City city = new City("Shanghai");
+		board.cities = EasyMock.createMock(HashMap.class);
+		EasyMock.expect(board.cities.get(board.shuttleDestinationName)).andReturn(city);
+		board.currentPlayer.shuttleFlight(city);
+		EasyMock.replay(board.currentPlayer, board.cities);
+		action.doAction(Board.ActionName.SHUTTLEFLIGHT);
+		EasyMock.verify(board.currentPlayer, board.cities);
 	}
 	
 	@Test
