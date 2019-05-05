@@ -41,6 +41,7 @@ public class Board {
 	public Map<String, City> currentResearchStation = new HashMap<>();
 	public Stack<Integer> infectionRateTracker = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
+	public Set<String> eradicatedColor = new HashSet<>();
 	
 	public String eventCardName;
 	public String cityCardNameDirect;

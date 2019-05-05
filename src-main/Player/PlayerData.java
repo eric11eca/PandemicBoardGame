@@ -15,4 +15,5 @@ public class PlayerData {
 	public PlayerCard specialEventCard;
 	public DiscoverCure discoverCure;
 	public StationBuilder buildStationModel;
+	public Treat treatAction;
 }

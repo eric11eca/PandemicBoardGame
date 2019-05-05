@@ -10,11 +10,13 @@ public class OperationsExpertAction implements SpecialSkill {
 	private Board board;
 	private PlayerData operationsExpert;
 	
-	public OperationsExpertAction(Board gameBoard, PlayerData currentPlayer) {
+	public OperationsExpertAction(Board gameBoard, PlayerData currentPlayerData) {
 		board = gameBoard;
-		operationsExpert = currentPlayer;
-		currentPlayer.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		operationsExpert = currentPlayerData;
+		operationsExpert.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		operationsExpert.buildStationModel = new StationBuilderOperationsExpert(operationsExpert, board);
+		operationsExpert.treatAction = new TreatNormal(operationsExpert, board);
+
 	}
 
 	public void moveToAnotherCity() {
