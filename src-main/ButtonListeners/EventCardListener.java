@@ -8,15 +8,18 @@ import javax.swing.JComboBox;
 
 import Card.PlayerCard;
 import Initialize.Board;
+import Panel.GUI;
 
 public class EventCardListener implements ActionListener {
 
 	Board board;
 	JComboBox<String> eventCards;
+	GUI gui;
 
-	public EventCardListener(Board board, JComboBox<String> eventCards) {
+	public EventCardListener(Board board, JComboBox<String> eventCards, GUI gui) {
 		this.board = board;
 		this.eventCards = eventCards;
+		this.gui=gui;
 	}
 
 	@Override
@@ -28,6 +31,7 @@ public class EventCardListener implements ActionListener {
 			if (playerHand.keySet().contains(card)) {
 				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
 				board.currentPlayers.get(i).useEventCard(card);
+				gui.updateImage();
 				break;
 			}
 		}

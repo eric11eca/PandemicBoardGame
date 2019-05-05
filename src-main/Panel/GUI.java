@@ -85,10 +85,14 @@ public class GUI {
 		JPanel panel = new JPanel();
 		int x = 0;
 		for (x = 0; x < board.playernumber; x++) {
+			int currentPlayer = x+1;
+			JLabel player = new JLabel("Player " + currentPlayer + "(" + board.currentPlayers.get(x).playerData.role.toString()+")");
+			player.setLocation(25, x * 25);
+			player.setSize(250, 20);
+			panel.add(player);
 			Set<String> hand = new HashSet<String>();
 			hand.addAll(board.currentPlayers.get(x).playerData.hand.keySet());
 			JComboBox<String> options = new JComboBox<String>(hand.toArray(new String[hand.size()]));
-
 			panel.setLayout(null);
 			panel.setSize(200, 200);
 			panel.setPreferredSize(new Dimension(800, 800));
@@ -97,13 +101,17 @@ public class GUI {
 			panel.add(options);
 
 		}
+		JLabel events = new JLabel("Event Cards");
+		events.setLocation(25, x*25);
+		events.setSize(250,20);
+		panel.add(events);
 		JComboBox<String> eventCards = makeEventCardOptions();
-		eventCards.setLocation(300, (x + 1) * 25);
+		eventCards.setLocation(300, (x) * 25);
 		eventCards.setSize(150, 20);
 		panel.add(eventCards);
 		JButton eventButton = new JButton("Play Event Card");
-		eventButton.addActionListener(new EventCardListener(board, eventCards));
-		eventButton.setLocation(300, (x + 2) * 25);
+		eventButton.addActionListener(new EventCardListener(board, eventCards, this));
+		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
 		panels.add(panel);

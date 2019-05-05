@@ -39,10 +39,14 @@ public class Player {
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
+			board.cardToBeDiscard.add(cardName);
+			discardCard();
 		} else {
 			PlayerCard card = playerData.hand.get(cardName);
 			EventCardAction eventCardAction = new EventCardAction(board);
 			cardUsed = eventCardAction.executeEventCard(cardName);
+			board.cardToBeDiscard.add(cardName);
+			discardCard();
 		}
 		return cardUsed;
 	}
