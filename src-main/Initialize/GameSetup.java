@@ -25,9 +25,6 @@ public class GameSetup {
 		messagesToShow.put("NoInfectionCards", "Players Lose: There are no more infection cards");
 		messagesToShow.put("NoStationException", "You are not at a research Station!!");
 		messagesToShow.put("CantUseEventCardException", "Event card cannot be shared");
-		
-		
-		
 	}
 	
 	public void startGame(){
@@ -47,7 +44,12 @@ public class GameSetup {
 			board.initialhandcard = 2;
 		}
 
-		
+		initBoard.eventCardNames.add("One Quiet Night");
+		initBoard.eventCardNames.add("Resilient Population");
+		initBoard.eventCardNames.add("Forecast");
+		initBoard.eventCardNames.add("Government Grant");
+		initBoard.eventCardNames.add("Airlift");
+
 		initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
