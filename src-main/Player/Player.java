@@ -16,6 +16,7 @@ public class Player {
 	
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
+		
 		this.playerData = playerData;
 		playerData.action = 4;
 	}
@@ -33,12 +34,19 @@ public class Player {
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
+			EventCardAction eventCardAction = new EventCardAction(board);
 			cardUsed = eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
+			board.cardToBeDiscard.add(cardName);
+			discardCard();
 		} else {
-			eventCardAction.executeEventCard(cardName);
+			PlayerCard card = playerData.hand.get(cardName);
+			EventCardAction eventCardAction = new EventCardAction(board);
+			cardUsed = eventCardAction.executeEventCard(cardName);
+			board.cardToBeDiscard.add(cardName);
+			discardCard();
 		}
 		return cardUsed;
 	}
@@ -159,7 +167,6 @@ public class Player {
 
 	public void buildStation() {
 		playerData.buildStationModel.buildStation();
-		consumeAction();
 	}
 
 	public void shareKnowledge() {
