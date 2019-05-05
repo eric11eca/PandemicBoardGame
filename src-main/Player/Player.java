@@ -163,6 +163,7 @@ public class Player {
 
 	public void buildStation() {
 		playerData.buildStationModel.buildStation();
+		consumeAction();
 	}
 
 	public void shareKnowledge() {
