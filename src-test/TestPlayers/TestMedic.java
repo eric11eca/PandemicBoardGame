@@ -36,7 +36,7 @@ public class TestMedic {
 		medic.location.diseaseCubes.put("YELLOW", 2);
 		medic.location.diseaseCubes.put("BLUE", 1);
 		assertFalse(medic.location.diseaseCubes.isEmpty());
-		medicAction.removeAllCubes();
+		medicAction.specialSkill();
 		int numOfYellowCube = medic.location.diseaseCubes.get("YELLOW");
 		int numOfBlueCube = medic.location.diseaseCubes.get("BLUE");
 		assertEquals(2, numOfYellowCube);
