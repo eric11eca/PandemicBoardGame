@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import Card.AirliftEvent;
+import Card.EventCardAction;
 import Card.ForecastEvent;
 import Card.GovernmentGrantEvent;
 import Card.OneQuietNightEvent;
@@ -183,6 +184,14 @@ public class InitializeBoard {
 		Player contingencyPlanner = new Player(board, contingencyPlannerData);
 		Player operationsExpert = new Player(board, operationsExpertData);
 		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
+		
+		scientist.eventCardAction = new EventCardAction(board);
+		medic.eventCardAction = new EventCardAction(board);
+		researcher.eventCardAction = new EventCardAction(board);
+		dispatcher.eventCardAction = new EventCardAction(board);
+		contingencyPlanner.eventCardAction = new EventCardAction(board);
+		operationsExpert.eventCardAction = new EventCardAction(board);
+		quarantineSpecialist.eventCardAction = new EventCardAction(board);
 
 		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medic.specialSkill = new MedicAction(board, medicData);
