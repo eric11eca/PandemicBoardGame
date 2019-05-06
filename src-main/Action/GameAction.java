@@ -20,20 +20,20 @@ public class GameAction {
 	public void drawTwoPlayerCards() {
 		for (int i = 0; i < 2; i++) {
 			PlayerCard playerCard = null;
-			if(board.validPlayerCard.isEmpty()) {	
+			if(board.validPlayerCards.isEmpty()) {	
 				board.playerLose = true;
 				board.gameEnd = true;
 				return;
 			} else {
-				playerCard = board.validPlayerCard.get(0);
+				playerCard = board.validPlayerCards.get(0);
 			}
 			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
 				epidemic.performEpidemic();
-				board.validPlayerCard.remove(0);
+				board.validPlayerCards.remove(0);
 			} else {
 				board.currentPlayer.receiveCard(playerCard);
-				board.validPlayerCard.remove(0);
-				board.discardPlayerCard.put(playerCard.cardName, playerCard);
+				board.validPlayerCards.remove(0);
+				board.discardCityCards.put(playerCard.cardName, playerCard);
 			}
 		}
 		

@@ -14,7 +14,7 @@ public class ForecastEvent implements EventCard{
 	
 	public void reviewCard() {
 		for(int i = 0; i < 6; i++) {
-			String name = board.validInfectionCard.get(i);
+			String name = board.validInfectionCards.get(i);
 			String color = board.cities.get(name).color;
 			board.infectionCardForecast.put(name, color);
 		}
@@ -25,7 +25,7 @@ public class ForecastEvent implements EventCard{
 		for(int i = 0; i < instruction.size(); i++) {
 			String infection = instruction.get(i).getKey();
 			int newAddress = instruction.get(i).getValue();
-			board.validInfectionCard.add(newAddress, infection);
+			board.validInfectionCards.add(newAddress, infection);
 		}
 	}
 

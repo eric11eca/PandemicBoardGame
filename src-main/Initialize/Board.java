@@ -72,14 +72,16 @@ public class Board {
 
 	public Set<String> curedDiseases = new HashSet<>();
 	public Map<String, City> cities = new HashMap<>();
-	public List<Board.Roles> roleCardDeck = new ArrayList<>();
+	public List<Board.Roles> roles = new ArrayList<>();
 	public List<Player> currentPlayers = new ArrayList<>();
-	public List<PlayerCard> validPlayerCard = new ArrayList<>();
-	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();
-	public List<String> validInfectionCard = new ArrayList<>();
-	public List<String> discardInfectionCard = new ArrayList<>();
-
+	public List<PlayerCard> validPlayerCards = new ArrayList<>();
+	public Map<String, PlayerCard> discardCityCards = new HashMap<>();
+	public List<String> validInfectionCards = new ArrayList<>();
+	public List<String> discardInfectionCards = new ArrayList<>();
+	public Set<String> discardEventCards = new HashSet<>();
+	
 	public boolean gameEnd = false;
 	public boolean playerLose = false;
 	public boolean playerWin = false;
+
 }

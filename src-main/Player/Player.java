@@ -26,17 +26,16 @@ public class Player {
 		playerData.hand.put(playerCard.cardName, playerCard);
 	}
 
-	public boolean useEventCard(String cardName) {
-		boolean cardUsed = false;
-		if (cardName.equals(playerData.specialEventCard.cardName)) {
-			cardUsed = board.eventCardAction.executeEventCard(cardName);
-			if (cardUsed) {
-				playerData.specialEventCard = null;
-			}
-		} else {
+	public void useEventCard(String cardName) {
+		if (cardName.equals(playerData.roleCard)) {
 			board.eventCardAction.executeEventCard(cardName);
+			board.eventCards.remove(cardName);
+			playerData.roleCard = null;
+		} else {
+			playerData.hand.remove(cardName);
+			board.eventCardAction.executeEventCard(cardName);
+			board.discardEventCards.add(cardName);
 		}
-		return cardUsed;
 	}
 
 	public void discardCard() {
@@ -45,7 +44,7 @@ public class Player {
 			if (playerData.hand.containsKey(cardName)) {
 				PlayerCard playerCard = playerData.hand.get(cardName);
 				playerData.hand.remove(cardName);
-				board.discardPlayerCard.put(cardName, playerCard);
+				board.discardCityCards.put(cardName, playerCard);
 			} else {
 				throw new RuntimeException("This card does not exist in the hand");
 			}

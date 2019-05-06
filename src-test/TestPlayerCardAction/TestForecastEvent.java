@@ -24,14 +24,14 @@ public class TestForecastEvent {
 	}
 	
 	public void setupBoard() {
-		board.validInfectionCard.add("NewYork");
-		board.validInfectionCard.add("TaiPei");
-		board.validInfectionCard.add("Chicago");
-		board.validInfectionCard.add("Moscow");
-		board.validInfectionCard.add("Cairo");
-		board.validInfectionCard.add("Seattle");
-		board.validInfectionCard.add("Madrid");
-		board.validInfectionCard.add("Paris");
+		board.validInfectionCards.add("NewYork");
+		board.validInfectionCards.add("TaiPei");
+		board.validInfectionCards.add("Chicago");
+		board.validInfectionCards.add("Moscow");
+		board.validInfectionCards.add("Cairo");
+		board.validInfectionCards.add("Seattle");
+		board.validInfectionCards.add("Madrid");
+		board.validInfectionCards.add("Paris");
 		
 		City city1 = new City();
 		City city2 = new City();
@@ -83,9 +83,9 @@ public class TestForecastEvent {
 	public void testForecast() {
 		forecast.executeEvent();
 		assertEquals(6, board.infectionCardForecast.size());
-		assertEquals("Cairo", board.validInfectionCard.get(0));
-		assertEquals("TaiPei", board.validInfectionCard.get(3));
-		assertEquals("Paris", board.validInfectionCard.get(7));
+		assertEquals("Cairo", board.validInfectionCards.get(0));
+		assertEquals("TaiPei", board.validInfectionCards.get(3));
+		assertEquals("Paris", board.validInfectionCards.get(7));
 	}
 	
 	@Test
@@ -97,8 +97,8 @@ public class TestForecastEvent {
 	@Test
 	public void testArrangeCardPhase() {
 		forecast.arrangeCard();
-		assertEquals("Cairo", board.validInfectionCard.get(0));
-		assertEquals("TaiPei", board.validInfectionCard.get(3));
-		assertEquals("Paris", board.validInfectionCard.get(7));
+		assertEquals("Cairo", board.validInfectionCards.get(0));
+		assertEquals("TaiPei", board.validInfectionCards.get(3));
+		assertEquals("Paris", board.validInfectionCards.get(7));
 	}
 }

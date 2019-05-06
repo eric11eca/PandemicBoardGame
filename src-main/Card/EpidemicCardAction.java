@@ -23,8 +23,8 @@ public class EpidemicCardAction {
 	}
 
 	public void epidemicInfect() {
-		int size = board.validInfectionCard.size();
-		String infection = board.validInfectionCard.get(size - 1);
+		int size = board.validInfectionCards.size();
+		String infection = board.validInfectionCards.get(size - 1);
 		City city = board.cities.get(infection);
 		String disease = city.color;
 		if (!board.eradicatedColor.contains(disease)) {
@@ -45,19 +45,19 @@ public class EpidemicCardAction {
 				outbreak.performeOutbreak(city);
 			}
 		}
-		board.validInfectionCard.remove(size - 1);
-		board.discardInfectionCard.add(infection);
+		board.validInfectionCards.remove(size - 1);
+		board.discardInfectionCards.add(infection);
 	}
 
 	public boolean reshuffleDiscardInfectionDeck() {
-		Collections.shuffle(board.discardInfectionCard);
+		Collections.shuffle(board.discardInfectionCards);
 		return true;
 	}
 
 	public void makingNewInfectionCardDeck() {
-		List<String> moreInfectionCards = board.discardInfectionCard;
-		board.validInfectionCard.addAll(0, moreInfectionCards);
-		board.discardInfectionCard.clear();
+		List<String> moreInfectionCards = board.discardInfectionCards;
+		board.validInfectionCards.addAll(0, moreInfectionCards);
+		board.discardInfectionCards.clear();
 	}
 
 	public void performEpidemic() {

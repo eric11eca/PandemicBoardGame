@@ -33,7 +33,7 @@ public class TestGameActionOneTurn {
 		action = new GameAction(board);
 
 		PlayerCard playercard = new PlayerCard(Board.CardType.CITYCARD, "Shanghai");
-		board.validPlayerCard.add(playercard);
+		board.validPlayerCards.add(playercard);
 
 		playerData = new PlayerData();
 		eventCardAction = new EventCardAction(board);
@@ -49,14 +49,14 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		assertEquals(2, playerData.hand.size());
 		assertTrue(playerData.hand.containsKey("Chicago"));
-		assertEquals(3, board.validPlayerCard.size());
+		assertEquals(3, board.validPlayerCards.size());
 	}
 
 	private void initializePlayerCard(String[] nameList, boolean addToBoard) {
 		for (String playercardName : nameList) {
 			PlayerCard playercard = new PlayerCard(Board.CardType.CITYCARD, playercardName);
 			if (addToBoard)
-				board.validPlayerCard.add(playercard);
+				board.validPlayerCards.add(playercard);
 			else
 				playerData.hand.put(playercardName, playercard);
 		}
@@ -68,7 +68,7 @@ public class TestGameActionOneTurn {
 		initializePlayerCard(handCardNames, false);
 		action.drawTwoPlayerCards();
 		assertEquals(7, playerData.hand.size());
-		assertEquals(3, board.validPlayerCard.size());
+		assertEquals(3, board.validPlayerCards.size());
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ public class TestGameActionOneTurn {
 		playerData.hand.remove("city1");
 		action.drawTwoPlayerCards();
 		assertEquals(7, playerData.hand.size());
-		assertEquals(3, board.validPlayerCard.size());
+		assertEquals(3, board.validPlayerCards.size());
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class TestGameActionOneTurn {
 		playerData.hand.remove("city2");
 		action.drawTwoPlayerCards();
 		assertEquals(6, playerData.hand.size());
-		assertEquals(3, board.validPlayerCard.size());
+		assertEquals(3, board.validPlayerCards.size());
 	}
 
 	@Test
@@ -97,9 +97,9 @@ public class TestGameActionOneTurn {
 		board.infectionRateTracker.push(4);
 		board.infectionRateTracker.push(2);
 		PlayerCard epidemicCard = new PlayerCard(Board.CardType.EPIDEMIC, "EPIDEMIC");
-		board.validPlayerCard.add(epidemicCard);
+		board.validPlayerCards.add(epidemicCard);
 		String infectCityName = "Infect";
-		board.validInfectionCard.add(infectCityName);
+		board.validInfectionCards.add(infectCityName);
 		City infectCity = new City(infectCityName);
 		infectCity.color = "BLUE";
 		infectCity.diseaseCubes.put("BLUE", 1);
@@ -113,7 +113,7 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testLackOfPlayerCards() {
 		int oldHandSize = playerData.hand.size();
-		board.validPlayerCard.clear();
+		board.validPlayerCards.clear();
 		action.drawTwoPlayerCards();
 		assertTrue(board.gameEnd);
 		assertTrue(board.playerLose);
@@ -125,8 +125,8 @@ public class TestGameActionOneTurn {
 	public void testInfectionPhase() {
 		board.remainDiseaseCube.put("RED", 24);
 		board.remainDiseaseCube.put("BLUE", 24);
-		board.validInfectionCard.add("cityA");
-		board.validInfectionCard.add("cityB");
+		board.validInfectionCards.add("cityA");
+		board.validInfectionCards.add("cityB");
 		City cityA = new City();
 		City cityB = new City();
 		cityA.cityName = "cityA";
@@ -140,8 +140,8 @@ public class TestGameActionOneTurn {
 		
 		board.infectionRateTracker.push(2);
 		action.infection();
-		int newValidInfectionPileSize = board.validInfectionCard.size();
-		int newDiscardInfectionPileSize = board.discardInfectionCard.size();
+		int newValidInfectionPileSize = board.validInfectionCards.size();
+		int newDiscardInfectionPileSize = board.discardInfectionCards.size();
 		assertEquals(0, newValidInfectionPileSize);
 		assertEquals(2, newDiscardInfectionPileSize);
 		assertTrue(23 == board.remainDiseaseCube.get("RED"));
@@ -167,7 +167,7 @@ public class TestGameActionOneTurn {
 	public void testPlayEventCard() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.eventCardName = "Forecast";
-		EasyMock.expect(board.currentPlayer.useEventCard(board.eventCardName)).andReturn(true);
+		board.currentPlayer.useEventCard(board.eventCardName);
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
 		EasyMock.verify(board.currentPlayer);

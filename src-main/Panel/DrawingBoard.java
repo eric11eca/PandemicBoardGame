@@ -69,7 +69,7 @@ public class DrawingBoard {
 			drawPlayer(player.playerData.location, Integer.toString(currentPlayerNum));
 		}
 
-		drawCards(board.validPlayerCard.size());
+		drawCards(board.validPlayerCards.size());
 		ImageIcon icon = new ImageIcon(img);
 		label.setIcon(icon);
 		frame.setVisible(true);

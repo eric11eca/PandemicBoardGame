@@ -69,13 +69,13 @@ public class InitializeBoard {
 	}
 
 	public void initializeRoleDeck() {
-		board.roleCardDeck.add(Board.Roles.SCIENTIST);
-		board.roleCardDeck.add(Board.Roles.MEDIC);
-		board.roleCardDeck.add(Board.Roles.RESEARCHER);
-		board.roleCardDeck.add(Board.Roles.DISPATCHER);
-		board.roleCardDeck.add(Board.Roles.CONTINGENCYPLANNER);
-		board.roleCardDeck.add(Board.Roles.OPERATIONSEXPERT);
-		board.roleCardDeck.add(Board.Roles.QUARANTINESPECIALIST);
+		board.roles.add(Board.Roles.SCIENTIST);
+		board.roles.add(Board.Roles.MEDIC);
+		board.roles.add(Board.Roles.RESEARCHER);
+		board.roles.add(Board.Roles.DISPATCHER);
+		board.roles.add(Board.Roles.CONTINGENCYPLANNER);
+		board.roles.add(Board.Roles.OPERATIONSEXPERT);
+		board.roles.add(Board.Roles.QUARANTINESPECIALIST);
 	}
 
 	public void initializeSpecialEndGameDemo() {
@@ -109,15 +109,15 @@ public class InitializeBoard {
 
 		for (PlayerCard card : cardsTobeRemoved) {
 			playerData.hand.remove(card.cardName);
-			board.validPlayerCard.remove(card);
+			board.validPlayerCards.remove(card);
 		}
 
-		for (PlayerCard playerCard : board.validPlayerCard) {
+		for (PlayerCard playerCard : board.validPlayerCards) {
 			if (playerCard.cardType.equals(Board.CardType.CITYCARD)) {
 				if (playerCard.color.equals("RED")) {
 					playerData.hand.put(playerCard.cardName, playerCard);
 					cardsTobeRemoved.add(playerCard);
-					board.discardPlayerCard.put(playerCard.cardName, playerCard);
+					board.discardCityCards.put(playerCard.cardName, playerCard);
 				}
 				if (playerData.hand.size() == 7) {
 					break;
@@ -126,7 +126,7 @@ public class InitializeBoard {
 		}
 
 		for (PlayerCard card : cardsTobeRemoved) {
-			board.validPlayerCard.remove(card);
+			board.validPlayerCards.remove(card);
 		}
 	}
 	
@@ -226,12 +226,12 @@ public class InitializeBoard {
 	}
 
 	public void initializeInfectionCard(String cityName) {
-		board.validInfectionCard.add(cityName);
+		board.validInfectionCards.add(cityName);
 	}
 
 	public void initializeDiseaseCube() {
 		for (int i = 0; i < 9; i++) {
-			String cardName = board.validInfectionCard.get(0);
+			String cardName = board.validInfectionCards.get(0);
 			City city = board.cities.get(cardName);
 			if (i < 3) {
 				placeDiseaseCube(city, 3);
@@ -241,8 +241,8 @@ public class InitializeBoard {
 				placeDiseaseCube(city, 1);
 			}
 			board.cities.replace(cardName, city);
-			board.validInfectionCard.remove(0);
-			board.discardInfectionCard.add(0, cardName);
+			board.validInfectionCards.remove(0);
+			board.discardInfectionCards.add(0, cardName);
 		}
 	}
 
@@ -253,14 +253,14 @@ public class InitializeBoard {
 	}
 
 	public void shuffleCards() {
-		Collections.shuffle(board.validInfectionCard);
-		Collections.shuffle(board.validPlayerCard);
+		Collections.shuffle(board.validInfectionCards);
+		Collections.shuffle(board.validPlayerCards);
 	}
 
 	public void initializePlayerCard(Board.CardType cardType, String cardName) {
 		PlayerCard cityCard = new PlayerCard(cardType, cardName);
 		cityCard.color = board.cities.get(cardName).color;
-		board.validPlayerCard.add(cityCard);
+		board.validPlayerCards.add(cityCard);
 	}
 
 	public void initializeEpidemicCard(int validPlayerNum) {
@@ -290,14 +290,14 @@ public class InitializeBoard {
 			} else {
 				randomIdx = random.nextInt(low, high);
 			}
-			board.validPlayerCard.add(randomIdx + count, new PlayerCard(cardType, ""));
+			board.validPlayerCards.add(randomIdx + count, new PlayerCard(cardType, ""));
 			count += 1;
 		}
 	}
 
 	public void initializeEventCard() {
 		for (String cardName : eventCardNames) {
-			board.validPlayerCard.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
+			board.validPlayerCards.add(new PlayerCard(Board.CardType.EVENTCARD, cardName));
 		}
 	}
 

@@ -15,11 +15,11 @@ public class ContingencyPlannerAction implements SpecialSkill{
 		contingencyPlanner.treatAction = new TreatNormal(contingencyPlanner, board);
 	}
 
-	public void pickFromDiscardPlayerCard() {
-		for (String name : board.discardPlayerCard.keySet()) {
+	public void pickFromDiscardEventCard() {
+		for (String name : board.discardEventCards) {
 			if (name.equals(cardName)) {
-				contingencyPlanner.specialEventCard = board.discardPlayerCard.get(name);
-				board.discardPlayerCard.remove(name);
+				contingencyPlanner.roleCard = name;
+				board.discardEventCards.remove(name);
 				break;
 			}
 		}
@@ -27,6 +27,6 @@ public class ContingencyPlannerAction implements SpecialSkill{
 
 	@Override
 	public void specialSkill() {
-		pickFromDiscardPlayerCard();
+		pickFromDiscardEventCard();
 	}
 }

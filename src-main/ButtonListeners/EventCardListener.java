@@ -25,7 +25,7 @@ public class EventCardListener implements ActionListener {
 			Map<String, PlayerCard> playerHand = board.currentPlayers.get(i).playerData.hand;
 			String card = eventCards.getSelectedItem().toString();
 			if (playerHand.keySet().contains(card)) {
-				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
+				board.currentPlayers.get(i).playerData.roleCard = playerHand.get(card).cardName;
 				board.currentPlayers.get(i).useEventCard(card);
 				break;
 			}

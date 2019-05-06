@@ -35,7 +35,7 @@ public class TestDiscardCard {
 		board.cardToBeDiscard.add(cardName);
 		player.discardCard();
 		assertEquals(1, playerData.hand.size());
-		assertEquals(1, board.discardPlayerCard.size());
+		assertEquals(1, board.discardCityCards.size());
 		assertEquals(0, board.cardToBeDiscard.size());
 	}
 	

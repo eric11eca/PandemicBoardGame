@@ -34,7 +34,7 @@ public class TestInfectionCardAction {
 
 	@Test
 	public void testRegularDrawInfactionCard() {
-		board.validInfectionCard.add(cityName);
+		board.validInfectionCards.add(cityName);
 		infect.drawOneInfectionCard();
 		City infectedCity = board.cities.get(cityName);
 		Map<String, Integer> diseaseCubes = infectedCity.diseaseCubes;
