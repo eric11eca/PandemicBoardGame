@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Card.AirliftEvent;
-import Card.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;

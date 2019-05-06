@@ -12,8 +12,6 @@ import org.junit.Test;
 import Card.EventCardAction;
 import Card.ForecastEvent;
 import Initialize.Board;
-import Initialize.City;
-import javafx.util.Pair;
 
 public class TestEventCardAction {
 	EventCardAction eventCardAction;
