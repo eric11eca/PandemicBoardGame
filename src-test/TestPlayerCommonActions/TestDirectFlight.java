@@ -39,7 +39,7 @@ public class TestDirectFlight {
 		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
 		playerData.hand.put(eventCard.cardName, eventCard);
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		player = new Player(board, playerData);
 	}
 
 	@Test

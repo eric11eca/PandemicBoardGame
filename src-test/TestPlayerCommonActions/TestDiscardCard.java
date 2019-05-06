@@ -26,7 +26,7 @@ public class TestDiscardCard {
 			playerData.hand.put(city, new PlayerCard(Board.CardType.CITYCARD, city));
 		}
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		player = new Player(board, playerData);
 	}
 
 	@Test

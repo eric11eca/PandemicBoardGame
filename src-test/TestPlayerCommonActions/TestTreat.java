@@ -1,64 +1,89 @@
 package TestPlayerCommonActions;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
+import Player.DispatcherAction;
+import Player.MedicAction;
 import Player.Player;
 import Player.PlayerData;
 
 public class TestTreat {
-	PlayerData playerData;
-	Player player;
 	Board board;
+	MedicAction medicAction;
+	DispatcherAction dispatcherAction;
+	PlayerData medicData,  dispatcherData;
+	Player medic, dispatcher;
 	City city;
 	String blue = "BLUE";
 	String yellow = "YELLOW";
-	EventCardAction eventCardAction;
+
 	@Before
 	public void setup() {
 		board = new Board();
-		playerData = new PlayerData();
+		medicData = new PlayerData();
+		medicAction = new MedicAction(board, medicData);
+		dispatcherData = new PlayerData();
+		dispatcherAction = new DispatcherAction(board, dispatcherData);
 		city = new City();
-		playerData.location = city;
-		playerData.location.diseaseCubes.put(blue, 0);
-		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		medicData.location = city;
+		dispatcherData.location = city;
+		
+		medic = new Player(board, medicData);
+		dispatcher = new Player(board,dispatcherData);
 	}
 
 	@Test
-	public void testNormalTreat() {
-		city.diseaseCubes.put(blue, 1);
-		player.treat(blue);
+	public void testDispatcherTreat() {
+		city.diseaseCubes.put(blue, 2);
+		board.remainDiseaseCube.put(blue, 10);
+		dispatcher.treat(blue);
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
+		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
+		assertEquals(1, numOfBlueCubes);
+		assertEquals(11, numOfRemainCubes);
+		assertEquals(3, dispatcherData.action);
+	}
+	
+	@Test
+	public void testMedicTreat() {
+		city.diseaseCubes.put(blue, 2);
+		board.remainDiseaseCube.put(blue, 10);
+		medic.treat(blue);
+		int numOfBlueCubes = city.diseaseCubes.get(blue);
+		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
-		assertEquals(3, playerData.action);
+		assertEquals(12, numOfRemainCubes);
+		assertTrue(board.eradicatedColor.contains(blue));
+		assertEquals(3, medicData.action);
 	}
-
-	@Test(expected = RuntimeException.class)
-	public void testTreatWithZeroDiseaseCube() {
-		player.treat(blue);
-	}
-
+	
 	@Test
 	public void testTreatWithSameColorCure() {
 		city.diseaseCubes.put(blue, 3);
+		board.remainDiseaseCube.put(blue, 9);
 		board.curedDiseases.add(blue);
-		player.treat(blue);
+		dispatcher.treat(blue);
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
+		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
+		assertEquals(12, numOfRemainCubes);
 	}
 
 	@Test
 	public void testTreateWithDifferentColorCure() {
 		city.diseaseCubes.put(blue, 3);
+		board.remainDiseaseCube.put(blue, 9);
 		board.curedDiseases.add(yellow);
-		player.treat(blue);
+		dispatcher.treat(blue);
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
+		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(2, numOfBlueCubes);
+		assertEquals(10, numOfRemainCubes);
 	}
 }

@@ -27,7 +27,7 @@ public class EpidemicCardAction {
 		String infection = board.validInfectionCard.get(size - 1);
 		City city = board.cities.get(infection);
 		String disease = city.color;
-		if (!board.eradicatedDiseases.contains(disease)) {
+		if (!board.eradicatedColor.contains(disease)) {
 			int addCubeCount = 0;
 			while (city.diseaseCubes.get(disease) < 3) {
 				int remainingCubes = board.remainDiseaseCube.get(disease);

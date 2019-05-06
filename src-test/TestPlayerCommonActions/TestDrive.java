@@ -40,7 +40,7 @@ public class TestDrive {
 		playerData.action = 4;
 		
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		player = new Player(board, playerData);
 	}
 
 	@Test

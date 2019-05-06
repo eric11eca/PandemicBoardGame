@@ -3,7 +3,6 @@ package Player;
 import java.util.List;
 import java.util.Random;
 
-import Card.EventCardAction;
 import Card.PlayerCard;
 import Initialize.Board;
 import Initialize.City;
@@ -12,7 +11,6 @@ public class Player {
 	public PlayerData playerData;
 	public SpecialSkill specialSkill;
 	private Board board;
-	private EventCardAction eventCardAction;
 
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
@@ -31,12 +29,12 @@ public class Player {
 	public boolean useEventCard(String cardName) {
 		boolean cardUsed = false;
 		if (cardName.equals(playerData.specialEventCard.cardName)) {
-			cardUsed = eventCardAction.executeEventCard(cardName);
+			cardUsed = board.eventCardAction.executeEventCard(cardName);
 			if (cardUsed) {
 				playerData.specialEventCard = null;
 			}
 		} else {
-			eventCardAction.executeEventCard(cardName);
+			board.eventCardAction.executeEventCard(cardName);
 		}
 		return cardUsed;
 	}

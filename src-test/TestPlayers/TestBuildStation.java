@@ -40,8 +40,8 @@ public class TestBuildStation {
 		operationsExpert.action = 4;
 		operationsExpertAction = new OperationsExpertAction(board, operationsExpert);
 		eventCardAction = new EventCardAction(board);
-		playerActionMedic = new Player(board, medic, eventCardAction);
-		playerActionOperation = new Player(board, operationsExpert, eventCardAction);
+		playerActionMedic = new Player(board, medic);
+		playerActionOperation = new Player(board, operationsExpert);
 		playerLocation = "PlayerLocation";
 		playerLocatedCity = new City(playerLocation);
 		playerLocatedCity.researchStation = false;

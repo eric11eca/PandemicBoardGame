@@ -56,7 +56,7 @@ public class TestCharterFlight {
 		playerData.hand.put(eventCard.cardName, eventCard);
 		
 		eventCardAction = new EventCardAction(board);
-		medic = new Player(board, playerData, eventCardAction);
+		medic = new Player(board, playerData);
 	}
 
 	@Test

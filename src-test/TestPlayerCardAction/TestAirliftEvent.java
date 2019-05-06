@@ -23,7 +23,7 @@ public class TestAirliftEvent {
 	public void setup() {
 		board = new Board();
 		airlift = new AirliftEvent(board);
-		player = new Player(board, new PlayerData(), new EventCardAction(board));	
+		player = new Player(board, new PlayerData());	
 		City city = new City();
 		city.cityName = "Atlanta";
 		player.playerData.location = city;

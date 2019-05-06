@@ -2,7 +2,6 @@ package TestGameAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +37,7 @@ public class TestGameActionOneTurn {
 
 		playerData = new PlayerData();
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		player = new Player(board, playerData);
 		board.currentPlayers.add(player);
 		board.currentPlayer = player;
 	}

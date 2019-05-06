@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import Card.AirliftEvent;
+import Card.EventCardAction;
 import Card.ForecastEvent;
 import Card.GovernmentGrantEvent;
 import Card.OneQuietNightEvent;
@@ -140,6 +141,8 @@ public class InitializeBoard {
 		board.eventCards.put("GovernmentGrant", governmentGrant);
 		ResilientPopulationEvent resilientPopulation = new ResilientPopulationEvent(board);
 		board.eventCards.put("ResilientPopulation", resilientPopulation);
+		EventCardAction eventCardAction = new EventCardAction(board);
+		board.eventCardAction = eventCardAction;
 	}
 
 	public void initializePlayerTable() {

@@ -64,7 +64,7 @@ public class TestPlayerDiscoverCure {
 		playerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		player = new Player(board, playerData);
 	}
 
 	@Test

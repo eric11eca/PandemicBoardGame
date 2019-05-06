@@ -31,7 +31,7 @@ public class TestOperationsExpert {
 		location = playerData.location;
 		operationsExpertAction = new OperationsExpertAction(board, playerData);
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData,eventCardAction);
+		player = new Player(board, playerData);
 		player.specialSkill = operationsExpertAction;
 	}
 

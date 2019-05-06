@@ -36,7 +36,7 @@ public class TestEpidemicCardAction {
 		city2.color = "RED";
 		city2.diseaseCubes.put(city2.color, 0);
 		board.cities.put(city2.cityName, city2);
-		board.eradicatedDiseases.add(city1.color);		
+		board.eradicatedColor.add(city1.color);		
 		epidemicCardAction = new EpidemicCardAction(board);
 		board.remainDiseaseCube.put("RED", 24);
 	}

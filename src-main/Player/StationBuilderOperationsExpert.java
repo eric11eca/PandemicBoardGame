@@ -9,9 +9,6 @@ public class StationBuilderOperationsExpert extends StationBuilder{
 	
 	@Override
 	public void buildStation() {
-		if(!playerData.hand.containsKey(playerData.location.cityName)) {
-			throw new RuntimeException("NoCityCardException");
-		}
 		super.buildStation();
 	} 
 

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import Card.EventCard;
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Parse.ListOfCityWithColorGenerator;
 import Player.Player;
@@ -42,6 +43,7 @@ public class Board {
 	public Stack<Integer> infectionRateTracker = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	public Set<String> eradicatedColor = new HashSet<>();
+	public EventCardAction eventCardAction;
 	
 	public String eventCardName;
 	public String cityCardNameDirect;
@@ -68,7 +70,6 @@ public class Board {
 	public Map<String, String> infectionCardForecast = new HashMap<>();
 	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
 
-	public Set<String> eradicatedDiseases = new HashSet<>();
 	public Set<String> curedDiseases = new HashSet<>();
 	public Map<String, City> cities = new HashMap<>();
 	public List<Board.Roles> roleCardDeck = new ArrayList<>();
