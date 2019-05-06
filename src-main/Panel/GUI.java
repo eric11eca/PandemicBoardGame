@@ -20,10 +20,13 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import ButtonListeners.ContingencyPlannerListener;
 import ButtonListeners.DiscardCard;
+import ButtonListeners.DispatcherListener;
 import ButtonListeners.EventCardListener;
 import Card.PlayerCard;
 import Initialize.Board;
+import Initialize.Board.Roles;
 import Initialize.GameSetup;
 
 public class GUI {
@@ -77,11 +80,11 @@ public class GUI {
 
 	public void loadInitialGame() {
 		loadBoardImage();
-		updateAndDrawHand();
+		updateAndDrawBoardInfo();
 
 	}
 
-	private void updateAndDrawHand() {
+	private void updateAndDrawBoardInfo() {
 		JPanel panel = new JPanel();
 		int x = 0;
 		for (x = 0; x < board.playernumber; x++) {
@@ -105,6 +108,11 @@ public class GUI {
 		events.setLocation(25, x*25);
 		events.setSize(250,20);
 		panel.add(events);
+		int currentPlayerIndex = board.currentPlayerIndex+1;
+		JLabel currentPlayer = new JLabel("Player "+ currentPlayerIndex + " turn:");
+		currentPlayer.setLocation(25,(x+1)*25);
+		currentPlayer.setSize(250,20);
+		panel.add(currentPlayer);
 		JComboBox<String> eventCards = makeEventCardOptions();
 		eventCards.setLocation(300, (x) * 25);
 		eventCards.setSize(150, 20);
@@ -114,6 +122,16 @@ public class GUI {
 		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
+		JButton specialSkillButton = new JButton("Use Special Skill");
+		specialSkillButton.setLocation(475, x*25);
+		specialSkillButton.setSize(150, 20);
+		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
+			specialSkillButton.addActionListener(new DispatcherListener());
+			panel.add(specialSkillButton);
+		}else if(board.currentPlayer.playerData.role==Roles.CONTINGENCYPLANNER){
+			specialSkillButton.addActionListener(new ContingencyPlannerListener());
+			panel.add(specialSkillButton);
+		}
 		panels.add(panel);
 		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
 
@@ -152,7 +170,7 @@ public class GUI {
 		for (JPanel panel : panels) {
 			removePanel(panel);
 		}
-		updateAndDrawHand();
+		updateAndDrawBoardInfo();
 		test++;
 	}
 
