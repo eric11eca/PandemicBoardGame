@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import Card.EventCard;
+import Card.EventCardAction;
 import Card.PlayerCard;
 import Parse.ListOfCityWithColorGenerator;
 import Player.Player;
@@ -41,6 +42,8 @@ public class Board {
 	public Map<String, City> currentResearchStation = new HashMap<>();
 	public Stack<Integer> infectionRateTracker = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
+	public Set<String> eradicatedColor = new HashSet<>();
+	public EventCardAction eventCardAction;
 	
 	public String eventCardName;
 	public String cityCardNameDirect;
@@ -67,17 +70,18 @@ public class Board {
 	public Map<String, String> infectionCardForecast = new HashMap<>();
 	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
 
-	public Set<String> eradicatedDiseases = new HashSet<>();
 	public Set<String> curedDiseases = new HashSet<>();
 	public Map<String, City> cities = new HashMap<>();
-	public List<Board.Roles> roleCardDeck = new ArrayList<>();
+	public List<Board.Roles> roles = new ArrayList<>();
 	public List<Player> currentPlayers = new ArrayList<>();
-	public List<PlayerCard> validPlayerCard = new ArrayList<>();
-	public Map<String, PlayerCard> discardPlayerCard = new HashMap<>();
-	public List<String> validInfectionCard = new ArrayList<>();
-	public List<String> discardInfectionCard = new ArrayList<>();
-
+	public List<PlayerCard> validPlayerCards = new ArrayList<>();
+	public Map<String, PlayerCard> discardCityCards = new HashMap<>();
+	public List<String> validInfectionCards = new ArrayList<>();
+	public List<String> discardInfectionCards = new ArrayList<>();
+	public Set<String> discardEventCards = new HashSet<>();
+	
 	public boolean gameEnd = false;
 	public boolean playerLose = false;
 	public boolean playerWin = false;
+
 }

@@ -3,6 +3,7 @@ package Player;
 import Initialize.Board;
 
 public class StationBuilderNormal extends StationBuilder{
+	
 	public StationBuilderNormal(PlayerData actualPlayer,Board board) {
 		super(actualPlayer,board);
 	}

@@ -15,20 +15,20 @@ public class InitializePlayerData {
 	}
 
 	public void addRole() {
-		board.roleCardDeck.add(Board.Roles.DISPATCHER);
-		board.roleCardDeck.add(Board.Roles.MEDIC);
-		board.roleCardDeck.add(Board.Roles.SCIENTIST);
-		board.roleCardDeck.add(Board.Roles.RESEARCHER);
-		board.roleCardDeck.add(Board.Roles.OPERATIONSEXPERT);
-		board.roleCardDeck.add(Board.Roles.CONTINGENCYPLANNER);
-		board.roleCardDeck.add(Board.Roles.QUARANTINESPECIALIST);
+		board.roles.add(Board.Roles.DISPATCHER);
+		board.roles.add(Board.Roles.MEDIC);
+		board.roles.add(Board.Roles.SCIENTIST);
+		board.roles.add(Board.Roles.RESEARCHER);
+		board.roles.add(Board.Roles.OPERATIONSEXPERT);
+		board.roles.add(Board.Roles.CONTINGENCYPLANNER);
+		board.roles.add(Board.Roles.QUARANTINESPECIALIST);
 	}
 
 	public void createPlayers() {
-		Collections.shuffle(board.roleCardDeck);
+		Collections.shuffle(board.roles);
 
 		for (int i = 0; i < board.playernumber; i++) {
-			Board.Roles role = board.roleCardDeck.get(i);
+			Board.Roles role = board.roles.get(i);
 			Player player = board.playerTable.get(role);
 			board.currentPlayers.add(player);
 		}
@@ -37,8 +37,8 @@ public class InitializePlayerData {
 	public void drawHandCard() {
 		for(int i = 0; i < board.playernumber; i++){
 			for(int j = 0; j < board.initialhandcard; j++){
-				int topOfDeck = board.validPlayerCard.size() - 1;
-				PlayerCard playercard = board.validPlayerCard.remove(topOfDeck);
+				int topOfDeck = board.validPlayerCards.size() - 1;
+				PlayerCard playercard = board.validPlayerCards.remove(topOfDeck);
 				board.currentPlayers.get(i).playerData.hand.put(playercard.cardName, playercard); 
 			}
 		}	

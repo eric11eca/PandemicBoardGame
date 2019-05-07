@@ -12,7 +12,8 @@ public class PlayerData {
 	public Board.Roles role;
 	public int action;
 	public SpecialSkill specialSkill;
-	public PlayerCard specialEventCard;
+	public String roleCard;
 	public DiscoverCure discoverCure;
 	public StationBuilder buildStationModel;
+	public Treat treatAction;
 }

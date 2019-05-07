@@ -12,6 +12,6 @@ public class ResilientPopulationEvent implements EventCard {
 	@Override
 	public void executeEvent() {
 		String cardToBeRemoved = board.cardRemovedByResilient;
-		board.discardInfectionCard.remove(cardToBeRemoved);
+		board.discardInfectionCards.remove(cardToBeRemoved);
 	}
 }

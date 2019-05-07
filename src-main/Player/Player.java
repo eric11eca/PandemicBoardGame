@@ -14,37 +14,31 @@ public class Player {
 	private Board board;
 	public EventCardAction eventCardAction;
 	
+
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
 		this.playerData = playerData;
 		playerData.action = 4;
 	}
 
-
 	public Player(Board gameBoard, Random random) {
 		board = gameBoard;
 	}
 
-	
 	public void receiveCard(PlayerCard playerCard) {
 		playerData.hand.put(playerCard.cardName, playerCard);
 	}
 
-	public boolean useEventCard(String cardName) {
-		boolean cardUsed = false;
-		if (cardName.equals(playerData.specialEventCard.cardName)) {
-			cardUsed = eventCardAction.executeEventCard(cardName);
-			if (cardUsed) {
-				playerData.specialEventCard = null;
-			}
-			board.cardToBeDiscard.add(cardName);
-			discardCard();
+	public void useEventCard(String cardName) {
+		if (cardName.equals(playerData.roleCard)) {
+			board.eventCardAction.executeEventCard(cardName);
+			board.eventCards.remove(cardName);
+			playerData.roleCard = null;
 		} else {
-			cardUsed = eventCardAction.executeEventCard(cardName);
-			board.cardToBeDiscard.add(cardName);
-			discardCard();
+			playerData.hand.remove(cardName);
+			board.eventCardAction.executeEventCard(cardName);
+			board.discardEventCards.add(cardName);
 		}
-		return cardUsed;
 	}
 
 	public void discardCard() {
@@ -53,7 +47,7 @@ public class Player {
 			if (playerData.hand.containsKey(cardName)) {
 				PlayerCard playerCard = playerData.hand.get(cardName);
 				playerData.hand.remove(cardName);
-				board.discardPlayerCard.put(cardName, playerCard);
+				board.discardCityCards.put(cardName, playerCard);
 			} else {
 				throw new RuntimeException("This card does not exist in the hand");
 			}
@@ -90,21 +84,21 @@ public class Player {
 		}
 		playerData.action -= 1;
 	}
-	
+
 	public void moveTo(City destination) {
 		playerData.location = destination;
 		destination.currentRoles.add(this.playerData.role);
 	}
-	
+
 	public void discardCardAndMoveTo(City destination) {
 		discardCard();
 		moveTo(destination);
 	}
-	
-	public void charterFlight() {	
+
+	public void charterFlight() {
 		String destinationName = board.cityCardNameCharter;
 		City destination = board.cities.get(destinationName);
-		board.cardToBeDiscard.add(playerData.location.cityName); 
+		board.cardToBeDiscard.add(playerData.location.cityName);
 		discardCardAndMoveTo(destination);
 		consumeAction();
 	}
@@ -124,27 +118,27 @@ public class Player {
 	}
 
 	public void treat(String diseaseColor) {
-		int numOfDiseaseCubes = playerData.location.diseaseCubes.get(diseaseColor);
-		if (numOfDiseaseCubes == 0) {
-			throw new RuntimeException("The number of " + diseaseColor + "Cube is zero");
-		}
-		int removeCounts = 1;
-		if (board.curedDiseases.contains(diseaseColor)) {
-			removeCounts = numOfDiseaseCubes;
-		}
-		playerData.location.diseaseCubes.put(diseaseColor, numOfDiseaseCubes - removeCounts);
+		playerData.treatAction.treat(diseaseColor);
+		eradicate(diseaseColor);
 		consumeAction();
 	}
 
+	public void eradicate(String diseaseColor) {
+		if (board.remainDiseaseCube.get(diseaseColor) == 12) {
+			board.eradicatedColor.add(diseaseColor);
+		}
+	}
+
 	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
-		if (isResearchStation()) {
+		boolean isResearchStation = playerData.location.researchStation;
+		if (isResearchStation) {
 			if (playerData.discoverCure.discoverCure(cardsToCureDisease)) {
 				for (PlayerCard playercard : cardsToCureDisease) {
 					board.cardToBeDiscard.add(playercard.cardName);
 				}
 				consumeAction();
 			}
-			
+
 			if (board.curedDiseases.size() == 4) {
 				board.gameEnd = true;
 				board.playerWin = true;
@@ -157,12 +151,9 @@ public class Player {
 		}
 	}
 
-	private boolean isResearchStation() {
-		return playerData.location.researchStation;
-	}
-
 	public void buildStation() {
 		playerData.buildStationModel.buildStation();
+		consumeAction();
 	}
 
 	public void shareKnowledge() {

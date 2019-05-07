@@ -13,16 +13,16 @@ public class InfectionCardAction {
 	}
 
 	public void drawOneInfectionCard() {
-		int top = board.validInfectionCard.size() - 1;
+		int top = board.validInfectionCards.size() - 1;
 		if (top == -1) {
 			board.playerLose=true;
 			board.gameEnd=true;
 			throw new RuntimeException("NoInfectionCards");
 		}
-		String infectCity = board.validInfectionCard.remove(top);
+		String infectCity = board.validInfectionCards.remove(top);
 		String cityColor = board.cities.get(infectCity).color;
 		infectCity(infectCity, cityColor);
-		board.discardInfectionCard.add(infectCity);
+		board.discardInfectionCards.add(infectCity);
 	}
 
 	public void infectCity(String cityName, String diseaseColor) {

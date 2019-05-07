@@ -40,7 +40,7 @@ public class TestShuttleFlight {
 		this.destinationNoStation.researchStation = false;
 		
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData, eventCardAction);
+		player = new Player(board, playerData);
 	}
 
 	@Test

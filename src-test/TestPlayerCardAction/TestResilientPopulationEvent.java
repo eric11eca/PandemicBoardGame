@@ -18,9 +18,9 @@ public class TestResilientPopulationEvent {
 		String infect1 = "a";
 		String infect2 = "b";
 		String infect3 = "c";
-		board.discardInfectionCard.add(infect1);
-		board.discardInfectionCard.add(infect2);
-		board.discardInfectionCard.add(infect3);
+		board.discardInfectionCards.add(infect1);
+		board.discardInfectionCards.add(infect2);
+		board.discardInfectionCards.add(infect3);
 		resilientPopulationEvent = new ResilientPopulationEvent(board);
 	}
 
@@ -29,7 +29,7 @@ public class TestResilientPopulationEvent {
 		String infect = "c";
 		board.cardRemovedByResilient = infect;
 		resilientPopulationEvent.executeEvent();
-		assertFalse(board.discardInfectionCard.contains(infect));
+		assertFalse(board.discardInfectionCards.contains(infect));
 	}
 
 }

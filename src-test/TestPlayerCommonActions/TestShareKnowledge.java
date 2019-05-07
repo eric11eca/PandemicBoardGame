@@ -37,8 +37,8 @@ public class TestShareKnowledge {
 		playerData1.action = 4;
 		playerData2.action = 4;
 		eventCardAction = new EventCardAction(board);
-		player1 = new Player(board, playerData1, eventCardAction);
-		player2 = new Player(board, playerData2, eventCardAction);
+		player1 = new Player(board, playerData1);
+		player2 = new Player(board, playerData2);
 	}
 
 	@Test

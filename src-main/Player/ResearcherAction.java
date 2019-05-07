@@ -11,6 +11,7 @@ public class ResearcherAction {
 		researcher = currentPlayer;
 		researcher.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		researcher.buildStationModel = new StationBuilderNormal(researcher, board);
+		researcher.treatAction = new TreatNormal(currentPlayer, gameBoard);
 	}
 
 }
