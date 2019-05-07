@@ -36,7 +36,6 @@ public class GUI {
 	public Board board;
 	public JPanel mainPanel;
 	DrawingBoard draw;
-	public int test = 0;
 	JLabel label = new JLabel();
 	public ArrayList<JLabel> hands = new ArrayList<>();
 	GameSetup gameSetup;
@@ -171,7 +170,6 @@ public class GUI {
 			removePanel(panel);
 		}
 		updateAndDrawBoardInfo();
-		test++;
 	}
 
 	public void setButtonPanel(JPanel buttonPanel) {
