@@ -29,12 +29,52 @@ public class EventCardListener implements ActionListener {
 			String card = eventCards.getSelectedItem().toString();
 			if (playerHand.keySet().contains(card)) {
 				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
+				if(card.equals("Airlift")){
+					performAirlift();
+				}
+				else if(card.equals("One Quiet Night")){
+					performOneQuietNight();
+				}
+				else if(card.equals("Resilient Population")){
+					performResilientPopulation();
+				}
+				else if(card.equals("Government Grant")){
+					performGovernmentGrant();
+				}
+				else{
+					performForecast();
+				}
 				board.currentPlayers.get(i).useEventCard(card);
 				gui.updateImage();
 				break;
 			}
 		}
 
+	}
+
+	private void performForecast() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void performGovernmentGrant() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void performResilientPopulation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void performOneQuietNight() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void performAirlift() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
