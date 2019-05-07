@@ -75,7 +75,6 @@ public class Board {
 	public List<Board.Roles> roles = new ArrayList<>();
 	public List<Player> currentPlayers = new ArrayList<>();
 	public List<PlayerCard> validPlayerCards = new ArrayList<>();
-	public Map<String, PlayerCard> discardCityCards = new HashMap<>();
 	public List<String> validInfectionCards = new ArrayList<>();
 	public List<String> discardInfectionCards = new ArrayList<>();
 	public Set<String> discardEventCards = new HashSet<>();

@@ -29,12 +29,10 @@ public class GameAction {
 			}
 			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
 				epidemic.performEpidemic();
-				board.validPlayerCards.remove(0);
 			} else {
 				board.currentPlayer.receiveCard(playerCard);
-				board.validPlayerCards.remove(0);
-				board.discardCityCards.put(playerCard.cardName, playerCard);
 			}
+			board.validPlayerCards.remove(0);
 		}
 		
 		if (board.currentPlayer.playerData.hand.size() > 7) {

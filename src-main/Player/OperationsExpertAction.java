@@ -24,7 +24,6 @@ public class OperationsExpertAction implements SpecialSkill {
 		for (String cardName : playerHand.keySet()) {
 			if (cardName.equals(cityName)) {
 				operationsExpert.location = board.cities.get(cityName);
-				board.discardCityCards.put(cardName, playerHand.get(cardName));
 				playerHand.remove(cardName);
 			}
 		}

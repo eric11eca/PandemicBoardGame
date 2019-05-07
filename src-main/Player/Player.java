@@ -45,9 +45,7 @@ public class Player {
 		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
 			String cardName = board.cardToBeDiscard.get(i);
 			if (playerData.hand.containsKey(cardName)) {
-				PlayerCard playerCard = playerData.hand.get(cardName);
 				playerData.hand.remove(cardName);
-				board.discardCityCards.put(cardName, playerCard);
 			} else {
 				throw new RuntimeException("This card does not exist in the hand");
 			}

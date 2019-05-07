@@ -1,14 +1,12 @@
 package TestPlayers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import Card.EventCardAction;
-import Card.PlayerCard;
 import Initialize.Board;
 import Player.ContingencyPlannerAction;
 import Player.PlayerData;
@@ -40,7 +38,6 @@ public class TestContingencyPlanner {
 		contingencyPlannerAction.cardName = airlift;
 		contingencyPlanner.specialSkill.specialSkill();
 		assertEquals(contingencyPlannerData.roleCard, airlift);
-		assertFalse(board.discardCityCards.containsKey(airlift));
 	}
 	
 	@Test
@@ -48,12 +45,6 @@ public class TestContingencyPlanner {
 		contingencyPlannerData.roleCard = airlift;
 		board.idxofPlayerAirlift = 0;
 		board.currentPlayers.add(this.contingencyPlanner);
-		String cardName1 = "Chicago";
-		String cardName2 = "New York";
-		PlayerCard playerCard1 = new PlayerCard(Board.CardType.CITYCARD, cardName1);
-		PlayerCard playerCard2 = new PlayerCard(Board.CardType.CITYCARD, cardName2);
-		board.discardCityCards.put(cardName1, playerCard1);
-		board.discardCityCards.put(cardName2, playerCard2);
 		
 		int old_size = board.discardEventCards.size();
 		contingencyPlanner.useEventCard(airlift);

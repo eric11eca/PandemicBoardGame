@@ -56,7 +56,7 @@ public class GameSetup {
 		initBoard.initializeRemainDiseaseCube();
 		initBoard.initializeDiseaseCube();
 		initBoard.initializeInfectionRateTrack();
-		initBoard.initializeRoleDeck();
+		initBoard.initializePlayerRoles();
 		initBoard.initializeEventCard();
 		initBoard.initializeEventCardAction();
 		initBoard.initializePlayerTable();

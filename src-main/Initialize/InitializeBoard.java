@@ -68,7 +68,7 @@ public class InitializeBoard {
 		}
 	}
 
-	public void initializeRoleDeck() {
+	public void initializePlayerRoles() {
 		board.roles.add(Board.Roles.SCIENTIST);
 		board.roles.add(Board.Roles.MEDIC);
 		board.roles.add(Board.Roles.RESEARCHER);
@@ -117,7 +117,6 @@ public class InitializeBoard {
 				if (playerCard.color.equals("RED")) {
 					playerData.hand.put(playerCard.cardName, playerCard);
 					cardsTobeRemoved.add(playerCard);
-					board.discardCityCards.put(playerCard.cardName, playerCard);
 				}
 				if (playerData.hand.size() == 7) {
 					break;

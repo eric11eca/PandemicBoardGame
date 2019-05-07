@@ -14,16 +14,6 @@ public class InitializePlayerData {
 		this.board = board;
 	}
 
-	public void addRole() {
-		board.roles.add(Board.Roles.DISPATCHER);
-		board.roles.add(Board.Roles.MEDIC);
-		board.roles.add(Board.Roles.SCIENTIST);
-		board.roles.add(Board.Roles.RESEARCHER);
-		board.roles.add(Board.Roles.OPERATIONSEXPERT);
-		board.roles.add(Board.Roles.CONTINGENCYPLANNER);
-		board.roles.add(Board.Roles.QUARANTINESPECIALIST);
-	}
-
 	public void createPlayers() {
 		Collections.shuffle(board.roles);
 
