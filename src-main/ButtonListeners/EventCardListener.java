@@ -23,7 +23,7 @@ public class EventCardListener implements ActionListener {
 	public EventCardListener(Board board, JComboBox<String> eventCards, GUI gui) {
 		this.board = board;
 		this.eventCards = eventCards;
-		this.gui=gui;
+		this.gui = gui;
 	}
 
 	@Override
@@ -33,19 +33,15 @@ public class EventCardListener implements ActionListener {
 			Map<String, PlayerCard> playerHand = board.currentPlayers.get(i).playerData.hand;
 			if (playerHand.keySet().contains(card)) {
 				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
-				if(card.equals("Airlift")){
+				if (card.equals("Airlift")) {
 					performAirlift(i);
-				}
-				else if(card.equals("One Quiet Night")){
+				} else if (card.equals("One Quiet Night")) {
 					performOneQuietNight(i);
-				}
-				else if(card.equals("Resilient Population")){
+				} else if (card.equals("Resilient Population")) {
 					performResilientPopulation(i);
-				}
-				else if(card.equals("Government Grant")){
+				} else if (card.equals("Government Grant")) {
 					performGovernmentGrant(i);
-				}
-				else{
+				} else {
 					performForecast(i);
 				}
 				gui.updateImage();
@@ -57,19 +53,19 @@ public class EventCardListener implements ActionListener {
 
 	private void performForecast(int playerIndex) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void performGovernmentGrant(int playerIndex) {
 		ArrayList<String> citiesWithoutStations = new ArrayList<String>();
-		for(String cityName:board.cities.keySet()){
-			if(!board.currentResearchStation.containsKey(cityName)){
+		for (String cityName : board.cities.keySet()) {
+			if (!board.currentResearchStation.containsKey(cityName)) {
 				citiesWithoutStations.add(cityName);
 			}
 		}
 		String[] options = citiesWithoutStations.toArray(new String[citiesWithoutStations.size()]);
 		JComboBox<String> listOfCities = new JComboBox<String>(options);
-		listOfCities.addActionListener(new ActionListener(){
+		listOfCities.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,13 +78,13 @@ public class EventCardListener implements ActionListener {
 				System.out.println(board.cityWithGrant);
 				gui.removePanel(panel);
 				gui.updateImage();
-				for(String cityName:board.cities.keySet()){
-					if(board.cities.get(cityName).researchStation){
+				for (String cityName : board.cities.keySet()) {
+					if (board.cities.get(cityName).researchStation) {
 						System.out.println(cityName);
 					}
 				}
 			}
-			
+
 		});
 		panel = new JPanel();
 		panel.add(listOfCities);
@@ -96,8 +92,22 @@ public class EventCardListener implements ActionListener {
 	}
 
 	private void performResilientPopulation(int playerIndex) {
-		// TODO Auto-generated method stub
-		
+		String[] infections = board.discardInfectionCard.toArray(new String[board.discardInfectionCard.size()]);
+		JComboBox<String> listOfInfections = new JComboBox<String>(infections);
+		listOfInfections.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				board.cardRemovedByResilient = listOfInfections.getSelectedItem().toString();
+				board.currentPlayers.get(playerIndex).useEventCard("ResilientPopulation");
+				gui.removePanel(panel);
+				gui.updateImage();
+			}
+			
+		});
+		panel = new JPanel();
+		panel.add(listOfInfections);
+		gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
 	private void performOneQuietNight(int playerIndex) {
@@ -105,21 +115,20 @@ public class EventCardListener implements ActionListener {
 	}
 
 	private void performAirlift(int playerIndex) {
-		// TODO choose a city to travel to
 		ArrayList<String> cities = new ArrayList<String>();
-		for(String cityName:board.cities.keySet()){
-			if(!board.currentPlayers.get(playerIndex).playerData.location.cityName.equals(cityName)){
+		for (String cityName : board.cities.keySet()) {
+			if (!board.currentPlayers.get(playerIndex).playerData.location.cityName.equals(cityName)) {
 				cities.add(cityName);
 			}
 		}
 		String[] players = new String[board.playernumber];
-		for(int i=0;i<players.length;i++){
-			players[i]=Integer.toString(i+1);
+		for (int i = 0; i < players.length; i++) {
+			players[i] = Integer.toString(i + 1);
 		}
 		JComboBox<String> listOfPlayers = new JComboBox<String>(players);
 		String[] options = cities.toArray(new String[cities.size()]);
 		JComboBox<String> listOfCities = new JComboBox<String>(options);
-		listOfCities.addActionListener(new ActionListener(){
+		listOfCities.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -129,13 +138,13 @@ public class EventCardListener implements ActionListener {
 				gui.removePanel(panel);
 				gui.updateImage();
 			}
-			
+
 		});
 		panel = new JPanel();
 		panel.add(listOfPlayers);
 		panel.add(listOfCities);
 		gui.addPanel(panel, BorderLayout.CENTER);
-		
+
 	}
 
 }
