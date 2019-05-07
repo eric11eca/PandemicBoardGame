@@ -30,21 +30,20 @@ public class EventCardListener implements ActionListener {
 			if (playerHand.keySet().contains(card)) {
 				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
 				if(card.equals("Airlift")){
-					performAirlift();
+					performAirlift(i);
 				}
 				else if(card.equals("One Quiet Night")){
-					performOneQuietNight();
+					performOneQuietNight(i);
 				}
 				else if(card.equals("Resilient Population")){
-					performResilientPopulation();
+					performResilientPopulation(i);
 				}
 				else if(card.equals("Government Grant")){
-					performGovernmentGrant();
+					performGovernmentGrant(i);
 				}
 				else{
-					performForecast();
+					performForecast(i);
 				}
-				board.currentPlayers.get(i).useEventCard(card);
 				gui.updateImage();
 				break;
 			}
@@ -52,28 +51,27 @@ public class EventCardListener implements ActionListener {
 
 	}
 
-	private void performForecast() {
+	private void performForecast(int i) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void performGovernmentGrant() {
+	private void performGovernmentGrant(int i) {
+		// TODO Show list of cities without stations, and user chooses one
+		
+	}
+
+	private void performResilientPopulation(int i) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void performResilientPopulation() {
-		// TODO Auto-generated method stub
-		
+	private void performOneQuietNight(int i) {
+		board.currentPlayers.get(i).useEventCard("OneQuietNight");
 	}
 
-	private void performOneQuietNight() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void performAirlift() {
-		// TODO Auto-generated method stub
+	private void performAirlift(int i) {
+		// TODO choose a city to travel to
 		
 	}
 
