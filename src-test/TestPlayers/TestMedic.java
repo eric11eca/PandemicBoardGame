@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Initialize.City;
-import Player.MedicAction;
 import Player.Player;
 import Player.PlayerData;
+import PlayerAction.MedicAction;
 
 public class TestMedic {
 	MedicAction medicAction;

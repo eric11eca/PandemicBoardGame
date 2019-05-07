@@ -3,8 +3,8 @@ package Player;
 import java.util.List;
 import java.util.Set;
 
-import Card.PlayerCard;
 import Initialize.Board;
+import cards.PlayerCard;
 
 public class DiscoverCure {
 	public Set<String> curedDiseases;

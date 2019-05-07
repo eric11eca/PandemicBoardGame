@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
+import CardActions.EventCardAction;
 import Initialize.Board;
-import Player.ContingencyPlannerAction;
 import Player.PlayerData;
+import PlayerAction.ContingencyPlannerAction;
 import Player.Player;
 
 public class TestContingencyPlanner {

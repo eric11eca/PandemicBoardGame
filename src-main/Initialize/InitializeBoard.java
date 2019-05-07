@@ -6,23 +6,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-import Card.AirliftEvent;
-import Card.EventCardAction;
-import Card.ForecastEvent;
-import Card.GovernmentGrantEvent;
-import Card.OneQuietNightEvent;
-import Card.PlayerCard;
-import Card.ResilientPopulationEvent;
+import CardActions.EventCardAction;
 import Parse.CityDataParser;
-import Player.ContingencyPlannerAction;
 import Player.DiscoverCureNormal;
 import Player.DiscoverCureScientist;
-import Player.MedicAction;
-import Player.OperationsExpertAction;
 import Player.Player;
 import Player.PlayerData;
 import Player.StationBuilderNormal;
 import Player.StationBuilderOperationsExpert;
+import PlayerAction.ContingencyPlannerAction;
+import PlayerAction.MedicAction;
+import PlayerAction.OperationsExpertAction;
+import cards.Airlift;
+import cards.ForecastEvent;
+import cards.GovernmentGrant;
+import cards.OneQuietNight;
+import cards.PlayerCard;
+import cards.ResilientPopulation;
 
 public class InitializeBoard {
 	public Board board;
@@ -130,15 +130,15 @@ public class InitializeBoard {
 	}
 	
 	public void initializeEventCardAction() {
-		AirliftEvent airlift = new AirliftEvent(board);
+		Airlift airlift = new Airlift(board);
 		board.eventCards.put("Airlift", airlift);
 		ForecastEvent forcast = new ForecastEvent(board);
 		board.eventCards.put("Forecast", forcast);
-		OneQuietNightEvent oneQuiteNight = new OneQuietNightEvent(board);
+		OneQuietNight oneQuiteNight = new OneQuietNight(board);
 		board.eventCards.put("OneQuietNight", oneQuiteNight);
-		GovernmentGrantEvent governmentGrant = new GovernmentGrantEvent(board);
+		GovernmentGrant governmentGrant = new GovernmentGrant(board);
 		board.eventCards.put("GovernmentGrant", governmentGrant);
-		ResilientPopulationEvent resilientPopulation = new ResilientPopulationEvent(board);
+		ResilientPopulation resilientPopulation = new ResilientPopulation(board);
 		board.eventCards.put("ResilientPopulation", resilientPopulation);
 		EventCardAction eventCardAction = new EventCardAction(board);
 		board.eventCardAction = eventCardAction;

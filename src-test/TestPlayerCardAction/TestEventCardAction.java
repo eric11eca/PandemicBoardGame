@@ -9,9 +9,9 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
-import Card.ForecastEvent;
+import CardActions.EventCardAction;
 import Initialize.Board;
+import cards.ForecastEvent;
 
 public class TestEventCardAction {
 	EventCardAction eventCardAction;

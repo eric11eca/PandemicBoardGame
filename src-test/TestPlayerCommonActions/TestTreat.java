@@ -8,10 +8,10 @@ import org.junit.Test;
 
 import Initialize.Board;
 import Initialize.City;
-import Player.DispatcherAction;
-import Player.MedicAction;
 import Player.Player;
 import Player.PlayerData;
+import PlayerAction.DispatcherAction;
+import PlayerAction.MedicAction;
 
 public class TestTreat {
 	Board board;

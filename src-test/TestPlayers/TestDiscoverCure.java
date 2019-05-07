@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.PlayerCard;
 import Initialize.Board;
 import Player.DiscoverCure;
 import Player.DiscoverCureNormal;
 import Player.DiscoverCureScientist;
+import cards.PlayerCard;
 
 public class TestDiscoverCure {
 	Board board;	

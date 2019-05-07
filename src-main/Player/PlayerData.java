@@ -2,9 +2,11 @@ package Player;
 
 import java.util.HashMap;
 import java.util.Map;
-import Card.PlayerCard;
+
 import Initialize.Board;
 import Initialize.City;
+import PlayerAction.SpecialSkill;
+import cards.PlayerCard;
 
 public class PlayerData {
 	public Map<String, PlayerCard> hand = new HashMap<>();

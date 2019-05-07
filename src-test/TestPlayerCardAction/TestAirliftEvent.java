@@ -5,23 +5,23 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.AirliftEvent;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
 import Player.PlayerData;
+import cards.Airlift;
 
 
 public class TestAirliftEvent {
 	Board board;
-	AirliftEvent airlift;
+	Airlift airlift;
 	Player player;
 	PlayerData playerData;
 	
 	@Before 
 	public void setup() {
 		board = new Board();
-		airlift = new AirliftEvent(board);
+		airlift = new Airlift(board);
 		player = new Player(board, new PlayerData());	
 		City city = new City();
 		city.cityName = "Atlanta";

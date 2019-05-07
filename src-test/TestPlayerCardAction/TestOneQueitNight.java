@@ -5,17 +5,17 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.OneQuietNightEvent;
 import Initialize.Board;
+import cards.OneQuietNight;
 
 public class TestOneQueitNight {
 	Board board;
-	OneQuietNightEvent night;
+	OneQuietNight night;
 	
 	@Before
 	public void setup() {
 		board = new Board();
-		night = new OneQuietNightEvent(board);
+		night = new OneQuietNight(board);
 	}
 
 	@Test

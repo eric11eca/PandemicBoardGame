@@ -8,11 +8,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import Card.EventCard;
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Parse.ListOfCityWithColorGenerator;
 import Player.Player;
+import cards.EventCard;
+import cards.PlayerCard;
 import javafx.util.Pair;
 
 public class Board {

@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.ForecastEvent;
 import Initialize.Board;
 import Initialize.City;
 import Player.PlayerData;
+import cards.ForecastEvent;
 import javafx.util.Pair;
 
 public class TestForecastEvent {

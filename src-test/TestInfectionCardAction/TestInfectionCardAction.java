@@ -9,7 +9,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.InfectionCardAction;
+import CardActions.InfectionCardAction;
 import Initialize.Board;
 import Initialize.City;
 

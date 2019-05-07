@@ -3,8 +3,8 @@ package Initialize;
 import java.util.Collections;
 import java.util.Comparator;
 
-import Card.PlayerCard;
 import Player.Player;
+import cards.PlayerCard;
 
 public class InitializePlayerData {
 	Board board;

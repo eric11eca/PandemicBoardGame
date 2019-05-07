@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
-import Player.OperationsExpertAction;
 import Player.Player;
 import Player.PlayerData;
+import PlayerAction.OperationsExpertAction;
+import cards.PlayerCard;
 
 public class TestOperationsExpert {
 	Board board;

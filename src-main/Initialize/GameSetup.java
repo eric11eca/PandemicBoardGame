@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
-import Action.GameAction;
 import Player.Player;
+import gameAction.GameAction;
 
 public class GameSetup {
 	public Board board;

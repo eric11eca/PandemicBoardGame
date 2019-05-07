@@ -3,10 +3,11 @@ package Player;
 import java.util.List;
 import java.util.Random;
 
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
+import PlayerAction.SpecialSkill;
+import cards.PlayerCard;
 
 public class Player {
 	public PlayerData playerData;

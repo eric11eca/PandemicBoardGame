@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Player.Player;
 import Player.PlayerData;
+import cards.PlayerCard;
 
 public class TestReceiveCard {
 	private Board board;

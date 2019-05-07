@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.ResilientPopulationEvent;
 import Initialize.Board;
+import cards.ResilientPopulation;
 
 public class TestResilientPopulationEvent {
 	Board board;
-	ResilientPopulationEvent resilientPopulationEvent;
+	ResilientPopulation resilientPopulationEvent;
 	
 	@Before
 	public void setup() {
@@ -21,7 +21,7 @@ public class TestResilientPopulationEvent {
 		board.discardInfectionCards.add(infect1);
 		board.discardInfectionCards.add(infect2);
 		board.discardInfectionCards.add(infect3);
-		resilientPopulationEvent = new ResilientPopulationEvent(board);
+		resilientPopulationEvent = new ResilientPopulation(board);
 	}
 
 	@Test

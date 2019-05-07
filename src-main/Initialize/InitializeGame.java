@@ -7,17 +7,17 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import ButtonListeners.BuildResearchStationListener;
-import ButtonListeners.CharterFlightListener;
-import ButtonListeners.DListener;
-import ButtonListeners.DiscoverCureListener;
-import ButtonListeners.DriveListener;
-import ButtonListeners.DirectFlightListener;
-import ButtonListeners.PlayerListener;
-import ButtonListeners.ShareKnowledgeListener;
-import ButtonListeners.ShuttleFlightListener;
-import ButtonListeners.TreatDiseaseListener;
-import Panel.GUI;
+import buttonListeners.BuildResearchStationListener;
+import buttonListeners.CharterFlightListener;
+import buttonListeners.DListener;
+import buttonListeners.DirectFlightListener;
+import buttonListeners.DiscoverCureListener;
+import buttonListeners.DriveListener;
+import buttonListeners.PlayerListener;
+import buttonListeners.ShareKnowledgeListener;
+import buttonListeners.ShuttleFlightListener;
+import buttonListeners.TreatDiseaseListener;
+import panel.GUI;
 
 public class InitializeGame {
 	public int players = 0;

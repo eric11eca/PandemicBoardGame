@@ -6,14 +6,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
-import Player.MedicAction;
-import Player.OperationsExpertAction;
 import Player.Player;
 import Player.PlayerData;
+import PlayerAction.MedicAction;
+import PlayerAction.OperationsExpertAction;
+import cards.PlayerCard;
 
 public class TestBuildStation {
 	Board board;

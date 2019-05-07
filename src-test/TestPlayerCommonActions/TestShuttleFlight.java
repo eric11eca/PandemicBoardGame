@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;

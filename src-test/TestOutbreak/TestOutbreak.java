@@ -7,7 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.Outbreak;
+import CardActions.Outbreak;
 import Initialize.Board;
 import Initialize.City;
 

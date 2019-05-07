@@ -11,13 +11,13 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-import Action.GameAction;
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
 import Player.PlayerData;
+import cards.PlayerCard;
+import gameAction.GameAction;
 
 public class TestGameActionOneTurn {
 	Board board;

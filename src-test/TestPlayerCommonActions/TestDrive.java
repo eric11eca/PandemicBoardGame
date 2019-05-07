@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import Card.EventCardAction;
-import Card.PlayerCard;
+import CardActions.EventCardAction;
 import Initialize.Board;
 import Initialize.City;
 import Player.Player;
 import Player.PlayerData;
+import cards.PlayerCard;
 
 public class TestDrive {
 	Board board;

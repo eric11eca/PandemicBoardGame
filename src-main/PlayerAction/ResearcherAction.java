@@ -1,0 +1,21 @@
+package PlayerAction;
+
+import Initialize.Board;
+import Player.DiscoverCureNormal;
+import Player.PlayerData;
+import Player.StationBuilderNormal;
+import Player.TreatNormal;
+
+public class ResearcherAction {
+	private Board board;
+	private PlayerData researcher;
+	
+	public ResearcherAction(Board gameBoard, PlayerData currentPlayer) {
+		board = gameBoard;
+		researcher = currentPlayer;
+		researcher.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		researcher.buildStationModel = new StationBuilderNormal(researcher, board);
+		researcher.treatAction = new TreatNormal(currentPlayer, gameBoard);
+	}
+
+}
