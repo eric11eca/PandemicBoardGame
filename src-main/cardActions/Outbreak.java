@@ -16,8 +16,9 @@ public class Outbreak {
 	public void moveOutbreakMarkForward() {
 		board.outbreakMark += 1;
 		if(board.outbreakMark == 8) {
-			board.gameEnd = true;
-			board.playerLose = true;
+//			board.gameEnd = true;
+//			board.playerLose = true;
+			throw new RuntimeException("OutbreakException");
 		}
 	}
 	
@@ -32,9 +33,10 @@ public class Outbreak {
 					continueOutbreak.add(city);
 				} else {
 					if(board.remainDiseaseCube.get(disease) == 0) {
-						board.gameEnd = true;
-						board.playerLose = true;
-						return continueOutbreak;
+//						board.gameEnd = true;
+//						board.playerLose = true;
+//						return continueOutbreak;
+						throw new RuntimeException("OutOf"+disease);
 					}
 					city.diseaseCubes.put(disease, currentNum+1);
 					int remainingCube = board.remainDiseaseCube.get(disease);
@@ -52,22 +54,22 @@ public class Outbreak {
 		for(int i = 0; i < continueOutbreak.size(); i++) {
 			City city = continueOutbreak.get(i);
 			performeOutbreak(city);
-			if(board.gameEnd) {
-				return;
-			}
+//			if(board.gameEnd) {
+//				return;
+//			}
 		}
 	}
 	
 	public void performeOutbreak(City currentCity) {
 		currentCity.isInOutbreak = true;
 		moveOutbreakMarkForward();
-		if(board.gameEnd) {
-			return;
-		}
+//		if(board.gameEnd) {
+//			return;
+//		}
 		List<City> continueOutbreak = infectConnectedCities(currentCity);
-		if(board.gameEnd) {
-			return;
-		}
+//		if(board.gameEnd) {
+//			return;
+//		}
 		if(!continueOutbreak.isEmpty()) {
 			continueRestOfOutbreaks(continueOutbreak);
 		}

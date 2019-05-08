@@ -32,9 +32,10 @@ public class EpidemicCardAction {
 			while (city.diseaseCubes.get(disease) < 3) {
 				int remainingCubes = board.remainDiseaseCube.get(disease);
 				if (remainingCubes == 0) {
-					board.gameEnd = true;
-					board.playerLose = true;
-					return;
+//					board.gameEnd = true;
+//					board.playerLose = true;
+//					return;
+					throw new RuntimeException("OutOf"+disease);
 				}
 				int numOfCubes = city.diseaseCubes.get(disease);
 				city.diseaseCubes.put(disease, numOfCubes + 1);
@@ -63,9 +64,9 @@ public class EpidemicCardAction {
 	public void performEpidemic() {
 		increaseInfectionRate();
 		epidemicInfect();
-		if (board.gameEnd == true) {
-			return;
-		}
+//		if (board.gameEnd == true) {
+//			return;
+//		}
 		if (reshuffleDiscardInfectionDeck()) {
 			makingNewInfectionCardDeck();
 		}
