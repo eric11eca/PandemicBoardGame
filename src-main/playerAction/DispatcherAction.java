@@ -13,9 +13,6 @@ public class DispatcherAction {
 	public DispatcherAction(Board gameBoard, PlayerData currentPlayerData) {
 		board = gameBoard;
 		dispatcher = currentPlayerData;
-		dispatcher.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		dispatcher.buildStationModel = new StationBuilderNormal(dispatcher, board);
-		dispatcher.treatAction = new TreatNormal(dispatcher, board);
 	}
 
 }

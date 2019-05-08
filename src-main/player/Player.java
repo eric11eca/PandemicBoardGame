@@ -3,7 +3,6 @@ package player;
 import java.util.List;
 import java.util.Random;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import initialize.Board;
 import initialize.City;
@@ -12,9 +11,7 @@ import playerAction.SpecialSkill;
 public class Player {
 	public PlayerData playerData;
 	public SpecialSkill specialSkill;
-	private Board board;
-	public EventCardAction eventCardAction;
-	
+	private Board board;	
 
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
