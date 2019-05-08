@@ -29,7 +29,8 @@ public class GameSetup {
 		messagesToShow.put("OutOfYELLOW", "Players Lose: No more yellow disease cubes");
 		messagesToShow.put("OutOfBLACK", "Players Lose: No more black disease cubes");
 		messagesToShow.put("OutOfBLUE", "Players Lose: No more blue disease cubes");
-		messagesToShow.put("OutbreakException", "Players Lose: * outbreaks have occured");
+		messagesToShow.put("OutbreakException", "Players Lose: 8 outbreaks have occured");
+		messagesToShow.put("PlayerWinException", "Players Win: All cures have been discovered");
 	}
 	
 	public void startGame(){

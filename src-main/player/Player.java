@@ -139,9 +139,10 @@ public class Player {
 			}
 
 			if (board.curedDiseases.size() == 4) {
-				board.gameEnd = true;
-				board.playerWin = true;
-				return;
+//				board.gameEnd = true;
+//				board.playerWin = true;
+//				return;
+				throw new RuntimeException("PlayerWinException");
 			}
 			discardCard();
 
