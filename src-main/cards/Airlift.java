@@ -1,7 +1,7 @@
 package cards;
 
-import Initialize.Board;
-import Player.Player;
+import initialize.Board;
+import player.Player;
 
 public class Airlift implements EventCard{
 	private Board board;

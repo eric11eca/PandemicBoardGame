@@ -1,6 +1,6 @@
 package main;
 
-import Initialize.*;
+import initialize.*;
 
 public class Pandemic {
 	

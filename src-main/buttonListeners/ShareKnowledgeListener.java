@@ -10,10 +10,10 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Initialize.Board;
-import Initialize.GameSetup;
-import Player.Player;
+import initialize.Board;
+import initialize.GameSetup;
 import panel.GUI;
+import player.Player;
 
 public class ShareKnowledgeListener implements ActionListener {
 	Board board;

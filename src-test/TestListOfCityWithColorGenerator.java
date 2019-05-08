@@ -3,9 +3,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import Initialize.Board;
-import Initialize.City;
-import Parse.ListOfCityWithColorGenerator;
+import initialize.Board;
+import initialize.City;
+import parse.ListOfCityWithColorGenerator;
 
 public class TestListOfCityWithColorGenerator {
 	Board board;

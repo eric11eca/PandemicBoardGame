@@ -3,7 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import Initialize.*;
+
+import initialize.*;
 
 public class DListener implements ActionListener  {
 

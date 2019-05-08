@@ -15,9 +15,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Initialize.Board;
-import Initialize.GameSetup;
 import cards.PlayerCard;
+import initialize.Board;
+import initialize.GameSetup;
 import panel.GUI;
 
 public class DiscardCard {

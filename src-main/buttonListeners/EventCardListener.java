@@ -6,8 +6,8 @@ import java.util.Map;
 
 import javax.swing.JComboBox;
 
-import Initialize.Board;
 import cards.PlayerCard;
+import initialize.Board;
 import panel.GUI;
 
 public class EventCardListener implements ActionListener {

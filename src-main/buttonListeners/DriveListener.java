@@ -9,8 +9,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Initialize.Board;
-import Initialize.GameSetup;
+import initialize.Board;
+import initialize.GameSetup;
 import panel.GUI;
 
 public class DriveListener implements ActionListener {

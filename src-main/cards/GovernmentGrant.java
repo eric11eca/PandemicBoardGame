@@ -1,7 +1,7 @@
 package cards;
 
-import Initialize.Board;
-import Initialize.City;
+import initialize.Board;
+import initialize.City;
 
 public class GovernmentGrant implements EventCard{
 	private Board board;

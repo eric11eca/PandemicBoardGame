@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import Parse.CityDataParser;
+import parse.CityDataParser;
 
 public class TestCityDataParser {
 

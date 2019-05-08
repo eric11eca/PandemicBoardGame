@@ -1,10 +1,10 @@
 package gameAction;
 
-import CardActions.EpidemicCardAction;
-import CardActions.InfectionCardAction;
-import Initialize.Board;
-import Initialize.City;
+import cardActions.EpidemicCardAction;
+import cardActions.InfectionCardAction;
 import cards.PlayerCard;
+import initialize.Board;
+import initialize.City;
 
 public class GameAction {
 	Board board;

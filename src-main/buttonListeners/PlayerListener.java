@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import Initialize.*;
+import initialize.*;
 
 public class PlayerListener implements ActionListener{
 	int playerNumber;

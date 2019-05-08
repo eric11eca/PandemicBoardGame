@@ -20,11 +20,11 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
-import Initialize.Board;
-import Initialize.GameSetup;
 import buttonListeners.DiscardCard;
 import buttonListeners.EventCardListener;
 import cards.PlayerCard;
+import initialize.Board;
+import initialize.GameSetup;
 
 public class GUI {
 	JFrame frame;

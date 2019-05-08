@@ -14,9 +14,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import Initialize.Board;
-import Initialize.City;
-import Player.Player;
+import initialize.Board;
+import initialize.City;
+import player.Player;
 
 public class DrawingBoard {
 	private Map<String, Color> nameToColor;

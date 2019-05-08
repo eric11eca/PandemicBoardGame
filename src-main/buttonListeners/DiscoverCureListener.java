@@ -14,11 +14,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Initialize.Board;
-import Initialize.GameSetup;
-import Player.PlayerData;
 import cards.PlayerCard;
+import initialize.Board;
+import initialize.GameSetup;
 import panel.GUI;
+import player.PlayerData;
 
 public class DiscoverCureListener implements ActionListener {
 	private Board board;
