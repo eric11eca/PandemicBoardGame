@@ -131,6 +131,14 @@ public class GUI {
 			specialSkillButton.addActionListener(new ContingencyPlannerListener());
 			panel.add(specialSkillButton);
 		}
+		int i=0;
+		for(String disease:board.remainDiseaseCube.keySet()){
+			JLabel label = new JLabel(disease + ": "+ board.remainDiseaseCube.get(disease));
+			label.setLocation(475, i*25);
+			label.setSize(150,20);
+			panel.add(label);
+			i++;
+		}
 		panels.add(panel);
 		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
 
