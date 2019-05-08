@@ -35,11 +35,11 @@ public class EventCardListener implements ActionListener {
 				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
 				if (card.equals("Airlift")) {
 					performAirlift(i);
-				} else if (card.equals("One Quiet Night")) {
+				} else if (card.equals("OneQuietNight")) {
 					performOneQuietNight(i);
-				} else if (card.equals("Resilient Population")) {
+				} else if (card.equals("ResilientPopulation")) {
 					performResilientPopulation(i);
-				} else if (card.equals("Government Grant")) {
+				} else if (card.equals("GovernmentGrant")) {
 					performGovernmentGrant(i);
 				} else {
 					performForecast(i);
@@ -69,13 +69,8 @@ public class EventCardListener implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(playerIndex);
-				System.out.println(eventCards.getSelectedItem().toString());
-				System.out.println(board.currentPlayers.get(playerIndex).playerData.hand.keySet());
 				board.cityWithGrant = listOfCities.getSelectedItem().toString();
-				System.out.println(board.cityWithGrant);
-				board.currentPlayers.get(playerIndex).useEventCard("Government Grant");
-				System.out.println(board.cityWithGrant);
+				board.currentPlayers.get(playerIndex).useEventCard("GovernmentGrant");
 				gui.removePanel(panel);
 				gui.updateImage();
 				for (String cityName : board.cities.keySet()) {
@@ -133,7 +128,7 @@ public class EventCardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				board.nameofCityAirlift = listOfCities.getSelectedItem().toString();
-				board.idxofPlayerAirlift = Integer.parseInt(listOfPlayers.getSelectedItem().toString());
+				board.idxofPlayerAirlift = Integer.parseInt(listOfPlayers.getSelectedItem().toString())-1;
 				board.currentPlayers.get(playerIndex).useEventCard("Airlift");
 				gui.removePanel(panel);
 				gui.updateImage();
