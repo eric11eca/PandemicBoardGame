@@ -44,10 +44,10 @@ public class GameSetup {
 			board.initialhandcard = 2;
 		}
 
-		initBoard.eventCardNames.add("One Quiet Night");
-		initBoard.eventCardNames.add("Resilient Population");
+		initBoard.eventCardNames.add("OneQuietNight");
+		initBoard.eventCardNames.add("ResilientPopulation");
 		initBoard.eventCardNames.add("Forecast");
-		initBoard.eventCardNames.add("Government Grant");
+		initBoard.eventCardNames.add("GovernmentGrant");
 		initBoard.eventCardNames.add("Airlift");
 
 		initBoard.initializeWithCityData();
@@ -57,7 +57,6 @@ public class GameSetup {
 		initBoard.initializeDiseaseCube();
 		initBoard.initializeInfectionRateTrack();
 		initBoard.initializePlayerRoles();
-		initBoard.initializeEventCard();
 		initBoard.initializeEventCardAction();
 		initBoard.initializePlayerTable();
 		

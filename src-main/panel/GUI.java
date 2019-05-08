@@ -20,10 +20,13 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import buttonListeners.ContingencyPlannerListener;
 import buttonListeners.DiscardCard;
+import buttonListeners.DispatcherListener;
 import buttonListeners.EventCardListener;
 import cards.PlayerCard;
 import initialize.Board;
+import initialize.Board.Roles;
 import initialize.GameSetup;
 
 public class GUI {
@@ -33,7 +36,6 @@ public class GUI {
 	public Board board;
 	public JPanel mainPanel;
 	DrawingBoard draw;
-	public int test = 0;
 	JLabel label = new JLabel();
 	public ArrayList<JLabel> hands = new ArrayList<>();
 	GameSetup gameSetup;
@@ -77,11 +79,11 @@ public class GUI {
 
 	public void loadInitialGame() {
 		loadBoardImage();
-		updateAndDrawHand();
+		updateAndDrawBoardInfo();
 
 	}
 
-	private void updateAndDrawHand() {
+	private void updateAndDrawBoardInfo() {
 		JPanel panel = new JPanel();
 		int x = 0;
 		for (x = 0; x < board.playernumber; x++) {
@@ -105,6 +107,11 @@ public class GUI {
 		events.setLocation(25, x*25);
 		events.setSize(250,20);
 		panel.add(events);
+		int currentPlayerIndex = board.currentPlayerIndex+1;
+		JLabel currentPlayer = new JLabel("Player "+ currentPlayerIndex + " turn:");
+		currentPlayer.setLocation(25,(x+1)*25);
+		currentPlayer.setSize(250,20);
+		panel.add(currentPlayer);
 		JComboBox<String> eventCards = makeEventCardOptions();
 		eventCards.setLocation(300, (x) * 25);
 		eventCards.setSize(150, 20);
@@ -114,6 +121,24 @@ public class GUI {
 		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
+		JButton specialSkillButton = new JButton("Use Special Skill");
+		specialSkillButton.setLocation(475, x*25);
+		specialSkillButton.setSize(150, 20);
+		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
+			specialSkillButton.addActionListener(new DispatcherListener());
+			panel.add(specialSkillButton);
+		}else if(board.currentPlayer.playerData.role==Roles.CONTINGENCYPLANNER){
+			specialSkillButton.addActionListener(new ContingencyPlannerListener());
+			panel.add(specialSkillButton);
+		}
+		int i=0;
+		for(String disease:board.remainDiseaseCube.keySet()){
+			JLabel label = new JLabel(disease + ": "+ board.remainDiseaseCube.get(disease));
+			label.setLocation(475, i*25);
+			label.setSize(150,20);
+			panel.add(label);
+			i++;
+		}
 		panels.add(panel);
 		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
 
@@ -152,8 +177,7 @@ public class GUI {
 		for (JPanel panel : panels) {
 			removePanel(panel);
 		}
-		updateAndDrawHand();
-		test++;
+		updateAndDrawBoardInfo();
 	}
 
 	public void setButtonPanel(JPanel buttonPanel) {

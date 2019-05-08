@@ -15,6 +15,7 @@ public class GovernmentGrant implements EventCard{
 		String cityName = board.cityWithGrant;
 		City city = board.cities.get(cityName);
 		city.researchStation = true;
-		board.cities.put(cityName, city);
+		board.currentResearchStation.put(city.cityName, city);
+		//board.cities.put(cityName, city);
 	}
 }
