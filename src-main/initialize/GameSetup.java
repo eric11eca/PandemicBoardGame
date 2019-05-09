@@ -59,7 +59,6 @@ public class GameSetup {
 		initBoard.initializePlayerRoles();
 		initBoard.initializeEventCardAction();
 		initBoard.initializePlayerTable();
-		
 		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
