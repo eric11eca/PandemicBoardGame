@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
@@ -19,6 +22,7 @@ public class EventCardListener implements ActionListener {
 	JComboBox<String> eventCards;
 	GUI gui;
 	JPanel panel;
+	JComboBox<String> cardList;
 
 	public EventCardListener(Board board, JComboBox<String> eventCards, GUI gui) {
 		this.board = board;
@@ -52,7 +56,41 @@ public class EventCardListener implements ActionListener {
 	}
 
 	private void performForecast(int playerIndex) {
-		// TODO Auto-generated method stub
+		String[] cards = new String[6];
+		for(int i=0;i<6;i++){
+			cards[i] = board.validInfectionCards.get(i);
+			board.validInfectionCards.remove(i);
+		}
+		ArrayList<String> orderedCards = new ArrayList<String>();
+		cardList = new JComboBox<String>(cards);
+		cardList.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				orderedCards.add(0,cardList.getSelectedItem().toString());
+				cardList.removeItem(cardList.getSelectedItem());
+				if(cardList.getItemCount()==0){
+//					board.rearrangeInstruction = orderedCards;
+					board.currentPlayers.get(playerIndex).useEventCard("GovernmentGrant");
+				}
+			}
+		});
+		
+		JButton button = new JButton("Clear");
+		button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				orderedCards.clear();
+				cardList.removeAll();
+				cardList.setModel((ComboBoxModel<String>) new DefaultComboBoxModel<String>(cards));
+			}
+			
+		});
+		
+		panel = new JPanel();
+		panel.add(cardList);
+		panel.add(button);
+		gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 
@@ -93,7 +131,7 @@ public class EventCardListener implements ActionListener {
 				gui.removePanel(panel);
 				gui.updateImage();
 			}
-			
+
 		});
 		panel = new JPanel();
 		panel.add(listOfInfections);
@@ -123,7 +161,7 @@ public class EventCardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				board.nameofCityAirlift = listOfCities.getSelectedItem().toString();
-				board.idxofPlayerAirlift = Integer.parseInt(listOfPlayers.getSelectedItem().toString())-1;
+				board.idxofPlayerAirlift = Integer.parseInt(listOfPlayers.getSelectedItem().toString()) - 1;
 				board.currentPlayers.get(playerIndex).useEventCard("Airlift");
 				gui.removePanel(panel);
 				gui.updateImage();
