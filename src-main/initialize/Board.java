@@ -67,8 +67,7 @@ public class Board {
 	public String cityWithGrant;
 	public String nameofCityAirlift;
 	public String cardRemovedByResilient;
-	public Map<String, String> infectionCardForecast = new HashMap<>();
-	public List<Pair<String, Integer>> rearrangeInstruction = new ArrayList<>();
+	public List<String> rearrangeInstruction = new ArrayList<>();
 
 	public Set<String> curedDiseases = new HashSet<>();
 	public Map<String, City> cities = new HashMap<>();

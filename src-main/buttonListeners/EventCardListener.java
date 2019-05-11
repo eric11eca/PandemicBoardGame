@@ -69,8 +69,10 @@ public class EventCardListener implements ActionListener {
 				orderedCards.add(0,cardList.getSelectedItem().toString());
 				cardList.removeItem(cardList.getSelectedItem());
 				if(cardList.getItemCount()==0){
-//					board.rearrangeInstruction = orderedCards;
-					board.currentPlayers.get(playerIndex).useEventCard("GovernmentGrant");
+					board.rearrangeInstruction = orderedCards;
+					board.currentPlayers.get(playerIndex).useEventCard("Forecast");
+					gui.removePanel(panel);
+					gui.updateImage();
 				}
 			}
 		});

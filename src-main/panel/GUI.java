@@ -125,7 +125,7 @@ public class GUI {
 		specialSkillButton.setLocation(475, x*25);
 		specialSkillButton.setSize(150, 20);
 		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
-			specialSkillButton.addActionListener(new DispatcherListener(board));
+			specialSkillButton.addActionListener(new DispatcherListener(board,this));
 			panel.add(specialSkillButton);
 		}else if(board.currentPlayer.playerData.role==Roles.CONTINGENCYPLANNER){
 			specialSkillButton.addActionListener(new ContingencyPlannerListener(board, this));

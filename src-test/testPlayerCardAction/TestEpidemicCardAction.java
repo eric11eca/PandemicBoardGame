@@ -139,25 +139,17 @@ public class TestEpidemicCardAction {
 		assertTrue(board.discardInfectionCards.isEmpty());
 	}
 
-	@Test 
+	@Test(expected = RuntimeException.class) 
 	public void testEndGameDuringInfection() {
 		board.validInfectionCards.add("cityB");
 		board.remainDiseaseCube.put("RED", 0);
 		epidemicCardAction.epidemicInfect();
-		City city = board.cities.get("cityB");
-		assertTrue(board.gameEnd);
-		assertTrue(board.playerLose);
-		assertTrue(0 == city.diseaseCubes.get("RED"));
-		assertFalse(city.isInOutbreak);
 	}
 	
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testEndGameWhenPerformeEpidemic() {
 		board.remainDiseaseCube.put("RED", 0);
 		board.validInfectionCards.add("cityB");
 		epidemicCardAction.performEpidemic();
-		assertTrue(board.gameEnd);
-		assertTrue(board.playerLose);
-		assertEquals(1, board.validInfectionCards.size());
 	}
 }

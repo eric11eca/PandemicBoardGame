@@ -10,28 +10,17 @@ public class ForecastEvent implements EventCard{
 	
 	public ForecastEvent(Board gameBoard) {
 		board = gameBoard;
-	}
-	
-	public void reviewCard() {
-		for(int i = 0; i < 6; i++) {
-			String name = board.validInfectionCards.get(i);
-			String color = board.cities.get(name).color;
-			board.infectionCardForecast.put(name, color);
-		}
 	}	
 	
 	public void arrangeCard() {
-		List<Pair<String, Integer>> instruction = board.rearrangeInstruction;
-		for(int i = 0; i < instruction.size(); i++) {
-			String infection = instruction.get(i).getKey();
-			int newAddress = instruction.get(i).getValue();
-			board.validInfectionCards.add(newAddress, infection);
+		List<String> instruction = board.rearrangeInstruction;
+		for(int i = 0; i < 6; i++) {
+			board.validInfectionCards.add(instruction.get(i));
 		}
 	}
 
 	@Override
 	public void executeEvent() {
-		reviewCard();
 		arrangeCard();
 	}
 }

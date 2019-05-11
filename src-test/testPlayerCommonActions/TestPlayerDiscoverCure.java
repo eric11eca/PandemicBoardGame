@@ -93,7 +93,7 @@ public class TestPlayerDiscoverCure {
 		assertEquals(5, playerData.hand.size());
 	}
 	
-	@Test
+	@Test(expected= RuntimeException.class)
 	public void testWinGameAfterDiscoverAllCures() {
 		playerData.location = new City();
 		playerData.location.researchStation = true;
@@ -102,7 +102,5 @@ public class TestPlayerDiscoverCure {
 		board.curedDiseases.add("YELLOW");
 		player.discoverCure(cards);
 		assertEquals(4, board.curedDiseases.size());
-		assertTrue(board.gameEnd);
-		assertTrue(board.playerWin);
 	}
 }
