@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.Airlift;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 import player.Player;
 import player.PlayerData;
 

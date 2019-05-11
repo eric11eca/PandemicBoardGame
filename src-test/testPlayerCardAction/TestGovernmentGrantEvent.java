@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.GovernmentGrant;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class TestGovernmentGrantEvent {
 	Board board;

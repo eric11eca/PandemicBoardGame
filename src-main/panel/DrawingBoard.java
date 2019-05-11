@@ -14,8 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 import player.Player;
 
 public class DrawingBoard {

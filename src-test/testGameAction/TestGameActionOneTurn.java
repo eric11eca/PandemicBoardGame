@@ -13,9 +13,9 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
+import data.Board;
+import data.City;
 import gameAction.GameAction;
-import initialize.Board;
-import initialize.City;
 import player.Player;
 import player.PlayerData;
 

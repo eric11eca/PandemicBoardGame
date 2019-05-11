@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
+import data.Board;
+import data.City;
 import gameAction.GameAction;
 import player.Player;
 

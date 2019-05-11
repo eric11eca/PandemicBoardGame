@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cardActions.InfectionCardAction;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class TestInfectionCardAction {
 	Board board;

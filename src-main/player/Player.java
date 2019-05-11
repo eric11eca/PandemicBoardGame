@@ -5,8 +5,8 @@ import java.util.Random;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 import playerAction.SpecialSkill;
 
 public class Player {

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import cards.PlayerCard;
+import data.Board;
 import player.Player;
 
 public class InitializePlayerData {

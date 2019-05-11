@@ -3,8 +3,8 @@ package cardActions;
 import java.util.Collections;
 import java.util.List;
 
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class EpidemicCardAction {
 	Board board;

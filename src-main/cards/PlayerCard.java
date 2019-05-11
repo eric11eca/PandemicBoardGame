@@ -1,5 +1,5 @@
 package cards;
-import initialize.Board;
+import data.Board;
 
 public class PlayerCard {	
 	public Board.CardType cardType;

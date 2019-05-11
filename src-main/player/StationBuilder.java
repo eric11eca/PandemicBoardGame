@@ -1,7 +1,7 @@
 package player;
 
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class StationBuilder {
 	PlayerData playerData;

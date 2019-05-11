@@ -2,7 +2,7 @@ package cards;
 
 import java.util.List;
 
-import initialize.Board;
+import data.Board;
 import javafx.util.Pair;
 
 public class ForecastEvent implements EventCard{

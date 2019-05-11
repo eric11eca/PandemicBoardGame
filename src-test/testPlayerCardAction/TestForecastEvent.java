@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.ForecastEvent;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 import javafx.util.Pair;
 import player.PlayerData;
 

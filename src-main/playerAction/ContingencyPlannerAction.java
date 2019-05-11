@@ -1,6 +1,6 @@
 package playerAction;
 
-import initialize.Board;
+import data.Board;
 import player.DiscoverCureNormal;
 import player.PlayerData;
 import player.StationBuilderNormal;

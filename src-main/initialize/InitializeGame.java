@@ -17,6 +17,7 @@ import buttonListeners.PlayerListener;
 import buttonListeners.ShareKnowledgeListener;
 import buttonListeners.ShuttleFlightListener;
 import buttonListeners.TreatDiseaseListener;
+import data.Board;
 import panel.GUI;
 
 public class InitializeGame {

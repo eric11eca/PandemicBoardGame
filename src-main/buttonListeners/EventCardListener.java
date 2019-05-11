@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 import panel.GUI;
 
 public class EventCardListener implements ActionListener {

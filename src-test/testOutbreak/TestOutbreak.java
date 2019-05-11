@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cardActions.Outbreak;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class TestOutbreak {
 	Board board;

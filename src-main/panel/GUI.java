@@ -25,8 +25,8 @@ import buttonListeners.DiscardCard;
 import buttonListeners.DispatcherListener;
 import buttonListeners.EventCardListener;
 import cards.PlayerCard;
-import initialize.Board;
-import initialize.Board.Roles;
+import data.Board;
+import data.Board.Roles;
 import initialize.GameSetup;
 
 public class GUI {

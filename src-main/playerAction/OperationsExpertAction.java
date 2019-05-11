@@ -3,7 +3,7 @@ package playerAction;
 import java.util.Map;
 
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 import player.DiscoverCureNormal;
 import player.PlayerData;
 import player.StationBuilderOperationsExpert;

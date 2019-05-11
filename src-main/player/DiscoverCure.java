@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 
 public class DiscoverCure {
 	public Set<String> curedDiseases;
