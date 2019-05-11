@@ -3,6 +3,7 @@ package testPlayers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,5 +62,20 @@ public class TestMedic {
 		assertEquals(12, remainBlueCube);
 		assertEquals(12, remainYellowCube);
 		assertEquals(4, medic.action);
+	}
+	
+	@Test
+	public void testSpecialSkillCalls() {
+		medicAction = EasyMock.partialMockBuilder(MedicAction.class)
+				.withConstructor(board, medic)
+				.addMockedMethod("removeAllCubes")
+				.createMock();
+		
+		medicAction.removeAllCubes();
+		EasyMock.replay(medicAction);
+		
+		medicAction.specialSkill();
+		
+		EasyMock.verify(medicAction);
 	}
 }

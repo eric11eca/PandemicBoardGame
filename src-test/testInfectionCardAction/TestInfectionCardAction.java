@@ -106,14 +106,13 @@ public class TestInfectionCardAction {
 	@Test public void testInfectWhenQuarantineSpecialistExistInNeighbor() {
 		City city = board.cities.get(cityName);
 		City city1 = new City();
-		city1.cityName = "Chicago";
+		city1.cityName = "NewYork";
 		city1.currentRoles.add(Board.Roles.QUARANTINESPECIALIST);
-		board.cities.put(cityName, city1);
-		city.neighbors.put(cityName, city1);
-		city.diseaseCubes.put(diseaseColor, 1);
+		board.cities.put("NewYork", city1);
+		city.neighbors.put("NewYork", city1);
+		city.diseaseCubes.put(diseaseColor, 2);
 		infect.infectCity(cityName, diseaseColor);
 		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
-		assertEquals(1, numOfRedCubes);
-		assertFalse(board.inQueitNight);
+		assertEquals(2, numOfRedCubes);
 	}
 }
