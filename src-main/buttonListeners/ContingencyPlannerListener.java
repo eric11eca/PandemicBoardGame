@@ -31,7 +31,7 @@ public class ContingencyPlannerListener implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				board.currentPlayer.playerData.specialEventCard = cardList.getSelectedItem().toString();
 				gui.removePanel(panel);
 				gui.updateImage();
 			}

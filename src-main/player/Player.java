@@ -31,10 +31,10 @@ public class Player {
 	}
 
 	public void useEventCard(String cardName) {
-		if (cardName.equals(playerData.roleCard)) {
+		if (cardName.equals(playerData.specialEventCard)) {
 			board.eventCardAction.executeEventCard(cardName);
 			board.eventCards.remove(cardName);
-			playerData.roleCard = null;
+			playerData.specialEventCard = null;
 		} else {
 			playerData.hand.remove(cardName);
 			board.eventCardAction.executeEventCard(cardName);

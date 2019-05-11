@@ -37,18 +37,18 @@ public class TestContingencyPlanner {
 		board.discardEventCards.add(airlift);
 		contingencyPlannerAction.cardName = airlift;
 		contingencyPlanner.specialSkill.specialSkill();
-		assertEquals(contingencyPlannerData.roleCard, airlift);
+		assertEquals(contingencyPlannerData.specialEventCard, airlift);
 	}
 	
 	@Test
-	public void testUseRoleCard() {
-		contingencyPlannerData.roleCard = airlift;
+	public void testUseSpecialEventCard() {
+		contingencyPlannerData.specialEventCard = airlift;
 		board.idxofPlayerAirlift = 0;
 		board.currentPlayers.add(this.contingencyPlanner);
 		
 		int old_size = board.discardEventCards.size();
 		contingencyPlanner.useEventCard(airlift);
-		assertTrue(contingencyPlannerData.roleCard == null);
+		assertTrue(contingencyPlannerData.specialEventCard == null);
 		int new_size = board.discardEventCards.size();
 		assertEquals(old_size, new_size);
 	}

@@ -110,13 +110,10 @@ public class TestGameActionOneTurn {
 		assertTrue(4 == board.infectionRateTracker.peek());
 	}
 	
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testLackOfPlayerCards() {
-		int oldHandSize = playerData.hand.size();
 		board.validPlayerCards.clear();
 		action.drawTwoPlayerCards();
-		int newHandSize = playerData.hand.size();
-		assertEquals(oldHandSize, newHandSize);
 	}
 	
 	@Test

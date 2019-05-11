@@ -22,7 +22,7 @@ public class ContingencyPlannerAction implements SpecialSkill{
 	public void pickFromDiscardEventCard() {
 		for (String name : board.discardEventCards) {
 			if (name.equals(cardName)) {
-				contingencyPlanner.roleCard = name;
+				contingencyPlanner.specialEventCard = name;
 				board.discardEventCards.remove(name);
 				break;
 			}
