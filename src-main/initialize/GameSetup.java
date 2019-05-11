@@ -63,7 +63,6 @@ public class GameSetup {
 		initBoard.initializeDiseaseCube();
 		initBoard.initializeInfectionRateTrack();
 		initBoard.initializePlayerRoles();
-		initBoard.initializeEventCard();
 		initBoard.initializeEventCardAction();
 		initBoard.initializePlayerTable();
 		initPlayerData.createPlayers();

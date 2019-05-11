@@ -11,7 +11,6 @@ import java.util.Stack;
 import cardActions.EventCardAction;
 import cards.EventCard;
 import cards.PlayerCard;
-import javafx.util.Pair;
 import parse.ListOfCityWithColorGenerator;
 import player.Player;
 
