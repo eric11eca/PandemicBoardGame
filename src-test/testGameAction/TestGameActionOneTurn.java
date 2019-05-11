@@ -1,6 +1,7 @@
 package testGameAction;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -41,15 +42,42 @@ public class TestGameActionOneTurn {
 		board.currentPlayers.add(player);
 		board.currentPlayer = player;
 	}
+	
+	@Test
+	public void testDrawTwoPlayerCardsWithZeroCardInPile() {
+		board.validPlayerCards = new ArrayList<>();
+		action.drawTwoPlayerCards();
+		assertTrue(board.playerLose);
+		assertTrue(board.gameEnd);
+	}
+	
+	@Test
+	public void testDrawTwoPlayerCardsWithOneCardInPile() {
+		action.drawTwoPlayerCards();
+		assertTrue(board.playerLose);
+		assertTrue(board.gameEnd);
+	}
+	@Test
+	public void testDrawTwoPlayerCardsWithTwoCardInPile() {
+		String[] localCitynames = { "Chicago"};
+		initializePlayerCard(localCitynames, true);
+		assertEquals(0, playerData.hand.size());
+		action.drawTwoPlayerCards();
+		assertFalse(board.playerLose);
+		assertFalse(board.gameEnd);
+	}
 
 	@Test
-	public void testDrawTwoPlayerCards() {
-		initializePlayerCard(citynames, true);
+	public void testDrawTwoPlayerCardsWithThreeCardInPile() {
+		String[] localCitynames = { "Chicago", "NewYork"};
+		initializePlayerCard(localCitynames, true);
 		assertEquals(0, playerData.hand.size());
 		action.drawTwoPlayerCards();
 		assertEquals(2, playerData.hand.size());
 		assertTrue(playerData.hand.containsKey("Chicago"));
-		assertEquals(3, board.validPlayerCards.size());
+		assertEquals(1, board.validPlayerCards.size());
+		assertFalse(board.playerLose);
+		assertFalse(board.gameEnd);
 	}
 
 	private void initializePlayerCard(String[] nameList, boolean addToBoard) {
