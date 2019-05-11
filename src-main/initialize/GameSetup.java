@@ -31,6 +31,7 @@ public class GameSetup {
 		messagesToShow.put("OutOfBLUE", "Players Lose: No more blue disease cubes");
 		messagesToShow.put("OutbreakException", "Players Lose: 8 outbreaks have occured");
 		messagesToShow.put("PlayerWinException", "Players Win: All cures have been discovered");
+		messagesToShow.put("NoPlayerCardsException", "Players Lose: No more player cards remaining");
 	}
 	
 	public void startGame(){
@@ -94,15 +95,6 @@ public class GameSetup {
 				JOptionPane.showMessageDialog(null,messagesToShow.get(e.getMessage()));
 		}
 			
-		if (board.gameEnd) {
-			if (board.playerWin) {
-				initGame.gui.gameEnd("Congradulation, You Win!");
-			} else {
-				initGame.gui.gameEnd("Sorry, You Lose.");
-			}
-			return;
-		}
-			
 		if (board.currentPlayer.playerData.action == 0) {
 			try {
 				gameAction.drawTwoPlayerCards();
@@ -123,15 +115,6 @@ public class GameSetup {
 		board.currentPlayerIndex++;
 		if (board.currentPlayerIndex == board.playernumber){
 			board.currentPlayerIndex = 0;
-		}
-			
-		if (board.gameEnd) {
-			if (board.playerWin) {
-				initGame.gui.gameEnd("Congradulation, You Win!");
-			} else {
-				initGame.gui.gameEnd("Sorry, You Lose.");
-			}
-			return;
 		}
 		
 		gameAction.infection();

@@ -18,5 +18,5 @@ public class PlayerData {
 	public DiscoverCure discoverCure;
 	public StationBuilder buildStationModel;
 	public Treat treatAction;
-	public PlayerCard specialEventCard;
+	public String specialEventCard;
 }

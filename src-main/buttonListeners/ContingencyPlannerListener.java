@@ -7,18 +7,19 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import cards.PlayerCard;
 import initialize.Board;
 import panel.GUI;
 
 public class ContingencyPlannerListener implements ActionListener {
-	
+
 	private Board board;
 	JPanel panel;
 	GUI gui;
 
 	public ContingencyPlannerListener(Board board, GUI gui) {
-		this.board=board;
-		this.gui=gui;
+		this.board = board;
+		this.gui = gui;
 	}
 
 	@Override
@@ -30,7 +31,9 @@ public class ContingencyPlannerListener implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO implement the action
+				
+				gui.removePanel(panel);
+				gui.updateImage();
 			}
 			
 		});

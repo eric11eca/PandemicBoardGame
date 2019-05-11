@@ -115,8 +115,6 @@ public class TestGameActionOneTurn {
 		int oldHandSize = playerData.hand.size();
 		board.validPlayerCards.clear();
 		action.drawTwoPlayerCards();
-		assertTrue(board.gameEnd);
-		assertTrue(board.playerLose);
 		int newHandSize = playerData.hand.size();
 		assertEquals(oldHandSize, newHandSize);
 	}

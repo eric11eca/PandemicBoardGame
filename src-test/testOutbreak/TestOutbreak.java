@@ -82,8 +82,6 @@ public class TestOutbreak {
 		assertEquals(1, numOfCubesCity1);
 		assertEquals(1, numOfCubesCity2);
 		assertTrue(22 == board.remainDiseaseCube.get("RED"));
-		assertFalse(board.gameEnd);
-		assertFalse(board.playerLose);
 	}
 	
 	@Test
