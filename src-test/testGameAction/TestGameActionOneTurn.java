@@ -19,6 +19,7 @@ import initialize.City;
 import player.Player;
 import player.PlayerData;
 
+
 public class TestGameActionOneTurn {
 	Board board;
 	Player player;
@@ -38,13 +39,15 @@ public class TestGameActionOneTurn {
 		playerData = new PlayerData();
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
+		
 		board.currentPlayers.add(player);
-		board.currentPlayer = player;
 	}
 
 	@Test
 	public void testDrawTwoPlayerCards() {
 		initializePlayerCard(citynames, true);
+		board.currentPlayer = this.player;
+		board.currentPlayer.playerData = this.playerData;
 		assertEquals(0, playerData.hand.size());
 		action.drawTwoPlayerCards();
 		assertEquals(2, playerData.hand.size());
@@ -75,6 +78,8 @@ public class TestGameActionOneTurn {
 	public void testHandLimitWithSizeEqualToLimit() {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
+		board.currentPlayer = this.player;
+		board.currentPlayer.playerData = this.playerData;
 		playerData.hand.remove("city1");
 		action.drawTwoPlayerCards();
 		assertEquals(7, playerData.hand.size());
@@ -85,6 +90,8 @@ public class TestGameActionOneTurn {
 	public void testHandLimitWithSizeUnderLimit() {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
+		board.currentPlayer = this.player;
+		board.currentPlayer.playerData = this.playerData;
 		playerData.hand.remove("city1");
 		playerData.hand.remove("city2");
 		action.drawTwoPlayerCards();
@@ -94,6 +101,8 @@ public class TestGameActionOneTurn {
 
 	@Test
 	public void testDrawOneCityCardAndOneEpidemicCard() {
+		board.currentPlayer = this.player;
+		board.currentPlayer.playerData = this.playerData;
 		board.infectionRateTracker.push(4);
 		board.infectionRateTracker.push(2);
 		PlayerCard epidemicCard = new PlayerCard(Board.CardType.EPIDEMIC, "EPIDEMIC");
@@ -167,6 +176,8 @@ public class TestGameActionOneTurn {
 	public void testPlayEventCard() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.eventCardName = "Forecast";
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.useEventCard(board.eventCardName);
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
@@ -176,6 +187,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testDiscoverCure() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		List<PlayerCard> cardsToCureDisease = new ArrayList<>();
 		board.currentPlayer.discoverCure(cardsToCureDisease);
 		EasyMock.replay(board.currentPlayer);
@@ -186,6 +199,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testTreatDisease() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.treat(board.diseaseBeingTreated);
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.TREATDISEASE);
@@ -195,6 +210,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testDrive() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		City city = new City("Shanghai");
 		board.cities = EasyMock.createMock(HashMap.class);
 		EasyMock.expect(board.cities.get(board.driveDestinationName)).andReturn(city);
@@ -207,6 +224,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testCharterFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.charterFlight();
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.CHARTERFLIGHT);
@@ -216,6 +235,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testShuttleFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		City city = new City("Shanghai");
 		board.cities = EasyMock.createMock(HashMap.class);
 		EasyMock.expect(board.cities.get(board.shuttleDestinationName)).andReturn(city);
@@ -228,6 +249,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testBuildStation() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.buildStation();
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.BUILDRESEARCH);
@@ -237,6 +260,8 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testShareKnowledge() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.shareKnowledge();
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.SHAREKNOWLEDGE);

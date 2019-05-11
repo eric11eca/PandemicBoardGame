@@ -20,6 +20,8 @@ import player.Player;
 import player.PlayerData;
 import player.StationBuilderNormal;
 import player.StationBuilderOperationsExpert;
+import player.TreatMedic;
+import player.TreatNormal;
 import playerAction.ContingencyPlannerAction;
 import playerAction.MedicAction;
 import playerAction.OperationsExpertAction;
@@ -178,6 +180,15 @@ public class InitializeBoard {
 		contingencyPlannerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		quarantineSpecialistData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		
+		scientistData.treatAction = new TreatNormal(scientistData, board);
+		medicData.treatAction = new TreatMedic(medicData, board);
+		researcherData.treatAction = new TreatNormal(researcherData, board);
+		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
+		contingencyPlannerData.treatAction = new TreatNormal(contingencyPlannerData, board);
+		quarantineSpecialistData.treatAction = new TreatNormal(quarantineSpecialistData, board);
+		operationsExpertData.treatAction = new TreatNormal(operationsExpertData, board);
+		
+		
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
 		Player researcher = new Player(board, researcherData);
@@ -185,14 +196,6 @@ public class InitializeBoard {
 		Player contingencyPlanner = new Player(board, contingencyPlannerData);
 		Player operationsExpert = new Player(board, operationsExpertData);
 		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
-		
-		scientist.eventCardAction = new EventCardAction(board);
-		medic.eventCardAction = new EventCardAction(board);
-		researcher.eventCardAction = new EventCardAction(board);
-		dispatcher.eventCardAction = new EventCardAction(board);
-		contingencyPlanner.eventCardAction = new EventCardAction(board);
-		operationsExpert.eventCardAction = new EventCardAction(board);
-		quarantineSpecialist.eventCardAction = new EventCardAction(board);
 
 		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medic.specialSkill = new MedicAction(board, medicData);

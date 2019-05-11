@@ -4,10 +4,8 @@ import java.util.Map;
 
 import cards.PlayerCard;
 import initialize.Board;
-import player.DiscoverCureNormal;
 import player.PlayerData;
-import player.StationBuilderOperationsExpert;
-import player.TreatNormal;
+
 
 public class OperationsExpertAction implements SpecialSkill {
 	public String cityName;
@@ -17,10 +15,6 @@ public class OperationsExpertAction implements SpecialSkill {
 	public OperationsExpertAction(Board gameBoard, PlayerData currentPlayerData) {
 		board = gameBoard;
 		operationsExpert = currentPlayerData;
-		operationsExpert.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		operationsExpert.buildStationModel = new StationBuilderOperationsExpert(operationsExpert, board);
-		operationsExpert.treatAction = new TreatNormal(operationsExpert, board);
-
 	}
 
 	public void moveToAnotherCity() {
