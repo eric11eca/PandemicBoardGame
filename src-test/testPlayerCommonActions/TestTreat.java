@@ -10,6 +10,7 @@ import initialize.Board;
 import initialize.City;
 import player.Player;
 import player.PlayerData;
+import player.TreatNormal;
 import playerAction.DispatcherAction;
 import playerAction.MedicAction;
 
@@ -29,11 +30,11 @@ public class TestTreat {
 		medicData = new PlayerData();
 		medicAction = new MedicAction(board, medicData);
 		dispatcherData = new PlayerData();
-		dispatcherAction = new DispatcherAction(board, dispatcherData);
+		dispatcherAction = new DispatcherAction(board);
 		city = new City();
 		medicData.location = city;
 		dispatcherData.location = city;
-		
+		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
 		medic = new Player(board, medicData);
 		dispatcher = new Player(board,dispatcherData);
 	}

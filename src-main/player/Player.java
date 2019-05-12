@@ -85,8 +85,14 @@ public class Player {
 	}
 
 	public void moveTo(City destination) {
-		playerData.location = destination;
-		destination.currentRoles.add(this.playerData.role);
+		if(board.dispatcherCase == 1) {
+			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
+			pawnData.location = destination;
+			destination.currentRoles.add(pawnData.role);
+		} else {
+			playerData.location = destination;
+			destination.currentRoles.add(this.playerData.role);
+		}
 	}
 
 	public void discardCardAndMoveTo(City destination) {
@@ -105,8 +111,7 @@ public class Player {
 	public void shuttleFlight(City destination) {
 		if (playerData.location.researchStation) {
 			if (destination.researchStation) {
-				playerData.location = destination;
-				destination.currentRoles.add(this.playerData.role);
+				moveTo(destination);
 				consumeAction();
 			} else {
 				throw new RuntimeException("Invalid shuttle flight: Destination doesn't have the station.");
@@ -139,9 +144,6 @@ public class Player {
 			}
 
 			if (board.curedDiseases.size() == 4) {
-//				board.gameEnd = true;
-//				board.playerWin = true;
-//				return;
 				throw new RuntimeException("PlayerWinException");
 			}
 			discardCard();

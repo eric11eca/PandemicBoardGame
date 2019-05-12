@@ -81,4 +81,9 @@ public class Board {
 	public boolean playerLose = false;
 	public boolean playerWin = false;
 
+	public int pawnTobeMoved;
+	public String newLocationName;
+
+	public int dispatcherCase = -1;
+
 }
