@@ -55,7 +55,13 @@ public class Player {
 	}
 
 	public void drive(City destination) {
-		if (playerData.location.neighbors.containsKey(destination.cityName)) {
+		if (board.dispatcherCase == 1) {
+			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
+			if (pawnData.location.neighbors.containsKey(destination.cityName)) {
+				moveTo(destination);
+				consumeAction();
+			}
+		} else if (playerData.location.neighbors.containsKey(destination.cityName)) {
 			moveTo(destination);
 			consumeAction();
 		} else {

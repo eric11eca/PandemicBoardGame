@@ -58,6 +58,16 @@ public class TestDispatcher {
 		assertEquals("Delhi", scientistData.location.cityName);
 	}
 	
+	@Test
+	public void testDriveUsingOtherPlayer() {
+		board.dispatcherCase = 1;
+		City destination = board.cities.get("Milan");
+		scientistData.location.neighbors.put("Milan", destination);
+		dispatcher.drive(destination);
+		assertEquals("Milan", scientistData.location.cityName);
+	}
+	
+	
 
 
 }
