@@ -31,8 +31,8 @@ public class TestOperationsExpert {
 		location = playerData.location;
 		operationsExpertAction = new OperationsExpertAction(board, playerData);
 		eventCardAction = new EventCardAction(board);
+		playerData.specialSkill = operationsExpertAction;
 		player = new Player(board, playerData);
-		player.specialSkill = operationsExpertAction;
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class TestOperationsExpert {
 		playerData.hand.put(new_cityName, cityCard);
 		location.cityName = cityName;
 		operationsExpertAction.cityName = new_cityName;
-		player.specialSkill.specialSkill();
+		playerData.specialSkill.specialSkill();
 		assertEquals(new_cityName, playerData.location.cityName);
 	}
 

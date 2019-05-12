@@ -178,6 +178,10 @@ public class InitializeBoard {
 		contingencyPlannerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		quarantineSpecialistData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		
+		operationsExpertData.specialSkill = new OperationsExpertAction(board, operationsExpertData);
+		medicData.specialSkill = new MedicAction(board, medicData);
+		contingencyPlannerData.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
+		
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
 		Player researcher = new Player(board, researcherData);
@@ -193,10 +197,6 @@ public class InitializeBoard {
 		contingencyPlanner.eventCardAction = new EventCardAction(board);
 		operationsExpert.eventCardAction = new EventCardAction(board);
 		quarantineSpecialist.eventCardAction = new EventCardAction(board);
-
-		operationsExpert.specialSkill = new OperationsExpertAction(board, operationsExpertData);
-		medic.specialSkill = new MedicAction(board, medicData);
-		contingencyPlanner.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
 
 		board.playerTable.put(Board.Roles.SCIENTIST, scientist);
 		board.playerTable.put(Board.Roles.MEDIC, medic);

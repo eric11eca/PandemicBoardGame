@@ -25,18 +25,16 @@ public class TestContingencyPlanner {
 		contingencyPlannerData = new PlayerData();
 		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
 		board.eventCardAction = new EventCardAction(board);
-		contingencyPlanner = new Player(board, contingencyPlannerData);
 		contingencyPlannerAction = new ContingencyPlannerAction(board, contingencyPlannerData);
-		contingencyPlanner.specialSkill = contingencyPlannerAction;
-		
-		
+		contingencyPlannerData.specialSkill = contingencyPlannerAction;
+		contingencyPlanner = new Player(board, contingencyPlannerData);
 	}
 
 	@Test
 	public void testPickCardFromDiscardEventPile() {
 		board.discardEventCards.add(airlift);
 		contingencyPlannerAction.cardName = airlift;
-		contingencyPlanner.specialSkill.specialSkill();
+		contingencyPlannerData.specialSkill.specialSkill();
 		assertEquals(contingencyPlannerData.roleCard, airlift);
 	}
 	

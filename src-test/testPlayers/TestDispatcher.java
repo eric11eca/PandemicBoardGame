@@ -1,6 +1,7 @@
 package testPlayers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +39,7 @@ public class TestDispatcher {
 		dispatcherData = new PlayerData();
 		dispatcherData.role = Board.Roles.DISPATCHER;
 		dispatcherData.location = delhi;
+		dispatcherData.action = 4;
 		dispatcherData.hand.put("Milan", new PlayerCard(Board.CardType.CITYCARD, "Milan"));
 		dispatcherData.hand.put("Delhi", new PlayerCard(Board.CardType.CITYCARD, "delhi"));
 		dispatcherAction = new DispatcherAction(board);
@@ -48,6 +50,7 @@ public class TestDispatcher {
 		scientistData = new PlayerData();
 		scientistData.role = Board.Roles.SCIENTIST;
 		scientistData.location = paris;
+		scientistData.action = 4;
 		scientist = new Player(board, scientistData);
 		board.currentPlayers.add(scientist);
 		board.pawnTobeMoved = 1;
@@ -68,6 +71,8 @@ public class TestDispatcher {
 		scientistData.location.neighbors.put("Milan", destination);
 		dispatcher.drive(destination);
 		assertEquals("Milan", scientistData.location.cityName);
+		assertTrue(scientistData.action == 4);
+		assertTrue(dispatcherData.action == 3);
 	}
 	
 	@Test
@@ -76,6 +81,8 @@ public class TestDispatcher {
 		PlayerCard cityCard = dispatcherData.hand.get("Milan");
 		dispatcher.directFlight(cityCard);
 		assertEquals("Milan", scientistData.location.cityName);
+		assertTrue(scientistData.action == 4);
+		assertTrue(dispatcherData.action == 3);
 	}
 	
 	@Test
@@ -84,6 +91,8 @@ public class TestDispatcher {
 		board.cityCardNameCharter = "Delhi";
 		dispatcher.charterFlight();
 		assertEquals("Delhi", scientistData.location.cityName);
+		assertTrue(scientistData.action == 4);
+		assertTrue(dispatcherData.action == 3);
 	}
 	
 	@Test 
@@ -94,9 +103,7 @@ public class TestDispatcher {
 		City destination = board.cities.get("Milan");
 		dispatcher.shuttleFlight(destination);
 		assertEquals("Milan", scientistData.location.cityName);
+		assertTrue(scientistData.action == 4);
+		assertTrue(dispatcherData.action == 3);
 	}
-	
-	
-
-
 }
