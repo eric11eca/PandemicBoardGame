@@ -28,14 +28,15 @@ public class TestTreat {
 	@Before
 	public void setup() {
 		board = new Board();
-		city = new City();
 		medicData = new PlayerData();
-		medicData.location = city;
+		medicAction = new MedicAction(board, medicData);
 		medicData.treatAction = new TreatMedic(medicData, board);
 		dispatcherData = new PlayerData();
+		dispatcherAction = new DispatcherAction(board);
+		city = new City();
+		medicData.location = city;
 		dispatcherData.location = city;
 		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
-		
 		medic = new Player(board, medicData);
 		dispatcher = new Player(board,dispatcherData);
 	}

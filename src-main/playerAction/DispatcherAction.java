@@ -1,18 +1,26 @@
 package playerAction;
 
 import initialize.Board;
-import player.DiscoverCureNormal;
-import player.PlayerData;
-import player.StationBuilderNormal;
-import player.TreatNormal;
+import initialize.City;
 
-public class DispatcherAction {
-	private Board board;
-	private PlayerData dispatcher;
-	
-	public DispatcherAction(Board gameBoard, PlayerData currentPlayerData) {
-		board = gameBoard;
-		dispatcher = currentPlayerData;
-	}
+public class DispatcherAction implements SpecialSkill{
+              private Board board;
+              
+              public DispatcherAction(Board gameBoard) {
+                           board = gameBoard;
+              }
+              
+              public void moveOtherPlayer() {
+                           City newLocation = board.cities.get(board.newLocationName);
+                           board.currentPlayers.get(board.pawnTobeMoved).playerData.location = newLocation;
+              }
+
+              @Override
+              public void specialSkill() {
+                           if(board.dispatcherCase == 0) {
+                                         moveOtherPlayer();
+                           } 
+                           board.dispatcherCase = -1;
+              }
 
 }

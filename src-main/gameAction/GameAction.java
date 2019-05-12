@@ -74,7 +74,7 @@ public class GameAction {
 			board.currentPlayer.shareKnowledge();
 		}
 		if(isMedic && doesChangeLocation) {
-			board.currentPlayer.specialSkill.specialSkill();
+			board.currentPlayer.playerData.specialSkill.specialSkill();
 		}
 	}
 
