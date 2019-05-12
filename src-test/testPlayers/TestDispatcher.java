@@ -39,6 +39,7 @@ public class TestDispatcher {
 		dispatcherData.role = Board.Roles.DISPATCHER;
 		dispatcherData.location = delhi;
 		dispatcherData.hand.put("Milan", new PlayerCard(Board.CardType.CITYCARD, "Milan"));
+		dispatcherData.hand.put("Delhi", new PlayerCard(Board.CardType.CITYCARD, "delhi"));
 		dispatcherAction = new DispatcherAction(board);
 		dispatcherData.specialSkill = dispatcherAction;
 		dispatcher = new Player(board, dispatcherData);
@@ -76,6 +77,16 @@ public class TestDispatcher {
 		dispatcher.directFlight(cityCard);
 		assertEquals("Milan", scientistData.location.cityName);
 	}
+	
+	@Test
+	public void testCharterFlightUsingOtherPlayer(){
+		board.dispatcherCase = 1;
+		board.cityCardNameCharter = "Delhi";
+		dispatcher.charterFlight();
+		assertEquals("Delhi", scientistData.location.cityName);
+	}
+	
+	
 	
 	
 
