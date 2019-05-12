@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import cards.PlayerCard;
 import initialize.Board;
 import initialize.City;
 import player.Player;
@@ -37,6 +38,7 @@ public class TestDispatcher {
 		dispatcherData = new PlayerData();
 		dispatcherData.role = Board.Roles.DISPATCHER;
 		dispatcherData.location = delhi;
+		dispatcherData.hand.put("Milan", new PlayerCard(Board.CardType.CITYCARD, "Milan"));
 		dispatcherAction = new DispatcherAction(board);
 		dispatcherData.specialSkill = dispatcherAction;
 		dispatcher = new Player(board, dispatcherData);
@@ -64,6 +66,14 @@ public class TestDispatcher {
 		City destination = board.cities.get("Milan");
 		scientistData.location.neighbors.put("Milan", destination);
 		dispatcher.drive(destination);
+		assertEquals("Milan", scientistData.location.cityName);
+	}
+	
+	@Test
+	public void testDirectFlightUsingOtherPlayer() {
+		board.dispatcherCase = 1;
+		PlayerCard cityCard = dispatcherData.hand.get("Milan");
+		dispatcher.directFlight(cityCard);
 		assertEquals("Milan", scientistData.location.cityName);
 	}
 	
