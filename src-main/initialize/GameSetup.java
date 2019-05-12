@@ -27,6 +27,7 @@ public class GameSetup {
 		messagesToShow.put("NoInfectionCards", "Players Lose: There are no more infection cards");
 		messagesToShow.put("NoStationException", "You are not at a research Station!!");
 		messagesToShow.put("CantUseEventCardException", "Event card cannot be shared");
+		messagesToShow.put("CanNotShareKnowledgeException", "Giver doesn't have current City's city card!");
 	}
 	
 	public void startGame(){
