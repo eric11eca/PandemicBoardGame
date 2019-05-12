@@ -86,7 +86,15 @@ public class TestDispatcher {
 		assertEquals("Delhi", scientistData.location.cityName);
 	}
 	
-	
+	@Test 
+	public void testShuttleFlightUsingOtherPlayer() {
+		board.dispatcherCase = 1;
+		board.cities.get("Delhi").researchStation = true;
+		board.cities.get("Milan").researchStation = true;
+		City destination = board.cities.get("Milan");
+		dispatcher.shuttleFlight(destination);
+		assertEquals("Milan", scientistData.location.cityName);
+	}
 	
 	
 
