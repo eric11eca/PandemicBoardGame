@@ -31,57 +31,61 @@ public class ShareKnowledgeListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String currentCity = board.currentPlayer.playerData.location.cityName;
-		ArrayList<Player> players = new ArrayList<>();
-		int count = 0;
-		for (int i = 0; i < board.currentPlayers.size(); i++) {
-			if (board.currentPlayers.get(i).playerData.location.cityName.equals(currentCity)) {
-				if (!board.currentPlayer.equals(board.currentPlayers.get(i))) {
-					players.add(board.currentPlayers.get(i));
-					count++;
+		if (board.dispatcherCase == -1) {
+			String currentCity = board.currentPlayer.playerData.location.cityName;
+			ArrayList<Player> players = new ArrayList<>();
+			int count = 0;
+			for (int i = 0; i < board.currentPlayers.size(); i++) {
+				if (board.currentPlayers.get(i).playerData.location.cityName.equals(currentCity)) {
+					if (!board.currentPlayer.equals(board.currentPlayers.get(i))) {
+						players.add(board.currentPlayers.get(i));
+						count++;
+					}
 				}
 			}
-		}
-		if (count <= 0) {
-			JOptionPane.showMessageDialog(null, "There are no other Players on this city");
-			return;
-		} else {
-			int choice = JOptionPane.showConfirmDialog(null, "Do you want to give (yes) or take (no)",
-					"Do you want to give (yes) or take (no)", JOptionPane.YES_NO_OPTION);
-			if (choice == 0) {
-				action = true;
+			if (count <= 0) {
+				JOptionPane.showMessageDialog(null, "There are no other Players on this city");
+				return;
 			} else {
-				action = false;
-			}
-		}
-		panel = new JPanel();
-
-		for (int i = 0; i < players.size(); i++) {
-			for (int j = 0; j < board.currentPlayers.size(); j++) {
-				if (board.currentPlayers.get(j).equals(players.get(i))) {
-					JButton player = new JButton(Integer.toString(j + 1));
-					player.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent evt) {
-							setPlayernumber(Integer.parseInt(player.getText()));
-			                gui.removePanel(panel);
-			                panel = new JPanel();
-			                chooseCard();
-			            }
-					});
-					panel.add(player);
+				int choice = JOptionPane.showConfirmDialog(null, "Do you want to give (yes) or take (no)",
+						"Do you want to give (yes) or take (no)", JOptionPane.YES_NO_OPTION);
+				if (choice == 0) {
+					action = true;
+				} else {
+					action = false;
 				}
-
 			}
+			panel = new JPanel();
+
+			for (int i = 0; i < players.size(); i++) {
+				for (int j = 0; j < board.currentPlayers.size(); j++) {
+					if (board.currentPlayers.get(j).equals(players.get(i))) {
+						JButton player = new JButton(Integer.toString(j + 1));
+						player.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent evt) {
+								setPlayernumber(Integer.parseInt(player.getText()));
+								gui.removePanel(panel);
+								panel = new JPanel();
+								chooseCard();
+							}
+						});
+						panel.add(player);
+					}
+
+				}
+			}
+			gui.addPanel(panel, BorderLayout.CENTER);
+		} else {
+			JOptionPane.showMessageDialog(null, "Cannot do this action as a dispatcher");
 		}
-		gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 
 	protected void chooseCard() {
-		if(action){
+		if (action) {
 			String[] options = new String[board.currentPlayer.playerData.hand.size()];
 			int count = 0;
-			for(String i:board.currentPlayer.playerData.hand.keySet()){
+			for (String i : board.currentPlayer.playerData.hand.keySet()) {
 				options[count] = i;
 				count++;
 			}
@@ -89,7 +93,7 @@ public class ShareKnowledgeListener implements ActionListener {
 			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
 			panel.add(list);
 			gui.addPanel(panel, BorderLayout.CENTER);
-			list.addActionListener(new ActionListener(){
+			list.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -102,13 +106,12 @@ public class ShareKnowledgeListener implements ActionListener {
 					gui.removePanel(panel);
 					gui.updateImage();
 				}
-				
+
 			});
-		}
-		else{
+		} else {
 			String[] options = new String[board.currentPlayers.get(playerNumber).playerData.hand.size()];
 			int count = 0;
-			for(String i:board.currentPlayers.get(playerNumber).playerData.hand.keySet()){
+			for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
 				options[count] = i;
 				count++;
 			}
@@ -116,7 +119,7 @@ public class ShareKnowledgeListener implements ActionListener {
 			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
 			panel.add(list);
 			gui.addPanel(panel, BorderLayout.CENTER);
-			list.addActionListener(new ActionListener(){
+			list.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
@@ -129,15 +132,15 @@ public class ShareKnowledgeListener implements ActionListener {
 					gui.removePanel(panel);
 					gui.updateImage();
 				}
-				
+
 			});
-			
+
 		}
-		
+
 	}
 
 	protected void setPlayernumber(int parseInt) {
-		playerNumber = parseInt-1;
+		playerNumber = parseInt - 1;
 	}
 
 }
