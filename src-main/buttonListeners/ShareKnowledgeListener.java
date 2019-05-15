@@ -83,11 +83,28 @@ public class ShareKnowledgeListener implements ActionListener {
 
 	protected void chooseCard() {
 		if (action) {
-			String[] options = new String[board.currentPlayer.playerData.hand.size()];
-			int count = 0;
-			for (String i : board.currentPlayer.playerData.hand.keySet()) {
-				options[count] = i;
-				count++;
+			String[] options;
+			if (board.currentPlayer.playerData.role == Board.Roles.RESEARCHER) {
+				System.out.println("Researcher");
+				options = new String[board.currentPlayer.playerData.hand.size()];
+				int count = 0;
+				for (String i : board.currentPlayer.playerData.hand.keySet()) {
+					options[count] = i;
+					count++;
+				}
+			} else {
+				System.out.println("Not Researcher");
+				options = new String[1];
+				for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
+					if (i.equals(board.currentPlayer.playerData.location.cityName)) {
+						options[0] = i;
+						break;
+					}
+					if(options[0]==null){
+						JOptionPane.showMessageDialog(null,"Player does not have the city card");
+						return;
+					}
+				}
 			}
 			String[] concatColorOptions = board.colorConcator.concatColor(options, board.cities);
 			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
@@ -109,11 +126,28 @@ public class ShareKnowledgeListener implements ActionListener {
 
 			});
 		} else {
-			String[] options = new String[board.currentPlayers.get(playerNumber).playerData.hand.size()];
-			int count = 0;
-			for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
-				options[count] = i;
-				count++;
+			String[] options;
+			if (board.currentPlayers.get(playerNumber).playerData.role == Board.Roles.RESEARCHER) {
+				System.out.println("Researcher 1");
+				options = new String[board.currentPlayers.get(playerNumber).playerData.hand.size()];
+				int count = 0;
+				for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
+					options[count] = i;
+					count++;
+				}
+			} else {
+				System.out.println("Not Researcher 1");
+				options = new String[1];
+				for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
+					if (i.equals(board.currentPlayer.playerData.location.cityName)) {
+						options[0] = i;
+						break;
+					}
+					if(options[0]==null){
+						JOptionPane.showMessageDialog(null,"Player does not have the city card");
+						return;
+					}
+				}
 			}
 			String[] concatColorOptions = board.colorConcator.concatColor(options, board.cities);
 			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
