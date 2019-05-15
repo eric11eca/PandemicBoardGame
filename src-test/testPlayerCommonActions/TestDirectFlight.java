@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 import player.Player;
 import player.PlayerData;
 

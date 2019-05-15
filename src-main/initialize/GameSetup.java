@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
+import data.Board;
+import data.City;
 import gameAction.GameAction;
 import player.Player;
 
@@ -31,6 +33,7 @@ public class GameSetup {
 		messagesToShow.put("OutOfBLUE", "Players Lose: No more blue disease cubes");
 		messagesToShow.put("OutbreakException", "Players Lose: 8 outbreaks have occured");
 		messagesToShow.put("PlayerWinException", "Players Win: All cures have been discovered");
+		messagesToShow.put("CanNotShareKnowledgeException", "Giver doesn't have current City's city card!");
 	}
 	
 	public void startGame(){
@@ -65,6 +68,7 @@ public class GameSetup {
 		initBoard.initializePlayerRoles();
 		initBoard.initializeEventCardAction();
 		initBoard.initializePlayerTable();
+		
 		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();

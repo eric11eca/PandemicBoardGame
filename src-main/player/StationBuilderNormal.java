@@ -1,6 +1,6 @@
 package player;
 
-import initialize.Board;
+import data.Board;
 
 public class StationBuilderNormal extends StationBuilder{
 	

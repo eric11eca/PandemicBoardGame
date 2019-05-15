@@ -1,6 +1,6 @@
 package cards;
 
-import initialize.Board;
+import data.Board;
 
 public class OneQuietNight implements EventCard{
 	private Board board;

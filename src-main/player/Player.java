@@ -5,14 +5,13 @@ import java.util.Random;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class Player {
 	public PlayerData playerData;
 	private Board board;
 	public EventCardAction eventCardAction;
-	
 
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
@@ -167,26 +166,18 @@ public class Player {
 			throw new RuntimeException("CantUseEventCardException");
 		}
 		if (board.isGiving) {
-			if (checkHand(playerData, board.cityToShare)) {
-				giveCard(this, board.playerToShare, board.cityToShare);
-			} else {
-				throw new RuntimeException("You don't have this city card");
-			}
+			giveCard(this, board.playerToShare, board.cityToShare);
 		} else {
-			if (checkHand(board.playerToShare.playerData, board.cityToShare)) {
-				giveCard(board.playerToShare, this, board.cityToShare);
-			} else {
-				throw new RuntimeException("Your friend doesn't have this city card");
-			}
+			giveCard(board.playerToShare, this, board.cityToShare);
 		}
 		consumeAction();
 	}
 
-	private boolean checkHand(PlayerData playerData, PlayerCard citycard) {
-		return playerData.hand.containsKey(citycard.cardName);
-	}
-
 	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
+		if(giver.playerData.role != Board.Roles.RESEARCHER 
+				&& !citycard.cardName.equals(giver.playerData.location.cityName)) {
+			throw new RuntimeException("CanNotShareKnowledgeException");
+		}
 		board.cardToBeDiscard.add(citycard.cardName);
 		giver.discardCard();
 		receiver.receiveCard(citycard);

@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import initialize.City;
+import data.City;
 
 public class TestCity {
 	@Test

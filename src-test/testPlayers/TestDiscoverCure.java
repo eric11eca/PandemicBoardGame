@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 import player.DiscoverCure;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;

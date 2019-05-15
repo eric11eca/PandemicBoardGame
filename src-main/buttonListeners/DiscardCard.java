@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 import initialize.GameSetup;
 import panel.GUI;
 

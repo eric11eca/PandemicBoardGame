@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cardActions.EventCardAction;
-import initialize.Board;
+import data.Board;
 import player.Player;
 import player.PlayerData;
 import playerAction.ContingencyPlannerAction;

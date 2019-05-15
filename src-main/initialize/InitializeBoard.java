@@ -13,6 +13,8 @@ import cards.GovernmentGrant;
 import cards.OneQuietNight;
 import cards.PlayerCard;
 import cards.ResilientPopulation;
+import data.Board;
+import data.City;
 import parse.CityDataParser;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;

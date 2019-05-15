@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import initialize.Board;
+import data.Board;
 import panel.GUI;
 
 public class DispatcherListener implements ActionListener {

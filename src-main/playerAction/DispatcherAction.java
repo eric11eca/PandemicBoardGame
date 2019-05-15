@@ -1,7 +1,7 @@
 package playerAction;
 
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class DispatcherAction implements SpecialSkill {
 	private Board board;

@@ -2,7 +2,7 @@ package cardActions;
 
 import cards.EventCard;
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 
 public class EventCardAction {
 	Board board;

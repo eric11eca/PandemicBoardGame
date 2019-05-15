@@ -1,7 +1,7 @@
 package cardActions;
 
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class InfectionCardAction {
 	private Board board;

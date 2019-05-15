@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.OneQuietNight;
-import initialize.Board;
+import data.Board;
 
 public class TestOneQueitNight {
 	Board board;

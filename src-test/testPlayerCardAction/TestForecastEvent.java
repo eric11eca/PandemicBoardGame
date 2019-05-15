@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.ForecastEvent;
-import initialize.Board;
+import data.Board;
 import player.PlayerData;
 
 public class TestForecastEvent {

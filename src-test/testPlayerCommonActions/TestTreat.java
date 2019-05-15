@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 import player.Player;
 import player.PlayerData;
 import player.TreatMedic;

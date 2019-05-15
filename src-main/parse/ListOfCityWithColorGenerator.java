@@ -2,7 +2,7 @@ package parse;
 
 import java.util.Map;
 
-import initialize.City;
+import data.City;
 
 public class ListOfCityWithColorGenerator {
 	public String[] concatColor(String[] citynames, Map<String, City> cities) {

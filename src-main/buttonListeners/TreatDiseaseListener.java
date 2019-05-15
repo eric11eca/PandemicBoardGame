@@ -10,7 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import initialize.Board;
+import data.Board;
 import initialize.GameSetup;
 import panel.GUI;
 

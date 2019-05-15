@@ -3,8 +3,8 @@ package gameAction;
 import cardActions.EpidemicCardAction;
 import cardActions.InfectionCardAction;
 import cards.PlayerCard;
-import initialize.Board;
-import initialize.City;
+import data.Board;
+import data.City;
 
 public class GameAction {
 	Board board;

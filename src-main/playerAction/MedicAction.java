@@ -1,6 +1,7 @@
 package playerAction;
 
-import initialize.Board;
+
+import data.Board;
 import player.PlayerData;
 
 public class MedicAction implements SpecialSkill{

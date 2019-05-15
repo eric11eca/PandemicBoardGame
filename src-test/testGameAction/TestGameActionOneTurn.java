@@ -1,6 +1,7 @@
 package testGameAction;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -13,12 +14,11 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
+import data.Board;
+import data.City;
 import gameAction.GameAction;
-import initialize.Board;
-import initialize.City;
 import player.Player;
 import player.PlayerData;
-
 
 public class TestGameActionOneTurn {
 	Board board;
@@ -28,6 +28,7 @@ public class TestGameActionOneTurn {
 	String[] citynames = { "Chicago", "NewYork", "London", "Washington" };
 	String[] handCardNames = { "city1", "city2", "city3", "city4", "city5", "city6" };
 	EventCardAction eventCardAction;
+
 	@Before
 	public void setup() {
 		board = new Board();
@@ -39,20 +40,47 @@ public class TestGameActionOneTurn {
 		playerData = new PlayerData();
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
-		
+
 		board.currentPlayers.add(player);
+		board.currentPlayer = player;
 	}
 
 	@Test
-	public void testDrawTwoPlayerCards() {
-		initializePlayerCard(citynames, true);
-		board.currentPlayer = this.player;
-		board.currentPlayer.playerData = this.playerData;
+	public void testDrawTwoPlayerCardsWithZeroCardInPile() {
+		board.validPlayerCards = new ArrayList<>();
+		action.drawTwoPlayerCards();
+		assertTrue(board.playerLose);
+		assertTrue(board.gameEnd);
+	}
+
+	@Test
+	public void testDrawTwoPlayerCardsWithOneCardInPile() {
+		action.drawTwoPlayerCards();
+		assertTrue(board.playerLose);
+		assertTrue(board.gameEnd);
+	}
+
+	@Test
+	public void testDrawTwoPlayerCardsWithTwoCardInPile() {
+		String[] localCitynames = { "Chicago" };
+		initializePlayerCard(localCitynames, true);
+		assertEquals(0, playerData.hand.size());
+		action.drawTwoPlayerCards();
+		assertFalse(board.playerLose);
+		assertFalse(board.gameEnd);
+	}
+
+	@Test
+	public void testDrawTwoPlayerCardsWithThreeCardInPile() {
+		String[] localCitynames = { "Chicago", "NewYork" };
+		initializePlayerCard(localCitynames, true);
 		assertEquals(0, playerData.hand.size());
 		action.drawTwoPlayerCards();
 		assertEquals(2, playerData.hand.size());
 		assertTrue(playerData.hand.containsKey("Chicago"));
-		assertEquals(3, board.validPlayerCards.size());
+		assertEquals(1, board.validPlayerCards.size());
+		assertFalse(board.playerLose);
+		assertFalse(board.gameEnd);
 	}
 
 	private void initializePlayerCard(String[] nameList, boolean addToBoard) {
@@ -65,7 +93,7 @@ public class TestGameActionOneTurn {
 		}
 	}
 
-	@Test (expected = RuntimeException.class)
+	@Test(expected = RuntimeException.class)
 	public void testDrawTwoCityCardsWithPlayerExceedHandLimit() {
 		initializePlayerCard(citynames, true);
 		initializePlayerCard(handCardNames, false);
@@ -73,7 +101,7 @@ public class TestGameActionOneTurn {
 		assertEquals(7, playerData.hand.size());
 		assertEquals(3, board.validPlayerCards.size());
 	}
-	
+
 	@Test
 	public void testHandLimitWithSizeEqualToLimit() {
 		initializePlayerCard(citynames, true);
@@ -85,7 +113,7 @@ public class TestGameActionOneTurn {
 		assertEquals(7, playerData.hand.size());
 		assertEquals(3, board.validPlayerCards.size());
 	}
-	
+
 	@Test
 	public void testHandLimitWithSizeUnderLimit() {
 		initializePlayerCard(citynames, true);
@@ -118,7 +146,7 @@ public class TestGameActionOneTurn {
 		assertEquals(1, playerData.hand.size());
 		assertTrue(4 == board.infectionRateTracker.peek());
 	}
-	
+
 	@Test
 	public void testLackOfPlayerCards() {
 		int oldHandSize = playerData.hand.size();
@@ -129,7 +157,7 @@ public class TestGameActionOneTurn {
 		int newHandSize = playerData.hand.size();
 		assertEquals(oldHandSize, newHandSize);
 	}
-	
+
 	@Test
 	public void testInfectionPhase() {
 		board.remainDiseaseCube.put("RED", 24);
@@ -146,7 +174,7 @@ public class TestGameActionOneTurn {
 		cityB.diseaseCubes.put("BLUE", 0);
 		board.cities.put("cityA", cityA);
 		board.cities.put("cityB", cityB);
-		
+
 		board.infectionRateTracker.push(2);
 		action.infection();
 		int newValidInfectionPileSize = board.validInfectionCards.size();
@@ -158,7 +186,7 @@ public class TestGameActionOneTurn {
 		assertTrue(1 == cityA.diseaseCubes.get("RED"));
 		assertTrue(1 == cityB.diseaseCubes.get("BLUE"));
 	}
-	
+
 	@Test
 	public void testDirectFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -171,7 +199,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.DIRECTFLIGHT);
 		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
-	
+
 	@Test
 	public void testPlayEventCard() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -183,7 +211,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
 		EasyMock.verify(board.currentPlayer);
 	}
-	
+
 	@Test
 	public void testDiscoverCure() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -195,7 +223,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.CUREDISEASE);
 		EasyMock.verify(board.currentPlayer);
 	}
-	
+
 	@Test
 	public void testTreatDisease() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -206,7 +234,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.TREATDISEASE);
 		EasyMock.verify(board.currentPlayer);
 	}
-	
+
 	@Test
 	public void testDrive() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -220,7 +248,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.DRIVE);
 		EasyMock.verify(board.currentPlayer, board.cities);
 	}
-	
+
 	@Test
 	public void testCharterFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -231,7 +259,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.CHARTERFLIGHT);
 		EasyMock.verify(board.currentPlayer);
 	}
-	
+
 	@Test
 	public void testShuttleFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -245,7 +273,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.SHUTTLEFLIGHT);
 		EasyMock.verify(board.currentPlayer, board.cities);
 	}
-	
+
 	@Test
 	public void testBuildStation() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -256,7 +284,7 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.BUILDRESEARCH);
 		EasyMock.verify(board.currentPlayer);
 	}
-	
+
 	@Test
 	public void testShareKnowledge() {
 		board.currentPlayer = EasyMock.createMock(Player.class);

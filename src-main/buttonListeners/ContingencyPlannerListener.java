@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import initialize.Board;
+import data.Board;
 import panel.GUI;
 
 public class ContingencyPlannerListener implements ActionListener {

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
-import initialize.Board;
+import data.Board;
 import player.Player;
 import player.PlayerData;
 
