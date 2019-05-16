@@ -1,9 +1,6 @@
 package initialize;
 
-import java.util.HashMap;
-
 import javax.swing.JOptionPane;
-
 import data.Board;
 import data.City;
 import gameAction.GameAction;
@@ -15,25 +12,9 @@ public class GameSetup {
 	public InitializeGame initGame;
 	public InitializeBoard initBoard;
 	public InitializePlayerData initPlayerData;
-	private HashMap<String,String> messagesToShow;
 
-	public GameSetup() {
-		messagesToShow = new HashMap<>();
-		messagesToShow.put("NoCityCardException", "You don't have the city card to build a research station here");
-		messagesToShow.put("IncorrectNumberOfCardsException", "You don't have the right number of cards");
-		messagesToShow.put("CityColorException", "Please only select cards of the same color");
-		messagesToShow.put("CityCardException", "Please only select city cards");
-		messagesToShow.put("ResearchStationBuilt", "There is already a research station here");
-		messagesToShow.put("NoInfectionCards", "Players Lose: There are no more infection cards");
-		messagesToShow.put("NoStationException", "You are not at a research Station!!");
-		messagesToShow.put("CantUseEventCardException", "Event card cannot be shared");
-		messagesToShow.put("OutOfRED", "Players Lose: No more red disease cubes");
-		messagesToShow.put("OutOfYELLOW", "Players Lose: No more yellow disease cubes");
-		messagesToShow.put("OutOfBLACK", "Players Lose: No more black disease cubes");
-		messagesToShow.put("OutOfBLUE", "Players Lose: No more blue disease cubes");
-		messagesToShow.put("OutbreakException", "Players Lose: 8 outbreaks have occured");
-		messagesToShow.put("PlayerWinException", "Players Win: All cures have been discovered");
-		messagesToShow.put("CanNotShareKnowledgeException", "Giver doesn't have current City's city card!");
+	public GameSetup() {	
+	
 	}
 	
 	public void startGame(){
@@ -53,13 +34,15 @@ public class GameSetup {
 			board.initialhandcard = 2;
 		}
 
-		initBoard.eventCardNames.add("OneQuietNight");
-		initBoard.eventCardNames.add("ResilientPopulation");
-		initBoard.eventCardNames.add("Forecast");
-		initBoard.eventCardNames.add("GovernmentGrant");
-		initBoard.eventCardNames.add("Airlift");
+		initBoard.eventCardNames.add("OneQuietNight"); 
+		initBoard.eventCardNames.add("ResilientPopulation"); 
+		initBoard.eventCardNames.add("Forecast"); 
+		initBoard.eventCardNames.add("GovernmentGrant"); 
+		initBoard.eventCardNames.add("Airlift"); 
 
-		initBoard.initializeMessageBundle("en", "US");
+		
+		initBoard.initializeMessageBundle("sp", null); 
+		initBoard.initializeMessageToShow();
 		initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
@@ -74,7 +57,7 @@ public class GameSetup {
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
 
-		City atlanta = board.cities.get("Atlanta");
+		City atlanta = board.cities.get("Atlanta"); 
 		atlanta.researchStation = true;
 
 		for (Player player : board.currentPlayers) {
@@ -82,7 +65,7 @@ public class GameSetup {
 			atlanta.currentRoles.add(player.playerData.role);
 		}
 
-		board.cities.put("Atlanta", atlanta);
+		board.cities.put("Atlanta", atlanta); 
 		
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
 
@@ -96,14 +79,14 @@ public class GameSetup {
 			gameAction.doAction(board.actionName);
 		} catch (RuntimeException e){
 				System.out.println(e.getMessage());
-				JOptionPane.showMessageDialog(null,messagesToShow.get(e.getMessage()));
+				JOptionPane.showMessageDialog(null,board.messagesToShow.get(e.getMessage()));
 		}
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				initGame.gui.gameEnd("Congradulation, You Win!");
+				initGame.gui.gameEnd(board.messages.getString("winMessage")); 
 			} else {
-				initGame.gui.gameEnd("Sorry, You Lose.");
+				initGame.gui.gameEnd(board.messages.getString("lossMessage")); 
 			}
 			return;
 		}
@@ -132,9 +115,9 @@ public class GameSetup {
 			
 		if (board.gameEnd) {
 			if (board.playerWin) {
-				initGame.gui.gameEnd("Congradulation, You Win!");
+				initGame.gui.gameEnd(board.messages.getString("winMessage")); 
 			} else {
-				initGame.gui.gameEnd("Sorry, You Lose.");
+				initGame.gui.gameEnd(board.messages.getString("loseMessage")); 
 			}
 			return;
 		}
