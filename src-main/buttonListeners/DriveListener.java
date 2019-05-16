@@ -14,11 +14,12 @@ import initialize.GameSetup;
 import panel.GUI;
 
 public class DriveListener implements ActionListener {
+	String chosenCity;
+	
 	private JPanel panel;
 	private Board board;
 	private GUI gui;
 	private GameSetup gameSetup;
-	String chosenCity;
 
 	public DriveListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
@@ -36,11 +37,12 @@ public class DriveListener implements ActionListener {
 			i++;
 		}
 		String[] concatColorOptions = board.colorConcator.concatColor(cities, board.cities);
-		concatColorOptions[i] = "Cancel";
+		concatColorOptions[i] =  board.messages.getString("cancel"); 
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				chosenCity = (options.getSelectedItem().toString().split(" "))[0];
+				chosenCity = (options.getSelectedItem().toString()
+						.split(board.messages.getString("lineConnector")))[0]; 
 				confirmCity(options, chosenCity);
 			}
 		});
@@ -53,11 +55,14 @@ public class DriveListener implements ActionListener {
 
 	protected void confirmCity(JComboBox<String> options, String chosenCity) {	
 		
-		if(chosenCity.equals("Cancel")){
+		if(chosenCity.equals( board.messages.getString("cancel"))){ 
 			 gui.removePanel(panel);
 			 return;
 		 }
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to drive", "Drive", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, 
+				 board.messages.getString("driveConfirm"), 
+				 board.messages.getString("Drive"), 
+				JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.driveDestinationName = chosenCity;
 			board.actionName = Board.ActionName.DRIVE;

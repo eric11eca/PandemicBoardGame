@@ -12,7 +12,6 @@ import data.Board;
 import panel.GUI;
 
 public class DispatcherListener implements ActionListener {
-
 	private Board board;
 	private GUI gui;
 	private JPanel panel;
@@ -24,8 +23,8 @@ public class DispatcherListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		JButton moveToCity = new JButton("Move to another player");
-		JButton moveAsSelf = new JButton("Move as though you're own");
+		JButton moveToCity = new JButton(board.messages.getString("playerMove")); 
+		JButton moveAsSelf = new JButton(board.messages.getString("dispatcherMove.1")); 
 		panel = new JPanel();
 		panel.add(moveToCity);
 		panel.add(moveAsSelf);

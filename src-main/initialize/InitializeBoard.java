@@ -3,9 +3,11 @@ package initialize;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import buttonListeners.Messages;
 import cardActions.EventCardAction;
 import cards.Airlift;
 import cards.ForecastEvent;
@@ -22,6 +24,8 @@ import player.Player;
 import player.PlayerData;
 import player.StationBuilderNormal;
 import player.StationBuilderOperationsExpert;
+import player.TreatMedic;
+import player.TreatNormal;
 import playerAction.ContingencyPlannerAction;
 import playerAction.MedicAction;
 import playerAction.OperationsExpertAction;
@@ -38,6 +42,21 @@ public class InitializeBoard {
 		this.board = mainBoard;
 		this.cityDataParser = new CityDataParser();
 		this.eventCardNames = new ArrayList<String>();
+	}
+	
+	public void initializeMessageBundle(String language, String region) {
+		Locale defaultLocale = Locale.getDefault();
+		
+		if(language != null) {
+			if(region != null) {
+				board.messages = new Messages(new Locale(language, region));
+			} else {
+				board.messages = new Messages(new Locale(language));
+			}
+			
+		} else  {
+			board.messages = new Messages(defaultLocale);
+		}
 	}
 
 	public void initializeWithCityData() {
@@ -179,6 +198,14 @@ public class InitializeBoard {
 		operationsExpertData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		contingencyPlannerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
 		quarantineSpecialistData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		
+		scientistData.treatAction = new TreatNormal(scientistData, board);
+		medicData.treatAction = new TreatMedic(medicData, board);
+		researcherData.treatAction = new TreatNormal(researcherData, board);
+		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
+		operationsExpertData.treatAction = new TreatNormal(operationsExpertData, board);
+		contingencyPlannerData.treatAction = new TreatNormal(contingencyPlannerData, board);
+		quarantineSpecialistData.treatAction = new TreatNormal(quarantineSpecialistData, board);		
 		
 		operationsExpertData.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medicData.specialSkill = new MedicAction(board, medicData);

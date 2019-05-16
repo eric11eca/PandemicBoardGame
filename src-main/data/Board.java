@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import buttonListeners.Messages;
 import cardActions.EventCardAction;
 import cards.EventCard;
 import cards.PlayerCard;
@@ -85,5 +86,7 @@ public class Board {
 	public String newLocationName;
 
 	public int dispatcherCase = -1;
+
+	public Messages messages;
 
 }

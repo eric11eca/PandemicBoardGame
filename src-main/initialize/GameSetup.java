@@ -59,6 +59,7 @@ public class GameSetup {
 		initBoard.eventCardNames.add("GovernmentGrant");
 		initBoard.eventCardNames.add("Airlift");
 
+		initBoard.initializeMessageBundle("en", "US");
 		initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();

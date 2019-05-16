@@ -14,10 +14,9 @@ import initialize.GameSetup;
 import panel.GUI;
 
 public class DirectFlightListener implements ActionListener {
-
-	Board board;
+	private Board board;
 	private JPanel panel;
-	GameSetup gameSetup;
+	private GameSetup gameSetup;
 	private GUI gui;
 
 	public DirectFlightListener(Board board, GUI gui, GameSetup gameSetup) {
@@ -39,7 +38,7 @@ public class DirectFlightListener implements ActionListener {
 		if (cityOptions.size() == 0) {
 			return;
 		}
-		cityOptions.add("Cancel");
+		cityOptions.add(board.messages.getString("cancel")); 
 		String[] cityOptionsArray = cityOptions.toArray(new String[cityOptions.size()]);
 		String[] concatColorOptions = board.colorConcator.concatColor(cityOptionsArray, board.cities);
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
@@ -54,13 +53,15 @@ public class DirectFlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
-		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
-		if (chosenCity.equals("Cancel")) {
+		String chosenCity = (options.getSelectedItem().toString()
+				.split(board.messages.getString("lineConnector")))[0]; 
+		if (chosenCity.equals(board.messages.getString("cancel"))) { 
 			gui.removePanel(panel);
 			return;
 		}
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to fly", "Direct Flight",
-				JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, 
+				board.messages.getString("flyConfirmation"), 
+				board.messages.getString("directFlight"), JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.cityCardNameDirect = chosenCity;
 			board.actionName = Board.ActionName.DIRECTFLIGHT;

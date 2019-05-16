@@ -14,12 +14,11 @@ import initialize.GameSetup;
 import panel.GUI;
 
 public class ShuttleFlightListener implements ActionListener {
-
-	Board board;
+	private Board board;
+	private GameSetup gameSetup;
+	private GUI gui;
 	private JPanel panel;
-	GameSetup gameSetup;
-	GUI gui;
-
+	
 	public ShuttleFlightListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
@@ -33,7 +32,7 @@ public class ShuttleFlightListener implements ActionListener {
 		for (String i : board.currentResearchStation.keySet()) {
 			cityOptions.add(i);
 		}
-		cityOptions.add("Cancel");
+		cityOptions.add(board.messages.getString("cancel")); 
 		String[] cityNames = cityOptions.toArray(new String[cityOptions.size()]);
 		String[] concatColorOptions = board.colorConcator.concatColor(cityNames, board.cities);
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
@@ -49,13 +48,16 @@ public class ShuttleFlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
-		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
-		if (chosenCity.equals("Cancel")) {
+		String chosenCity = (options.getSelectedItem().toString()
+				.split(board.messages.getString("lineConnector")))[0]; 
+		if (chosenCity.equals(board.messages.getString("cancel"))) { 
 			gui.removePanel(panel);
 			return;
 		} else {
-			int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to take a shuttle",
-					"Are you sure you want to take a shuttle", JOptionPane.YES_NO_OPTION);
+			int choice = JOptionPane.showConfirmDialog(null, 
+					board.messages.getString("flyConfirmation"), 
+					board.messages.getString("flyConfirmation"), 
+					JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.shuttleDestinationName = chosenCity;
 				board.actionName = Board.ActionName.SHUTTLEFLIGHT;

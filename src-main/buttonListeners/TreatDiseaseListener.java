@@ -37,7 +37,7 @@ public class TreatDiseaseListener implements ActionListener {
 					colors.add(i);
 				}
 			}
-			colors.add("Cancel");
+			colors.add( board.messages.getString("cancel")); 
 			if (colorsmap.size() == 0) {
 				return;
 			}
@@ -53,19 +53,22 @@ public class TreatDiseaseListener implements ActionListener {
 			panel.add(options);
 			gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
-			JOptionPane.showMessageDialog(null, "Cannot do this action as a dispatcher");
+			JOptionPane.showMessageDialog(null,  
+					board.messages.getString("dispatcherErrorMessage")); 
 		}
 
 	}
 
 	protected void confirmRemoveDisease(JComboBox<String> options) {
 		String chosenCity = options.getSelectedItem().toString();
-		if (chosenCity.equals("Cancel")) {
+		if (chosenCity.equals(board.messages.getString("cancel"))) { 
 			gui.removePanel(panel);
 			return;
 		}
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to treat this disease",
-				"Are you sure you want to treat this disease", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, 
+				board.messages.getString("treatConfirmation"), 
+				board.messages.getString("treatConfirmation"), 
+				JOptionPane.YES_NO_OPTION); 
 		if (choice == 0) {
 			board.diseaseBeingTreated = chosenCity;
 			board.actionName = Board.ActionName.TREATDISEASE;

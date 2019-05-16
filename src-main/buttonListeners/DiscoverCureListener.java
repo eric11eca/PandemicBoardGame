@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class DiscoverCureListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
-			System.out.println("Discovering a cure");
+			System.out.println(board.messages.getString("discoverCure")); 
 			PlayerData playerData = board.currentPlayer.playerData;
 			Map<String, PlayerCard> playerHand = playerData.hand;
 			Set<String> handNames = playerHand.keySet();
@@ -51,7 +52,12 @@ public class DiscoverCureListener implements ActionListener {
 
 			panel = new JPanel();
 			for (int i = 0; i < cards.length; i++) {
-				JCheckBox cardOption = new JCheckBox(cards[i] + "(" + playerHand.get(cards[i]).color + ")");
+				String checkBox = MessageFormat.format("{0} {1} {2} {3}", 
+						cards[i], board.messages.getString("openParentheses"),
+						playerHand.get(cards[i]).color, 
+						board.messages.getString("closeParentheses"));
+				
+				JCheckBox cardOption = new JCheckBox(checkBox);
 				cardOption.addItemListener(new ItemListener() {
 					@Override
 					public void itemStateChanged(ItemEvent e) {
@@ -67,8 +73,8 @@ public class DiscoverCureListener implements ActionListener {
 				panel.add(cardOption);
 			}
 
-			JButton comfirm = new JButton("comfirm");
-			comfirm.addActionListener(new ActionListener() {
+			JButton confirm = new JButton(board.messages.getString("confirm")); 
+			confirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
 
 					for (int i = 0; i < options.length; i++) {
@@ -82,10 +88,10 @@ public class DiscoverCureListener implements ActionListener {
 					cureDisease();
 				}
 			});
-			panel.add(comfirm);
+			panel.add(confirm);
 			gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
-			JOptionPane.showMessageDialog(null, "Cannot do this action as a dispatcher");
+			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
 	}
 
@@ -106,7 +112,7 @@ public class DiscoverCureListener implements ActionListener {
 		try {
 			gameSetup.oneTurn();
 		} catch (RuntimeException e) {
-			JOptionPane.showMessageDialog(null, "Please use city cards with same color to cure a disease.");
+			JOptionPane.showMessageDialog(null, board.messages.getString("cureErrorMessage")); 
 		}
 
 		gui.removePanel(panel);
