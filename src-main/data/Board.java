@@ -11,6 +11,7 @@ import java.util.Stack;
 import cardActions.EventCardAction;
 import cards.EventCard;
 import cards.PlayerCard;
+import initialize.Messages;
 import parse.ListOfCityWithColorGenerator;
 import player.Player;
 
@@ -29,6 +30,7 @@ public class Board {
 		QUARANTINESPECIALIST, RESEARCHER;
 	}
 	
+	public Map<String,String> messagesToShow = new HashMap<>();
 	
 	public Map<Board.Roles, Player> playerTable = new HashMap<>();
 	
@@ -85,5 +87,7 @@ public class Board {
 	public String newLocationName;
 
 	public int dispatcherCase = -1;
+
+	public Messages messages;
 
 }

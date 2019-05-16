@@ -22,7 +22,7 @@ public class ShareKnowledgeListener implements ActionListener {
 	GUI gui;
 	int playerNumber;
 	GameSetup gameSetup;
-
+	
 	public ShareKnowledgeListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
@@ -44,11 +44,14 @@ public class ShareKnowledgeListener implements ActionListener {
 				}
 			}
 			if (count <= 0) {
-				JOptionPane.showMessageDialog(null, "There are no other Players on this city");
+				JOptionPane.showMessageDialog(null, 
+						board.messages.getString("noPlayerInCityErrorMessage")); 
 				return;
 			} else {
-				int choice = JOptionPane.showConfirmDialog(null, "Do you want to give (yes) or take (no)",
-						"Do you want to give (yes) or take (no)", JOptionPane.YES_NO_OPTION);
+				int choice = JOptionPane.showConfirmDialog(null, 
+						board.messages.getString("shareKnowledgePrompt"), 
+						board.messages.getString("shareKnowledgePrompt"), 
+						JOptionPane.YES_NO_OPTION);
 				if (choice == 0) {
 					action = true;
 				} else {
@@ -76,7 +79,8 @@ public class ShareKnowledgeListener implements ActionListener {
 			}
 			gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
-			JOptionPane.showMessageDialog(null, "Cannot do this action as a dispatcher");
+			JOptionPane.showMessageDialog(null, 
+					board.messages.getString("dispatcherErrorMessage")); 
 		}
 
 	}
@@ -114,7 +118,8 @@ public class ShareKnowledgeListener implements ActionListener {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					String card = (list.getSelectedItem().toString().split(" "))[0];
+					String card = (list.getSelectedItem().toString()
+							.split(board.messages.getString("lineConnector")))[0]; 
 					board.actionName = Board.ActionName.SHAREKNOWLEDGE;
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
@@ -157,7 +162,8 @@ public class ShareKnowledgeListener implements ActionListener {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					String card = (list.getSelectedItem().toString().split(" "))[0];
+					String card = (list.getSelectedItem().
+							toString().split(board.messages.getString("lineConnector")))[0]; 
 					board.actionName = Board.ActionName.SHAREKNOWLEDGE;
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;

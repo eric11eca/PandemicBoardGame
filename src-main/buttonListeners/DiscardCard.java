@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,8 +57,8 @@ public class DiscardCard {
 			panel.add(cardOption);
 		}
 		
-		JButton comfirm = new JButton("comfirm");
-		comfirm.addActionListener(new ActionListener() {
+		JButton confirm = new JButton(board.messages.getString("confirm")); 
+		confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				for(int i = 0;i<options.size();i++){
 					if(options.get(i).isSelected()){
@@ -67,8 +68,9 @@ public class DiscardCard {
 				}
 				if(options.size()-selected!=7){
 					int numberToDiscard = options.size()-7;
-					JOptionPane.showMessageDialog(null, 
-							"Please only discard "+ numberToDiscard+" cards");
+					String discardErrorMessage = MessageFormat.
+							format(board.messages.getString("discardErrorMessage"), numberToDiscard);
+					JOptionPane.showMessageDialog(null, discardErrorMessage); 
 					cardTobeDiscard.clear();
 					selected = 0;
 				} else {
@@ -81,7 +83,7 @@ public class DiscardCard {
 			}
 		});
 		
-		panel.add(comfirm);
+		panel.add(confirm);
 		gui.addPanel(panel, BorderLayout.CENTER);		
 	}
 }

@@ -17,12 +17,12 @@ import data.Board;
 import panel.GUI;
 
 public class EventCardListener implements ActionListener {
-
-	Board board;
-	JComboBox<String> eventCards;
-	GUI gui;
-	JPanel panel;
 	JComboBox<String> cardList;
+	
+	private Board board;
+	private JComboBox<String> eventCards;
+	private GUI gui;
+	private JPanel panel;
 
 	public EventCardListener(Board board, JComboBox<String> eventCards, GUI gui) {
 		this.board = board;
@@ -37,13 +37,13 @@ public class EventCardListener implements ActionListener {
 			Map<String, PlayerCard> playerHand = board.currentPlayers.get(i).playerData.hand;
 			if (playerHand.keySet().contains(card)) {
 				board.currentPlayers.get(i).playerData.specialEventCard = playerHand.get(card);
-				if (card.equals("Airlift")) {
+				if (card.equals(board.messages.getString("Airlift"))) {
 					performAirlift(i);
-				} else if (card.equals("OneQuietNight")) {
+				} else if (card.equals(board.messages.getString("OneQuietNight"))) { 
 					performOneQuietNight(i);
-				} else if (card.equals("ResilientPopulation")) {
+				} else if (card.equals(board.messages.getString("ResilientPopulation"))) { 
 					performResilientPopulation(i);
-				} else if (card.equals("GovernmentGrant")) {
+				} else if (card.equals(board.messages.getString("GovernmentGrant"))) { 
 					performGovernmentGrant(i);
 				} else {
 					performForecast(i);
@@ -70,14 +70,14 @@ public class EventCardListener implements ActionListener {
 				cardList.removeItem(cardList.getSelectedItem());
 				if(cardList.getItemCount()==0){
 					board.rearrangeInstruction = orderedCards;
-					board.currentPlayers.get(playerIndex).useEventCard("Forecast");
+					board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("Forecast")); 
 					gui.removePanel(panel);
 					gui.updateImage();
 				}
 			}
 		});
 		
-		JButton button = new JButton("Clear");
+		JButton button = new JButton(board.messages.getString("Clear")); 
 		button.addActionListener(new ActionListener(){
 
 			@Override
@@ -110,7 +110,7 @@ public class EventCardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				board.cityWithGrant = listOfCities.getSelectedItem().toString();
-				board.currentPlayers.get(playerIndex).useEventCard("GovernmentGrant");
+				board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("GovernmentGrant")); 
 				gui.removePanel(panel);
 				gui.updateImage();
 			}
@@ -129,7 +129,7 @@ public class EventCardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				board.cardRemovedByResilient = listOfInfections.getSelectedItem().toString();
-				board.currentPlayers.get(playerIndex).useEventCard("ResilientPopulation");
+				board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("ResilientPopulation")); 
 				gui.removePanel(panel);
 				gui.updateImage();
 			}
@@ -141,7 +141,7 @@ public class EventCardListener implements ActionListener {
 	}
 
 	private void performOneQuietNight(int playerIndex) {
-		board.currentPlayers.get(playerIndex).useEventCard("OneQuietNight");
+		board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("OneQuietNight"));
 	}
 
 	private void performAirlift(int playerIndex) {
@@ -164,7 +164,7 @@ public class EventCardListener implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				board.nameofCityAirlift = listOfCities.getSelectedItem().toString();
 				board.idxofPlayerAirlift = Integer.parseInt(listOfPlayers.getSelectedItem().toString()) - 1;
-				board.currentPlayers.get(playerIndex).useEventCard("Airlift");
+				board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("Airlift")); 
 				gui.removePanel(panel);
 				gui.updateImage();
 			}

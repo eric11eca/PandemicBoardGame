@@ -14,12 +14,11 @@ import initialize.GameSetup;
 import panel.GUI;
 
 public class BuildResearchStationListener implements ActionListener {
-
-	Board board;
-	GameSetup gameSetup;
-	GUI gui;
-	JPanel panel;
-
+	private Board board;
+	private GameSetup gameSetup;
+	private GUI gui;
+	private JPanel panel;
+	
 	public BuildResearchStationListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gameSetup = gameSetup;
@@ -29,7 +28,9 @@ public class BuildResearchStationListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
-			int choice = JOptionPane.showConfirmDialog(null, "Are you sure", "Build Research Station",
+			int choice = JOptionPane.showConfirmDialog(null, 
+					board.messages.getString("buildConfirmation"), 
+					board.messages.getString("buildResearchStation"), 
 					JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				if (board.currentResearchStation.size() == 6) {
@@ -43,7 +44,7 @@ public class BuildResearchStationListener implements ActionListener {
 					if (cityOptions.size() == 0) {
 						return;
 					}
-					cityOptions.add("Cancel");
+					cityOptions.add(board.messages.getString("cancel"));
 					String[] cityOptionsArray = cityOptions.toArray(new String[cityOptions.size()]);
 					JComboBox<String> options = new JComboBox<String>(cityOptionsArray);
 					options.addActionListener(new ActionListener() {
@@ -62,18 +63,22 @@ public class BuildResearchStationListener implements ActionListener {
 				}
 			}
 		} else{
-			JOptionPane.showMessageDialog(null, "Cannot do this action as a dispatcher");
+			JOptionPane.showMessageDialog(null, 
+					board.messages.getString("dispatcherErrorMessage")); 
 		}
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
-		String chosenCity = (options.getSelectedItem().toString().split(" "))[0];
-		if (chosenCity.equals("Cancel")) {
+		String chosenCity = (options.getSelectedItem().toString()
+				.split(board.messages.getString("lineConnector")))[0];
+		if (chosenCity.equals(board.messages.getString("cancel"))) {
 			gui.removePanel(panel);
 			return;
 		}
-		int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this research station",
-				"Build Research Station", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(null, 
+				board.messages.getString("removeStationConfirmation"),
+				board.messages.getString("buildResearchStation"), 
+				JOptionPane.YES_NO_OPTION); 
 		if (choice == 0) {
 			board.stationToRemove = chosenCity;
 			board.actionName = Board.ActionName.BUILDRESEARCH;
