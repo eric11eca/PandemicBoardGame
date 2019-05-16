@@ -73,7 +73,6 @@ public class DrawingBoard {
 		ImageIcon icon = new ImageIcon(img);
 		label.setIcon(icon);
 		frame.setVisible(true);
-		//frame.show();
 	}
 
 	public void drawInfect(int i) {
@@ -84,26 +83,22 @@ public class DrawingBoard {
 	public void drawCards(int i) {
 		g.setFont(new Font(i + " cards left", Font.BOLD, 14));
 		g.drawString(i + " cards left", 875, 700);
-
 	}
 
 	public void drawOutBreaks(int i) {
 		g.setFont(new Font("X", Font.BOLD, 30));
 		g.drawString("X", 50 + ((i % 2) * 50), 395 + (i * 42));
-
 	}
 
 	public void drawPlayer(City city, String k) {
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("P" + k, Font.BOLD, 12));
 		g.drawString("P" + k, city.x -50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
-
 	}
 
 	public void drawResearch(City city) {
 		g.setColor(new Color(228, 180, 34));
 		g.fillRect(city.x - 5, city.y - 5, 10, 10);
-
 	}
 
 	public void drawCubes(City city) {
@@ -126,7 +121,6 @@ public class DrawingBoard {
 				cubes--;
 			}
 		}
-
 	}
 
 	public void drawcube(int x, int y, Color color) {

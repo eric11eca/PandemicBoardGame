@@ -43,38 +43,7 @@ public class InitializeBoard {
 		this.eventCardNames = new ArrayList<String>();
 	}
 	
-	public void initializeMessageToShow() {
-		board.messagesToShow.put("NoCityCardException", board.messages.getString("NoCityCardException")); 
-		board.messagesToShow.put("IncorrectNumberOfCardsException", board.messages.getString("IncorrectNumberOfCardsException")); 
-		board.messagesToShow.put("CityColorException", board.messages.getString("CityColorException")); 
-		board.messagesToShow.put("CityCardException", board.messages.getString("CityCardException")); 
-		board.messagesToShow.put("ResearchStationBuilt", board.messages.getString("ResearchStationBuilt")); 
-		board.messagesToShow.put("NoInfectionCards", board.messages.getString("NoInfectionCards")); 
-		board.messagesToShow.put("NoStationException", board.messages.getString("NoStationException")); 
-		board.messagesToShow.put("CantUseEventCardException", board.messages.getString("CantUseEventCardException")); 
-		board.messagesToShow.put("OutOfRED", board.messages.getString("OutOfRED")); 
-		board.messagesToShow.put("OutOfYELLOW", board.messages.getString("OutOfYELLOW")); 
-		board.messagesToShow.put("OutOfBLACK", board.messages.getString("OutOfBLACK")); 
-		board.messagesToShow.put("OutOfBLUE", board.messages.getString("OutOfBLUE")); 
-		board.messagesToShow.put("OutbreakException", board.messages.getString("OutbreakException"));
-		board.messagesToShow.put("PlayerWinException", board.messages.getString("PlayerWinException")); 
-		board.messagesToShow.put("CanNotShareKnowledgeException", board.messages.getString("CanNotShareKnowledgeException")); 
-	}
 	
-	public void initializeMessageBundle(String language, String region) {
-		Locale defaultLocale = Locale.getDefault();
-		
-		if(language != null) {
-			if(region != null) {
-				board.messages = new Messages(new Locale(language, region));
-			} else {
-				board.messages = new Messages(new Locale(language));
-			}
-			
-		} else  {
-			board.messages = new Messages(defaultLocale);
-		}
-	}
 
 	public void initializeWithCityData() {
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
