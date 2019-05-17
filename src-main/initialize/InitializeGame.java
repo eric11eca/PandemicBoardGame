@@ -2,9 +2,12 @@ package initialize;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import buttonListeners.BuildResearchStationListener;
@@ -35,6 +38,42 @@ public class InitializeGame {
 		this.setup = setup;
 		// Build all the objects
 		// Call the GUI to select the number of players
+		String[] language = getLanguages();
+		String[] locale = getLocale();
+		JPanel pnl = new JPanel();
+		
+		JComboBox<String> languageList = new JComboBox<String>(language);
+		JComboBox<String> localeList = new JComboBox<String>(locale);
+		JButton selectLanguage = new JButton("Continue");
+		selectLanguage.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setup.initializeMessageBundle(languageList.getSelectedItem().toString(), localeList.getSelectedItem().toString());
+				setup.initializeMessageToShow();
+				choosePlayers(pnl);
+			}
+		});
+		
+		pnl.add(languageList);
+		pnl.add(localeList);
+		pnl.add(selectLanguage);
+		gui = new GUI(setup);
+		gui.addPanel(pnl);
+
+	}
+	
+	private String[] getLocale() {
+		String[] toReturn = {"US","SP"};
+		return toReturn;
+	}
+
+	private String[] getLanguages() {
+		String[] toReturn = {"en","sp"};
+		return toReturn;
+	}
+
+	public void choosePlayers(JPanel panelToRemove){
+		gui.removePanel(panelToRemove);
 		JPanel pnl = new JPanel();
 		JButton btn2p = new JButton(board.messages.getString("2Players"));
 		JButton btn3p = new JButton(board.messages.getString("3Players"));
@@ -49,9 +88,7 @@ public class InitializeGame {
 		btn3p.addActionListener(action2);
 		btn4p.addActionListener(action3);
 		buttonPanel = new JPanel();
-		gui = new GUI(setup);
 		gui.addPanel(pnl);
-
 	}
 
 	public void SetPlayers(int playernum, JPanel panelToClose) {
