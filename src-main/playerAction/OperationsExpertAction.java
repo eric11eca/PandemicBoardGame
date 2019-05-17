@@ -29,7 +29,7 @@ public class OperationsExpertAction implements SpecialSkill {
 	}
 
 	@Override
-	public void specialSkill() {	
+	public void useSpecialSkill() {	
 		moveToAnotherCity();
 	}
 }

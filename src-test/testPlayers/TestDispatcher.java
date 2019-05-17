@@ -60,7 +60,7 @@ public class TestDispatcher {
 	public void testMoveOtherPlayer() {
 		board.dispatcherCase = 0;
 		board.newLocationName = "Delhi";
-		dispatcher.playerData.specialSkill.specialSkill();
+		dispatcher.playerData.specialSkill.useSpecialSkill();
 		assertEquals("Delhi", scientistData.location.cityName);
 	}
 	

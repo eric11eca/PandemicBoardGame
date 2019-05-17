@@ -34,7 +34,7 @@ public class TestContingencyPlanner {
 	public void testPickCardFromDiscardEventPile() {
 		board.discardEventCards.add(airlift);
 		contingencyPlannerAction.cardName = airlift;
-		contingencyPlannerData.specialSkill.specialSkill();
+		contingencyPlannerData.specialSkill.useSpecialSkill();
 		assertEquals(contingencyPlannerData.roleCard, airlift);
 	}
 	

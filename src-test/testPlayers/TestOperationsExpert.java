@@ -46,7 +46,7 @@ public class TestOperationsExpert {
 		playerData.hand.put(new_cityName, cityCard);
 		location.cityName = cityName;
 		operationsExpertAction.cityName = new_cityName;
-		playerData.specialSkill.specialSkill();
+		playerData.specialSkill.useSpecialSkill();
 		assertEquals(new_cityName, playerData.location.cityName);
 	}
 

@@ -1,7 +1,6 @@
 package panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,16 +8,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
-import javax.swing.border.TitledBorder;
 
 import buttonListeners.ContingencyPlannerListener;
 import buttonListeners.DiscardCard;
@@ -43,7 +38,6 @@ public class GUI {
 	static final int SCREEN_HEIGHT = 1080;
 	static final int SCREEN_WIDTH = 1920;
 	static final double WIDTH_SCALE = 0.4;
-	private static final double HEIGHT_SCALE = 1.8;
 
 	public static final String WINING_MESSAGE = "\n CONGRADULATIONS, \n YOU WIN!";
 	public static final String LOSING_MESSAGE = "\n SORRY, YOU LOSE, \n WNNA TRY AGAIN?";
@@ -87,8 +81,9 @@ public class GUI {
 		JPanel panel = new JPanel();
 		int x = 0;
 		for (x = 0; x < board.playernumber; x++) {
-			int currentPlayer = x+1;
-			JLabel player = new JLabel("Player " + currentPlayer + "(" + board.currentPlayers.get(x).playerData.role.toString()+")");
+			int currentPlayer = x + 1;
+			JLabel player = new JLabel(
+					"Player " + currentPlayer + "(" + board.currentPlayers.get(x).playerData.role.toString() + ")");
 			player.setLocation(25, x * 25);
 			player.setSize(250, 20);
 			panel.add(player);
@@ -104,13 +99,13 @@ public class GUI {
 
 		}
 		JLabel events = new JLabel("Event Cards");
-		events.setLocation(25, x*25);
-		events.setSize(250,20);
+		events.setLocation(25, x * 25);
+		events.setSize(250, 20);
 		panel.add(events);
-		int currentPlayerIndex = board.currentPlayerIndex+1;
-		JLabel currentPlayer = new JLabel("Player "+ currentPlayerIndex + " turn:");
-		currentPlayer.setLocation(25,(x+1)*25);
-		currentPlayer.setSize(250,20);
+		int currentPlayerIndex = board.currentPlayerIndex + 1;
+		JLabel currentPlayer = new JLabel("Player " + currentPlayerIndex + " turn:");
+		currentPlayer.setLocation(25, (x + 1) * 25);
+		currentPlayer.setSize(250, 20);
 		panel.add(currentPlayer);
 		JComboBox<String> eventCards = makeEventCardOptions();
 		eventCards.setLocation(300, (x) * 25);
@@ -122,20 +117,20 @@ public class GUI {
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
 		JButton specialSkillButton = new JButton("Use Special Skill");
-		specialSkillButton.setLocation(475, x*25);
+		specialSkillButton.setLocation(475, x * 25);
 		specialSkillButton.setSize(150, 20);
-		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
-			specialSkillButton.addActionListener(new DispatcherListener(board,this));
+		if (board.currentPlayer.playerData.role == Roles.DISPATCHER) {
+			specialSkillButton.addActionListener(new DispatcherListener(board, this));
 			panel.add(specialSkillButton);
-		}else if(board.currentPlayer.playerData.role==Roles.CONTINGENCYPLANNER){
+		} else if (board.currentPlayer.playerData.role == Roles.CONTINGENCYPLANNER) {
 			specialSkillButton.addActionListener(new ContingencyPlannerListener(board, this));
 			panel.add(specialSkillButton);
 		}
-		int i=0;
-		for(String disease:board.remainDiseaseCube.keySet()){
-			JLabel label = new JLabel(disease + ": "+ board.remainDiseaseCube.get(disease));
-			label.setLocation(475, i*25);
-			label.setSize(150,20);
+		int i = 0;
+		for (String disease : board.remainDiseaseCube.keySet()) {
+			JLabel label = new JLabel(disease + ": " + board.remainDiseaseCube.get(disease));
+			label.setLocation(475, i * 25);
+			label.setSize(150, 20);
 			panel.add(label);
 			i++;
 		}
@@ -183,28 +178,6 @@ public class GUI {
 	public void setButtonPanel(JPanel buttonPanel) {
 		this.buttonPanel = buttonPanel;
 		mainPanel.add(buttonPanel);
-	}
-
-	public void gameEnd(String message) {
-		JOptionPane.showMessageDialog(null, message);
-	}
-
-	public void displayMessage(ArrayList<String> messages, JPanel messageBoard) {
-		final JTextArea cs = new JTextArea();
-
-		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
-		border.setTitleJustification(TitledBorder.LEFT);
-		cs.setBorder(border);
-		cs.setEditable(false);
-		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
-		cs.setFont(cs.getFont().deriveFont(28f));
-		messageBoard.add(cs);
-		for (int i = 0; i < messages.size(); i++) {
-			cs.append(messages.get(i));
-		}
-		cs.setForeground(Color.RED);
-		addPanel(messageBoard, BorderLayout.EAST);
-		messages.clear();
 	}
 
 	public void showPlayerHand() {

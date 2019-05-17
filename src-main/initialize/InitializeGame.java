@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 import buttonListeners.BuildResearchStationListener;
 import buttonListeners.CharterFlightListener;
-import buttonListeners.DListener;
+import buttonListeners.DifficultyListener;
 import buttonListeners.DirectFlightListener;
 import buttonListeners.DiscoverCureListener;
 import buttonListeners.DriveListener;
@@ -106,9 +106,9 @@ public class InitializeGame {
 		pnl.add(btn2p);
 		pnl.add(btn3p);
 		pnl.add(btn4p);
-		DListener action1 = new DListener(4, pnl, this);
-		DListener action2 = new DListener(5, pnl, this);
-		DListener action3 = new DListener(6, pnl, this);
+		DifficultyListener action1 = new DifficultyListener(4, pnl, this);
+		DifficultyListener action2 = new DifficultyListener(5, pnl, this);
+		DifficultyListener action3 = new DifficultyListener(6, pnl, this);
 		btn2p.addActionListener(action1);
 		btn3p.addActionListener(action2);
 		btn4p.addActionListener(action3);

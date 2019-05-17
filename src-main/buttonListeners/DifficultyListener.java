@@ -6,12 +6,12 @@ import javax.swing.JPanel;
 
 import initialize.*;
 
-public class DListener implements ActionListener  {
+public class DifficultyListener implements ActionListener  {
 
 	int epidemicNumber;
 	JPanel panel;
 	InitializeGame game;
-	public DListener(int x, JPanel y, InitializeGame game){
+	public DifficultyListener(int x, JPanel y, InitializeGame game){
 		epidemicNumber = x;
 		panel = y;
 		this.game= game;

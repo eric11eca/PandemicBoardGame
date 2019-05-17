@@ -1,5 +1,5 @@
 package playerAction;
 
 public interface SpecialSkill {
-	public void specialSkill();
+	public void useSpecialSkill();
 }

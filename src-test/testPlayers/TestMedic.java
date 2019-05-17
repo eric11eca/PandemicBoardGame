@@ -36,7 +36,7 @@ public class TestMedic {
 		medic.location.diseaseCubes.put("YELLOW", 2);
 		medic.location.diseaseCubes.put("BLUE", 1);
 		assertFalse(medic.location.diseaseCubes.isEmpty());
-		medicAction.specialSkill();
+		medicAction.useSpecialSkill();
 		int numOfYellowCube = medic.location.diseaseCubes.get("YELLOW");
 		int numOfBlueCube = medic.location.diseaseCubes.get("BLUE");
 		assertEquals(2, numOfYellowCube);
@@ -74,7 +74,7 @@ public class TestMedic {
 		medicAction.removeAllCubes();
 		EasyMock.replay(medicAction);
 		
-		medicAction.specialSkill();
+		medicAction.useSpecialSkill();
 		
 		EasyMock.verify(medicAction);
 	}

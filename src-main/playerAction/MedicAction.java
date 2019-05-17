@@ -24,7 +24,7 @@ public class MedicAction implements SpecialSkill{
 	}
 
 	@Override
-	public void specialSkill() {
+	public void useSpecialSkill() {
 		removeAllCubes();
 	}
 

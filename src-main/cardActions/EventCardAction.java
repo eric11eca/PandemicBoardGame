@@ -6,7 +6,6 @@ import data.Board;
 
 public class EventCardAction {
 	Board board;
-	PlayerCard playerCard;
 
 	public EventCardAction(Board gameBoard) {
 		board = gameBoard;

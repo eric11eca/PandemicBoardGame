@@ -21,8 +21,6 @@ public class GameSetup {
 	
 	public void startGame(){
 		board = new Board();
-		initializeMessageBundle("sp", null); 
-		initializeMessageToShow();
 		gameAction = new GameAction(board);
 		initGame = new InitializeGame(board, this);
 		initBoard = new InitializeBoard(board);
@@ -83,15 +81,6 @@ public class GameSetup {
 				JOptionPane.showMessageDialog(null,board.messagesToShow.get(e.getMessage()));
 		}
 			
-		if (board.gameEnd) {
-			if (board.playerWin) {
-				initGame.gui.gameEnd(board.messages.getString("winMessage")); 
-			} else {
-				initGame.gui.gameEnd(board.messages.getString("lossMessage")); 
-			}
-			return;
-		}
-			
 		if (board.currentPlayer.playerData.action == 0) {
 			try {
 				gameAction.drawTwoPlayerCards();
@@ -112,15 +101,6 @@ public class GameSetup {
 		board.currentPlayerIndex++;
 		if (board.currentPlayerIndex == board.playernumber){
 			board.currentPlayerIndex = 0;
-		}
-			
-		if (board.gameEnd) {
-			if (board.playerWin) {
-				initGame.gui.gameEnd(board.messages.getString("winMessage")); 
-			} else {
-				initGame.gui.gameEnd(board.messages.getString("loseMessage")); 
-			}
-			return;
 		}
 		
 		gameAction.infection();

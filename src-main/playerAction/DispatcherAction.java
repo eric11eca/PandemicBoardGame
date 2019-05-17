@@ -16,7 +16,7 @@ public class DispatcherAction implements SpecialSkill {
 	}
 
 	@Override
-	public void specialSkill() {
+	public void useSpecialSkill() {
 		if (board.dispatcherCase == 0) {
 			moveOtherPlayer();
 		}
