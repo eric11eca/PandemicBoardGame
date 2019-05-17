@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -40,14 +41,6 @@ public class GUI {
 	public ArrayList<JLabel> hands = new ArrayList<>();
 	GameSetup gameSetup;
 
-	static final int SCREEN_HEIGHT = 1080;
-	static final int SCREEN_WIDTH = 1920;
-	static final double WIDTH_SCALE = 0.4;
-	private static final double HEIGHT_SCALE = 1.8;
-
-	public static final String WINING_MESSAGE = "\n CONGRADULATIONS, \n YOU WIN!";
-	public static final String LOSING_MESSAGE = "\n SORRY, YOU LOSE, \n WNNA TRY AGAIN?";
-
 	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
@@ -80,7 +73,6 @@ public class GUI {
 	public void loadInitialGame() {
 		loadBoardImage();
 		updateAndDrawBoardInfo();
-
 	}
 
 	private void updateAndDrawBoardInfo() {
@@ -88,7 +80,11 @@ public class GUI {
 		int x = 0;
 		for (x = 0; x < board.playernumber; x++) {
 			int currentPlayer = x+1;
-			JLabel player = new JLabel("Player " + currentPlayer + "(" + board.currentPlayers.get(x).playerData.role.toString()+")");
+			String role = board.currentPlayers.get(x).playerData.role.toString();
+			String playerInfo = MessageFormat.format(
+					board.messages.getString("playerInfo"), currentPlayer, role);
+			JLabel player = new JLabel(playerInfo);
+			
 			player.setLocation(25, x * 25);
 			player.setSize(250, 20);
 			panel.add(player);
@@ -103,12 +99,16 @@ public class GUI {
 			panel.add(options);
 
 		}
-		JLabel events = new JLabel("Event Cards");
+		JLabel events = new JLabel(board.messages.getString("eventCard"));
 		events.setLocation(25, x*25);
 		events.setSize(250,20);
 		panel.add(events);
 		int currentPlayerIndex = board.currentPlayerIndex+1;
-		JLabel currentPlayer = new JLabel("Player "+ currentPlayerIndex + " turn:");
+		
+		String playerTurn = MessageFormat
+				.format(board.messages.getString("playerTurn"), currentPlayerIndex);
+		JLabel currentPlayer = new JLabel(playerTurn);
+		
 		currentPlayer.setLocation(25,(x+1)*25);
 		currentPlayer.setSize(250,20);
 		panel.add(currentPlayer);
@@ -116,12 +116,12 @@ public class GUI {
 		eventCards.setLocation(300, (x) * 25);
 		eventCards.setSize(150, 20);
 		panel.add(eventCards);
-		JButton eventButton = new JButton("Play Event Card");
+		JButton eventButton = new JButton(board.messages.getString("playEventCard"));
 		eventButton.addActionListener(new EventCardListener(board, eventCards, this));
 		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
-		JButton specialSkillButton = new JButton("Use Special Skill");
+		JButton specialSkillButton = new JButton(board.messages.getString("useSpecialSkill"));
 		specialSkillButton.setLocation(475, x*25);
 		specialSkillButton.setSize(150, 20);
 		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
@@ -133,7 +133,10 @@ public class GUI {
 		}
 		int i=0;
 		for(String disease:board.remainDiseaseCube.keySet()){
-			JLabel label = new JLabel(disease + ": "+ board.remainDiseaseCube.get(disease));
+			int remainDiseaseCubeNum = board.remainDiseaseCube.get(disease);
+			String diseaseCubeInfo =  MessageFormat
+					.format(board.messages.getString("diseaseCubeInfo"), disease, remainDiseaseCubeNum);
+			JLabel label = new JLabel(diseaseCubeInfo);
 			label.setLocation(475, i*25);
 			label.setSize(150,20);
 			panel.add(label);
@@ -167,7 +170,9 @@ public class GUI {
 			setPanels(label);
 
 		} catch (IOException e) {
-			System.out.println("File not found " + e.getMessage());
+			String errorMessage = MessageFormat
+					.format(board.messages.getString("fileNotFound"), e.getMessage());
+			System.out.println(errorMessage);
 		}
 
 	}
@@ -187,24 +192,6 @@ public class GUI {
 
 	public void gameEnd(String message) {
 		JOptionPane.showMessageDialog(null, message);
-	}
-
-	public void displayMessage(ArrayList<String> messages, JPanel messageBoard) {
-		final JTextArea cs = new JTextArea();
-
-		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "Console");
-		border.setTitleJustification(TitledBorder.LEFT);
-		cs.setBorder(border);
-		cs.setEditable(false);
-		cs.setPreferredSize(new Dimension((int) (WIDTH_SCALE * SCREEN_WIDTH), (int) (HEIGHT_SCALE * SCREEN_HEIGHT)));
-		cs.setFont(cs.getFont().deriveFont(28f));
-		messageBoard.add(cs);
-		for (int i = 0; i < messages.size(); i++) {
-			cs.append(messages.get(i));
-		}
-		cs.setForeground(Color.RED);
-		addPanel(messageBoard, BorderLayout.EAST);
-		messages.clear();
 	}
 
 	public void showPlayerHand() {
