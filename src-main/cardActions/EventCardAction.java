@@ -1,7 +1,6 @@
 package cardActions;
 
 import cards.EventCard;
-import cards.PlayerCard;
 import data.Board;
 
 public class EventCardAction {
