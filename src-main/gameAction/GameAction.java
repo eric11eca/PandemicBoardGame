@@ -10,6 +10,8 @@ public class GameAction {
 	Board board;
 	EpidemicCardAction epidemic;
 	InfectionCardAction infectAction;
+	public boolean doesChangeLocation = false;
+	public boolean isMedic;
 
 	public GameAction(Board gameBoard) {
 		board = gameBoard;
@@ -42,8 +44,7 @@ public class GameAction {
 
 
 	public void doAction(Board.ActionName actionName) {
-		boolean isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
-		boolean doesChangeLocation = false;
+		isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
 		if (actionName == Board.ActionName.DIRECTFLIGHT) {
 			PlayerCard cityCard = board.currentPlayer.playerData.hand.get(board.cityCardNameDirect);
 			board.currentPlayer.directFlight(cityCard);
