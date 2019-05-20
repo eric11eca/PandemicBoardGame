@@ -38,7 +38,7 @@ public class GameAction {
 		}
 		
 		if (board.currentPlayer.playerData.hand.size() > 7) {
-			throw new RuntimeException("Player hand overflows");
+			throw new RuntimeException("PlayerHandOverflow");
 		}
 	}
 

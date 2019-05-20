@@ -105,7 +105,7 @@ public class ShareKnowledgeListener implements ActionListener {
 						break;
 					}
 					if(options[0]==null){
-						JOptionPane.showMessageDialog(null,"Player does not have the city card");
+						JOptionPane.showMessageDialog(null,board.messages.getString("noCityCard"));
 						return;
 					}
 				}
@@ -149,7 +149,7 @@ public class ShareKnowledgeListener implements ActionListener {
 						break;
 					}
 					if(options[0]==null){
-						JOptionPane.showMessageDialog(null,"Player does not have the city card");
+						JOptionPane.showMessageDialog(null,board.messages.getString("noCityCard"));
 						return;
 					}
 				}

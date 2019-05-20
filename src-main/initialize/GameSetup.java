@@ -85,11 +85,17 @@ public class GameSetup {
 			try {
 				gameAction.drawTwoPlayerCards();
 			} catch (RuntimeException e) {
+				if(e.getMessage().equals("NoPlayerCardsException")) {
+					JOptionPane.showMessageDialog(null,board.messagesToShow.get("NoPlayerCardsException"));
+				}
+				
 				if(board.currentPlayer.playerData.hand.size() <= 7){
 					changePlayer();
 				}
 				else{
-					initGame.gui.showPlayerHand();
+					if(e.getMessage().equals("PlayerHandOverflow")) {
+						initGame.gui.showPlayerHand();
+					}
 				}
 				return;
 			}
@@ -124,7 +130,8 @@ public class GameSetup {
 	}
 	
 	public void initializeMessageToShow() {
-		board.messagesToShow.put("NoCityCardException", board.messages.getString("NoCityCardException")); 
+		board.messagesToShow.put("NoCityCardsException", board.messages.getString("NoCityCardsException")); 
+		board.messagesToShow.put("NoPlayerCardsException", board.messages.getString("NoPlayerCardsException")); 
 		board.messagesToShow.put("IncorrectNumberOfCardsException", board.messages.getString("IncorrectNumberOfCardsException")); 
 		board.messagesToShow.put("CityColorException", board.messages.getString("CityColorException")); 
 		board.messagesToShow.put("CityCardException", board.messages.getString("CityCardException")); 
