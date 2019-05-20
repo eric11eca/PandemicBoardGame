@@ -135,15 +135,15 @@ public class InitializeBoard {
 	
 	public void initializeEventCardAction() {
 		Airlift airlift = new Airlift(board);
-		board.eventCards.put("Airlift", airlift);
+		board.eventCards.put(board.messages.getString("Airlift"), airlift);
 		ForecastEvent forcast = new ForecastEvent(board);
-		board.eventCards.put("Forecast", forcast);
+		board.eventCards.put(board.messages.getString("Forecast"), forcast);
 		OneQuietNight oneQuiteNight = new OneQuietNight(board);
-		board.eventCards.put("OneQuietNight", oneQuiteNight);
+		board.eventCards.put(board.messages.getString("OneQuietNight"), oneQuiteNight);
 		GovernmentGrant governmentGrant = new GovernmentGrant(board);
-		board.eventCards.put("GovernmentGrant", governmentGrant);
+		board.eventCards.put(board.messages.getString("GovernmentGrant"), governmentGrant);
 		ResilientPopulation resilientPopulation = new ResilientPopulation(board);
-		board.eventCards.put("ResilientPopulation", resilientPopulation);
+		board.eventCards.put(board.messages.getString("ResilientPopulation"), resilientPopulation);
 		EventCardAction eventCardAction = new EventCardAction(board);
 		board.eventCardAction = eventCardAction;
 	}

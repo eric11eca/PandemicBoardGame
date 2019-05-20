@@ -1,6 +1,7 @@
 package testGameAction;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -30,6 +31,18 @@ public class TestGameActionOneTurn {
 		board = new Board();
 		action = new GameAction(board);
 		playerData = new PlayerData();
+	}
+	
+	@Test
+	public void testInfectCityOnQueitNight() {
+		board.inQueitNight = true;
+		City city = new City();
+		board.cities.put("NewYork", city);
+		city.diseaseCubes.put("RED", 1);
+		action.infection();
+		int numOfRedCubes = city.diseaseCubes.get("RED");
+		assertEquals(1, numOfRedCubes);
+		assertFalse(board.inQueitNight);
 	}
 
 	@Test(expected = RuntimeException.class)

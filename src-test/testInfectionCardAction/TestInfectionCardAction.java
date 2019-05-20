@@ -70,17 +70,6 @@ public class TestInfectionCardAction {
 		assertEquals(21, numOfRemainRedCubes);
 		assertFalse(city_new.isInOutbreak);
 	}
-
-	@Test
-	public void testInfectCityOnQueitNight() {
-		board.inQueitNight = true;
-		City city = board.cities.get(cityName);
-		city.diseaseCubes.put(diseaseColor, 1);
-		infect.infectCity(cityName, diseaseColor);
-		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
-		assertEquals(1, numOfRedCubes);
-		assertFalse(board.inQueitNight);
-	}
 	
 	@Test
 	public void testInfectCitywithOutbreak() {

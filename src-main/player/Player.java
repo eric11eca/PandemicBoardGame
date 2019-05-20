@@ -1,6 +1,8 @@
 package player;
 
 import java.util.List;
+import java.util.Map;
+
 import cards.PlayerCard;
 import data.Board;
 import data.City;
@@ -21,14 +23,13 @@ public class Player {
 
 	public void useEventCard(String cardName) {
 		if (cardName.equals(playerData.specialEventCard)) {
-			board.eventCardAction.executeEventCard(cardName);
-			board.eventCards.remove(cardName);
 			playerData.specialEventCard = null;
 		} else {
 			playerData.hand.remove(cardName);
-			board.eventCardAction.executeEventCard(cardName);
 			board.discardEventCards.add(cardName);
 		}
+		System.out.println("use event card");
+		board.eventCardAction.executeEventCard(cardName);
 	}
 
 	public void discardCard() {

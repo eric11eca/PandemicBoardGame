@@ -141,7 +141,7 @@ public class GUI {
 		panel.add(eventButton);
 		
 		JButton specialSkillButton = new JButton(board.messages.getString("useSpecialSkill"));
-		specialSkillButton.setLocation(475, x*25);
+		specialSkillButton.setLocation(475, (x+2)*25);
 		specialSkillButton.setSize(150, 20);
 		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
 			specialSkillButton.addActionListener(new DispatcherListener(board,this));

@@ -68,10 +68,6 @@ public class DirectFlightListener implements ActionListener {
 			gameSetup.oneTurn();
 			gui.removePanel(panel);
 			gui.updateImage();
-		} else {
-
-		}
-
+		} 
 	}
-
 }

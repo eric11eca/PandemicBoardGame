@@ -36,11 +36,11 @@ public class GameSetup {
 			board.initialhandcard = 2;
 		}
 
-		initBoard.eventCardNames.add("OneQuietNight"); 
-		initBoard.eventCardNames.add("ResilientPopulation"); 
-		initBoard.eventCardNames.add("Forecast"); 
-		initBoard.eventCardNames.add("GovernmentGrant"); 
-		initBoard.eventCardNames.add("Airlift"); 
+		initBoard.eventCardNames.add(board.messages.getString("OneQuietNight")); 
+		initBoard.eventCardNames.add(board.messages.getString("ResilientPopulation")); 
+		initBoard.eventCardNames.add(board.messages.getString("Forecast")); 
+		initBoard.eventCardNames.add(board.messages.getString("GovernmentGrant")); 
+		initBoard.eventCardNames.add(board.messages.getString("Airlift")); 
 
 		initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();

@@ -91,6 +91,10 @@ public class GameAction {
 	}
 
 	public void infection() {
+		if (board.inQueitNight) {
+			board.inQueitNight = false;
+			return;
+		}
 		for (int i = 0; i < board.infectionRateTracker.peek(); i++) {
 			infectAction.drawOneInfectionCard();
 		}

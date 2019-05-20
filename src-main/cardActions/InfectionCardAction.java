@@ -24,11 +24,7 @@ public class InfectionCardAction {
 		board.discardInfectionCards.add(infectCity);
 	}
 
-	public void infectCity(String cityName, String diseaseColor) {
-		if (board.inQueitNight) {
-			board.inQueitNight = false;
-			return;
-		}      
+	public void infectCity(String cityName, String diseaseColor) {	
 		
 		if(board.eradicatedColor.contains(diseaseColor)) {
 			return;
