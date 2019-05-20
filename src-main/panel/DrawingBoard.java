@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,12 +57,13 @@ public class DrawingBoard {
 			drawCubes(city);
 
 		}
+		String uncureMark = board.messages.getString("UNCURED");
 		g.setColor(Color.RED);
-		g.setFont(new Font("UNCURED", 12, 12));
-		g.drawString("UNCURED", 425, 770);
-		g.drawString("UNCURED", 425 + 68, 770);
-		g.drawString("UNCURED", 425 + (68*2), 770);
-		g.drawString("UNCURED", 425+ (68*3), 770);
+		g.setFont(new Font(uncureMark, 12, 12));
+		g.drawString(uncureMark, 425, 770);
+		g.drawString(uncureMark, 425 + 68, 770);
+		g.drawString(uncureMark, 425 + (68*2), 770);
+		g.drawString(uncureMark, 425+ (68*3), 770);
 		
 		int currentPlayerNum = 0;
 		for (Player player : board.currentPlayers) {
@@ -81,8 +83,9 @@ public class DrawingBoard {
 	}
 
 	public void drawCards(int i) {
-		g.setFont(new Font(i + " cards left", Font.BOLD, 14));
-		g.drawString(i + " cards left", 875, 700);
+		String cardCount = MessageFormat.format(board.messages.getString("cardsLeft"), i);
+		g.setFont(new Font(cardCount, Font.BOLD, 14));
+		g.drawString(cardCount, 875, 700);
 	}
 
 	public void drawOutBreaks(int i) {
@@ -92,8 +95,9 @@ public class DrawingBoard {
 
 	public void drawPlayer(City city, String k) {
 		g.setColor(Color.YELLOW);
-		g.setFont(new Font("P" + k, Font.BOLD, 12));
-		g.drawString("P" + k, city.x -50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
+		String playerLabel = MessageFormat.format("P {0}", k);
+		g.setFont(new Font(playerLabel, Font.BOLD, 12));
+		g.drawString(playerLabel, city.x -50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
 	}
 
 	public void drawResearch(City city) {

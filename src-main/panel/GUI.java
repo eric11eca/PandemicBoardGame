@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -27,16 +28,17 @@ import data.Board.Roles;
 import initialize.GameSetup;
 
 public class GUI {
-	JFrame frame;
-	JPanel buttonPanel;
 	public ArrayList<JPanel> panels = new ArrayList<>();
 	public Board board;
 	public JPanel mainPanel;
-	DrawingBoard draw;
-	JLabel label = new JLabel();
 	public ArrayList<JLabel> hands = new ArrayList<>();
-	GameSetup gameSetup;
-
+	
+	private JFrame frame;
+	private GameSetup gameSetup;
+	private DrawingBoard draw;
+	private JLabel label = new JLabel();
+	private Map<String, String> diseaseColors; 
+	
 	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
@@ -44,6 +46,14 @@ public class GUI {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();
+		diseaseColors = new HashMap<>();
+	}
+	
+	private void addColorStrings() {
+		diseaseColors.put("RED", board.messages.getString("redDiseas"));
+		diseaseColors.put("BLUE", board.messages.getString("blueDiseas"));
+		diseaseColors.put("BLACK", board.messages.getString("blackDiseas"));
+		diseaseColors.put("YELLOW", board.messages.getString("yellowDiseas"));
 	}
 
 	private void setPanels(JLabel labelToSet) {
@@ -74,6 +84,7 @@ public class GUI {
 	private void updateAndDrawBoardInfo() {
 		JPanel panel = new JPanel();
 		int x = 0;
+		
 		for (x = 0; x < board.playernumber; x++) {
 			int currentPlayer = x+1;
 			String role = board.currentPlayers.get(x).playerData.role.toString();
@@ -95,28 +106,40 @@ public class GUI {
 			panel.add(options);
 
 		}
+		
 		JLabel events = new JLabel(board.messages.getString("eventCard"));
 		events.setLocation(25, x*25);
 		events.setSize(250,20);
 		panel.add(events);
-		int currentPlayerIndex = board.currentPlayerIndex+1;
 		
+		int currentPlayerIndex = board.currentPlayerIndex+1;
 		String playerTurn = MessageFormat
 				.format(board.messages.getString("playerTurn"), currentPlayerIndex);
-		JLabel currentPlayer = new JLabel(playerTurn);
 		
+		JLabel currentPlayer = new JLabel(playerTurn);
 		currentPlayer.setLocation(25,(x+1)*25);
 		currentPlayer.setSize(250,20);
 		panel.add(currentPlayer);
+		
+		int actionCount = board.currentPlayer.playerData.action;
+		String actionRemain = MessageFormat
+				.format(board.messages.getString("action"), actionCount);
+		JLabel action = new JLabel(actionRemain);
+		action.setLocation(25, (x+2)*25);
+		action.setSize(250,20);
+		panel.add(action);
+		
 		JComboBox<String> eventCards = makeEventCardOptions();
 		eventCards.setLocation(300, (x) * 25);
 		eventCards.setSize(150, 20);
 		panel.add(eventCards);
+		
 		JButton eventButton = new JButton(board.messages.getString("playEventCard"));
 		eventButton.addActionListener(new EventCardListener(board, eventCards, this));
-		eventButton.setLocation(300, (x + 1) * 25);
+		eventButton.setLocation(300, (x+1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
+		
 		JButton specialSkillButton = new JButton(board.messages.getString("useSpecialSkill"));
 		specialSkillButton.setLocation(475, x*25);
 		specialSkillButton.setSize(150, 20);
@@ -127,11 +150,13 @@ public class GUI {
 			specialSkillButton.addActionListener(new ContingencyPlannerListener(board, this));
 			panel.add(specialSkillButton);
 		}
+		
+		addColorStrings();
 		int i=0;
 		for(String disease:board.remainDiseaseCube.keySet()){
 			int remainDiseaseCubeNum = board.remainDiseaseCube.get(disease);
 			String diseaseCubeInfo =  MessageFormat
-					.format(board.messages.getString("diseaseCubeInfo"), disease, remainDiseaseCubeNum);
+					.format(diseaseColors.get(disease), remainDiseaseCubeNum);
 			JLabel label = new JLabel(diseaseCubeInfo);
 			label.setLocation(475, i*25);
 			label.setSize(150,20);
@@ -140,7 +165,6 @@ public class GUI {
 		}
 		panels.add(panel);
 		addPanel(panel, BorderLayout.AFTER_LINE_ENDS);
-
 	}
 
 	private JComboBox<String> makeEventCardOptions() {
@@ -187,7 +211,6 @@ public class GUI {
 	}
 
 	public void setButtonPanel(JPanel buttonPanel) {
-		this.buttonPanel = buttonPanel;
 		mainPanel.add(buttonPanel);
 	}
 
