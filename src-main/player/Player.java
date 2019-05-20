@@ -67,23 +67,16 @@ public class Player {
 	}
 
 	public void directFlight(PlayerCard cityCard) {
-		if (cityCard.cardName.equals(playerData.location.cityName)) {
-			throw new IllegalArgumentException("Cannot direct flight to current city");
-		} else if (cityCard.cardType == Board.CardType.CITYCARD) {
+		if (cityCard.cardType == Board.CardType.CITYCARD) {
 			board.cardToBeDiscard.add(cityCard.cardName);
 			discardCard();
 			consumeAction();
 			City destination = board.cities.get(cityCard.cardName);
 			moveTo(destination);
-		} else {
-			throw new IllegalArgumentException("Illegal Argument Type");
 		}
 	}
 
 	public void consumeAction() {
-		if (playerData.action <= 0) {
-			throw new RuntimeException("NO MORE ACTIONS!");
-		}
 		playerData.action -= 1;
 	}
 
@@ -116,11 +109,7 @@ public class Player {
 			if (destination.researchStation) {
 				moveTo(destination);
 				consumeAction();
-			} else {
-				throw new RuntimeException("Invalid shuttle flight: Destination doesn't have the station.");
-			}
-		} else {
-			throw new RuntimeException("Invalid shuttle flight: Current location doesn't hava the station.");
+			} 
 		}
 	}
 
@@ -145,7 +134,6 @@ public class Player {
 				}
 				consumeAction();
 			}
-
 			if (board.curedDiseases.size() == 4) {
 				throw new RuntimeException("PlayerWinException");
 			}

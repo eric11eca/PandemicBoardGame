@@ -42,8 +42,6 @@ public class InitializeBoard {
 		this.eventCardNames = new ArrayList<String>();
 	}
 	
-	
-
 	public void initializeWithCityData() {
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
 		for (List<String> cityData : citiesData) {

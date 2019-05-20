@@ -1,7 +1,6 @@
 package panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -10,16 +9,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
-import javax.swing.border.TitledBorder;
 
 import buttonListeners.ContingencyPlannerListener;
 import buttonListeners.DiscardCard;

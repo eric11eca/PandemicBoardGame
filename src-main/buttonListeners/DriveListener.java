@@ -55,7 +55,7 @@ public class DriveListener implements ActionListener {
 
 	protected void confirmCity(JComboBox<String> options, String chosenCity) {	
 		
-		if(chosenCity.equals( board.messages.getString("cancel"))){ 
+		if(chosenCity.equals(board.messages.getString("cancel"))){ 
 			 gui.removePanel(panel);
 			 return;
 		 }

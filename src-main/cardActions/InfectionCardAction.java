@@ -15,8 +15,6 @@ public class InfectionCardAction {
 	public void drawOneInfectionCard() {
 		int top = board.validInfectionCards.size() - 1;
 		if (top == -1) {
-//			board.playerLose=true;
-//			board.gameEnd=true;
 			throw new RuntimeException("NoInfectionCards");
 		}
 		String infectCity = board.validInfectionCards.remove(top);

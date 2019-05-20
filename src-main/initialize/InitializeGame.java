@@ -36,8 +36,6 @@ public class InitializeGame {
 	public InitializeGame(Board board, GameSetup setup) {
 		this.board = board;
 		this.setup = setup;
-		// Build all the objects
-		// Call the GUI to select the number of players
 		String[] language = getLanguages();
 		String[] locale = getLocale();
 		JPanel pnl = new JPanel();

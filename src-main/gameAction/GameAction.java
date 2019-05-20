@@ -6,7 +6,6 @@ import cards.PlayerCard;
 import data.Board;
 import data.City;
 import player.Player;
-import player.PlayerData;
 
 public class GameAction {
 	Board board;
@@ -38,10 +37,7 @@ public class GameAction {
 			}
 			board.validPlayerCards.remove(0);
 		}
-		
-		if (board.currentPlayer.playerData.hand.size() > 7) {
-			throw new RuntimeException("Player hand overflows");
-		}
+
 	}
 
 
