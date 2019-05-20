@@ -38,7 +38,7 @@ public class GameAction {
 		}
 		
 		if (board.currentPlayer.playerData.hand.size() > 7) {
-			throw new RuntimeException("Player hand overflows");
+			throw new RuntimeException("PlayerHandOverflow");
 		}
 	}
 
@@ -57,7 +57,7 @@ public class GameAction {
 				break;
 			case PLAYEVENTCARD:
 				player.useEventCard(board.eventCardName);
-				if(board.eventCardName.equals("Airlift")) {
+				if(board.eventCardName.equals(board.messages.getString("Airlift"))) {
 					doesChangeLocation = true;
 				}
 				break;

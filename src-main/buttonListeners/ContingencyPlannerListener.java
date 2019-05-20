@@ -33,7 +33,7 @@ public class ContingencyPlannerListener implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				if (board.currentPlayer.playerData.specialEventCard == null) {
 					JOptionPane.showMessageDialog(null,
-							"Contingency Planner already has a event card on his role card");
+							board.messages.getString("Contingency"));
 				} else {
 					board.currentPlayer.playerData.specialEventCard = cardList.getSelectedItem().toString();
 					gui.removePanel(panel);
