@@ -78,10 +78,6 @@ public class Board {
 	public List<String> validInfectionCards = new ArrayList<>();
 	public List<String> discardInfectionCards = new ArrayList<>();
 	public Set<String> discardEventCards = new HashSet<>();
-	
-	public boolean gameEnd = false;
-	public boolean playerLose = false;
-	public boolean playerWin = false;
 
 	public int pawnTobeMoved;
 	public String newLocationName;

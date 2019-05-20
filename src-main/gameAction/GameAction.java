@@ -23,9 +23,7 @@ public class GameAction {
 		for (int i = 0; i < 2; i++) {
 			PlayerCard playerCard = null;	
 			if(board.validPlayerCards.isEmpty()) {	
-				board.playerLose = true;
-				board.gameEnd = true;
-				return;
+				throw new RuntimeException("NoPlayerCardsException");
 			} else {
 				playerCard = board.validPlayerCards.get(0);
 			}

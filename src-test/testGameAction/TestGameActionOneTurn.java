@@ -33,7 +33,7 @@ public class TestGameActionOneTurn {
 		playerData = new PlayerData();
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testNoMorePlayerCardToDraw() {
 		board.validPlayerCards = EasyMock.createMock(ArrayList.class);
 		EasyMock.expect(board.validPlayerCards.isEmpty()).andReturn(true);
@@ -41,14 +41,11 @@ public class TestGameActionOneTurn {
 		EasyMock.replay(board.validPlayerCards);
 		action.drawTwoPlayerCards();
 		EasyMock.verify(board.validPlayerCards);
-		assertTrue(board.playerLose);
-		assertTrue(board.gameEnd);
 	}
 
 	@Test
 	public void testDrawTwoCityCard() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
-		
 		EasyMock.expect(board.validPlayerCards.isEmpty()).andReturn(false);
 		PlayerCard newyork = new PlayerCard(Board.CardType.CITYCARD, "NewYork");
 		EasyMock.expect(board.validPlayerCards.get(0)).andReturn(newyork);
@@ -68,9 +65,6 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer);
-		
-		assertFalse(board.playerLose);
-		assertFalse(board.gameEnd);
 	}
 
 	@Test
@@ -108,9 +102,8 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer, epidemic);
-		
 	}
-
+	
 	@Test
 	public void testInfectionPhase() {
 		board.remainDiseaseCube.put("RED", 24);

@@ -153,6 +153,11 @@ public class GUI {
 				}
 			}
 		}
+		for (int i=0;i<board.currentPlayers.size();i++){
+			if(board.currentPlayers.get(i).playerData.specialEventCard!=null){
+				eventCards.add(board.currentPlayers.get(i).playerData.specialEventCard);
+			}
+		}
 		String[] cards = eventCards.toArray(new String[eventCards.size()]);
 		JComboBox<String> eventCardsInHands = new JComboBox<String>(cards);
 		return eventCardsInHands;
