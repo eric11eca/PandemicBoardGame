@@ -63,7 +63,7 @@ public class TestTreat {
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
 		assertEquals(24, numOfRemainCubes);
-		assertFalse(board.eradicatedColor.contains(blue));
+		assertTrue(board.eradicatedColor.contains(blue));
 		assertEquals(3, medicData.action);
 	}
 	
@@ -77,7 +77,7 @@ public class TestTreat {
 		board.curedDiseases.add(blue);
 		assertEquals(0, numOfBlueCubes);
 		assertEquals(24, numOfRemainCubes);
-		assertFalse(board.eradicatedColor.contains(blue));
+		assertTrue(board.eradicatedColor.contains(blue));
 		assertEquals(3, medicData.action);
 	}
 	
