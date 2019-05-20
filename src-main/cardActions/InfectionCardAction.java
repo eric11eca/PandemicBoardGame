@@ -15,12 +15,15 @@ public class InfectionCardAction {
 	public void drawOneInfectionCard() {
 		int top = board.validInfectionCards.size() - 1;
 		if (top == -1) {
-//			board.playerLose=true;
-//			board.gameEnd=true;
 			throw new RuntimeException("NoInfectionCards");
 		}
 		String infectCity = board.validInfectionCards.remove(top);
 		String cityColor = board.cities.get(infectCity).color;
+		
+		if(board.eradicatedColor.contains(cityColor)) {
+			return;
+		}
+		
 		infectCity(infectCity, cityColor);
 		board.discardInfectionCards.add(infectCity);
 	}

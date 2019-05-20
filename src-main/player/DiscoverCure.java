@@ -10,7 +10,7 @@ public class DiscoverCure {
 	public Set<String> curedDiseases;
 	public int cardCount;
 
-	public boolean discoverCure(List<PlayerCard> cardsToCureDisease) {
+	public boolean discover(List<PlayerCard> cardsToCureDisease) {
 		if (cardsToCureDisease.size() != cardCount) {
 			throw new RuntimeException("IncorrectNumberOfCardsException");
 		}

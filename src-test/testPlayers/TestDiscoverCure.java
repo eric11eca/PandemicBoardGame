@@ -64,7 +64,7 @@ public class TestDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
-		medicDiscoverCure.discoverCure(cards);
+		medicDiscoverCure.discover(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
 	}
 
@@ -77,7 +77,7 @@ public class TestDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
-		assertFalse(medicDiscoverCure.discoverCure(cards));
+		assertFalse(medicDiscoverCure.discover(cards));
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -87,7 +87,7 @@ public class TestDiscoverCure {
 		cards.add(redCity2);
 		cards.add(redCity3);
 		cards.add(redCity4);
-		medicDiscoverCure.discoverCure(cards);
+		medicDiscoverCure.discover(cards);
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -99,7 +99,7 @@ public class TestDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
-		medicDiscoverCure.discoverCure(cards);
+		medicDiscoverCure.discover(cards);
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -108,7 +108,7 @@ public class TestDiscoverCure {
 		cards.add(redCity1);
 		cards.add(redCity2);
 		cards.add(redCity3);
-		scientistDiscoverCure.discoverCure(cards);
+		scientistDiscoverCure.discover(cards);
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -119,7 +119,7 @@ public class TestDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
-		scientistDiscoverCure.discoverCure(cards);
+		scientistDiscoverCure.discover(cards);
 	}
 
 	@Test

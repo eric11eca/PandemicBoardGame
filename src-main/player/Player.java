@@ -139,7 +139,7 @@ public class Player {
 	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
 		boolean isResearchStation = playerData.location.researchStation;
 		if (isResearchStation) {
-			if (playerData.discoverCure.discoverCure(cardsToCureDisease)) {
+			if (playerData.discoverCureModel.discover(cardsToCureDisease)) {
 				for (PlayerCard playercard : cardsToCureDisease) {
 					board.cardToBeDiscard.add(playercard.cardName);
 				}
@@ -149,6 +149,8 @@ public class Player {
 			if (board.curedDiseases.size() == 4) {
 				throw new RuntimeException("PlayerWinException");
 			}
+			
+			eradicate(cardsToCureDisease.get(0).color);
 			discardCard();
 
 		} else {

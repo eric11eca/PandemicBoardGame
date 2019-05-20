@@ -13,7 +13,7 @@ public class QuarantineSpecialistAction {
 	public QuarantineSpecialistAction(Board gameBoard, PlayerData currentPlayerData) {
 		board = gameBoard;
 		quarantineSpecialist = currentPlayerData;
-		quarantineSpecialist.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		quarantineSpecialist.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		quarantineSpecialist.buildStationModel = new StationBuilderNormal(quarantineSpecialist, board);
 		quarantineSpecialist.treatAction = new TreatNormal(quarantineSpecialist, board);
 	}
