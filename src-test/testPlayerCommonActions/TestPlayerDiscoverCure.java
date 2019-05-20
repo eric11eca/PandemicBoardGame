@@ -65,6 +65,17 @@ public class TestPlayerDiscoverCure {
 		
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
+		board.remainDiseaseCube.put("RED", 7);
+	}
+	
+	@Test
+	public void testEradicateDiseaseWhenDiscoverCure() {
+		board.remainDiseaseCube.put("RED", 12);
+		playerData.location = new City();
+		playerData.location.researchStation = true;
+		player.discoverCure(cards);
+		assertTrue(board.curedDiseases.contains("RED"));
+		assertTrue(board.eradicatedColor.contains("RED"));
 	}
 
 	@Test

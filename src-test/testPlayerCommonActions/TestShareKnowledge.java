@@ -63,14 +63,6 @@ public class TestShareKnowledge {
 		researcher = new Player(board, researcherData);
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testShareKnowledegePlayer1GiveEventCard() {
-		board.playerToShare = player2;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = true;
-		player1.shareKnowledge();
-	}
-
 	@Test
 	public void testShareKnowledgePlayer1GiveSuccess() {
 		player1.receiveCard(newyorkCitycard);

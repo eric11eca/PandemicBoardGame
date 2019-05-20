@@ -37,12 +37,4 @@ public class TestDiscardCard {
 		assertEquals(1, playerData.hand.size());
 		assertEquals(0, board.cardToBeDiscard.size());
 	}
-	
-	@Test (expected = RuntimeException.class)
-	public void testDiscardCardWithInvalidCardName() {
-		String cardName = "C";
-		board.cardToBeDiscard.add(cardName);
-		player.discardCard();
-	}
-
 }
