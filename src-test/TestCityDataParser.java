@@ -11,7 +11,7 @@ public class TestCityDataParser {
 	@Test(expected = RuntimeException.class)
 	public void testParseFileNotFound() {
 		CityDataParser parser = new CityDataParser();
-		parser.parse(""); // list<list<String>>
+		parser.parse("");
 	}
 
 	@Test
