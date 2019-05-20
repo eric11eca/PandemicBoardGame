@@ -1,6 +1,7 @@
 package panel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -9,12 +10,16 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+import javax.swing.border.TitledBorder;
 
 import buttonListeners.ContingencyPlannerListener;
 import buttonListeners.DiscardCard;
@@ -36,16 +41,6 @@ public class GUI {
 	public ArrayList<JLabel> hands = new ArrayList<>();
 	GameSetup gameSetup;
 
-<<<<<<< HEAD
-	static final int SCREEN_HEIGHT = 1080;
-	static final int SCREEN_WIDTH = 1920;
-	static final double WIDTH_SCALE = 0.4;
-
-	public static final String WINING_MESSAGE = "\n CONGRADULATIONS, \n YOU WIN!";
-	public static final String LOSING_MESSAGE = "\n SORRY, YOU LOSE, \n WNNA TRY AGAIN?";
-
-=======
->>>>>>> origin/internationalizationGui2
 	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
@@ -84,18 +79,12 @@ public class GUI {
 		JPanel panel = new JPanel();
 		int x = 0;
 		for (x = 0; x < board.playernumber; x++) {
-<<<<<<< HEAD
-			int currentPlayer = x + 1;
-			JLabel player = new JLabel(
-					"Player " + currentPlayer + "(" + board.currentPlayers.get(x).playerData.role.toString() + ")");
-=======
 			int currentPlayer = x+1;
 			String role = board.currentPlayers.get(x).playerData.role.toString();
 			String playerInfo = MessageFormat.format(
 					board.messages.getString("playerInfo"), currentPlayer, role);
 			JLabel player = new JLabel(playerInfo);
 			
->>>>>>> origin/internationalizationGui2
 			player.setLocation(25, x * 25);
 			player.setSize(250, 20);
 			panel.add(player);
@@ -110,16 +99,6 @@ public class GUI {
 			panel.add(options);
 
 		}
-<<<<<<< HEAD
-		JLabel events = new JLabel("Event Cards");
-		events.setLocation(25, x * 25);
-		events.setSize(250, 20);
-		panel.add(events);
-		int currentPlayerIndex = board.currentPlayerIndex + 1;
-		JLabel currentPlayer = new JLabel("Player " + currentPlayerIndex + " turn:");
-		currentPlayer.setLocation(25, (x + 1) * 25);
-		currentPlayer.setSize(250, 20);
-=======
 		JLabel events = new JLabel(board.messages.getString("eventCard"));
 		events.setLocation(25, x*25);
 		events.setSize(250,20);
@@ -132,7 +111,6 @@ public class GUI {
 		
 		currentPlayer.setLocation(25,(x+1)*25);
 		currentPlayer.setSize(250,20);
->>>>>>> origin/internationalizationGui2
 		panel.add(currentPlayer);
 		JComboBox<String> eventCards = makeEventCardOptions();
 		eventCards.setLocation(300, (x) * 25);
@@ -143,28 +121,16 @@ public class GUI {
 		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
-<<<<<<< HEAD
-		JButton specialSkillButton = new JButton("Use Special Skill");
-		specialSkillButton.setLocation(475, x * 25);
-=======
 		JButton specialSkillButton = new JButton(board.messages.getString("useSpecialSkill"));
 		specialSkillButton.setLocation(475, x*25);
->>>>>>> origin/internationalizationGui2
 		specialSkillButton.setSize(150, 20);
-		if (board.currentPlayer.playerData.role == Roles.DISPATCHER) {
-			specialSkillButton.addActionListener(new DispatcherListener(board, this));
+		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
+			specialSkillButton.addActionListener(new DispatcherListener(board,this));
 			panel.add(specialSkillButton);
-		} else if (board.currentPlayer.playerData.role == Roles.CONTINGENCYPLANNER) {
+		}else if(board.currentPlayer.playerData.role==Roles.CONTINGENCYPLANNER){
 			specialSkillButton.addActionListener(new ContingencyPlannerListener(board, this));
 			panel.add(specialSkillButton);
 		}
-<<<<<<< HEAD
-		int i = 0;
-		for (String disease : board.remainDiseaseCube.keySet()) {
-			JLabel label = new JLabel(disease + ": " + board.remainDiseaseCube.get(disease));
-			label.setLocation(475, i * 25);
-			label.setSize(150, 20);
-=======
 		int i=0;
 		for(String disease:board.remainDiseaseCube.keySet()){
 			int remainDiseaseCubeNum = board.remainDiseaseCube.get(disease);
@@ -173,7 +139,6 @@ public class GUI {
 			JLabel label = new JLabel(diseaseCubeInfo);
 			label.setLocation(475, i*25);
 			label.setSize(150,20);
->>>>>>> origin/internationalizationGui2
 			panel.add(label);
 			i++;
 		}
@@ -225,13 +190,10 @@ public class GUI {
 		mainPanel.add(buttonPanel);
 	}
 
-<<<<<<< HEAD
-=======
 	public void gameEnd(String message) {
 		JOptionPane.showMessageDialog(null, message);
 	}
 
->>>>>>> origin/internationalizationGui2
 	public void showPlayerHand() {
 		System.out.println(board.currentPlayerIndex);
 		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);

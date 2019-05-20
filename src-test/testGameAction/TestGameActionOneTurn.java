@@ -20,7 +20,6 @@ import gameAction.GameAction;
 import player.Player;
 import player.PlayerData;
 import playerAction.MedicAction;
-import playerAction.SpecialSkill;
 
 public class TestGameActionOneTurn {
 	Board board;
@@ -316,7 +315,7 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.specialSkill = EasyMock.createNiceMock(MedicAction.class);
 		board.currentPlayer = new Player(board, playerData);
 		board.currentPlayer.playerData.role = Board.Roles.MEDIC;
-		board.currentPlayer.playerData.specialSkill.specialSkill();
+		board.currentPlayer.playerData.specialSkill.useSpecialSkill();
 		EasyMock.replay(board.currentPlayer.playerData.specialSkill);
 		action.doesChangeLocation = true;
 		action.doAction(null);
