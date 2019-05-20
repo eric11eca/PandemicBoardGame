@@ -22,12 +22,12 @@ import player.Player;
 public class DrawingBoard {
 	private Map<String, Color> nameToColor;
 	private Board board;
-	public Graphics2D g;
+	public Graphics2D graphic;
 	JFrame frame;
 	public BufferedImage img;
 	JLabel label;
 
-	public DrawingBoard(Board board, JFrame f, JLabel label) throws IOException {
+	public DrawingBoard(Board board, JFrame frame, JLabel label) throws IOException {
 		this.board = board;
 		this.label = label;
 		nameToColor = new HashMap<>();
@@ -37,14 +37,14 @@ public class DrawingBoard {
 		nameToColor.put("BLACK", Color.BLACK);
 		File picture = new File("Main Picture.png");
 		img = ImageIO.read(picture);
-		g = img.createGraphics();
-		frame = f;
+		graphic = img.createGraphics();
+		this.frame = frame;
 	}
 
 	public void repaint() throws IOException {
 		File picture = new File("Main Picture.png");
 		img = ImageIO.read(picture);
-		g = img.createGraphics();
+		graphic = img.createGraphics();
 		if(!board.infectionRateTracker.isEmpty()) {
 			drawInfect(7 - board.infectionRateTracker.size());
 		}
@@ -58,12 +58,12 @@ public class DrawingBoard {
 
 		}
 		String uncureMark = board.messages.getString("UNCURED");
-		g.setColor(Color.RED);
-		g.setFont(new Font(uncureMark, 12, 12));
-		g.drawString(uncureMark, 425, 770);
-		g.drawString(uncureMark, 425 + 68, 770);
-		g.drawString(uncureMark, 425 + (68*2), 770);
-		g.drawString(uncureMark, 425+ (68*3), 770);
+		graphic.setColor(Color.RED);
+		graphic.setFont(new Font(uncureMark, 12, 12));
+		graphic.drawString(uncureMark, 425, 770);
+		graphic.drawString(uncureMark, 425 + 68, 770);
+		graphic.drawString(uncureMark, 425 + (68*2), 770);
+		graphic.drawString(uncureMark, 425+ (68*3), 770);
 		
 		int currentPlayerNum = 0;
 		for (Player player : board.currentPlayers) {
@@ -78,31 +78,31 @@ public class DrawingBoard {
 	}
 
 	public void drawInfect(int i) {
-		g.setFont(new Font("X", Font.BOLD, 30));
-		g.drawString("X", 900 + (i * 50), 55);
+		graphic.setFont(new Font("X", Font.BOLD, 30));
+		graphic.drawString("X", 900 + (i * 50), 55);
 	}
 
 	public void drawCards(int i) {
 		String cardCount = MessageFormat.format(board.messages.getString("cardsLeft"), i);
-		g.setFont(new Font(cardCount, Font.BOLD, 14));
-		g.drawString(cardCount, 875, 700);
+		graphic.setFont(new Font(cardCount, Font.BOLD, 14));
+		graphic.drawString(cardCount, 875, 700);
 	}
 
 	public void drawOutBreaks(int i) {
-		g.setFont(new Font("X", Font.BOLD, 30));
-		g.drawString("X", 50 + ((i % 2) * 50), 395 + (i * 42));
+		graphic.setFont(new Font("X", Font.BOLD, 30));
+		graphic.drawString("X", 50 + ((i % 2) * 50), 395 + (i * 42));
 	}
 
 	public void drawPlayer(City city, String k) {
-		g.setColor(Color.YELLOW);
+		graphic.setColor(Color.YELLOW);
 		String playerLabel = MessageFormat.format("P {0}", k);
-		g.setFont(new Font(playerLabel, Font.BOLD, 12));
-		g.drawString(playerLabel, city.x -50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
+		graphic.setFont(new Font(playerLabel, Font.BOLD, 12));
+		graphic.drawString(playerLabel, city.x -50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
 	}
 
 	public void drawResearch(City city) {
-		g.setColor(new Color(228, 180, 34));
-		g.fillRect(city.x - 5, city.y - 5, 10, 10);
+		graphic.setColor(new Color(228, 180, 34));
+		graphic.fillRect(city.x - 5, city.y - 5, 10, 10);
 	}
 
 	public void drawCubes(City city) {
@@ -128,8 +128,8 @@ public class DrawingBoard {
 	}
 
 	public void drawcube(int x, int y, Color color) {
-		g.setColor(color);
-		g.fillRect(x, y, 7, 7);
+		graphic.setColor(color);
+		graphic.fillRect(x, y, 7, 7);
 	}
 
 }

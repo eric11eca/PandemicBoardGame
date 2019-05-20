@@ -37,7 +37,7 @@ public class TreatDiseaseListener implements ActionListener {
 					colors.add(i);
 				}
 			}
-			colors.add( board.messages.getString("cancel")); 
+			colors.add(board.messages.getString("cancel")); 
 			if (colorsmap.size() == 0) {
 				return;
 			}

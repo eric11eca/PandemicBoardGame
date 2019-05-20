@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import cards.PlayerCard;
@@ -24,15 +23,13 @@ public class TestCharterFlight {
 		City newyorkCity = new City(newyork);
 		board.cities.put(newyork, newyorkCity);
 		
-		PlayerData playerData = new PlayerData();
-		playerData.action = 4;
-		
+		PlayerData playerData = new PlayerData();		
 		PlayerCard chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
 		playerData.location = chicagoCity;
 		playerData.action = 4;
 		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
 		String location = playerData.location.cityName;
-		board.cityCardNameCharter = "NewYork";
+		board.cityCardNameCharter = newyork;
 		
 		Player medic = new Player(board, playerData);
 		
@@ -40,7 +37,7 @@ public class TestCharterFlight {
 		medic.charterFlight();	
 		assertFalse(playerData.hand.containsKey(location));
 	
-		assertEquals("NewYork", playerData.location.cityName);
+		assertEquals(newyork, playerData.location.cityName);
 		assertEquals(0, playerData.hand.size());
 		assertEquals(3, playerData.action);
 	}
