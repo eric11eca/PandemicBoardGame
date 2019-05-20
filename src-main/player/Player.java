@@ -7,7 +7,7 @@ import data.City;
 
 public class Player {
 	public PlayerData playerData;
-	private Board board;
+	public Board board;
 
 	public Player(Board gameBoard, PlayerData playerData) {
 		board = gameBoard;
@@ -36,8 +36,6 @@ public class Player {
 			String cardName = board.cardToBeDiscard.get(i);
 			if (playerData.hand.containsKey(cardName)) {
 				playerData.hand.remove(cardName);
-			} else {
-				throw new RuntimeException("This card does not exist in the hand");
 			}
 		}
 		board.cardToBeDiscard.clear();
@@ -120,7 +118,7 @@ public class Player {
 	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
 		boolean isResearchStation = playerData.location.researchStation;
 		if (isResearchStation) {
-			if (playerData.discoverCure.discoverCure(cardsToCureDisease)) {
+			if (playerData.discoverCureModel.discover(cardsToCureDisease)) {
 				for (PlayerCard playercard : cardsToCureDisease) {
 					board.cardToBeDiscard.add(playercard.cardName);
 				}
@@ -129,6 +127,8 @@ public class Player {
 			if (board.curedDiseases.size() == 4) {
 				throw new RuntimeException("PlayerWinException");
 			}
+			
+			eradicate(cardsToCureDisease.get(0).color);
 			discardCard();
 
 		} else {

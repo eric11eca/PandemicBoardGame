@@ -61,7 +61,7 @@ public class TestPlayerDiscoverCure {
 		cards.add(redCity4);
 		cards.add(redCity5);
 		
-		playerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		playerData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);

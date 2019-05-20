@@ -19,6 +19,7 @@ public class InfectionCardAction {
 		}
 		String infectCity = board.validInfectionCards.remove(top);
 		String cityColor = board.cities.get(infectCity).color;
+		
 		infectCity(infectCity, cityColor);
 		board.discardInfectionCards.add(infectCity);
 	}
@@ -27,7 +28,11 @@ public class InfectionCardAction {
 		if (board.inQueitNight) {
 			board.inQueitNight = false;
 			return;
-		}                                                        
+		}      
+		
+		if(board.eradicatedColor.contains(diseaseColor)) {
+			return;
+		}
 		
 		City city = board.cities.get(cityName);
 		

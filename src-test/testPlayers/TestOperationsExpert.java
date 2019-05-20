@@ -5,22 +5,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
-import player.Player;
 import player.PlayerData;
 import playerAction.OperationsExpertAction;
 
 public class TestOperationsExpert {
 	Board board;
 	City location;
-	Player player;
 	PlayerData playerData;
 	OperationsExpertAction operationsExpertAction;
-	EventCardAction eventCardAction;
-	
 
 	@Before
 	public void setup() {
@@ -30,9 +25,7 @@ public class TestOperationsExpert {
 		playerData.location = new City();
 		location = playerData.location;
 		operationsExpertAction = new OperationsExpertAction(board, playerData);
-		eventCardAction = new EventCardAction(board);
 		playerData.specialSkill = operationsExpertAction;
-		player = new Player(board, playerData);
 	}
 
 	@Test

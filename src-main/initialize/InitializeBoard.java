@@ -174,13 +174,13 @@ public class InitializeBoard {
 		quarantineSpecialistData.buildStationModel = new StationBuilderNormal(quarantineSpecialistData, board);
 		operationsExpertData.buildStationModel = new StationBuilderOperationsExpert(operationsExpertData, board);
 		
-		scientistData.discoverCure = new DiscoverCureScientist(board.curedDiseases);
-		medicData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		researcherData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		dispatcherData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		operationsExpertData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		contingencyPlannerData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
-		quarantineSpecialistData.discoverCure = new DiscoverCureNormal(board.curedDiseases);
+		scientistData.discoverCureModel = new DiscoverCureScientist(board.curedDiseases);
+		medicData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		researcherData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		dispatcherData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		operationsExpertData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		contingencyPlannerData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		quarantineSpecialistData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		
 		scientistData.treatAction = new TreatNormal(scientistData, board);
 		medicData.treatAction = new TreatMedic(medicData, board);
