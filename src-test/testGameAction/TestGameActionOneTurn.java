@@ -17,6 +17,7 @@ import cards.PlayerCard;
 import data.Board;
 import data.City;
 import gameAction.GameAction;
+import initialize.Messages;
 import player.Player;
 import player.PlayerData;
 import playerAction.MedicAction;
@@ -212,10 +213,12 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData = this.playerData;
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.useEventCard(board.eventCardName);
-		EasyMock.replay(board.currentPlayer);
-
+		board.messages = EasyMock.createMock(Messages.class);
+		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Airlift");
+		EasyMock.replay(board.currentPlayer, board.messages);
+		
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
-		EasyMock.verify(board.currentPlayer);
+		EasyMock.verify(board.currentPlayer, board.messages);
 		assertTrue(action.doesChangeLocation);
 	}
 
@@ -226,11 +229,14 @@ public class TestGameActionOneTurn {
 
 		board.currentPlayer.playerData = this.playerData;
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-
 		board.currentPlayer.useEventCard(board.eventCardName);
-		EasyMock.replay(board.currentPlayer);
+		
+		board.messages = EasyMock.createMock(Messages.class);
+		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Forecast");
+		EasyMock.replay(board.currentPlayer, board.messages);
+		
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
-		EasyMock.verify(board.currentPlayer);
+		EasyMock.verify(board.currentPlayer, board.messages);
 	}
 
 	@Test

@@ -1,5 +1,6 @@
 package cardActions;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,8 @@ public class Outbreak {
 					continueOutbreak.add(city);
 				} else {
 					if(board.remainDiseaseCube.get(disease) == 0) {
-						throw new RuntimeException("OutOf"+disease);
+						String errorMessage = MessageFormat.format("OutOf{0}", disease);
+						throw new RuntimeException(errorMessage);
 					}
 					city.diseaseCubes.put(disease, currentNum+1);
 					int remainingCube = board.remainDiseaseCube.get(disease);

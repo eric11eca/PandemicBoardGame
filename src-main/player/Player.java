@@ -107,7 +107,8 @@ public class Player {
 	}
 
 	public void eradicate(String diseaseColor) {
-		if (board.remainDiseaseCube.get(diseaseColor) == 24) {
+		if (board.curedDiseases.contains(diseaseColor) 
+				&& board.remainDiseaseCube.get(diseaseColor) == 24) {
 			board.eradicatedColor.add(diseaseColor);
 		}
 	}

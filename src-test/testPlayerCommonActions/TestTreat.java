@@ -1,6 +1,7 @@
 package testPlayerCommonActions;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -54,7 +55,7 @@ public class TestTreat {
 	}
 	
 	@Test
-	public void testMedicTreat() {
+	public void testMedicTreatWithNoCure() {
 		city.diseaseCubes.put(blue, 2);
 		board.remainDiseaseCube.put(blue, 22);
 		medic.treat(blue);
@@ -62,7 +63,21 @@ public class TestTreat {
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
 		assertEquals(24, numOfRemainCubes);
-		assertTrue(board.eradicatedColor.contains(blue));
+		assertFalse(board.eradicatedColor.contains(blue));
+		assertEquals(3, medicData.action);
+	}
+	
+	@Test
+	public void testMedicTreatWithCure() {
+		city.diseaseCubes.put(blue, 2);
+		board.remainDiseaseCube.put(blue, 22);
+		medic.treat(blue);
+		int numOfBlueCubes = city.diseaseCubes.get(blue);
+		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
+		board.curedDiseases.add(blue);
+		assertEquals(0, numOfBlueCubes);
+		assertEquals(24, numOfRemainCubes);
+		assertFalse(board.eradicatedColor.contains(blue));
 		assertEquals(3, medicData.action);
 	}
 	

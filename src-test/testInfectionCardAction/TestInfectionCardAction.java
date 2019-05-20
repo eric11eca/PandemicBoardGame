@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,7 +58,7 @@ public class TestInfectionCardAction {
 		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor);
 		assertEquals(23, numOfRemainRedCubes);
 	}
-
+	
 	@Test
 	public void testInfectCityWithEixstingDisease() {
 		City city_old = board.cities.get(cityName);

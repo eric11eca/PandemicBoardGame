@@ -1,5 +1,7 @@
 package cardActions;
 
+import java.text.MessageFormat;
+
 import data.Board;
 import data.City;
 
@@ -48,12 +50,15 @@ public class InfectionCardAction {
 			numOfCubes = city.diseaseCubes.get(diseaseColor);
 			numOfCubes += 1;
 		}
+		
 		if(numOfCubes > 3) {
 			outbreak.performeOutbreak(city);
 			return;
 		}
+		
 		city.diseaseCubes.put(diseaseColor, numOfCubes);
 		int colorCubes = board.remainDiseaseCube.get(diseaseColor);
+
 		board.remainDiseaseCube.put(diseaseColor, colorCubes - numOfCubes);
 	}
 

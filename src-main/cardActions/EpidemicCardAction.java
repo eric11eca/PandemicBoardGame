@@ -1,5 +1,6 @@
 package cardActions;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class EpidemicCardAction {
 			while (city.diseaseCubes.get(disease) < 3) {
 				int remainingCubes = board.remainDiseaseCube.get(disease);
 				if (remainingCubes == 0) {
-					throw new RuntimeException("OutOf"+disease);
+					String errorMessage = MessageFormat.format("OutOf{0}", disease);
+					throw new RuntimeException(errorMessage);
 				}
 				int numOfCubes = city.diseaseCubes.get(disease);
 				city.diseaseCubes.put(disease, numOfCubes + 1);
