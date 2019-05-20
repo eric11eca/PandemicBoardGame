@@ -10,7 +10,6 @@ import data.Board;
 import data.City;
 
 public class TestEpidemicCardAction {
-
 	Board board;
 	EpidemicCardAction epidemicCardAction;
 	

@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import data.Board;
 import data.City;
-import player.Player;
 import player.PlayerData;
 import playerAction.MedicAction;
 
@@ -17,13 +16,11 @@ public class TestMedic {
 	MedicAction medicAction;
 	Board board;
 	PlayerData medic;
-	Player player;
 
 	@Before
 	public void setup() {
 		board = new Board();
 		medic = new PlayerData();
-		medic.role = Board.Roles.MEDIC;
 		medicAction = new MedicAction(board, medic);
 		City city = new City();
 		city.cityName = "a";
@@ -36,7 +33,7 @@ public class TestMedic {
 		medic.location.diseaseCubes.put("YELLOW", 2);
 		medic.location.diseaseCubes.put("BLUE", 1);
 		assertFalse(medic.location.diseaseCubes.isEmpty());
-		medicAction.useSpecialSkill();
+		medicAction.removeAllCubes();
 		int numOfYellowCube = medic.location.diseaseCubes.get("YELLOW");
 		int numOfBlueCube = medic.location.diseaseCubes.get("BLUE");
 		assertEquals(2, numOfYellowCube);
@@ -62,6 +59,7 @@ public class TestMedic {
 		assertEquals(12, remainBlueCube);
 		assertEquals(12, remainYellowCube);
 		assertEquals(4, medic.action);
+		assertEquals(2, board.eradicatedColor.size());
 	}
 	
 	@Test
@@ -73,9 +71,7 @@ public class TestMedic {
 		
 		medicAction.removeAllCubes();
 		EasyMock.replay(medicAction);
-		
 		medicAction.useSpecialSkill();
-		
 		EasyMock.verify(medicAction);
 	}
 }

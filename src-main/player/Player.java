@@ -3,15 +3,13 @@ package player;
 import java.util.List;
 import java.util.Random;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
 
 public class Player {
 	public PlayerData playerData;
-	private Board board;
-	public EventCardAction eventCardAction;
+	public Board board;
 
 	public Player(Board gameBoard, PlayerData playerData) {
 		this(gameBoard, new Random());
@@ -28,10 +26,10 @@ public class Player {
 	}
 
 	public void useEventCard(String cardName) {
-		if (cardName.equals(playerData.roleCard)) {
+		if (cardName.equals(playerData.specialEventCard)) {
 			board.eventCardAction.executeEventCard(cardName);
 			board.eventCards.remove(cardName);
-			playerData.roleCard = null;
+			playerData.specialEventCard = null;
 		} else {
 			playerData.hand.remove(cardName);
 			board.eventCardAction.executeEventCard(cardName);

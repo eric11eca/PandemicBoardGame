@@ -19,7 +19,7 @@ public class MedicAction implements SpecialSkill{
 				int numOfCube = medicData.location.diseaseCubes.get(diseaseColor);
 				board.remainDiseaseCube.put(diseaseColor, board.remainDiseaseCube.get(diseaseColor) + numOfCube);			
 				medicData.location.diseaseCubes.put(diseaseColor, 0);
-				board.currentPlayer.eradicate(diseaseColor);
+				board.eradicatedColor.add(diseaseColor);
 			}
 		}
 	}
