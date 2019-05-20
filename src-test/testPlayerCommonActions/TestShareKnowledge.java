@@ -109,11 +109,15 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1ReceiveFromAResearcher() {
+		City chicago = new City("Chicago");
+		researcher.playerData.location = chicago;
+		player1.playerData.location = chicago;
 		researcher.receiveCard(newyorkCitycard);
 		board.playerToShare = researcher;
 		board.cityToShare = newyorkCitycard;
 		board.isGiving = false;
 		player1.shareKnowledge();
+		assertTrue(player1.playerData.hand.containsKey(newyork));
+		assertFalse(researcher.playerData.hand.containsKey(newyork));
 	}
-
 }

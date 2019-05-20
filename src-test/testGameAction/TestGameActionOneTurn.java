@@ -19,6 +19,8 @@ import data.City;
 import gameAction.GameAction;
 import player.Player;
 import player.PlayerData;
+import playerAction.MedicAction;
+import playerAction.SpecialSkill;
 
 public class TestGameActionOneTurn {
 	Board board;
@@ -199,6 +201,19 @@ public class TestGameActionOneTurn {
 		action.doAction(Board.ActionName.DIRECTFLIGHT);
 		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
+	
+	@Test
+	public void testAirliftEventCard() {
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.eventCardName = "Airlift";
+		board.currentPlayer.playerData = this.playerData;
+		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
+		board.currentPlayer.useEventCard(board.eventCardName);
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(Board.ActionName.PLAYEVENTCARD);
+		EasyMock.verify(board.currentPlayer);
+		assertTrue(action.doesChangeLocation);
+	}
 
 	@Test
 	public void testPlayEventCard() {
@@ -294,5 +309,18 @@ public class TestGameActionOneTurn {
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.SHAREKNOWLEDGE);
 		EasyMock.verify(board.currentPlayer);
+	}
+	
+	@Test 
+	public void testMedicSpecialSkill() {
+		board.currentPlayer.playerData.specialSkill = EasyMock.createNiceMock(MedicAction.class);
+		board.currentPlayer = new Player(board, playerData);
+		board.currentPlayer.playerData.role = Board.Roles.MEDIC;
+		board.currentPlayer.playerData.specialSkill.specialSkill();
+		EasyMock.replay(board.currentPlayer.playerData.specialSkill);
+		action.doesChangeLocation = true;
+		action.doAction(null);
+		EasyMock.verify(board.currentPlayer.playerData.specialSkill);
+		
 	}
 }

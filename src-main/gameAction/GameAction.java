@@ -5,11 +5,15 @@ import cardActions.InfectionCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
+import player.Player;
+import player.PlayerData;
 
 public class GameAction {
 	Board board;
 	EpidemicCardAction epidemic;
 	InfectionCardAction infectAction;
+	public boolean doesChangeLocation = false;
+	public boolean isMedic;
 
 	public GameAction(Board gameBoard) {
 		board = gameBoard;
@@ -42,37 +46,47 @@ public class GameAction {
 
 
 	public void doAction(Board.ActionName actionName) {
-		boolean isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
-		boolean doesChangeLocation = false;
-		if (actionName == Board.ActionName.DIRECTFLIGHT) {
-			PlayerCard cityCard = board.currentPlayer.playerData.hand.get(board.cityCardNameDirect);
-			board.currentPlayer.directFlight(cityCard);
-			doesChangeLocation = true;
-		} else if (actionName == Board.ActionName.PLAYEVENTCARD) {
-			board.currentPlayer.useEventCard(board.eventCardName);
-			if(board.eventCardName.equals("Airlift")) {
+		Player player = board.currentPlayer;
+		isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
+		
+		switch (actionName) {
+			default:
+				break;
+			case DIRECTFLIGHT: 
+				String cardName = board.cityCardNameDirect;
+				PlayerCard cityCard = player.playerData.hand.get(cardName);
+				player.directFlight(cityCard);
 				doesChangeLocation = true;
-			}
-		} else if (actionName == Board.ActionName.CUREDISEASE) {
-			board.currentPlayer.discoverCure(board.cardsToCureDisease);
-		} else if (actionName == Board.ActionName.TREATDISEASE) {
-			board.currentPlayer.treat(board.diseaseBeingTreated);
-		} else if (actionName == Board.ActionName.DRIVE) {
-			City driveDestination = board.cities.get(board.driveDestinationName);
-			doesChangeLocation = true;
-			board.currentPlayer.drive(driveDestination);
-		} else if (actionName == Board.ActionName.CHARTERFLIGHT) {
-			board.currentPlayer.charterFlight();
-			doesChangeLocation = true;
-		} else if (actionName == Board.ActionName.SHUTTLEFLIGHT) {
-			City shuttleDestination = board.cities.get(board.shuttleDestinationName);
-			board.currentPlayer.shuttleFlight(shuttleDestination);
-			doesChangeLocation = true;
-		} else if (actionName == Board.ActionName.BUILDRESEARCH) {
-			board.currentPlayer.buildStation();
-		} else if (actionName == Board.ActionName.SHAREKNOWLEDGE) {
-			board.currentPlayer.shareKnowledge();
+				break;
+			case PLAYEVENTCARD:
+				player.useEventCard(board.eventCardName);
+				if(board.eventCardName.equals("Airlift")) {
+					doesChangeLocation = true;
+				}
+				break;
+			case CUREDISEASE:
+				player.discoverCure(board.cardsToCureDisease);
+				break;
+			case TREATDISEASE:
+				player.treat(board.diseaseBeingTreated);
+				break;
+			case DRIVE:
+				City driveDestination = board.cities.get(board.driveDestinationName);
+				doesChangeLocation = true;
+				player.drive(driveDestination);
+			case CHARTERFLIGHT:
+				player.charterFlight();
+				doesChangeLocation = true;
+			case SHUTTLEFLIGHT:  
+				City shuttleDestination = board.cities.get(board.shuttleDestinationName);
+				player.shuttleFlight(shuttleDestination);
+				doesChangeLocation = true;
+			case BUILDRESEARCH: 
+				player.buildStation();
+			case SHAREKNOWLEDGE:
+				player.shareKnowledge();
 		}
+		
 		if(isMedic && doesChangeLocation) {
 			board.currentPlayer.playerData.specialSkill.useSpecialSkill();
 		}
