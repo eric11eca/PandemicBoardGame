@@ -36,7 +36,7 @@ public class EventCardListener implements ActionListener {
 		for (int i = 0; i < board.currentPlayers.size(); i++) {
 			Map<String, PlayerCard> playerHand = board.currentPlayers.get(i).playerData.hand;
 			if (playerHand.keySet().contains(card)) {
-				//board.currentPlayers.get(i).playerData.specialEventCard = card;
+				board.currentPlayers.get(i).playerData.specialEventCard = card;
 				if (card.equals(board.messages.getString("Airlift"))) {
 					performAirlift(i);
 				} else if (card.equals(board.messages.getString("OneQuietNight"))) { 
@@ -48,6 +48,7 @@ public class EventCardListener implements ActionListener {
 				} else {
 					performForecast(i);
 				}
+				
 				gui.updateImage();
 				break;
 			}

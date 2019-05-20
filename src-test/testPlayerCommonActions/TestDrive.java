@@ -50,8 +50,4 @@ public class TestDrive {
 		assertEquals(playerData.location.cityName, "Atlanta");
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testNotNeighborDrive() {
-		player.drive(notNeighborCity);
-	}
 }

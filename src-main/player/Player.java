@@ -28,7 +28,6 @@ public class Player {
 			playerData.hand.remove(cardName);
 			board.discardEventCards.add(cardName);
 		}
-		System.out.println("use event card");
 		board.eventCardAction.executeEventCard(cardName);
 	}
 
@@ -52,9 +51,7 @@ public class Player {
 		} else if (playerData.location.neighbors.containsKey(destination.cityName)) {
 			moveTo(destination);
 			consumeAction();
-		} else {
-			throw new RuntimeException("Invalid destination: Not a neighbour!!");
-		}
+		} 
 	}
 
 	public void directFlight(PlayerCard cityCard) {
