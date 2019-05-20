@@ -51,24 +51,6 @@ public class TestShuttleFlight {
 		assertEquals(3, playerData.action);
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testStationToNoStation() {
-		initialPlayerLocationHasStation(true);
-		player.shuttleFlight(this.destinationNoStation);
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testNoStationToStation() {
-		initialPlayerLocationHasStation(false);
-		player.shuttleFlight(this.destinationNoStation);
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testNoStationToNoStation() {
-		initialPlayerLocationHasStation(false);
-		player.shuttleFlight(this.destinationNoStation);
-	}
-
 	private void initialPlayerLocationHasStation(boolean hasStation) {
 		if (hasStation) {
 			playerData.location = this.locationWithStation;

@@ -7,99 +7,41 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
 import player.Player;
 import player.PlayerData;
-import playerAction.MedicAction;
 
 public class TestCharterFlight {
-	Board board;
-	Player medic;
-	PlayerData playerData;
-	MedicAction medicAction;
-	PlayerCard locationCityCard, notLocationCityCard, eventCard;
-	EventCardAction eventCardAction;
-	City chicagoCity, newyorkCity, seattleCity, miamiCity;
 
-	@Before
-	public void setup() {
-		board = new Board();
+	@Test
+	public void testCharterFlight() {
+		Board board = new Board();
 		String chicago = "Chicago";
-		chicagoCity = new City(chicago);
+		City chicagoCity = new City(chicago);
 		String newyork = "NewYork";
-		newyorkCity = new City(newyork);
-		String seattle = "Seattle";
-		seattleCity = new City(seattle);
-		String miami = "Miami";
-		miamiCity = new City(miami);
-
-		board.cities.put(chicago, chicagoCity);
+		City newyorkCity = new City(newyork);
 		board.cities.put(newyork, newyorkCity);
-		board.cities.put(seattle, seattleCity);
-		board.cities.put(miami, miamiCity);
 		
-		playerData = new PlayerData();
+		PlayerData playerData = new PlayerData();
+		playerData.action = 4;
 		
-		playerData.role = Board.Roles.MEDIC;
-		playerData.location = chicagoCity;
-		
-		locationCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
-		notLocationCityCard = new PlayerCard(Board.CardType.CITYCARD, newyork);
-		
-		eventCard = new PlayerCard(Board.CardType.EVENTCARD, "");
-		
-		playerData.hand.put(locationCityCard.cardName, locationCityCard);
-		playerData.hand.put(notLocationCityCard.cardName, notLocationCityCard);
-		playerData.hand.put(eventCard.cardName, eventCard);
-		
-		eventCardAction = new EventCardAction(board);
-		medic = new Player(board, playerData);
-	}
-
-	@Test
-	public void testValidConsumeAction1() {
-		medic.consumeAction();
-		assertEquals(3, playerData.action);
-	}
-
-	@Test
-	public void testConsumeAction() {
-		medic.consumeAction();
-		medic.consumeAction();
-		medic.consumeAction();
-		medic.consumeAction();
-		assertEquals(0, playerData.action);
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testInvalidConsumeAction() {
-		medic.consumeAction();
-		medic.consumeAction();
-		medic.consumeAction();
-		medic.consumeAction();
-		medic.consumeAction();
-	}
-
-	@Test
-	public void testSuccessCharterFlight() {
+		PlayerCard chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
 		playerData.location = chicagoCity;
 		playerData.action = 4;
-		playerData.hand.put(locationCityCard.cardName, locationCityCard);
-		playerData.hand.put(notLocationCityCard.cardName, notLocationCityCard);
-		playerData.hand.put(eventCard.cardName, eventCard);
-		
+		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
 		String location = playerData.location.cityName;
-		
 		board.cityCardNameCharter = "NewYork";
+		
+		Player medic = new Player(board, playerData);
 		
 		assertTrue(playerData.hand.containsKey(location));
 		medic.charterFlight();	
 		assertFalse(playerData.hand.containsKey(location));
+	
 		assertEquals("NewYork", playerData.location.cityName);
-		assertEquals(2, playerData.hand.size());
+		assertEquals(0, playerData.hand.size());
 		assertEquals(3, playerData.action);
 	}
 

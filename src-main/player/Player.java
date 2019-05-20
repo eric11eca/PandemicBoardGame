@@ -1,9 +1,6 @@
 package player;
 
 import java.util.List;
-import java.util.Random;
-
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
@@ -11,16 +8,11 @@ import data.City;
 public class Player {
 	public PlayerData playerData;
 	private Board board;
-	public EventCardAction eventCardAction;
 
 	public Player(Board gameBoard, PlayerData playerData) {
-		this(gameBoard, new Random());
+		board = gameBoard;
 		this.playerData = playerData;
 		playerData.action = 4;
-	}
-
-	public Player(Board gameBoard, Random random) {
-		board = gameBoard;
 	}
 
 	public void receiveCard(PlayerCard playerCard) {

@@ -50,14 +50,4 @@ public class TestDirectFlight {
 		assertEquals("NewYork", playerData.location.cityName);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testFailDirectFlight() {
-		player.directFlight(eventCard);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testFlyToCurrentCity() {
-		player.directFlight(chicagoCityCard);
-	}
-
 }

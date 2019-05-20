@@ -9,10 +9,9 @@ import player.Player;
 
 public class GameAction {
 	Board board;
-	EpidemicCardAction epidemic;
+	public EpidemicCardAction epidemic;
 	InfectionCardAction infectAction;
 	public boolean doesChangeLocation = false;
-	public boolean isMedic;
 
 	public GameAction(Board gameBoard) {
 		board = gameBoard;
@@ -22,7 +21,7 @@ public class GameAction {
 
 	public void drawTwoPlayerCards() {
 		for (int i = 0; i < 2; i++) {
-			PlayerCard playerCard = null;
+			PlayerCard playerCard = null;	
 			if(board.validPlayerCards.isEmpty()) {	
 				board.playerLose = true;
 				board.gameEnd = true;
@@ -30,21 +29,21 @@ public class GameAction {
 			} else {
 				playerCard = board.validPlayerCards.get(0);
 			}
+			
 			if (playerCard.cardType == Board.CardType.EPIDEMIC) {
 				epidemic.performEpidemic();
 			} else {
 				board.currentPlayer.receiveCard(playerCard);
 			}
+			
 			board.validPlayerCards.remove(0);
 		}
-
 	}
-
 
 	public void doAction(Board.ActionName actionName) {
 		Player player = board.currentPlayer;
-		isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
-		
+		boolean isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
+		doesChangeLocation = false;
 		switch (actionName) {
 			default:
 				break;
@@ -70,17 +69,22 @@ public class GameAction {
 				City driveDestination = board.cities.get(board.driveDestinationName);
 				doesChangeLocation = true;
 				player.drive(driveDestination);
+				break;
 			case CHARTERFLIGHT:
 				player.charterFlight();
 				doesChangeLocation = true;
+				break;
 			case SHUTTLEFLIGHT:  
 				City shuttleDestination = board.cities.get(board.shuttleDestinationName);
 				player.shuttleFlight(shuttleDestination);
 				doesChangeLocation = true;
+				break;
 			case BUILDRESEARCH: 
 				player.buildStation();
+				break;
 			case SHAREKNOWLEDGE:
 				player.shareKnowledge();
+				break;
 		}
 		
 		if(isMedic && doesChangeLocation) {
