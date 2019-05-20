@@ -56,12 +56,12 @@ public class TestTreat {
 	@Test
 	public void testMedicTreat() {
 		city.diseaseCubes.put(blue, 2);
-		board.remainDiseaseCube.put(blue, 10);
+		board.remainDiseaseCube.put(blue, 22);
 		medic.treat(blue);
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
-		assertEquals(12, numOfRemainCubes);
+		assertEquals(24, numOfRemainCubes);
 		assertTrue(board.eradicatedColor.contains(blue));
 		assertEquals(3, medicData.action);
 	}

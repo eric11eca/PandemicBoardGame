@@ -36,6 +36,10 @@ public class GameAction {
 			
 			board.validPlayerCards.remove(0);
 		}
+		
+		if (board.currentPlayer.playerData.hand.size() > 7) {
+			throw new RuntimeException("Player hand overflows");
+		}
 	}
 
 	public void doAction(Board.ActionName actionName) {

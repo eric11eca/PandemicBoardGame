@@ -70,7 +70,7 @@ public class TestPlayerDiscoverCure {
 	
 	@Test
 	public void testEradicateDiseaseWhenDiscoverCure() {
-		board.remainDiseaseCube.put("RED", 12);
+		board.remainDiseaseCube.put("RED", 24);
 		playerData.location = new City();
 		playerData.location.researchStation = true;
 		player.discoverCure(cards);

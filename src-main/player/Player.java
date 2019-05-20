@@ -1,7 +1,6 @@
 package player;
 
 import java.util.List;
-import java.util.Map;
 
 import cards.PlayerCard;
 import data.Board;
@@ -108,7 +107,7 @@ public class Player {
 	}
 
 	public void eradicate(String diseaseColor) {
-		if (board.remainDiseaseCube.get(diseaseColor) == 12) {
+		if (board.remainDiseaseCube.get(diseaseColor) == 24) {
 			board.eradicatedColor.add(diseaseColor);
 		}
 	}
