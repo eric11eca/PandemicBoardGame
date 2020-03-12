@@ -16,7 +16,7 @@ public class TestForecastEvent {
 	
 	@Before 
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		forecast = new ForecastEvent(board);
 		setupBoard();
 	}

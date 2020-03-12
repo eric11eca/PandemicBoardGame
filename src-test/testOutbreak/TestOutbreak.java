@@ -22,7 +22,8 @@ public class TestOutbreak {
 	
 	@Before 
 	public void setup() {
-		board = new Board();
+		Board.setNull();
+		board = Board.getInstance();
 		city = new City();
 		city.cityName = "Paris";
 		city.color = "RED";

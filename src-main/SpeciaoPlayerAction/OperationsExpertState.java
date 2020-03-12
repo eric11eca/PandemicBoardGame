@@ -1,4 +1,4 @@
-package playerAction;
+package SpeciaoPlayerAction;
 
 import java.util.Map;
 
@@ -7,13 +7,13 @@ import data.Board;
 import player.PlayerData;
 
 
-public class OperationsExpertAction implements SpecialSkill {
+public class OperationsExpertState implements State {
 	public String cityName;
 	private Board board;
 	private PlayerData operationsExpert;
 	
-	public OperationsExpertAction(Board gameBoard, PlayerData currentPlayerData) {
-		board = gameBoard;
+	public OperationsExpertState(PlayerData currentPlayerData) {
+		board = Board.getInstance();
 		operationsExpert = currentPlayerData;
 	}
 

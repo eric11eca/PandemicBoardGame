@@ -11,8 +11,8 @@ public class InitializePlayerData {
 	Board board;
 	String prefix = "Player.";
 
-	public InitializePlayerData(Board board) {
-		this.board = board;
+	public InitializePlayerData() {
+		this.board = Board.getInstance();
 	}
 
 	public void createPlayers() {

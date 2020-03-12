@@ -1,17 +1,18 @@
-package player;
+package PlayerAction;
 
 import data.Board;
+import player.PlayerData;
 
-public class Treat {
-	public PlayerData playerData;
+public abstract class Treat{
 	public Board board;
+	public PlayerData playerData;
 	public int remainCube;
 
 	public void treat(String diseaseColor) {
 		int currentCityNumOfCube = playerData.location.diseaseCubes.get(diseaseColor);
 		playerData.location.diseaseCubes.put(diseaseColor, remainCube);
 		int remainDiseaseCube = board.remainDiseaseCube.get(diseaseColor);
-		board.remainDiseaseCube.put(diseaseColor, remainDiseaseCube + currentCityNumOfCube - remainCube);
+		int newCubeNumber = remainDiseaseCube + currentCityNumOfCube - remainCube;
+		board.remainDiseaseCube.put(diseaseColor, newCubeNumber);
 	}
-	
 }

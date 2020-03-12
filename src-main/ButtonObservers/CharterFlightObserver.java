@@ -13,7 +13,7 @@ public class CharterFlightObserver implements Observer {
 	public CharterFlightObserver(Board board, Observable observable) {
 		this.board = board;
 		this.observable = observable;
-		observable.addObserver(this);
+		this.observable.addObserver(this);
 	}
 
 	@Override

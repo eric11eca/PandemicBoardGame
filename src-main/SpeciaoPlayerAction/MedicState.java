@@ -1,15 +1,15 @@
-package playerAction;
+package SpeciaoPlayerAction;
 
 
 import data.Board;
 import player.PlayerData;
 
-public class MedicAction implements SpecialSkill{
+public class MedicState implements State{
 	private Board board;
 	private PlayerData medicData;
 	
-	public MedicAction(Board gameBoard, PlayerData currentPlayerData) {
-		board = gameBoard;
+	public MedicState(PlayerData currentPlayerData) {
+		board = Board.getInstance();
 		medicData = currentPlayerData;
 	}
 

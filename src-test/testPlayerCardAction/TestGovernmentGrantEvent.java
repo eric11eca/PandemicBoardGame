@@ -16,7 +16,8 @@ public class TestGovernmentGrantEvent {
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		Board.setNull();
+		board = Board.getInstance();
 		grant = new GovernmentGrant(board);
 		City city = new City();
 		city.cityName = cityName;

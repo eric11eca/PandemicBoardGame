@@ -104,7 +104,6 @@ public class GUI {
 			options.setLocation(300, x * 25);
 			options.setSize(150, 20);
 			panel.add(options);
-
 		}
 		
 		JLabel events = new JLabel(board.messages.getString("eventCard"));

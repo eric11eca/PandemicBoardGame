@@ -22,7 +22,7 @@ public class TestReceiveCard {
 
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		playerData = new PlayerData();
 
 		String[] cities = { "city1", "city2", "city3", "city4", "city5", "city6", "city7", "city8" };

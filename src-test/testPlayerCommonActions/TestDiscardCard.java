@@ -19,7 +19,7 @@ public class TestDiscardCard {
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		playerData = new PlayerData();
 		String[] cities = { "A", "B"};
 		for (String city : cities) {

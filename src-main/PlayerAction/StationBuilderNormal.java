@@ -1,6 +1,7 @@
-package player;
+package PlayerAction;
 
 import data.Board;
+import player.PlayerData;
 
 public class StationBuilderNormal extends StationBuilder{
 	

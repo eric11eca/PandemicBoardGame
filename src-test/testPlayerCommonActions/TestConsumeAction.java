@@ -14,7 +14,7 @@ public class TestConsumeAction {
 	public void testConsumeAction() {
 		PlayerData medicData = new PlayerData();
 		medicData.action = 4;
-		Player medic = new Player(new Board(), medicData);
+		Player medic = new Player(Board.getInstance(), medicData);
 		medic.consumeAction();
 		assertEquals(3, medicData.action);
 	}

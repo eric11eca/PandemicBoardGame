@@ -1,14 +1,16 @@
-package player;
+package PlayerAction;
 
 import data.Board;
+import player.PlayerData;
 
 public class TreatNormal extends Treat {
 
-	public TreatNormal(PlayerData playerData, Board gameBoard) {
-		this.playerData = playerData;
-		board = gameBoard;
+	public TreatNormal(PlayerData data) {
+		board = Board.getInstance();
+		playerData = data;
 	}
-	
+
+	@Override
 	public void treat(String diseaseColor) {
 		int numOfDiseaseCubes = playerData.location.diseaseCubes.get(diseaseColor);
 		if (board.curedDiseases.contains(diseaseColor)) {

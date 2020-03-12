@@ -75,7 +75,7 @@ public class DiscardCard {
 					selected = 0;
 				} else {
 					board.cardToBeDiscard = cardTobeDiscard;
-					board.currentPlayer.discardCard();
+					board.currentPlayer.commonAction.discardCard();
 					gui.removePanel(panel);
 					gui.updateImage();
 					gameSetup.changePlayer();

@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import ButtonObservers.CharterFlightObserver;
+import ButtonObservers.DriveObserver;
 import buttonListeners.BuildResearchStationListener;
 import buttonListeners.CharterFlightListener;
 import buttonListeners.DifficultyListener;
@@ -28,27 +29,27 @@ import panel.GUI;
 public class InitializeGame {
 	public int players = 0;
 	public int epidemicNumber = 0;
-	
-	JPanel buttonPanel;
-	GameSetup setup;
-	
-	private Board board;
 	public GUI gui;
-
-	public InitializeGame(Board board, GameSetup setup) {
-		this.board = board;
+	
+	private JPanel buttonPanel;
+	private GameSetup setup;
+	private Board board;
+	
+	public InitializeGame(final GameSetup setup) {
+		this.board = Board.getInstance();
 		this.setup = setup;
 		String[] language = getLanguages();
 		String[] locale = getLocale();
-		JPanel pnl = new JPanel();
+		final JPanel pnl = new JPanel();
 		
-		JComboBox<String> languageList = new JComboBox<String>(language);
-		JComboBox<String> localeList = new JComboBox<String>(locale);
+		final JComboBox<String> languageList = new JComboBox<String>(language);
+		final JComboBox<String> localeList = new JComboBox<String>(locale);
 		JButton selectLanguage = new JButton("Continue");
 		selectLanguage.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				setup.initializeMessageBundle(languageList.getSelectedItem().toString(), localeList.getSelectedItem().toString());
+				setup.initializeMessageBundle(languageList.getSelectedItem().toString(), 
+						localeList.getSelectedItem().toString());
 				setup.initializeMessageToShow();
 				choosePlayers(pnl);
 			}
@@ -59,7 +60,6 @@ public class InitializeGame {
 		pnl.add(selectLanguage);
 		gui = new GUI(setup);
 		gui.addPanel(pnl);
-
 	}
 	
 	private String[] getLocale() {
@@ -113,7 +113,6 @@ public class InitializeGame {
 		btn3p.addActionListener(action2);
 		btn4p.addActionListener(action3);
 		gui.addPanel(pnl);
-
 	}
 
 	public void SetDifficulty(int epidemics, JPanel panelToClose) {
@@ -127,7 +126,6 @@ public class InitializeGame {
 	public void startCreationofBoard(){
 		StartGame();
 	}
-
 	
 	private void StartGame() {
 		gui.board = board;
@@ -138,16 +136,17 @@ public class InitializeGame {
 		JButton drive = new JButton(board.messages.getString("drive"));
 		DriveListener driveListener = new DriveListener(board, gui, setup);
 		drive.addActionListener(driveListener);
+		Observer driveObserver = new DriveObserver(board, driveListener);
+		driveListener.addObserver(driveObserver);
 
 		JButton flight = new JButton(board.messages.getString("directFlight"));
 		DirectFlightListener flightListener = new DirectFlightListener(board, gui, setup);
 		flight.addActionListener(flightListener);
-
+		
 		JButton cFlight = new JButton(board.messages.getString("charterFlight"));
 		CharterFlightListener cFlightListener = new CharterFlightListener(board, gui, setup);
 		cFlight.addActionListener(cFlightListener);
 		Observer charterFlightObserver = new CharterFlightObserver(board, cFlightListener);
-		cFlightListener.charterFlightObserver = charterFlightObserver;
 		cFlightListener.addObserver(charterFlightObserver);
 
 		JButton sFlight = new JButton(board.messages.getString("shuttleFlight"));

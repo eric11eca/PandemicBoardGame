@@ -1,7 +1,6 @@
 package initialize;
 
 import java.util.Locale;
-
 import javax.swing.JOptionPane;
 import data.Board;
 import data.City;
@@ -9,22 +8,21 @@ import gameAction.GameAction;
 import player.Player;
 
 public class GameSetup {
-	public Board board;
-	public GameAction gameAction;
-	public InitializeGame initGame;
-	public InitializeBoard initBoard;
-	public InitializePlayerData initPlayerData;
+	private Board board;
+	private GameAction gameAction;
+	private InitializeGame initGame;
+	private InitializeBoard initBoard;
+	private InitializePlayerData initPlayerData;
 
-	public GameSetup() {	
-	
-	}
+	public GameSetup() {}
 	
 	public void startGame(){
-		board = new Board();
-		gameAction = new GameAction(board);
-		initGame = new InitializeGame(board, this);
-		initBoard = new InitializeBoard(board);
-		initPlayerData = new InitializePlayerData(board);
+		board = Board.getInstance();
+		gameAction = new GameAction();
+		initGame = new InitializeGame(this);
+		initBoard = new InitializeBoard();
+		initBoard.gameAction = gameAction;
+		initPlayerData = new InitializePlayerData();
 	}
 
 	public void startGameSetup() {
@@ -51,6 +49,7 @@ public class GameSetup {
 		initBoard.initializePlayerRoles();
 		initBoard.initializeEventCardAction();
 		initBoard.initializePlayerTable();
+		initBoard.initializeCommands();
 		
 		initPlayerData.createPlayers();
 		initPlayerData.drawHandCard();
@@ -75,7 +74,7 @@ public class GameSetup {
 
 	public void oneTurn() {
 		try{
-			gameAction.doAction(board.actionName);
+			gameAction.doAction();
 		} catch (RuntimeException e){
 				System.out.println(e.getMessage());
 				JOptionPane.showMessageDialog(null,board.messagesToShow.get(e.getMessage()));
@@ -108,7 +107,6 @@ public class GameSetup {
 		if (board.currentPlayerIndex == board.playernumber){
 			board.currentPlayerIndex = 0;
 		}
-		
 		gameAction.infection();
 		board.currentPlayer.playerData.action = 4;
 		board.currentPlayer = board.currentPlayers.get(board.currentPlayerIndex);
@@ -116,14 +114,12 @@ public class GameSetup {
 	
 	public void initializeMessageBundle(String language, String region) {
 		Locale defaultLocale = Locale.getDefault();
-		
 		if(language != null) {
 			if(region != null) {
 				board.messages = new Messages(new Locale(language, region));
 			} else {
 				board.messages = new Messages(new Locale(language));
 			}
-			
 		} else  {
 			board.messages = new Messages(defaultLocale);
 		}

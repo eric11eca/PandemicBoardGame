@@ -16,7 +16,6 @@ import initialize.GameSetup;
 import panel.GUI;
 
 public class CharterFlightListener extends Observable implements ActionListener {
-	public Observer charterFlightObserver;
 	public String chosenCity;
 	private Board board;
 	private JPanel panel;

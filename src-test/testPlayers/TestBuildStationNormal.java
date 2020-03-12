@@ -6,12 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import PlayerAction.StationBuilder;
+import PlayerAction.StationBuilderNormal;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
 import player.PlayerData;
-import player.StationBuilder;
-import player.StationBuilderNormal;
 
 public class TestBuildStationNormal {
 	Board board;
@@ -22,7 +22,7 @@ public class TestBuildStationNormal {
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		medicData = new PlayerData();
 		playerLocation = "PlayerLocation";
 		playerLocatedCity = new City(playerLocation);

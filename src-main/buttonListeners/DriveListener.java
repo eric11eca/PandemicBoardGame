@@ -3,6 +3,7 @@ package buttonListeners;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 import java.util.Set;
 
 import javax.swing.JComboBox;
@@ -13,18 +14,21 @@ import data.Board;
 import initialize.GameSetup;
 import panel.GUI;
 
-public class DriveListener implements ActionListener {
-	String chosenCity;
-	
+public class DriveListener extends Observable implements ActionListener {
 	private JPanel panel;
 	private Board board;
 	private GUI gui;
 	private GameSetup gameSetup;
+	private String chosenCity;
 
 	public DriveListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;
+	}
+	
+	public String getCityName() {
+		return chosenCity;
 	}
 
 	@Override
@@ -41,20 +45,17 @@ public class DriveListener implements ActionListener {
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
 		options.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				chosenCity = (options.getSelectedItem().toString()
-						.split(board.messages.getString("lineConnector")))[0]; 
-				confirmCity(options, chosenCity);
+				confirmCity(options);
 			}
 		});
-		
 		panel = new JPanel();
 		panel.add(options);
 		gui.addPanel(panel, BorderLayout.CENTER);
-
 	}
 
-	protected void confirmCity(JComboBox<String> options, String chosenCity) {	
-		
+	protected void confirmCity(JComboBox<String> options) {	
+		chosenCity = (options.getSelectedItem().toString()
+				.split(board.messages.getString("lineConnector")))[0]; 
 		if(chosenCity.equals(board.messages.getString("cancel"))){ 
 			 gui.removePanel(panel);
 			 return;
@@ -64,14 +65,12 @@ public class DriveListener implements ActionListener {
 				 board.messages.getString("Drive"), 
 				JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
-			board.driveDestinationName = chosenCity;
-			board.actionName = Board.ActionName.DRIVE;
+			this.setChanged();
+			this.notifyObservers();
 			gameSetup.oneTurn();
 			gui.removePanel(panel);
 			gui.updateImage();
-		} else {
-
+			this.clearChanged();
 		}
 	}
-
 }

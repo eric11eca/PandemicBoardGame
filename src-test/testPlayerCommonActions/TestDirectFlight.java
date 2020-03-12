@@ -23,7 +23,7 @@ public class TestDirectFlight {
 
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		playerData = new PlayerData();
 		String newyork = "NewYork";
 		City newyorkCity = new City(newyork);

@@ -5,27 +5,27 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import SpeciaoPlayerAction.OperationsExpertState;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
 import player.PlayerData;
-import playerAction.OperationsExpertAction;
 
 public class TestOperationsExpert {
 	Board board;
 	City location;
 	PlayerData playerData;
-	OperationsExpertAction operationsExpertAction;
+	OperationsExpertState operationsExpertState;
 
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		playerData = new PlayerData();
 		playerData.role = Board.Roles.OPERATIONSEXPERT;
 		playerData.location = new City();
 		location = playerData.location;
-		operationsExpertAction = new OperationsExpertAction(board, playerData);
-		playerData.specialSkill = operationsExpertAction;
+		operationsExpertState = new OperationsExpertState(board, playerData);
+		playerData.specialSkill = operationsExpertState;
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class TestOperationsExpert {
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, new_cityName);
 		playerData.hand.put(new_cityName, cityCard);
 		location.cityName = cityName;
-		operationsExpertAction.cityName = new_cityName;
+		operationsExpertState.cityName = new_cityName;
 		playerData.specialSkill.useSpecialSkill();
 		assertEquals(new_cityName, playerData.location.cityName);
 	}

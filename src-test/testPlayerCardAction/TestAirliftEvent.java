@@ -21,7 +21,8 @@ public class TestAirliftEvent {
 	
 	@Before 
 	public void setup() {
-		board = new Board();
+		Board.setNull();
+		board = Board.getInstance();
 		airlift = new Airlift(board);
 		player = EasyMock.createMock(Player.class); 
 		player.board = board;

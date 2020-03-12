@@ -1,9 +1,10 @@
-package player;
+package PlayerAction;
 
 import data.Board;
 import data.City;
+import player.PlayerData;
 
-public class StationBuilder {
+public abstract class StationBuilder {
 	PlayerData playerData;
 	Board board;
 	

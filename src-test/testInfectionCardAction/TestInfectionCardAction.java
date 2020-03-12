@@ -23,9 +23,10 @@ public class TestInfectionCardAction {
 
 	@Before
 	public void setup() {
+		Board.setNull();
 		cityName = "Chicago";
 		diseaseColor = "RED";
-		board = new Board();
+		board = Board.getInstance();
 		City city = new City();
 		city.cityName = cityName;
 		board.cities.put(cityName, city);

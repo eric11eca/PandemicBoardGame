@@ -12,6 +12,7 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
+import SpeciaoPlayerAction.MedicState;
 import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
@@ -20,7 +21,6 @@ import gameAction.GameAction;
 import initialize.Messages;
 import player.Player;
 import player.PlayerData;
-import playerAction.MedicAction;
 
 public class TestGameActionOneTurn {
 	Board board;
@@ -29,8 +29,9 @@ public class TestGameActionOneTurn {
 
 	@Before
 	public void setup() {
-		board = new Board();
-		action = new GameAction(board);
+		Board.setNull();
+		board = Board.getInstance();
+		action = new GameAction();
 		playerData = new PlayerData();
 	}
 
@@ -50,7 +51,7 @@ public class TestGameActionOneTurn {
 	public void testNoMorePlayerCardToDraw() {
 		board.validPlayerCards = EasyMock.createMock(ArrayList.class);
 		EasyMock.expect(board.validPlayerCards.isEmpty()).andReturn(true);
-		GameAction action = new GameAction(board);
+		GameAction action = new GameAction();
 		EasyMock.replay(board.validPlayerCards);
 		action.drawTwoPlayerCards();
 		EasyMock.verify(board.validPlayerCards);
@@ -202,7 +203,8 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.currentPlayer.playerData.hand.get(board.cityCardNameDirect)).andReturn(citycard);
 		board.currentPlayer.directFlight(citycard);
 		EasyMock.replay(board.currentPlayer, board.currentPlayer.playerData.hand);
-		action.doAction(Board.ActionName.DIRECTFLIGHT);
+		board.actionName = Board.ActionName.DIRECTFLIGHT;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
 
@@ -216,10 +218,10 @@ public class TestGameActionOneTurn {
 		board.messages = EasyMock.createMock(Messages.class);
 		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Airlift");
 		EasyMock.replay(board.currentPlayer, board.messages);
-		
-		action.doAction(Board.ActionName.PLAYEVENTCARD);
+		board.actionName = Board.ActionName.PLAYEVENTCARD;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer, board.messages);
-		assertTrue(action.doesChangeLocation);
+		assertTrue(board.doesChangeLocation);
 	}
 
 	@Test
@@ -235,7 +237,8 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Forecast");
 		EasyMock.replay(board.currentPlayer, board.messages);
 		
-		action.doAction(Board.ActionName.PLAYEVENTCARD);
+		board.actionName = Board.ActionName.PLAYEVENTCARD;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer, board.messages);
 	}
 
@@ -247,7 +250,8 @@ public class TestGameActionOneTurn {
 		List<PlayerCard> cardsToCureDisease = new ArrayList<>();
 		board.currentPlayer.discoverCure(cardsToCureDisease);
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.CUREDISEASE);
+		board.actionName = Board.ActionName.CUREDISEASE;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer);
 	}
 
@@ -258,7 +262,8 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.treat(board.diseaseBeingTreated);
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.TREATDISEASE);
+		board.actionName = Board.ActionName.TREATDISEASE;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer);
 	}
 
@@ -272,7 +277,8 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.cities.get(board.driveDestinationName)).andReturn(city);
 		board.currentPlayer.drive(city);
 		EasyMock.replay(board.currentPlayer, board.cities);
-		action.doAction(Board.ActionName.DRIVE);
+		board.actionName = Board.ActionName.DRIVE;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer, board.cities);
 	}
 
@@ -283,7 +289,8 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.charterFlight();
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.CHARTERFLIGHT);
+		board.actionName = Board.ActionName.CHARTERFLIGHT;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer);
 	}
 
@@ -297,7 +304,8 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.cities.get(board.shuttleDestinationName)).andReturn(city);
 		board.currentPlayer.shuttleFlight(city);
 		EasyMock.replay(board.currentPlayer, board.cities);
-		action.doAction(Board.ActionName.SHUTTLEFLIGHT);
+		board.actionName = Board.ActionName.SHUTTLEFLIGHT;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer, board.cities);
 	}
 
@@ -308,7 +316,8 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.buildStation();
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.BUILDRESEARCH);
+		board.actionName = Board.ActionName.BUILDRESEARCH;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer);
 	}
 
@@ -319,7 +328,8 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.shareKnowledge();
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.SHAREKNOWLEDGE);
+		board.actionName = Board.ActionName.SHAREKNOWLEDGE;
+		action.doAction();
 		EasyMock.verify(board.currentPlayer);
 	}
 
@@ -327,24 +337,26 @@ public class TestGameActionOneTurn {
 	public void testMedicChangeCityUseSpecialSkill() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.specialSkill = EasyMock.createNiceMock(MedicAction.class);
+		board.currentPlayer.state = EasyMock.createNiceMock(MedicState.class);
 		board.currentPlayer.playerData.role = Board.Roles.MEDIC;
-		board.currentPlayer.playerData.specialSkill.useSpecialSkill();
+		board.currentPlayer.state.useSpecialSkill();
 		board.currentPlayer.charterFlight();
-		EasyMock.replay(board.currentPlayer.playerData.specialSkill);
-		action.doAction(Board.ActionName.CHARTERFLIGHT);
-		EasyMock.verify(board.currentPlayer.playerData.specialSkill);
+		EasyMock.replay(board.currentPlayer.state);
+		board.actionName = Board.ActionName.CHARTERFLIGHT;
+		action.doAction();
+		EasyMock.verify(board.currentPlayer.state);
 	}
 
 	@Test
 	public void testMedicNotChangeCityNotUseSpecialSkill() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.specialSkill = EasyMock.createNiceMock(MedicAction.class);
+		board.currentPlayer.state = EasyMock.createNiceMock(MedicState.class);
 		board.currentPlayer.playerData.role = Board.Roles.MEDIC;
 		board.currentPlayer.buildStation();
-		EasyMock.replay(board.currentPlayer, board.currentPlayer.playerData.specialSkill);
-		action.doAction(Board.ActionName.BUILDRESEARCH);
-		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.specialSkill);
+		EasyMock.replay(board.currentPlayer, board.currentPlayer.state);
+		board.actionName = Board.ActionName.BUILDRESEARCH;
+		action.doAction();
+		EasyMock.verify(board.currentPlayer, board.currentPlayer.state);
 	}
 }

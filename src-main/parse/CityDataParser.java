@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CityDataParser {
-
 	public List<List<String>> parse(String path) {
 		List<List<String>> citiesData = new ArrayList<List<String>>();
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
@@ -26,5 +25,4 @@ public class CityDataParser {
 		}
 		return citiesData;
 	}
-
 }

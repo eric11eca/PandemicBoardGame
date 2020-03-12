@@ -16,7 +16,7 @@ public class TestUseSpecialEventCard {
 	@Test
 	public void testUseSpecialEventCard() {
 		String airlift = "Airlift";
-		Board board = new Board();
+		Board board = Board.getInstance();
 		PlayerData contingencyPlannerData = new PlayerData();
 		
 		contingencyPlannerData.specialEventCard = airlift;

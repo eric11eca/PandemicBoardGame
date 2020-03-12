@@ -2,61 +2,109 @@ package initialize;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import PlayerAction.DiscoverCureNormal;
+import PlayerAction.DiscoverCureScientist;
+import PlayerAction.StationBuilderNormal;
+import PlayerAction.StationBuilderOperationsExpert;
+import PlayerAction.TreatMedic;
+import PlayerAction.TreatNormal;
+import SpeciaoPlayerAction.ContingencyPlannerState;
+import SpeciaoPlayerAction.DispatcherState;
+import SpeciaoPlayerAction.MedicState;
+import SpeciaoPlayerAction.OperationsExpertState;
+import cardActions.EpidemicCardAction;
 import cardActions.EventCardAction;
-import cards.Airlift;
+import cardActions.InfectionCardAction;
+import cards.EventCard;
+import cards.EventCardFactory;
 import cards.ForecastEvent;
 import cards.GovernmentGrant;
 import cards.OneQuietNight;
 import cards.PlayerCard;
 import cards.ResilientPopulation;
 import data.Board;
+import data.Card;
+import data.CardDecks;
 import data.City;
+import data.Deck;
+import data.DeckComponent;
+import gameAction.ActionCommand;
+import gameAction.BuildResearchStationCommand;
+import gameAction.CharterFlightCommand;
+import gameAction.CureDiseaseCommand;
+import gameAction.DirectFlightCommand;
+import gameAction.DrawTwoPlayerCardsCommand;
+import gameAction.DriveCommand;
+import gameAction.GameAction;
+import gameAction.InfectionCommand;
+import gameAction.PlayEventCardCommand;
+import gameAction.ShareKnowledgeCommand;
+import gameAction.ShuttleFlightCommand;
+import gameAction.TreatDiseaseCommand;
 import parse.CityDataParser;
-import player.DiscoverCureNormal;
-import player.DiscoverCureScientist;
 import player.Player;
 import player.PlayerData;
-import player.StationBuilderNormal;
-import player.StationBuilderOperationsExpert;
-import player.TreatMedic;
-import player.TreatNormal;
-import playerAction.ContingencyPlannerAction;
-import playerAction.MedicAction;
-import playerAction.OperationsExpertAction;
 
 public class InitializeBoard {
 	public Board board;
+	public GameAction gameAction;
 	public CityDataParser cityDataParser;
 	public String cityDataPath = "CityData";
 	public ThreadLocalRandom random;
 	public ArrayList<String> eventCardNames;
 
-	public InitializeBoard(Board mainBoard) {
-		random = ThreadLocalRandom.current();
-		this.board = mainBoard;
+	public InitializeBoard() {
+		this.board = Board.getInstance();
 		this.cityDataParser = new CityDataParser();
 		this.eventCardNames = new ArrayList<String>();
+		random = ThreadLocalRandom.current();
 	}
 	
 	public void initializeWithCityData() {
-		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
-		for (List<String> cityData : citiesData) {
+		DeckComponent cardDecks = new CardDecks();
+		DeckComponent playerCardDeck = new Deck();
+		DeckComponent infectionCardDeck = new Deck();
+		
+		Board.CardType eventCardType = Board.CardType.EVENTCARD;
+		Board.CardType cityCardType = Board.CardType.CITYCARD;
+		
+		List<List<String>> citiesData = cityDataParser.parse(cityDataPath);
+		Iterator<List<String>> cityIterator = citiesData.iterator();
+		
+		while(cityIterator.hasNext()) {
+			List<String> cityData = cityIterator.next();
 			String cityName = cityData.get(0);
 			String color = cityData.get(1);
+			
+			DeckComponent cityCard = new Card(cityName, color, cityCardType);
+			playerCardDeck.addCard(cityCard, cityName);
+			infectionCardDeck.addCard(cityCard, cityName);
+			
 			Integer population = Integer.parseInt(cityData.get(2));
 			Integer x = Integer.parseInt(cityData.get(3));
 			Integer y = Integer.parseInt(cityData.get(4));
-
+			
 			City city = new City(cityName, color, population, x, y);
-
 			initializeCity(city);
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
 		}
+		
+		Iterator<String> eventIterator = eventCardNames.iterator();
+		while(eventIterator.hasNext()) {
+			String name = eventIterator.next();
+			DeckComponent eventCard = new Card(name, null, eventCardType);
+			playerCardDeck.addCard(eventCard, name);
+		}
+		
+		cardDecks.addDeck(playerCardDeck, "PlayerCards");
+		cardDecks.addDeck(infectionCardDeck, "InfectionCards");
+		
 		initializeNeighbors(citiesData);
 	}
 
@@ -134,18 +182,63 @@ public class InitializeBoard {
 	}
 	
 	public void initializeEventCardAction() {
-		Airlift airlift = new Airlift(board);
-		board.eventCards.put(board.messages.getString("Airlift"), airlift);
-		ForecastEvent forcast = new ForecastEvent(board);
-		board.eventCards.put(board.messages.getString("Forecast"), forcast);
-		OneQuietNight oneQuiteNight = new OneQuietNight(board);
-		board.eventCards.put(board.messages.getString("OneQuietNight"), oneQuiteNight);
-		GovernmentGrant governmentGrant = new GovernmentGrant(board);
-		board.eventCards.put(board.messages.getString("GovernmentGrant"), governmentGrant);
-		ResilientPopulation resilientPopulation = new ResilientPopulation(board);
-		board.eventCards.put(board.messages.getString("ResilientPopulation"), resilientPopulation);
+		EventCardFactory eventCardFactory = new EventCardFactory(board);
+		String cardName = board.messages.getString("Airlift");
+		
+		EventCard airlift = eventCardFactory.createEventCard(cardName);
+		board.eventCards.put(cardName, airlift);
+		
+		cardName = board.messages.getString("Forecast");
+		EventCard forcast = new ForecastEvent(board);
+		board.eventCards.put(cardName, forcast);
+		
+		cardName = board.messages.getString("OneQuietNight");
+		EventCard oneQuiteNight = new OneQuietNight(board);
+		board.eventCards.put(cardName, oneQuiteNight);
+		
+		cardName = board.messages.getString("GovernmentGrant");
+		EventCard governmentGrant = new GovernmentGrant(board);
+		board.eventCards.put(cardName, governmentGrant);
+		
+		cardName = board.messages.getString("ResilientPopulation");
+		EventCard resilientPopulation = new ResilientPopulation(board);
+		board.eventCards.put(cardName, resilientPopulation);
+		
 		EventCardAction eventCardAction = new EventCardAction(board);
 		board.eventCardAction = eventCardAction;
+	}
+	
+	public void initializeCommands() {
+		EpidemicCardAction epidemic = new EpidemicCardAction(board);
+		DrawTwoPlayerCardsCommand drawTwoPlayerCard = new DrawTwoPlayerCardsCommand(epidemic);
+		gameAction.setCommands(1, drawTwoPlayerCard);
+		
+		ActionCommand actionCommand = new ActionCommand();
+		
+		DriveCommand drive = new DriveCommand();
+		actionCommand.addActionCommand(Board.ActionName.DRIVE, drive);
+		DirectFlightCommand directFlight = new DirectFlightCommand();
+		actionCommand.addActionCommand(Board.ActionName.DIRECTFLIGHT, directFlight);
+		ShuttleFlightCommand shuttleFlight = new ShuttleFlightCommand();
+		actionCommand.addActionCommand(Board.ActionName.SHUTTLEFLIGHT, shuttleFlight);
+		CharterFlightCommand charterFlight = new CharterFlightCommand();
+		actionCommand.addActionCommand(Board.ActionName.CHARTERFLIGHT, charterFlight);
+		
+		PlayEventCardCommand eventCard = new PlayEventCardCommand();
+		actionCommand.addActionCommand(Board.ActionName.PLAYEVENTCARD, eventCard);
+		CureDiseaseCommand discoverCUre = new CureDiseaseCommand();
+		actionCommand.addActionCommand(Board.ActionName.CUREDISEASE, discoverCUre);
+		TreatDiseaseCommand treatDisease = new TreatDiseaseCommand();
+		actionCommand.addActionCommand(Board.ActionName.TREATDISEASE, treatDisease);
+		BuildResearchStationCommand buildStation = new BuildResearchStationCommand();
+		actionCommand.addActionCommand(Board.ActionName.BUILDRESEARCH, buildStation);
+		ShareKnowledgeCommand shareKnowledge = new ShareKnowledgeCommand();
+		actionCommand.addActionCommand(Board.ActionName.SHAREKNOWLEDGE, shareKnowledge);
+		gameAction.setCommands(0, actionCommand);
+		
+		InfectionCardAction infectAction = new InfectionCardAction(board);
+		InfectionCommand infect = new InfectionCommand(infectAction);
+		gameAction.setCommands(2, infect);
 	}
 
 	public void initializePlayerTable() {
@@ -165,35 +258,6 @@ public class InitializeBoard {
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
 		
-		
-		scientistData.buildStationModel = new StationBuilderNormal(scientistData, board);
-		medicData.buildStationModel = new StationBuilderNormal(medicData, board);
-		researcherData.buildStationModel = new StationBuilderNormal(researcherData, board);
-		dispatcherData.buildStationModel = new StationBuilderNormal(dispatcherData, board);
-		contingencyPlannerData.buildStationModel = new StationBuilderNormal(contingencyPlannerData, board);
-		quarantineSpecialistData.buildStationModel = new StationBuilderNormal(quarantineSpecialistData, board);
-		operationsExpertData.buildStationModel = new StationBuilderOperationsExpert(operationsExpertData, board);
-		
-		scientistData.discoverCureModel = new DiscoverCureScientist(board.curedDiseases);
-		medicData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		researcherData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		dispatcherData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		operationsExpertData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		contingencyPlannerData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		quarantineSpecialistData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		
-		scientistData.treatAction = new TreatNormal(scientistData, board);
-		medicData.treatAction = new TreatMedic(medicData, board);
-		researcherData.treatAction = new TreatNormal(researcherData, board);
-		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
-		operationsExpertData.treatAction = new TreatNormal(operationsExpertData, board);
-		contingencyPlannerData.treatAction = new TreatNormal(contingencyPlannerData, board);
-		quarantineSpecialistData.treatAction = new TreatNormal(quarantineSpecialistData, board);		
-		
-		operationsExpertData.specialSkill = new OperationsExpertAction(board, operationsExpertData);
-		medicData.specialSkill = new MedicAction(board, medicData);
-		contingencyPlannerData.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
-		
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
 		Player researcher = new Player(board, researcherData);
@@ -201,6 +265,35 @@ public class InitializeBoard {
 		Player contingencyPlanner = new Player(board, contingencyPlannerData);
 		Player operationsExpert = new Player(board, operationsExpertData);
 		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
+		
+		scientist.buildStationModel = new StationBuilderNormal(scientistData, board);
+		medic.buildStationModel = new StationBuilderNormal(medicData, board);
+		researcher.buildStationModel = new StationBuilderNormal(researcherData, board);
+		dispatcher.buildStationModel = new StationBuilderNormal(dispatcherData, board);
+		contingencyPlanner.buildStationModel = new StationBuilderNormal(contingencyPlannerData, board);
+		quarantineSpecialist.buildStationModel = new StationBuilderNormal(quarantineSpecialistData, board);
+		operationsExpert.buildStationModel = new StationBuilderOperationsExpert(operationsExpertData, board);
+		
+		scientist.discoverCureModel = new DiscoverCureScientist(board.curedDiseases);
+		medic.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		researcher.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		dispatcher.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		operationsExpert.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		contingencyPlanner.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		quarantineSpecialist.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
+		
+		scientist.treatAction = new TreatNormal(scientistData);
+		medic.treatAction = new TreatMedic(medicData);
+		researcher.treatAction = new TreatNormal(researcherData);
+		dispatcher.treatAction = new TreatNormal(dispatcherData);
+		operationsExpert.treatAction = new TreatNormal(operationsExpertData);
+		contingencyPlanner.treatAction = new TreatNormal(contingencyPlannerData);
+		quarantineSpecialist.treatAction = new TreatNormal(quarantineSpecialistData);		
+		
+		operationsExpert.state = new OperationsExpertState(operationsExpertData);
+		medic.state = new MedicState(medicData);
+		contingencyPlanner.state = new ContingencyPlannerState(contingencyPlannerData);
+		dispatcher.state = new DispatcherState();
 
 		board.playerTable.put(Board.Roles.SCIENTIST, scientist);
 		board.playerTable.put(Board.Roles.MEDIC, medic);

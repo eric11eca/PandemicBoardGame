@@ -14,7 +14,7 @@ public class TestOneQueitNight {
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		night = new OneQuietNight(board);
 	}
 

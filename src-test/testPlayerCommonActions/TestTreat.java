@@ -1,25 +1,24 @@
 package testPlayerCommonActions;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import PlayerAction.TreatMedic;
+import PlayerAction.TreatNormal;
+import SpeciaoPlayerAction.DispatcherState;
+import SpeciaoPlayerAction.MedicState;
 import data.Board;
 import data.City;
 import player.Player;
 import player.PlayerData;
-import player.TreatMedic;
-import player.TreatNormal;
-import playerAction.DispatcherAction;
-import playerAction.MedicAction;
 
 public class TestTreat {
 	Board board;
-	MedicAction medicAction;
-	DispatcherAction dispatcherAction;
+	MedicState medicState;
+	DispatcherState dispatcherState;
 	PlayerData medicData,  dispatcherData;
 	Player medic, dispatcher;
 	City city;
@@ -28,12 +27,13 @@ public class TestTreat {
 
 	@Before
 	public void setup() {
-		board = new Board();
+		Board.setNull();
+		board = Board.getInstance();
 		medicData = new PlayerData();
-		medicAction = new MedicAction(board, medicData);
+		medicState = new MedicState(board, medicData);
 		medicData.treatAction = new TreatMedic(medicData, board);
 		dispatcherData = new PlayerData();
-		dispatcherAction = new DispatcherAction(board);
+		dispatcherState = new DispatcherState(board);
 		city = new City();
 		medicData.location = city;
 		dispatcherData.location = city;

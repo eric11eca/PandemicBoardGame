@@ -1,13 +1,13 @@
-package playerAction;
+package SpeciaoPlayerAction;
 
 import data.Board;
 import data.City;
 
-public class DispatcherAction implements SpecialSkill {
+public class DispatcherState implements State {
 	private Board board;
 
-	public DispatcherAction(Board gameBoard) {
-		board = gameBoard;
+	public DispatcherState() {
+		board = Board.getInstance();
 	}
 
 	public void moveOtherPlayer() {

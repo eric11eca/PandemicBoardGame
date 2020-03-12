@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import PlayerAction.DiscoverCure;
+import PlayerAction.DiscoverCureScientist;
 import cards.PlayerCard;
 import data.Board;
-import player.DiscoverCure;
-import player.DiscoverCureScientist;
 
 public class TestDiscoverCureScientist {
 	Board board;
@@ -20,7 +20,7 @@ public class TestDiscoverCureScientist {
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		scientistDiscoverCure = new DiscoverCureScientist(board.curedDiseases);
 		
 		redCityName1 = "redCity1";

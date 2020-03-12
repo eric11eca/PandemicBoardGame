@@ -1,4 +1,4 @@
-package player;
+package PlayerAction;
 
 import java.util.List;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import cards.PlayerCard;
 import data.Board;
 
-public class DiscoverCure {
+public abstract class DiscoverCure {
 	public Set<String> curedDiseases;
 	public int cardCount;
 

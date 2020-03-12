@@ -5,28 +5,28 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import SpeciaoPlayerAction.ContingencyPlannerState;
 import data.Board;
 import player.PlayerData;
-import playerAction.ContingencyPlannerAction;
 
 public class TestContingencyPlanner {
 	Board board;
 	PlayerData contingencyPlannerData;
-	ContingencyPlannerAction contingencyPlannerAction;
+	ContingencyPlannerState contingencyPlannerState;
 	String airlift = "Airlift";
 	
 	@Before
 	public void setup() {
-		board = new Board();
+		board = Board.getInstance();
 		contingencyPlannerData = new PlayerData();
-		contingencyPlannerAction = new ContingencyPlannerAction(board, contingencyPlannerData);
-		contingencyPlannerData.specialSkill = contingencyPlannerAction;
+		contingencyPlannerState = new ContingencyPlannerState(board, contingencyPlannerData);
+		contingencyPlannerData.specialSkill = contingencyPlannerState;
 	}
 
 	@Test
 	public void testPickCardFromDiscardEventPile() {
 		board.discardEventCards.add(airlift);
-		contingencyPlannerAction.cardName = airlift;
+		contingencyPlannerState.cardName = airlift;
 		contingencyPlannerData.specialSkill.useSpecialSkill();
 		assertEquals(contingencyPlannerData.specialEventCard, airlift);
 	}

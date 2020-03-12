@@ -18,7 +18,8 @@ public class TestEventCardAction {
 	Board board;
 	@Before
 	public void setup() {
-		board = new Board();
+		Board.setNull();
+		board = Board.getInstance();
 		eventCardAction = new EventCardAction(board);
 	}
 	
