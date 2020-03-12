@@ -26,7 +26,7 @@ public class ActionCommand implements Command{
 		System.out.println(board.actionName);
 		command.execute();
 		if(isMedic && board.doesChangeLocation) {
-			board.currentPlayer.state.useSpecialSkill();
+			board.currentPlayer.specialSkill.applySkill();
 		}
 	}
 }

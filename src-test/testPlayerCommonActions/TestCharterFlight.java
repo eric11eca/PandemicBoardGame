@@ -16,8 +16,7 @@ public class TestCharterFlight {
 
 	@Test
 	public void testCharterFlight() {
-		Board.setNull();
-		Board board = Board.getInstance();
+		Board board = new Board();
 		String chicago = "Chicago";
 		City chicagoCity = new City(chicago);
 		String newyork = "NewYork";

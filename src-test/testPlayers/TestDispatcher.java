@@ -5,22 +5,22 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-import SpeciaoPlayerAction.DispatcherState;
-import SpeciaoPlayerAction.State;
 import data.Board;
 import data.City;
 import player.Player;
 import player.PlayerData;
+import playerAction.DispatcherAction;
+import playerAction.SpecialSkill;
 
 public class TestDispatcher {
 	Board board;
 	Player scientist;
 	PlayerData scientistData;
-	State dispatcherAction;
+	SpecialSkill dispatcherAction;
 
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board  = new Board();
 
 		City paris = new City();
 		paris.cityName = "Paris";
@@ -30,7 +30,7 @@ public class TestDispatcher {
 		board.cities.put("Paris", paris);
 		board.cities.put("Delhi", delhi);
 		
-		dispatcherAction = new DispatcherState(board);
+		dispatcherAction = new DispatcherAction(board);
 
 		scientistData = new PlayerData();
 		scientistData.role = Board.Roles.SCIENTIST;

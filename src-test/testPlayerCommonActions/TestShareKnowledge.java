@@ -36,7 +36,7 @@ public class TestShareKnowledge {
 
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board = new Board();
 		playerData1 = new PlayerData();
 		playerData2 = new PlayerData();
 		researcherData = new PlayerData();

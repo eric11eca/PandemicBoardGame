@@ -22,7 +22,7 @@ public class TestDrive {
 
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board = new Board();
 		playerData = new PlayerData();
 		
 		location = new City();

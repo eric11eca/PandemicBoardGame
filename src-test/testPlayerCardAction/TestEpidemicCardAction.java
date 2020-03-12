@@ -15,8 +15,7 @@ public class TestEpidemicCardAction {
 	
 	@Before 
 	public void setup() {
-		Board.setNull();
-		board = Board.getInstance();
+		board = new Board();
 		
 		board.infectionRateTracker.push(4);
 		board.infectionRateTracker.push(4);

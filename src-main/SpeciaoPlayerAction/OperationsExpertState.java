@@ -7,7 +7,7 @@ import data.Board;
 import player.PlayerData;
 
 
-public class OperationsExpertState implements State {
+public class OperationsExpertState implements SpecialSkill {
 	public String cityName;
 	private Board board;
 	private PlayerData operationsExpert;
@@ -28,7 +28,7 @@ public class OperationsExpertState implements State {
 	}
 
 	@Override
-	public void useSpecialSkill() {	
+	public void applySkill() {	
 		moveToAnotherCity();
 	}
 }

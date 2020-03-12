@@ -42,7 +42,7 @@ public class GUI {
 	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
-		frame.setSize(1900, 1900);
+		frame.setSize(2560, 1440);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();
@@ -104,6 +104,7 @@ public class GUI {
 			options.setLocation(300, x * 25);
 			options.setSize(150, 20);
 			panel.add(options);
+
 		}
 		
 		JLabel events = new JLabel(board.messages.getString("eventCard"));

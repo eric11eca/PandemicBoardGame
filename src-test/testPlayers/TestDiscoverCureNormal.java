@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import PlayerAction.DiscoverCure;
-import PlayerAction.DiscoverCureNormal;
 import cards.PlayerCard;
 import data.Board;
+import player.DiscoverCure;
+import player.DiscoverCureNormal;
 
 public class TestDiscoverCureNormal {
 	Board board;	
@@ -23,7 +23,7 @@ public class TestDiscoverCureNormal {
 
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board = new Board();
 		
 		medicDiscoverCure = new DiscoverCureNormal(board.curedDiseases);
 		

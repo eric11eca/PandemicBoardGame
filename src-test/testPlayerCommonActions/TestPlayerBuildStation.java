@@ -6,15 +6,15 @@ import static org.junit.Assert.assertEquals;
 import org.easymock.EasyMock;
 import org.junit.Test;
 
-import PlayerAction.StationBuilderNormal;
 import data.Board;
 import player.Player;
 import player.PlayerData;
+import player.StationBuilderNormal;
 
 public class TestPlayerBuildStation {
 	@Test
 	public void testBuildStation() {
-		Board board = Board.getInstance();
+		Board board = new Board();
 		PlayerData playerData = new PlayerData();
 		
 		playerData.action = 4;

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import Vaccine.Disease;
 import cardActions.EventCardAction;
 import cards.EventCard;
 import cards.PlayerCard;
@@ -17,20 +16,6 @@ import parse.ListOfCityWithColorGenerator;
 import player.Player;
 
 public class Board {
-	private Board() {}
-	private static Board uniqueInstance;
-	
-	public static Board getInstance() {
-		if (uniqueInstance == null) {
-			uniqueInstance = new Board();
-		}
-		return uniqueInstance;
-	}
-	
-	public static void setNull() {
-		uniqueInstance = null;
-	}
-	
 	public enum CardType {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
@@ -100,7 +85,5 @@ public class Board {
 	public int dispatcherCase = -1;
 
 	public Messages messages;
-	public Set<Disease> diseaseList;
 
-	public boolean doesChangeLocation;
 }

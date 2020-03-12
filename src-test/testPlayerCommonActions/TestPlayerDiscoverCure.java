@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import PlayerAction.DiscoverCureNormal;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
+import player.DiscoverCureNormal;
 import player.Player;
 import player.PlayerData;
 
@@ -27,8 +27,7 @@ public class TestPlayerDiscoverCure {
 
 	@Before
 	public void setup() {
-		Board.setNull();
-		board = Board.getInstance();
+		board = new Board();
 		playerData = new PlayerData();
 		
 		redCityName1 = "redCity1";

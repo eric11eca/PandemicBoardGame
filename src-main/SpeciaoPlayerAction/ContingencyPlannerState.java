@@ -5,7 +5,7 @@ import data.Board;
 import player.PlayerData;
 
 
-public class ContingencyPlannerState implements State{
+public class ContingencyPlannerState implements SpecialSkill{
 	public String cardName;
 	private Board board;
 	private PlayerData contingencyPlanner;
@@ -26,7 +26,7 @@ public class ContingencyPlannerState implements State{
 	}
 
 	@Override
-	public void useSpecialSkill() {
+	public void applySkill() {
 		pickFromDiscardEventCard();
 	}
 }

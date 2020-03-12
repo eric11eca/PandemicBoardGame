@@ -18,11 +18,11 @@ public class TestEventCardAction {
 	Board board;
 	@Before
 	public void setup() {
-		Board.setNull();
-		board = Board.getInstance();
+		board = new Board();
 		eventCardAction = new EventCardAction(board);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testEventCardActionSuccess() {
 		board.eventCards = EasyMock.createMock(HashMap.class);

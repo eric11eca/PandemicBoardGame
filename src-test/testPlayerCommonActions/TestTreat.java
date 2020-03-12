@@ -6,19 +6,19 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import PlayerAction.TreatMedic;
-import PlayerAction.TreatNormal;
-import SpeciaoPlayerAction.DispatcherState;
-import SpeciaoPlayerAction.MedicState;
 import data.Board;
 import data.City;
 import player.Player;
 import player.PlayerData;
+import player.TreatMedic;
+import player.TreatNormal;
+import playerAction.DispatcherAction;
+import playerAction.MedicAction;
 
 public class TestTreat {
 	Board board;
-	MedicState medicState;
-	DispatcherState dispatcherState;
+	MedicAction medicAction;
+	DispatcherAction dispatcherAction;
 	PlayerData medicData,  dispatcherData;
 	Player medic, dispatcher;
 	City city;
@@ -27,13 +27,12 @@ public class TestTreat {
 
 	@Before
 	public void setup() {
-		Board.setNull();
-		board = Board.getInstance();
+		board = new Board();
 		medicData = new PlayerData();
-		medicState = new MedicState(board, medicData);
+		medicAction = new MedicAction(board, medicData);
 		medicData.treatAction = new TreatMedic(medicData, board);
 		dispatcherData = new PlayerData();
-		dispatcherState = new DispatcherState(board);
+		dispatcherAction = new DispatcherAction(board);
 		city = new City();
 		medicData.location = city;
 		dispatcherData.location = city;

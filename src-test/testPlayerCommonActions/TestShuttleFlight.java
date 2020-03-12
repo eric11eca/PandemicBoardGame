@@ -21,8 +21,7 @@ public class TestShuttleFlight {
 
 	@Before
 	public void setup() {
-		Board.setNull();
-		board = Board.getInstance();
+		board = new Board();
 		playerData = new PlayerData();
 		String city1 = "Chicago";
 		String city2 = "NewYork";

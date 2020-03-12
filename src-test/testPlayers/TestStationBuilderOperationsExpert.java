@@ -5,13 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import PlayerAction.StationBuilder;
-import PlayerAction.StationBuilderOperationsExpert;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
 import player.PlayerData;
+import player.StationBuilder;
+import player.StationBuilderOperationsExpert;
 
 public class TestStationBuilderOperationsExpert {
 	Board board;
@@ -22,7 +21,7 @@ public class TestStationBuilderOperationsExpert {
 	
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board = new Board();
 		operationsExpertData = new PlayerData();
 		
 		playerLocation = "PlayerLocation";

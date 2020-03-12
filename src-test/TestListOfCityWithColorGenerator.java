@@ -15,7 +15,7 @@ public class TestListOfCityWithColorGenerator {
 
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board = new Board();
 		generator = new ListOfCityWithColorGenerator();
 		for (int i = 0; i < citynames.length; i++) {
 			board.cities.put(citynames[i], new City(citynames[i], cityColors[i]));

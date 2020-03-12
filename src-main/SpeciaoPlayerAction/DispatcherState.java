@@ -3,7 +3,7 @@ package SpeciaoPlayerAction;
 import data.Board;
 import data.City;
 
-public class DispatcherState implements State {
+public class DispatcherState implements SpecialSkill {
 	private Board board;
 
 	public DispatcherState() {
@@ -16,7 +16,7 @@ public class DispatcherState implements State {
 	}
 
 	@Override
-	public void useSpecialSkill() {
+	public void applySkill() {
 		if (board.dispatcherCase == 0) {
 			moveOtherPlayer();
 		}

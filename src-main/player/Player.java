@@ -2,121 +2,161 @@ package player;
 
 import java.util.List;
 
-import PlayerAction.CharterFlight;
-import PlayerAction.CommonPlayerAction;
-import PlayerAction.DirectFlight;
-import PlayerAction.DiscoverCure;
-import PlayerAction.Drive;
-import PlayerAction.Mobility;
-import PlayerAction.ShareKnowledge;
-import PlayerAction.ShuttleFlight;
-import PlayerAction.StationBuilder;
-import PlayerAction.Treat;
-import SpeciaoPlayerAction.State;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
 
 public class Player {
-	public Board board;
 	public PlayerData playerData;
-	
-	//initialized outside of the class
-	public State state;
-	public DiscoverCure discoverCureModel;
-	public StationBuilder buildStationModel;
-	public Treat treatAction;
-	
-	////initialized inside of the class
-	public Mobility drive;
-	public Mobility directFlight;
-	public Mobility charterFlight;
-	public Mobility shuttleFlight;
-	public ShareKnowledge shareKnowledge;
-	public CommonPlayerAction commonAction;
+	public Board board;
 
-	public Player(Board gameBoard, PlayerData data) {
+	public Player(Board gameBoard, PlayerData playerData) {
 		board = gameBoard;
-		playerData = data;
+		this.playerData = playerData;
 		playerData.action = 4;
-		
-		drive = new Drive(playerData);
-		directFlight = new DirectFlight(playerData);
-		charterFlight = new CharterFlight(playerData);
-		shuttleFlight = new ShuttleFlight(playerData);
-		shareKnowledge = new ShareKnowledge();
-		commonAction = new CommonPlayerAction(playerData);
 	}
 
 	public void receiveCard(PlayerCard playerCard) {
-		commonAction.receiveCard(playerCard);
+		playerData.hand.put(playerCard.cardName, playerCard);
 	}
 
 	public void useEventCard(String cardName) {
-		commonAction.useEventCard(cardName);
+		if (cardName.equals(playerData.specialEventCard)) {
+			playerData.specialEventCard = null;
+		} else {
+			playerData.hand.remove(cardName);
+			board.discardEventCards.add(cardName);
+		}
+		board.eventCardAction.executeEventCard(cardName);
+	}
+
+	public void discardCard() {
+		for (int i = 0; i < board.cardToBeDiscard.size(); i++) {
+			String cardName = board.cardToBeDiscard.get(i);
+			if (playerData.hand.containsKey(cardName)) {
+				playerData.hand.remove(cardName);
+			}
+		}
+		board.cardToBeDiscard.clear();
 	}
 
 	public void drive(City destination) {
-		 drive.move(destination);
-		 commonAction.consumeAction();
+		if (board.dispatcherCase == 1) {
+			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
+			if (pawnData.location.neighbors.containsKey(destination.cityName)) {
+				moveTo(destination);
+				consumeAction();
+			}
+		} else if (playerData.location.neighbors.containsKey(destination.cityName)) {
+			moveTo(destination);
+			consumeAction();
+		} 
 	}
 
 	public void directFlight(PlayerCard cityCard) {
-		directFlight.cityCard = cityCard;
-		directFlight.move(null);
-		commonAction.discardCard();
-		commonAction.consumeAction();
+		if (cityCard.cardType == Board.CardType.CITYCARD) {
+			board.cardToBeDiscard.add(cityCard.cardName);
+			discardCard();
+			consumeAction();
+			City destination = board.cities.get(cityCard.cardName);
+			moveTo(destination);
+		}
+	}
+
+	public void consumeAction() {
+		playerData.action -= 1;
+	}
+
+	public void moveTo(City destination) {
+		if(board.dispatcherCase == 1) {
+			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
+			pawnData.location = destination;
+			destination.currentRoles.add(pawnData.role);
+		} else {
+			playerData.location = destination;
+			destination.currentRoles.add(this.playerData.role);
+		}
+	}
+
+	public void discardCardAndMoveTo(City destination) {
+		discardCard();
+		moveTo(destination);
 	}
 
 	public void charterFlight() {
-		charterFlight.move(null);
-		commonAction.discardCard();
-		commonAction.consumeAction();
+		String destinationName = board.cityCardNameCharter;
+		City destination = board.cities.get(destinationName);
+		board.cardToBeDiscard.add(playerData.location.cityName);
+		discardCardAndMoveTo(destination);
+		consumeAction();
 	}
 
 	public void shuttleFlight(City destination) {
-		shuttleFlight.move(destination);
-		commonAction.consumeAction();
+		if (playerData.location.researchStation) {
+			if (destination.researchStation) {
+				moveTo(destination);
+				consumeAction();
+			} 
+		}
 	}
 
 	public void treat(String diseaseColor) {
-		treatAction.treat(diseaseColor);
-		commonAction.eradicate(diseaseColor);
-		commonAction.consumeAction();
-	}
-	
-	public void buildStation() {
-		buildStationModel.buildStation();
-		commonAction.consumeAction();
+		playerData.treatAction.treat(diseaseColor);
+		eradicate(diseaseColor);
+		consumeAction();
 	}
 
-	public void shareKnowledge() {
-		shareKnowledge.shareKnowledge(this);
-		commonAction.consumeAction();
-	}
-	
-	public void specialSkill() {
-		state.useSpecialSkill();
+	public void eradicate(String diseaseColor) {
+		if (board.remainDiseaseCube.get(diseaseColor) == 24) {
+			board.eradicatedColor.add(diseaseColor);
+		}
 	}
 
 	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
 		boolean isResearchStation = playerData.location.researchStation;
 		if (isResearchStation) {
-			if (discoverCureModel.discover(cardsToCureDisease)) {
+			if (playerData.discoverCureModel.discover(cardsToCureDisease)) {
 				for (PlayerCard playercard : cardsToCureDisease) {
 					board.cardToBeDiscard.add(playercard.cardName);
 				}
-				commonAction.consumeAction();
+				consumeAction();
 			}
 			if (board.curedDiseases.size() == 4) {
 				throw new RuntimeException("PlayerWinException");
 			}
 			
-			commonAction.eradicate(cardsToCureDisease.get(0).color);
-			commonAction.discardCard();
+			eradicate(cardsToCureDisease.get(0).color);
+			discardCard();
 
 		} else {
 			throw new RuntimeException("NoStationException");
 		}
+	}
+
+	public void buildStation() {
+		playerData.buildStationModel.buildStation();
+		consumeAction();
+	}
+
+	public void shareKnowledge() {
+		if (board.cityToShare.cardType != Board.CardType.CITYCARD) {
+			throw new RuntimeException("CantUseEventCardException");
+		}
+		if (board.isGiving) {
+			giveCard(this, board.playerToShare, board.cityToShare);
+		} else {
+			giveCard(board.playerToShare, this, board.cityToShare);
+		}
+		consumeAction();
+	}
+
+	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
+		if(giver.playerData.role != Board.Roles.RESEARCHER 
+				&& !citycard.cardName.equals(giver.playerData.location.cityName)) {
+			throw new RuntimeException("CanNotShareKnowledgeException");
+		}
+		board.cardToBeDiscard.add(citycard.cardName);
+		giver.discardCard();
+		receiver.receiveCard(citycard);
 	}
 }

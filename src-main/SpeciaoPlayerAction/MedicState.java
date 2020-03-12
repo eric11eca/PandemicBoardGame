@@ -4,7 +4,7 @@ package SpeciaoPlayerAction;
 import data.Board;
 import player.PlayerData;
 
-public class MedicState implements State{
+public class MedicState implements SpecialSkill{
 	private Board board;
 	private PlayerData medicData;
 	
@@ -25,7 +25,7 @@ public class MedicState implements State{
 	}
 
 	@Override
-	public void useSpecialSkill() {
+	public void applySkill() {
 		removeAllCubes();
 	}
 

@@ -14,7 +14,7 @@ public class TestResilientPopulationEvent {
 	
 	@Before
 	public void setup() {
-		board = Board.getInstance();
+		board = new Board();
 		String infect1 = "a";
 		String infect2 = "b";
 		String infect3 = "c";

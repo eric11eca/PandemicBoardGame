@@ -7,22 +7,21 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-import SpeciaoPlayerAction.MedicState;
 import data.Board;
 import data.City;
 import player.PlayerData;
+import playerAction.MedicAction;
 
 public class TestMedic {
-	MedicState medicState;
+	MedicAction medicAction;
 	Board board;
 	PlayerData medic;
 
 	@Before
 	public void setup() {
-		Board.setNull();
-		board = Board.getInstance();
+		board = new Board();
 		medic = new PlayerData();
-		medicState = new MedicState(board, medic);
+		medicAction = new MedicAction(board, medic);
 		City city = new City();
 		city.cityName = "a";
 		medic.action = 4;
@@ -34,7 +33,7 @@ public class TestMedic {
 		medic.location.diseaseCubes.put("YELLOW", 2);
 		medic.location.diseaseCubes.put("BLUE", 1);
 		assertFalse(medic.location.diseaseCubes.isEmpty());
-		medicState.removeAllCubes();
+		medicAction.removeAllCubes();
 		int numOfYellowCube = medic.location.diseaseCubes.get("YELLOW");
 		int numOfBlueCube = medic.location.diseaseCubes.get("BLUE");
 		assertEquals(2, numOfYellowCube);
@@ -50,7 +49,7 @@ public class TestMedic {
 		board.curedDiseases.add("BLUE");
 		board.remainDiseaseCube.put("YELLOW", 10);
 		board.remainDiseaseCube.put("BLUE", 11);
-		medicState.removeAllCubes();
+		medicAction.removeAllCubes();
 		int locationYellowCube = medic.location.diseaseCubes.get("YELLOW");
 		int locationBlueCube = medic.location.diseaseCubes.get("BLUE");
 		assertEquals(0, locationYellowCube);
@@ -65,14 +64,14 @@ public class TestMedic {
 	
 	@Test
 	public void testSpecialSkillCalls() {
-		medicState = EasyMock.partialMockBuilder(MedicState.class)
+		medicAction = EasyMock.partialMockBuilder(MedicAction.class)
 				.withConstructor(board, medic)
 				.addMockedMethod("removeAllCubes")
 				.createMock();
 		
-		medicState.removeAllCubes();
-		EasyMock.replay(medicState);
-		medicState.useSpecialSkill();
-		EasyMock.verify(medicState);
+		medicAction.removeAllCubes();
+		EasyMock.replay(medicAction);
+		medicAction.useSpecialSkill();
+		EasyMock.verify(medicAction);
 	}
 }

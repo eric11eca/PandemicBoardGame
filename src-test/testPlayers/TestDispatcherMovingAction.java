@@ -22,8 +22,7 @@ public class TestDispatcherMovingAction {
 
 	@Before
 	public void setup() {
-		Board.setNull();
-		board  = Board.getInstance();
+		board  = new Board();
 		City milan = new City();
 		milan.cityName = "Milan";
 		City paris = new City();
