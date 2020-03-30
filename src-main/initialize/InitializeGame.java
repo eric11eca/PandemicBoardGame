@@ -5,13 +5,11 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import ButtonObservers.CharterFlightObserver;
 import buttonListeners.BuildResearchStationListener;
 import buttonListeners.CharterFlightListener;
 import buttonListeners.DifficultyListener;
@@ -146,9 +144,6 @@ public class InitializeGame {
 		JButton cFlight = new JButton(board.messages.getString("charterFlight"));
 		CharterFlightListener cFlightListener = new CharterFlightListener(board, gui, setup);
 		cFlight.addActionListener(cFlightListener);
-		Observer charterFlightObserver = new CharterFlightObserver(board, cFlightListener);
-		cFlightListener.charterFlightObserver = charterFlightObserver;
-		cFlightListener.addObserver(charterFlightObserver);
 
 		JButton sFlight = new JButton(board.messages.getString("shuttleFlight"));
 		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board, gui,setup);
