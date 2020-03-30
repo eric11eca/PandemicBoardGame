@@ -46,7 +46,6 @@ public class TestGameActionOneTurn {
 		assertFalse(board.inQueitNight);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test(expected = RuntimeException.class)
 	public void testNoMorePlayerCardToDraw() {
 		board.validPlayerCards = EasyMock.createMock(ArrayList.class);
@@ -57,7 +56,6 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.validPlayerCards);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test(expected = RuntimeException.class)
 	public void testDrawTwoCityCardsWithPlayerExceedHandLimit() {
 		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
@@ -67,7 +65,6 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.currentPlayer.playerData.hand);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawTwoCityCardWithFull() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -96,7 +93,6 @@ public class TestGameActionOneTurn {
 	}
 	
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawTwoCityCard() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -124,7 +120,6 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawOneCityCardAndOneEpidemicCard() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -198,7 +193,6 @@ public class TestGameActionOneTurn {
 		assertTrue(1 == cityB.diseaseCubes.get("BLUE"));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDirectFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -268,7 +262,6 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.currentPlayer);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrive() {
 		board.currentPlayer = EasyMock.createMock(Player.class);
@@ -294,7 +287,6 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.currentPlayer);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testShuttleFlight() {
 		board.currentPlayer = EasyMock.createMock(Player.class);

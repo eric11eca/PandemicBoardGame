@@ -42,7 +42,7 @@ public class GUI {
 	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
-		frame.setSize(2560, 1440);
+		frame.setSize(1900, 1900);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();

@@ -1,5 +1,7 @@
 package cardActions;
 
+import java.text.MessageFormat;
+
 import data.Board;
 import data.City;
 

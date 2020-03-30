@@ -3,6 +3,8 @@ package buttonListeners;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import javax.swing.JComboBox;
@@ -13,12 +15,14 @@ import data.Board;
 import initialize.GameSetup;
 import panel.GUI;
 
-public class CharterFlightListener implements ActionListener {
+public class CharterFlightListener extends Observable implements ActionListener {
+	public Observer charterFlightObserver;
+	public String chosenCity;
 	private Board board;
 	private JPanel panel;
 	private GUI gui;
 	private GameSetup gameSetup;
-
+	
 	public CharterFlightListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
@@ -59,22 +63,19 @@ public class CharterFlightListener implements ActionListener {
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
-		String chosenCity = (options.getSelectedItem().toString().
+		chosenCity = (options.getSelectedItem().toString().
 				split(board.messages.getString("lineConnector")))[0]; 
 		int choice = JOptionPane.showConfirmDialog(null, 
 				board.messages.getString("flyConfirmation"), 
 				board.messages.getString("charterFlight"),
 				JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
-			board.cityCardNameCharter = chosenCity;
-			board.actionName = Board.ActionName.CHARTERFLIGHT;
+			this.setChanged();
+			this.notifyObservers();
 			gameSetup.oneTurn();
 			gui.removePanel(panel);
 			gui.updateImage();
-		} else {
-
-		}
-
+			this.clearChanged();
+		} 
 	}
-
 }

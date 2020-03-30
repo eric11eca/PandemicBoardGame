@@ -22,7 +22,6 @@ public class TestEventCardAction {
 		eventCardAction = new EventCardAction(board);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testEventCardActionSuccess() {
 		board.eventCards = EasyMock.createMock(HashMap.class);
