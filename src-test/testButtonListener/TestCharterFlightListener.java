@@ -8,7 +8,6 @@ public class TestCharterFlightListener {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }
