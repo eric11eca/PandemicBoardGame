@@ -1,4 +1,4 @@
-package panel;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -26,6 +26,7 @@ import cards.PlayerCard;
 import data.Board;
 import data.Board.Roles;
 import initialize.GameSetup;
+import panel.DrawingBoard;
 
 public class GUI {
 	public ArrayList<JPanel> panels = new ArrayList<>();

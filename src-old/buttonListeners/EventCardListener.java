@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import cards.PlayerCard;
 import data.Board;
-import panel.GUI;
+import gui.GUI;
 
 public class EventCardListener implements ActionListener {
 	JComboBox<String> cardList;

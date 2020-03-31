@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import panel.GUI;
+import gui.GUI;
 
 public class ContingencyPlannerListener implements ActionListener {
 

@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import data.Board;
-import panel.GUI;
+import gui.GUI;
 
 public class DispatcherListener implements ActionListener {
 	private Board board;

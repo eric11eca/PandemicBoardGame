@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 
 import cards.PlayerCard;
 import data.Board;
+import gui.GUI;
 import initialize.GameSetup;
-import panel.GUI;
 
 public class DiscardCard {
 	private Board board;

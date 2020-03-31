@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
+import gui.GUI;
 import initialize.GameSetup;
-import panel.GUI;
 
 public class DriveListener implements ActionListener {
 	String chosenCity;
