@@ -26,20 +26,19 @@ import cards.PlayerCard;
 import data.Board;
 import data.Board.Roles;
 import initialize.GameSetup;
-import panel.DrawingBoard;
 
 public class GUI {
 	public ArrayList<JPanel> panels = new ArrayList<>();
 	public Board board;
 	public JPanel mainPanel;
 	public ArrayList<JLabel> hands = new ArrayList<>();
-	
+
 	private JFrame frame;
 	private GameSetup gameSetup;
 	private DrawingBoard draw;
 	private JLabel label = new JLabel();
-	private Map<String, String> diseaseColors; 
-	
+	private Map<String, String> diseaseColors;
+
 	public GUI(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
@@ -49,7 +48,7 @@ public class GUI {
 		mainPanel = new JPanel();
 		diseaseColors = new HashMap<>();
 	}
-	
+
 	private void addColorStrings() {
 		diseaseColors.put("RED", board.messages.getString("redDiseas"));
 		diseaseColors.put("BLUE", board.messages.getString("blueDiseas"));
@@ -85,14 +84,13 @@ public class GUI {
 	private void updateAndDrawBoardInfo() {
 		JPanel panel = new JPanel();
 		int x = 0;
-		
+
 		for (x = 0; x < board.playernumber; x++) {
-			int currentPlayer = x+1;
+			int currentPlayer = x + 1;
 			String role = board.currentPlayers.get(x).playerData.role.toString();
-			String playerInfo = MessageFormat.format(
-					board.messages.getString("playerInfo"), currentPlayer, role);
+			String playerInfo = MessageFormat.format(board.messages.getString("playerInfo"), currentPlayer, role);
 			JLabel player = new JLabel(playerInfo);
-			
+
 			player.setLocation(25, x * 25);
 			player.setSize(250, 20);
 			panel.add(player);
@@ -107,60 +105,57 @@ public class GUI {
 			panel.add(options);
 
 		}
-		
+
 		JLabel events = new JLabel(board.messages.getString("eventCard"));
-		events.setLocation(25, x*25);
-		events.setSize(250,20);
+		events.setLocation(25, x * 25);
+		events.setSize(250, 20);
 		panel.add(events);
-		
-		int currentPlayerIndex = board.currentPlayerIndex+1;
-		String playerTurn = MessageFormat
-				.format(board.messages.getString("playerTurn"), currentPlayerIndex);
-		
+
+		int currentPlayerIndex = board.currentPlayerIndex + 1;
+		String playerTurn = MessageFormat.format(board.messages.getString("playerTurn"), currentPlayerIndex);
+
 		JLabel currentPlayer = new JLabel(playerTurn);
-		currentPlayer.setLocation(25,(x+1)*25);
-		currentPlayer.setSize(250,20);
+		currentPlayer.setLocation(25, (x + 1) * 25);
+		currentPlayer.setSize(250, 20);
 		panel.add(currentPlayer);
-		
+
 		int actionCount = board.currentPlayer.playerData.action;
-		String actionRemain = MessageFormat
-				.format(board.messages.getString("action"), actionCount);
+		String actionRemain = MessageFormat.format(board.messages.getString("action"), actionCount);
 		JLabel action = new JLabel(actionRemain);
-		action.setLocation(25, (x+2)*25);
-		action.setSize(250,20);
+		action.setLocation(25, (x + 2) * 25);
+		action.setSize(250, 20);
 		panel.add(action);
-		
+
 		JComboBox<String> eventCards = makeEventCardOptions();
 		eventCards.setLocation(300, (x) * 25);
 		eventCards.setSize(150, 20);
 		panel.add(eventCards);
-		
+
 		JButton eventButton = new JButton(board.messages.getString("playEventCard"));
 		eventButton.addActionListener(new EventCardListener(board, eventCards, this));
-		eventButton.setLocation(300, (x+1) * 25);
+		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
-		
+
 		JButton specialSkillButton = new JButton(board.messages.getString("useSpecialSkill"));
-		specialSkillButton.setLocation(475, (x+2)*25);
+		specialSkillButton.setLocation(475, (x + 2) * 25);
 		specialSkillButton.setSize(150, 20);
-		if(board.currentPlayer.playerData.role==Roles.DISPATCHER ){
-			specialSkillButton.addActionListener(new DispatcherListener(board,this));
+		if (board.currentPlayer.playerData.role == Roles.DISPATCHER) {
+			specialSkillButton.addActionListener(new DispatcherListener(board, this));
 			panel.add(specialSkillButton);
-		}else if(board.currentPlayer.playerData.role==Roles.CONTINGENCYPLANNER){
+		} else if (board.currentPlayer.playerData.role == Roles.CONTINGENCYPLANNER) {
 			specialSkillButton.addActionListener(new ContingencyPlannerListener(board, this));
 			panel.add(specialSkillButton);
 		}
-		
+
 		addColorStrings();
-		int i=0;
-		for(String disease:board.remainDiseaseCube.keySet()){
+		int i = 0;
+		for (String disease : board.remainDiseaseCube.keySet()) {
 			int remainDiseaseCubeNum = board.remainDiseaseCube.get(disease);
-			String diseaseCubeInfo =  MessageFormat
-					.format(diseaseColors.get(disease), remainDiseaseCubeNum);
+			String diseaseCubeInfo = MessageFormat.format(diseaseColors.get(disease), remainDiseaseCubeNum);
 			JLabel label = new JLabel(diseaseCubeInfo);
-			label.setLocation(475, i*25);
-			label.setSize(150,20);
+			label.setLocation(475, i * 25);
+			label.setSize(150, 20);
 			panel.add(label);
 			i++;
 		}
@@ -178,8 +173,8 @@ public class GUI {
 				}
 			}
 		}
-		for (int i=0;i<board.currentPlayers.size();i++){
-			if(board.currentPlayers.get(i).playerData.specialEventCard!=null){
+		for (int i = 0; i < board.currentPlayers.size(); i++) {
+			if (board.currentPlayers.get(i).playerData.specialEventCard != null) {
 				eventCards.add(board.currentPlayers.get(i).playerData.specialEventCard);
 			}
 		}
@@ -196,8 +191,7 @@ public class GUI {
 			setPanels(label);
 
 		} catch (IOException e) {
-			String errorMessage = MessageFormat
-					.format(board.messages.getString("fileNotFound"), e.getMessage());
+			String errorMessage = MessageFormat.format(board.messages.getString("fileNotFound"), e.getMessage());
 			System.out.println(errorMessage);
 		}
 
@@ -220,7 +214,7 @@ public class GUI {
 	}
 
 	public void showPlayerHand() {
-		System.out.println(board.currentPlayerIndex);
+//		System.out.println(board.currentPlayerIndex);
 		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
 		pickCardsToBeDiscard.pickCardsPrompt();
 	}
