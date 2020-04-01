@@ -1,6 +1,9 @@
 package player;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.swing.JOptionPane;
 
 import cards.PlayerCard;
 import data.Board;
@@ -158,5 +161,11 @@ public class Player {
 		board.cardToBeDiscard.add(citycard.cardName);
 		giver.discardCard();
 		receiver.receiveCard(citycard);
+	}
+
+	public boolean canCharterFlight() {
+		Set<String> hand = playerData.hand.keySet();
+		String playerLocationCityName = playerData.location.cityName;
+		return hand.contains(playerLocationCityName);
 	}
 }
