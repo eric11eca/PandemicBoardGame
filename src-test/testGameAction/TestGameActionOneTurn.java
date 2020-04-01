@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -14,14 +15,11 @@ import org.junit.Test;
 import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.Board.ActionName;
 import data.City;
 import gameAction.GameAction;
+import initialize.Messages;
 import player.Player;
 import player.PlayerData;
-import playerAction.CureDisease;
-import playerAction.PlayEventCard;
-import playerAction.PlayerAction;
 
 public class TestGameActionOneTurn {
 	Board board;
@@ -205,40 +203,24 @@ public class TestGameActionOneTurn {
 
 	@Test
 	public void testAirliftEventCard() {
-		board.eventCardName = "Airlift";
-		board.currentPlayer.eventCardName = "Airlift";
+		String eventCardName = "Airlift";
+		board.currentPlayer.useEventCard(eventCardName);
+		board.messages = EasyMock.createMock(Messages.class);
 		
-		PlayerAction playEventCard = EasyMock.createMock(PlayEventCard.class);
-		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.PLAYEVENTCARD)).andReturn(playEventCard);
-		
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(ActionName.PLAYEVENTCARD);
-		EasyMock.verify(board.currentPlayer);
+		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Airlift");
+		EasyMock.replay(board.currentPlayer, board.messages);
+		action.playEventCard(eventCardName);
+		EasyMock.verify(board.currentPlayer, board.messages);
 		assertTrue(action.doesChangeLocation);
 	}
 
 	@Test
-	public void testPlayEventCard() {
-		board.eventCardName = "Forecast";
-		board.currentPlayer.eventCardName = "Forecast";
-		
-		PlayerAction playEventCard = EasyMock.createMock(PlayEventCard.class);
-		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.PLAYEVENTCARD)).andReturn(playEventCard);
-		
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.PLAYEVENTCARD);
-		EasyMock.verify(board.currentPlayer);
-	}
-
-	@Test
 	public void testDoPlayerAction() {
-		board.currentPlayer.cardsToCureDisease = new ArrayList<PlayerCard>();
-		
-		PlayerAction cureDisease = EasyMock.createNiceMock(CureDisease.class);
-		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.CUREDISEASE)).andReturn(cureDisease);
+		List<PlayerCard> cardsToCureDisease = new ArrayList<PlayerCard>();
+		board.currentPlayer.discoverCure(cardsToCureDisease);
 		
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(ActionName.CUREDISEASE);
+		action.cureDisease(cardsToCureDisease);
 		EasyMock.verify(board.currentPlayer);
 	}
 }

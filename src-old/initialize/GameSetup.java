@@ -73,14 +73,7 @@ public class GameSetup {
 		initGame.startCreationofBoard();
 	}
 
-	public void oneTurn() {
-		try{
-			gameAction.doAction(board.actionName);
-		} catch (RuntimeException e){
-				System.out.println(e.getMessage());
-				JOptionPane.showMessageDialog(null,board.messagesToShow.get(e.getMessage()));
-		}
-			
+	public void oneTurn() {	
 		if (board.currentPlayer.playerData.action == 0) {
 			try {
 				gameAction.drawTwoPlayerCards();

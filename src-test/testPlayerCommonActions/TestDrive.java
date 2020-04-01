@@ -1,5 +1,4 @@
 package testPlayerCommonActions;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -25,7 +24,7 @@ public class TestDrive {
 	public void setup() {
 		board = new Board();
 		playerData = new PlayerData();
-
+		
 		location = new City();
 		location.cityName = "Chicago";
 
@@ -39,15 +38,14 @@ public class TestDrive {
 
 		playerData.location = location;
 		playerData.action = 4;
-
+		
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
 	}
 
 	@Test
 	public void testNeighborDrive() {
-		board.driveDestination = neighborCity;
-		player.getPlayerAction(Board.ActionName.DRIVE).executeAction();
+		player.drive(neighborCity);
 		assertEquals(3, playerData.action);
 		assertEquals(playerData.location.cityName, "Atlanta");
 	}

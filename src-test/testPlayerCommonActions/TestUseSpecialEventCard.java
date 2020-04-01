@@ -30,8 +30,7 @@ public class TestUseSpecialEventCard {
 		EasyMock.replay(board.eventCardAction);
 	
 		int old_size = board.discardEventCards.size();
-		contingencyPlanner.eventCardName = airlift;
-		contingencyPlanner.getPlayerAction(Board.ActionName.PLAYEVENTCARD).executeAction();
+		contingencyPlanner.useEventCard(airlift);
 		assertTrue(contingencyPlannerData.specialEventCard == null);
 		int new_size = board.discardEventCards.size();
 		assertEquals(old_size, new_size);

@@ -73,8 +73,7 @@ public class TestPlayerDiscoverCure {
 		board.remainDiseaseCube.put("RED", 24);
 		playerData.location = new City();
 		playerData.location.researchStation = true;
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
 		assertTrue(board.eradicatedColor.contains("RED"));
 	}
@@ -83,8 +82,7 @@ public class TestPlayerDiscoverCure {
 	public void testPlayerdiscardCardWhenDiscoverCure() {
 		playerData.location = new City();
 		playerData.location.researchStation = true;
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
 		assertEquals(0, playerData.hand.size());
 		assertEquals(3, playerData.action);
@@ -94,8 +92,7 @@ public class TestPlayerDiscoverCure {
 	public void testNotAtResearchStation() {
 		playerData.location = new City();
 		playerData.location.researchStation = false;
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 	}
 
 	@Test
@@ -103,8 +100,7 @@ public class TestPlayerDiscoverCure {
 		playerData.location = new City();
 		playerData.location.researchStation = true;
 		board.curedDiseases.add("RED");
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 		assertEquals(5, playerData.hand.size());
 	}
 	
@@ -115,8 +111,7 @@ public class TestPlayerDiscoverCure {
 		board.curedDiseases.add("BLUE");
 		board.curedDiseases.add("BLACK");
 		board.curedDiseases.add("YELLOW");
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 		assertEquals(4, board.curedDiseases.size());
 	}
 }

@@ -27,17 +27,17 @@ public class TestShuttleFlight {
 		String city2 = "NewYork";
 		String city3 = "Seattle";
 		String city4 = "Miami";
-		locationWithStation = new City(city1);
-		locationWithStation.researchStation = true;
+		this.locationWithStation = new City(city1);
+		this.locationWithStation.researchStation = true;
 
-		locationNoStation = new City(city2);
-		locationNoStation.researchStation = false;
+		this.locationNoStation = new City(city2);
+		this.locationNoStation.researchStation = false;
 
-		destinationWithStation = new City(city3);
-		destinationWithStation.researchStation = true;
+		this.destinationWithStation = new City(city3);
+		this.destinationWithStation.researchStation = true;
 
-		destinationNoStation = new City(city4);
-		destinationNoStation.researchStation = false;
+		this.destinationNoStation = new City(city4);
+		this.destinationNoStation.researchStation = false;
 		
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
@@ -45,18 +45,17 @@ public class TestShuttleFlight {
 
 	@Test
 	public void testStationToStation() {
-		initialPlayerLocationHasStation(true);
-		player.destination = destinationWithStation;
-		player.getPlayerAction(Board.ActionName.SHUTTLEFLIGHT).executeAction();
-		assertEquals(destinationWithStation.cityName, playerData.location.cityName);
+		this.initialPlayerLocationHasStation(true);
+		player.shuttleFlight(this.destinationWithStation);
+		assertEquals(this.destinationWithStation.cityName, playerData.location.cityName);
 		assertEquals(3, playerData.action);
 	}
 
 	private void initialPlayerLocationHasStation(boolean hasStation) {
 		if (hasStation) {
-			playerData.location = locationWithStation;
+			playerData.location = this.locationWithStation;
 		} else {
-			playerData.location = locationNoStation;
+			playerData.location = this.locationNoStation;
 		}
 	}
 

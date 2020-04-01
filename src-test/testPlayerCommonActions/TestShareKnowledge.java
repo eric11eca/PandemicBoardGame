@@ -66,12 +66,7 @@ public class TestShareKnowledge {
 	@Test
 	public void testShareKnowledgePlayer1GiveSuccess() {
 		player1.receiveCard(newyorkCitycard);
-
-		board.playerToShare = player2;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = true;
-
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		player1.shareKnowledge(player2, newyorkCitycard, true);
 		assertEquals(playerData1.location, playerData2.location);
 		assertFalse(playerData1.hand.containsKey(newyork));
 		assertTrue(playerData2.hand.containsKey(newyork));
@@ -82,12 +77,7 @@ public class TestShareKnowledge {
 	@Test
 	public void testShareKnowledgePlayer1ReceiveSuccess() {
 		player2.receiveCard(newyorkCitycard);
-
-		board.playerToShare = player2;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = false;
-
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		player1.shareKnowledge(player2, newyorkCitycard, false);
 		assertEquals(playerData1.location, playerData2.location);
 		assertFalse(playerData2.hand.containsKey(newyork));
 		assertTrue(playerData1.hand.containsKey(newyork));
@@ -97,10 +87,7 @@ public class TestShareKnowledge {
 
 	@Test(expected = RuntimeException.class)
 	public void testShareKnowledgePlayer1GivePlayer2WrongCityCard() {
-		board.playerToShare = player2;
-		board.cityToShare = chicagoCitycard;
-		board.isGiving = true;
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		player1.shareKnowledge(player2, chicagoCitycard, true);
 	}
 
 	@Test
@@ -109,12 +96,7 @@ public class TestShareKnowledge {
 		researcher.playerData.location = chicago;
 		player1.playerData.location = chicago;
 		researcher.receiveCard(newyorkCitycard);
-
-		board.playerToShare = researcher;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = false;
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
-
+		player1.shareKnowledge(researcher, newyorkCitycard, false);
 		assertTrue(player1.playerData.hand.containsKey(newyork));
 		assertFalse(researcher.playerData.hand.containsKey(newyork));
 	}

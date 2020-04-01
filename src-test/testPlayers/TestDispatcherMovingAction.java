@@ -10,7 +10,6 @@ import org.junit.Test;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
-import data.Board.ActionName;
 import player.Player;
 import player.PlayerData;
 
@@ -61,8 +60,7 @@ public class TestDispatcherMovingAction {
 		City destination = board.cities.get("Milan");
 		scientistData.location.neighbors.put("Milan", destination);
 		EasyMock.replay(scientist);
-		board.driveDestination = destination;
-		dispatcher.getPlayerAction(ActionName.DRIVE).executeAction();
+		dispatcher.drive(destination);
 		assertEquals("Milan", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -74,8 +72,7 @@ public class TestDispatcherMovingAction {
 		board.dispatcherCase = 1;
 		PlayerCard cityCard = dispatcherData.hand.get("Milan");
 		EasyMock.replay(scientist);
-		dispatcher.cityCard = cityCard;
-		dispatcher.getPlayerAction(ActionName.DIRECTFLIGHT).executeAction();
+		dispatcher.directFlight(cityCard);
 		assertEquals("Milan", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -85,9 +82,8 @@ public class TestDispatcherMovingAction {
 	@Test
 	public void testCharterFlightUsingOtherPlayer() {
 		board.dispatcherCase = 1;
-		board.cityCardNameCharter = delhi;
 		EasyMock.replay(scientist);
-		dispatcher.getPlayerAction(ActionName.CHARTERFLIGHT).executeAction();
+		dispatcher.charterFlight(delhi);
 		assertEquals("Delhi", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -101,8 +97,7 @@ public class TestDispatcherMovingAction {
 		board.cities.get("Milan").researchStation = true;
 		City destination = board.cities.get("Milan");
 		EasyMock.replay(scientist);
-		dispatcher.destination = destination;
-		dispatcher.getPlayerAction(ActionName.SHUTTLEFLIGHT).executeAction();
+		dispatcher.shuttleFlight(destination);
 		assertEquals("Milan", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);

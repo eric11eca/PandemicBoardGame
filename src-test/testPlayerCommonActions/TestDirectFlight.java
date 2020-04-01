@@ -44,8 +44,7 @@ public class TestDirectFlight {
 
 	@Test
 	public void testSuccessDirectFlight() {
-		player.cityCard = newyorkCityCard;
-		player.getPlayerAction(Board.ActionName.DIRECTFLIGHT).executeAction();
+		player.directFlight(newyorkCityCard);
 		assertEquals(playerData.hand.size(), 2);
 		assertEquals(playerData.action, 3);
 		assertEquals("NewYork", playerData.location.cityName);
