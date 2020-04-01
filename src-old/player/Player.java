@@ -7,7 +7,7 @@ import java.util.Set;
 
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import playerAction.BuildStation;
 import playerAction.CharterFlight;
 import playerAction.CureDisease;
@@ -24,7 +24,7 @@ public class Player {
 	public Board board;
 	public Map<Board.ActionName, PlayerAction> playerActions;
 
-	public CityOLD destination;
+	public City destination;
 	public String eventCardName;
 	public String diseaseTobeTreated;
 	public PlayerCard cityCard;

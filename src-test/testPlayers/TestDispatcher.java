@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -24,8 +24,8 @@ public class TestDispatcher {
 	public void setup() {
 		board = new Board();
 
-		CityOLD paris = cityFactory.makeFakeCity("Paris");
-		CityOLD delhi = cityFactory.makeFakeCity("Delhi");
+		City paris = cityFactory.makeFakeCity("Paris");
+		City delhi = cityFactory.makeFakeCity("Delhi");
 
 		board.cities.put("Paris", paris);
 		board.cities.put("Delhi", delhi);

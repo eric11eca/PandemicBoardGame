@@ -8,7 +8,7 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -20,7 +20,7 @@ public class TestDrive {
 	EventCardAction eventCardAction;
 	PlayerCard cityCard1;
 	PlayerCard cityCard2;
-	CityOLD location, neighborCity, notNeighborCity;
+	City location, neighborCity, notNeighborCity;
 
 	TestCityFactory cityFactory = new TestCityFactory();
 

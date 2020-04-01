@@ -15,8 +15,8 @@ import cards.PlayerCard;
 import cards.ResilientPopulation;
 import data.Board;
 import data.CityData;
-import data.CityOLD;
 import data.GameColor;
+import game.City;
 import parse.CityDataParser;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;
@@ -53,7 +53,7 @@ public class InitializeBoard {
 			Integer x = Integer.parseInt(cityData.get(3));
 			Integer y = Integer.parseInt(cityData.get(4));
 
-			CityOLD city = new CityOLD(new CityData(cityName, GameColor.compatibility_getByName(color), population), x,
+			City city = new City(new CityData(cityName, GameColor.compatibility_getByName(color), population), x,
 					y);
 
 			initializeCity(city);
@@ -68,10 +68,10 @@ public class InitializeBoard {
 		// Move to Data Layer
 		for (List<String> cityData : citiesData) {
 			String cityName = cityData.get(0);
-			CityOLD city = board.cities.get(cityName);
+			City city = board.cities.get(cityName);
 			for (int i = 5; i < cityData.size(); i++) {
 				String neighborName = cityData.get(i);
-				CityOLD neighbor = board.cities.get(neighborName);
+				City neighbor = board.cities.get(neighborName);
 				city.neighbors.add(neighbor);
 			}
 		}
@@ -233,7 +233,7 @@ public class InitializeBoard {
 		board.remainDiseaseCube.put("YELLOW", 24);
 	}
 
-	public void initializeCity(CityOLD city) {
+	public void initializeCity(City city) {
 		city.diseaseCubes.put("RED", 0);
 		city.diseaseCubes.put("BLUE", 0);
 		city.diseaseCubes.put("BLACK", 0);
@@ -248,7 +248,7 @@ public class InitializeBoard {
 	public void initializeDiseaseCube() {
 		for (int i = 0; i < 9; i++) {
 			String cardName = board.validInfectionCards.get(0);
-			CityOLD city = board.cities.get(cardName);
+			City city = board.cities.get(cardName);
 			if (i < 3) {
 				placeDiseaseCube(city, 3);
 			} else if (i > 2 && i < 6) {
@@ -262,7 +262,7 @@ public class InitializeBoard {
 		}
 	}
 
-	private void placeDiseaseCube(CityOLD city, int count) {
+	private void placeDiseaseCube(City city, int count) {
 		String color = city.getColor().compatibility_ColorString;
 		int numOfCubes = board.remainDiseaseCube.get(color);
 		city.diseaseCubes.put(color, count);

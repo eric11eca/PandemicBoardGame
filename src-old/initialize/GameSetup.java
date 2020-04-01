@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import javax.swing.JOptionPane;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import gameAction.GameAction;
 import player.Player;
 
@@ -56,7 +56,7 @@ public class GameSetup {
 		initPlayerData.drawHandCard();
 		initPlayerData.sortPlayer();
 
-		CityOLD atlanta = board.cities.get("Atlanta"); 
+		City atlanta = board.cities.get("Atlanta"); 
 		atlanta.researchStation = true;
 
 		for (Player player : board.currentPlayers) {

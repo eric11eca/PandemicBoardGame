@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
 import data.Board.ActionName;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -21,9 +21,9 @@ public class TestDispatcherMovingAction {
 	Player scientist;
 	PlayerData scientistData;
 	PlayerData dispatcherData;
-	CityOLD milan;
-	CityOLD paris;
-	CityOLD delhi;
+	City milan;
+	City paris;
+	City delhi;
 
 	TestCityFactory cityFactory = new TestCityFactory();
 
@@ -61,7 +61,7 @@ public class TestDispatcherMovingAction {
 	@Test
 	public void testDriveUsingOtherPlayer() {
 		board.dispatcherCase = 1;
-		CityOLD destination = board.cities.get("Milan");
+		City destination = board.cities.get("Milan");
 		scientistData.location.neighbors.add(destination);
 		EasyMock.replay(scientist);
 		board.driveDestination = destination;
@@ -102,7 +102,7 @@ public class TestDispatcherMovingAction {
 		board.dispatcherCase = 1;
 		board.cities.get("Delhi").researchStation = true;
 		board.cities.get("Milan").researchStation = true;
-		CityOLD destination = board.cities.get("Milan");
+		City destination = board.cities.get("Milan");
 		EasyMock.replay(scientist);
 		dispatcher.destination = destination;
 		dispatcher.getPlayerAction(ActionName.SHUTTLEFLIGHT).executeAction();

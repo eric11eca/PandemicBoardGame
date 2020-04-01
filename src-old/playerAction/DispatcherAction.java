@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 
 public class DispatcherAction implements SpecialSkill {
 	private Board board;
@@ -11,7 +11,7 @@ public class DispatcherAction implements SpecialSkill {
 	}
 
 	public void moveOtherPlayer() {
-		CityOLD newLocation = board.cities.get(board.newLocationName);
+		City newLocation = board.cities.get(board.newLocationName);
 		board.currentPlayers.get(board.pawnTobeMoved).playerData.location = newLocation;
 	}
 

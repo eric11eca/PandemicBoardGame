@@ -1,7 +1,7 @@
 package cards;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 
 public class GovernmentGrant implements EventCard {
 	private Board board;
@@ -13,7 +13,7 @@ public class GovernmentGrant implements EventCard {
 	@Override
 	public void executeEvent() {
 		String cityName = board.cityWithGrant;
-		CityOLD city = board.cities.get(cityName);
+		City city = board.cities.get(cityName);
 		city.researchStation = true;
 		board.currentResearchStation.put(city.getName(), city);
 	}

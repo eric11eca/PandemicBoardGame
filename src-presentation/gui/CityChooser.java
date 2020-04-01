@@ -5,36 +5,36 @@ import java.util.Set;
 
 import javax.swing.JComboBox;
 
-import data.CityOLD;
+import game.City;
 import gui.view.CityListCellRenderer;
 
 public class CityChooser {
-	private Set<CityOLD> options;
+	private Set<City> options;
 	private GUI gui;
 	private String dialogTitle;
 
-	public CityChooser(Set<CityOLD> options, GUI gui, String dialogTitle) {
+	public CityChooser(Set<City> options, GUI gui, String dialogTitle) {
 		this.options = options;
 		this.gui = gui;
 		this.dialogTitle = dialogTitle;
 	}
 
-	public Optional<CityOLD> letUserChooseACity() {
-		JComboBox<CityOLD> chooser = createCityComboBox();
+	public Optional<City> letUserChooseACity() {
+		JComboBox<City> chooser = createCityComboBox();
 		if (letUserChoose(chooser).userChoseOK()) {
-			return Optional.ofNullable((CityOLD) chooser.getSelectedItem());
+			return Optional.ofNullable((City) chooser.getSelectedItem());
 		} else {
 			return Optional.empty();
 		}
 	}
 
-	private JComboBox<CityOLD> createCityComboBox() {
-		JComboBox<CityOLD> chooser = new JComboBox<CityOLD>(options.toArray(new CityOLD[options.size()]));
+	private JComboBox<City> createCityComboBox() {
+		JComboBox<City> chooser = new JComboBox<City>(options.toArray(new City[options.size()]));
 		chooser.setRenderer(new CityListCellRenderer());
 		return chooser;
 	}
 
-	private UserResponseAdapter letUserChoose(JComboBox<CityOLD> chooser) {
+	private UserResponseAdapter letUserChoose(JComboBox<City> chooser) {
 		return gui.displayOption(dialogTitle, chooser);
 	}
 }

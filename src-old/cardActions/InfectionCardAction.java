@@ -3,7 +3,7 @@ package cardActions;
 import java.text.MessageFormat;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 
 public class InfectionCardAction {
 	private Board board;
@@ -32,13 +32,13 @@ public class InfectionCardAction {
 			return;
 		}
 
-		CityOLD city = board.cities.get(cityName);
+		City city = board.cities.get(cityName);
 
 		if (city.currentRoles.contains(Board.Roles.QUARANTINESPECIALIST)) {
 			return;
 		}
 
-		for (CityOLD neighbor : city.neighbors) {
+		for (City neighbor : city.neighbors) {
 			if (neighbor.currentRoles.contains(Board.Roles.QUARANTINESPECIALIST)) {
 				return;
 			}

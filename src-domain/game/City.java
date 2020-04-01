@@ -1,4 +1,4 @@
-package data;
+package game;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,7 +6,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class CityOLD {
+import data.Board;
+import data.CityData;
+import data.GameColor;
+import data.Board.Roles;
+
+public class City {
 
 	@Deprecated // Graphical Data
 	public int x;
@@ -16,7 +21,7 @@ public class CityOLD {
 	// TODO delegate access
 	public CityData data;
 
-	public Set<CityOLD> neighbors;
+	public Set<City> neighbors;
 
 	// TODO game data
 	public Map<String, Integer> diseaseCubes;
@@ -28,25 +33,15 @@ public class CityOLD {
 	// This could result in data duplication/scattering
 	@Deprecated
 	public Set<Board.Roles> currentRoles = new HashSet<>();
-
 	// ===UNDER CONSTRUCTION===//
-	private CityOLD() {
+
+	private City() {
 		this.diseaseCubes = new HashMap<String, Integer>();
 		this.researchStation = false;
 		this.neighbors = new HashSet<>();
 	}
 
-//	public CityOLD(String name) {
-//		this();
-//		this.cityName = name;
-//	}
-//
-//	public CityOLD(String name, String color) {
-//		this(name);
-//		this.color = color;
-//	}
-
-	public CityOLD(CityData data, int x, int y) {
+	public City(CityData data, int x, int y) {
 		this();
 		this.data = data;
 		this.x = x;
@@ -72,6 +67,6 @@ public class CityOLD {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj != null && obj.getClass() == getClass() && Objects.equals(((CityOLD) obj).data, data);
+		return obj != null && obj.getClass() == getClass() && Objects.equals(((City) obj).data, data);
 	}
 }

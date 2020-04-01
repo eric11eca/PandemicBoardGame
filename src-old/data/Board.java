@@ -11,6 +11,7 @@ import java.util.Stack;
 import cardActions.EventCardAction;
 import cards.EventCard;
 import cards.PlayerCard;
+import game.City;
 import initialize.Messages;
 import parse.ListOfCityWithColorGenerator;
 import player.Player;
@@ -43,7 +44,7 @@ public class Board {
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;
 	public int outbreakMark = 0;
-	public Map<String, CityOLD> currentResearchStation = new HashMap<>();
+	public Map<String, City> currentResearchStation = new HashMap<>();
 	public Stack<Integer> infectionRateTracker = new Stack<>();
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	public Set<String> eradicatedColor = new HashSet<>();
@@ -55,11 +56,11 @@ public class Board {
 	@Deprecated // Refactor as parameter
 	public String cityCardNameDirect;
 	@Deprecated // Refactor as parameter
-	public CityOLD cityCardNameCharter;
+	public City cityCardNameCharter;
 	@Deprecated // Refactor as parameter
 	public String diseaseBeingTreated;
 	@Deprecated // Refactor as parameter
-	public CityOLD driveDestination;
+	public City driveDestination;
 	@Deprecated // Refactor as parameter
 	public String shuttleDestinationName;
 	@Deprecated // Refactor as parameter
@@ -90,7 +91,7 @@ public class Board {
 	public List<String> rearrangeInstruction = new ArrayList<>();
 
 	public Set<String> curedDiseases = new HashSet<>();
-	public Map<String, CityOLD> cities = new HashMap<>();// TODO refactor as game data
+	public Map<String, City> cities = new HashMap<>();// TODO refactor as game data
 	public List<Board.Roles> roles = new ArrayList<>();// TODO refactor as game data
 	public List<Player> currentPlayers = new ArrayList<>();
 	public List<PlayerCard> validPlayerCards = new ArrayList<>();

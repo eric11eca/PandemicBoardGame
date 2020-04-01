@@ -1,31 +1,31 @@
 package helpers;
 
 import data.CityData;
-import data.CityOLD;
 import data.GameColor;
+import game.City;
 
 public class TestCityFactory {
-	public CityOLD makeFakeCity() {
+	public City makeFakeCity() {
 		return makeFakeCity("Some Fake City");
 	}
 
-	public CityOLD makeFakeCity(String name) {
+	public City makeFakeCity(String name) {
 		return makeFakeCity(name, GameColor.BLACK);
 	}
 
-	public CityOLD makeFakeCity(String name, int population) {
+	public City makeFakeCity(String name, int population) {
 		return makeFakeCity(name, GameColor.BLACK, population, 0, 0);
 	}
 
-	public CityOLD makeFakeCity(String name, GameColor color) {
+	public City makeFakeCity(String name, GameColor color) {
 		return makeFakeCity(name, color, 10, 0, 0);
 	}
 
-	public CityOLD makeFakeCity(String name, GameColor color, int population) {
+	public City makeFakeCity(String name, GameColor color, int population) {
 		return makeFakeCity(name, color, population, 0, 0);
 	}
 
-	public CityOLD makeFakeCity(String name, GameColor color, int population, int x, int y) {
-		return new CityOLD(new CityData(name, color, population), x, y);
+	public City makeFakeCity(String name, GameColor color, int population, int x, int y) {
+		return new City(new CityData(name, color, population), x, y);
 	}
 }

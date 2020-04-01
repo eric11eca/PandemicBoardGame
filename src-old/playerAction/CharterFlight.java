@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 import player.Player;
 
 public class CharterFlight extends PlayerAction {
@@ -11,7 +11,7 @@ public class CharterFlight extends PlayerAction {
 
 	@Override
 	public boolean executeAction() {
-		CityOLD destination = board.cityCardNameCharter;
+		City destination = board.cityCardNameCharter;
 		board.cardToBeDiscard.add(player.playerData.location.getName());
 		player.discardCard();
 		moveTo(destination);

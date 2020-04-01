@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 
 public class Outbreak {
 	Board board;
@@ -21,10 +21,10 @@ public class Outbreak {
 		}
 	}
 
-	public List<CityOLD> infectConnectedCities(CityOLD currentCity) {
+	public List<City> infectConnectedCities(City currentCity) {
 		String disease = currentCity.getColor().compatibility_ColorString;
-		List<CityOLD> continueOutbreak = new ArrayList<>();
-		for (CityOLD city : currentCity.neighbors) {
+		List<City> continueOutbreak = new ArrayList<>();
+		for (City city : currentCity.neighbors) {
 			if (!city.isInOutbreak) {
 				int currentNum = city.diseaseCubes.get(disease);
 				if (currentNum >= 3) {
@@ -46,17 +46,17 @@ public class Outbreak {
 		return continueOutbreak;
 	}
 
-	public void continueRestOfOutbreaks(List<CityOLD> continueOutbreak) {
+	public void continueRestOfOutbreaks(List<City> continueOutbreak) {
 		for (int i = 0; i < continueOutbreak.size(); i++) {
-			CityOLD city = continueOutbreak.get(i);
+			City city = continueOutbreak.get(i);
 			performeOutbreak(city);
 		}
 	}
 
-	public void performeOutbreak(CityOLD currentCity) {
+	public void performeOutbreak(City currentCity) {
 		currentCity.isInOutbreak = true;
 		moveOutbreakMarkForward();
-		List<CityOLD> continueOutbreak = infectConnectedCities(currentCity);
+		List<City> continueOutbreak = infectConnectedCities(currentCity);
 		if (!continueOutbreak.isEmpty()) {
 			continueRestOfOutbreaks(continueOutbreak);
 		}

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -17,8 +17,8 @@ public class TestShuttleFlight {
 	Player player;
 	PlayerData playerData;
 	EventCardAction eventCardAction;
-	CityOLD locationWithStation, locationNoStation;
-	CityOLD destinationWithStation, destinationNoStation;
+	City locationWithStation, locationNoStation;
+	City destinationWithStation, destinationNoStation;
 
 	TestCityFactory cityFactory = new TestCityFactory();
 

@@ -8,8 +8,8 @@ import org.junit.Test;
 import cardActions.EpidemicCardAction;
 import data.Board;
 import data.CityData;
-import data.CityOLD;
 import data.GameColor;
+import game.City;
 
 public class TestEpidemicCardAction {
 	Board board;
@@ -27,10 +27,10 @@ public class TestEpidemicCardAction {
 		board.infectionRateTracker.push(2);
 		board.infectionRateTracker.push(2);
 
-		CityOLD city1 = new CityOLD(new CityData("cityA", GameColor.YELLOW, 10), 0, 0);
+		City city1 = new City(new CityData("cityA", GameColor.YELLOW, 10), 0, 0);
 		city1.diseaseCubes.put(city1.getColor().compatibility_ColorString, 0);
 		board.cities.put(city1.getName(), city1);
-		CityOLD city2 = new CityOLD(new CityData("cityB", GameColor.RED, 10), 0, 0);
+		City city2 = new City(new CityData("cityB", GameColor.RED, 10), 0, 0);
 		city2.diseaseCubes.put(city2.getColor().compatibility_ColorString, 0);
 		board.cities.put(city2.getName(), city2);
 		board.eradicatedColor.add(city1.getColor().compatibility_ColorString);
@@ -58,7 +58,7 @@ public class TestEpidemicCardAction {
 	public void testInfectionOfEradicatedDisease() {
 		board.validInfectionCards.add("cityA");
 		epidemicCardAction.epidemicInfect();
-		CityOLD city = board.cities.get("cityA");
+		City city = board.cities.get("cityA");
 		assertTrue(0 == city.diseaseCubes.get("YELLOW"));
 	}
 
@@ -66,7 +66,7 @@ public class TestEpidemicCardAction {
 	public void testInfectionOfNewDisease() {
 		board.validInfectionCards.add("cityB");
 		epidemicCardAction.epidemicInfect();
-		CityOLD city = board.cities.get("cityB");
+		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
 		assertTrue(21 == board.remainDiseaseCube.get("RED"));
 		assertTrue(board.validInfectionCards.isEmpty());
@@ -77,7 +77,7 @@ public class TestEpidemicCardAction {
 	@Test
 	public void testInfectionCausingOutbreak() {
 		board.validInfectionCards.add("cityB");
-		CityOLD cityB = board.cities.get("cityB");
+		City cityB = board.cities.get("cityB");
 		cityB.diseaseCubes.put(cityB.getColor().compatibility_ColorString, 2);
 		board.remainDiseaseCube.put(cityB.getColor().compatibility_ColorString, 22);
 		epidemicCardAction.epidemicInfect();
@@ -128,7 +128,7 @@ public class TestEpidemicCardAction {
 		epidemicCardAction.performEpidemic();
 		assertTrue(3 == board.infectionRateTracker.peek());
 
-		CityOLD city = board.cities.get("cityB");
+		City city = board.cities.get("cityB");
 		assertTrue(3 == city.diseaseCubes.get("RED"));
 
 		int newSize = board.validInfectionCards.size();

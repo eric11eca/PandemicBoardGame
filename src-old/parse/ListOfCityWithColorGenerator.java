@@ -2,11 +2,11 @@ package parse;
 
 import java.util.Map;
 
-import data.CityOLD;
+import game.City;
 
 @Deprecated
 public class ListOfCityWithColorGenerator {
-	public String[] concatColor(String[] citynames, Map<String, CityOLD> cities) {
+	public String[] concatColor(String[] citynames, Map<String, City> cities) {
 		String[] cityWithColor = new String[citynames.length];
 		for (int i = 0; i < citynames.length; i++) {
 			try {

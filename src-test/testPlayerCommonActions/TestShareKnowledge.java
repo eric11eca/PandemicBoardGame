@@ -10,7 +10,7 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -48,7 +48,7 @@ public class TestShareKnowledge {
 
 		newyork = "NewYork";
 		newyorkCitycard = new PlayerCard(Board.CardType.CITYCARD, newyork);
-		CityOLD newyorkCity = cityFactory.makeFakeCity(newyork);
+		City newyorkCity = cityFactory.makeFakeCity(newyork);
 		playerData1.location = newyorkCity;
 		playerData2.location = newyorkCity;
 		researcherData.location = newyorkCity;
@@ -108,7 +108,7 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1ReceiveFromAResearcher() {
-		CityOLD chicago = cityFactory.makeFakeCity("Chicago");
+		City chicago = cityFactory.makeFakeCity("Chicago");
 		researcher.playerData.location = chicago;
 		player1.playerData.location = chicago;
 		researcher.receiveCard(newyorkCitycard);

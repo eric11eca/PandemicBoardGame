@@ -7,24 +7,24 @@ import java.util.Set;
 import org.junit.Test;
 
 import data.CityData;
-import data.CityOLD;
 import data.GameColor;
+import game.City;
 
 public class TestCity {
 	@Test
 	public void testCoordinates() {
-		CityOLD city = new CityOLD(new CityData("Some City", GameColor.RED, 10), 12, 50);
+		City city = new City(new CityData("Some City", GameColor.RED, 10), 12, 50);
 		assertEquals(city.x, 12);
 		assertEquals(city.y, 50);
 	}
 
 	@Test
 	public void testNeighbors() {
-		CityOLD city = new CityOLD(new CityData("Some City", GameColor.RED, 10), 0, 0);
+		City city = new City(new CityData("Some City", GameColor.RED, 10), 0, 0);
 
-		CityOLD c1 = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
-		CityOLD c2 = new CityOLD(new CityData("NewYork", GameColor.RED, 10), 0, 0);
-		CityOLD c3 = new CityOLD(new CityData("Boston", GameColor.RED, 10), 0, 0);
+		City c1 = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
+		City c2 = new City(new CityData("NewYork", GameColor.RED, 10), 0, 0);
+		City c3 = new City(new CityData("Boston", GameColor.RED, 10), 0, 0);
 
 		city.neighbors.add(c1);
 		city.neighbors.add(c2);
@@ -39,14 +39,14 @@ public class TestCity {
 
 	@Test
 	public void testResearchStations() {
-		CityOLD city = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
+		City city = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
 		city.researchStation = true;
 		assertTrue(city.researchStation);
 	}
 
 	@Test
 	public void testDiseaseCubes() {
-		CityOLD city = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
+		City city = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
 		city.diseaseCubes.put("Yellow", 1);
 		city.diseaseCubes.put("Red", 2);
 		assertTrue(city.diseaseCubes.containsKey("Yellow"));
@@ -57,7 +57,7 @@ public class TestCity {
 
 	@Test
 	public void testColor() {
-		CityOLD city = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
+		City city = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
 		assertEquals("RED", city.getColor().compatibility_ColorString);
 	}
 }

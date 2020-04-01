@@ -10,32 +10,32 @@ import org.junit.Test;
 import cardActions.Outbreak;
 import data.Board;
 import data.CityData;
-import data.CityOLD;
 import data.GameColor;
+import game.City;
 
 public class TestOutbreak {
 	Board board;
 	Outbreak outBreak;
-	CityOLD city;
-	CityOLD city1;
-	CityOLD city2;
-	CityOLD city3;
-	CityOLD city4;
+	City city;
+	City city1;
+	City city2;
+	City city3;
+	City city4;
 
 	@Before
 	public void setup() {
 		board = new Board();
-		city = new CityOLD(new CityData("Paris", GameColor.RED, 10), 0, 0);
+		city = new City(new CityData("Paris", GameColor.RED, 10), 0, 0);
 		city.diseaseCubes.put("RED", 0);
-		city1 = new CityOLD(new CityData("Chicago", GameColor.BLUE, 10), 0, 0);
+		city1 = new City(new CityData("Chicago", GameColor.BLUE, 10), 0, 0);
 		city1.diseaseCubes.put("RED", 0);
-		city2 = new CityOLD(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
+		city2 = new City(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
 		city2.diseaseCubes.put("RED", 0);
-		city3 = new CityOLD(new CityData("London", GameColor.BLUE, 10), 0, 0);
+		city3 = new City(new CityData("London", GameColor.BLUE, 10), 0, 0);
 		city3.diseaseCubes.put("RED", 0);
 		city3.diseaseCubes.put("BLUE", 0);
 		city3.diseaseCubes.put("BLACK", 0);
-		city4 = new CityOLD(new CityData("Austin", GameColor.BLACK, 10), 0, 0);
+		city4 = new City(new CityData("Austin", GameColor.BLACK, 10), 0, 0);
 		city4.diseaseCubes.put("RED", 0);
 		city4.diseaseCubes.put("BLUE", 0);
 		city4.diseaseCubes.put("BLACK", 0);
@@ -67,7 +67,7 @@ public class TestOutbreak {
 
 	@Test
 	public void testPlaceDiseaseCubeOnConnectedCities() {
-		List<CityOLD> continueOutbreak = outBreak.infectConnectedCities(city);
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
 		assertTrue(continueOutbreak.isEmpty());
 		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
 		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
@@ -91,7 +91,7 @@ public class TestOutbreak {
 	public void testInfecAndCauseOtherOutbreaks() {
 		city1.diseaseCubes.put("RED", 2);
 		city2.diseaseCubes.put("RED", 3);
-		List<CityOLD> continueOutbreak = outBreak.infectConnectedCities(city);
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
 		assertTrue(!continueOutbreak.isEmpty());
 		assertEquals(city1, continueOutbreak.get(0));
 		assertEquals(city2, continueOutbreak.get(1));
@@ -105,7 +105,7 @@ public class TestOutbreak {
 		city2.neighbors.add(city4);
 
 		board.outbreakMark += 1;
-		List<CityOLD> continueOutbreak = outBreak.infectConnectedCities(city);
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
 		outBreak.continueRestOfOutbreaks(continueOutbreak);
 
 		assertEquals(3, board.outbreakMark);
@@ -123,7 +123,7 @@ public class TestOutbreak {
 		city.neighbors.add(city3);
 		city3.isInOutbreak = true;
 		board.outbreakMark += 1;
-		List<CityOLD> continueOutbreak = outBreak.infectConnectedCities(city);
+		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
 		outBreak.continueRestOfOutbreaks(continueOutbreak);
 		assertEquals(1, board.outbreakMark);
 		assertTrue(0 == city3.diseaseCubes.get("RED"));

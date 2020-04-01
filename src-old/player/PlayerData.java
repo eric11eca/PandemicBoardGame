@@ -5,12 +5,12 @@ import java.util.Map;
 
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import playerAction.SpecialSkill;
 
 public class PlayerData {
 	public Map<String, PlayerCard> hand = new HashMap<>();
-	public CityOLD location;
+	public City location;
 	public Board.Roles role;
 	public int action;
 	public SpecialSkill specialSkill;

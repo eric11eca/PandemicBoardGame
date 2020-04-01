@@ -11,7 +11,7 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.DiscoverCureNormal;
 import player.Player;

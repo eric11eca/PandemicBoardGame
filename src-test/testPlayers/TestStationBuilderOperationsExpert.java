@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.PlayerData;
 import player.StationBuilder;
@@ -17,7 +17,7 @@ public class TestStationBuilderOperationsExpert {
 	Board board;
 	PlayerData operationsExpertData;
 	StationBuilder stationBuilderOperationExpert;
-	CityOLD playerLocatedCity, cityWithStation;
+	City playerLocatedCity, cityWithStation;
 	String playerLocation, theNameOfCityWithStation;
 
 	TestCityFactory cityFactory = new TestCityFactory();

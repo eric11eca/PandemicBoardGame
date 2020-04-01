@@ -15,8 +15,8 @@ import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.ActionName;
+import game.City;
 import data.CityData;
-import data.CityOLD;
 import data.GameColor;
 import gameAction.GameAction;
 import player.Player;
@@ -44,7 +44,7 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testInfectCityOnQueitNight() {
 		board.inQueitNight = true;
-		CityOLD city = new CityOLD(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
+		City city = new City(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
 		board.cities.put("NewYork", city);
 		city.diseaseCubes.put("RED", 1);
 		action.infection();
@@ -152,7 +152,7 @@ public class TestGameActionOneTurn {
 
 		String infectCityName = "Infect";
 		board.validInfectionCards.add(infectCityName);
-		CityOLD infectCity = new CityOLD(new CityData(infectCityName, GameColor.BLUE, 10), 0, 0);
+		City infectCity = new City(new CityData(infectCityName, GameColor.BLUE, 10), 0, 0);
 		infectCity.diseaseCubes.put("BLUE", 1);
 		board.cities.put(infectCityName, infectCity);
 		board.remainDiseaseCube.put("BLUE", 13);
@@ -177,8 +177,8 @@ public class TestGameActionOneTurn {
 		board.remainDiseaseCube.put("BLUE", 24);
 		board.validInfectionCards.add("cityA");
 		board.validInfectionCards.add("cityB");
-		CityOLD cityA = new CityOLD(new CityData("cityA", GameColor.RED, 10), 0, 0);
-		CityOLD cityB = new CityOLD(new CityData("cityB", GameColor.BLUE, 10), 0, 0);
+		City cityA = new City(new CityData("cityA", GameColor.RED, 10), 0, 0);
+		City cityB = new City(new CityData("cityB", GameColor.BLUE, 10), 0, 0);
 		cityA.diseaseCubes.put("RED", 0);
 		cityB.diseaseCubes.put("BLUE", 0);
 		board.cities.put("cityA", cityA);

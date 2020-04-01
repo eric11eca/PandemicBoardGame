@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.PlayerData;
 import playerAction.MedicAction;
@@ -24,7 +24,7 @@ public class TestMedic {
 		board = new Board();
 		medic = new PlayerData();
 		medicAction = new MedicAction(board, medic);
-		CityOLD city = cityFactory.makeFakeCity();
+		City city = cityFactory.makeFakeCity();
 		medic.action = 4;
 		medic.location = city;
 	}

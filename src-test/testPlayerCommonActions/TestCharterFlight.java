@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -20,9 +20,9 @@ public class TestCharterFlight {
 	public void testCharterFlight() {
 		Board board = new Board();
 		String chicago = "Chicago";
-		CityOLD chicagoCity = cityFactory.makeFakeCity(chicago);
+		City chicagoCity = cityFactory.makeFakeCity(chicago);
 		String newyork = "NewYork";
-		CityOLD newyorkCity = cityFactory.makeFakeCity(newyork);
+		City newyorkCity = cityFactory.makeFakeCity(newyork);
 		board.cities.put(newyork, newyorkCity);
 
 		PlayerData playerData = new PlayerData();

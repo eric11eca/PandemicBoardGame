@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -22,7 +22,7 @@ public class TestTreat {
 	DispatcherAction dispatcherAction;
 	PlayerData medicData, dispatcherData;
 	Player medic, dispatcher;
-	CityOLD city;
+	City city;
 	String blue = "BLUE";
 	String yellow = "YELLOW";
 

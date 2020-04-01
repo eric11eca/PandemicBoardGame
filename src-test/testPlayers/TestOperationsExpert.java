@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.CityOLD;
+import game.City;
 import helpers.TestCityFactory;
 import player.PlayerData;
 import playerAction.OperationsExpertAction;
 
 public class TestOperationsExpert {
 	Board board;
-	CityOLD location;
+	City location;
 	PlayerData playerData;
 	OperationsExpertAction operationsExpertAction;
 	TestCityFactory cityFactory = new TestCityFactory();
@@ -35,7 +35,7 @@ public class TestOperationsExpert {
 	public void testMoveToAnotherCity() {
 
 		String new_cityName = "Chicago";
-		CityOLD city = cityFactory.makeFakeCity(new_cityName);
+		City city = cityFactory.makeFakeCity(new_cityName);
 		board.cities.put(new_cityName, city);
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, new_cityName);
 		playerData.hand.put(new_cityName, cityCard);
