@@ -4,36 +4,28 @@ import java.util.Optional;
 import java.util.Set;
 
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 import data.City;
 import gui.view.CityListCellRenderer;
 
 public class CityChooser {
 	private Set<City> options;
-	private JComponent parentComponent;
+	private GUI gui;
 	private String dialogTitle;
 
-	public CityChooser(Set<City> options, JComponent parentComponent, String dialogTitle) {
+	public CityChooser(Set<City> options, GUI gui, String dialogTitle) {
 		this.options = options;
-		this.parentComponent = parentComponent;
+		this.gui = gui;
 		this.dialogTitle = dialogTitle;
 	}
 
 	public Optional<City> letUserChooseACity() {
 		JComboBox<City> chooser = createCityComboBox();
-		int choice = showChoosingDialogAndGetChoice(chooser);
-
-		switch (choice) {
-		case JOptionPane.CANCEL_OPTION:
-			return Optional.empty();
-		case JOptionPane.OK_OPTION:
+		if (letUserChoose(chooser).userChoseOK()) {
 			return Optional.ofNullable((City) chooser.getSelectedItem());
+		} else {
+			return Optional.empty();
 		}
-
-		throw new RuntimeException("Invalid JOptionPane Choice");
-
 	}
 
 	private JComboBox<City> createCityComboBox() {
@@ -42,8 +34,7 @@ public class CityChooser {
 		return chooser;
 	}
 
-	private int showChoosingDialogAndGetChoice(JComboBox<City> chooser) {
-		return JOptionPane.showConfirmDialog(parentComponent, chooser, dialogTitle, JOptionPane.OK_CANCEL_OPTION,
-				JOptionPane.PLAIN_MESSAGE);
+	private UserResponseAdapter letUserChoose(JComboBox<City> chooser) {
+		return gui.displayOption(dialogTitle, chooser);
 	}
 }

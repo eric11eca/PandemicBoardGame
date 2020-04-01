@@ -3,10 +3,6 @@ package buttonListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import data.Board;
 import data.City;
@@ -16,7 +12,6 @@ import initialize.GameSetup;
 
 public class CharterFlightListener implements ActionListener {
 	private Board board;
-	private JPanel panel;
 	private GUI gui;
 	private GameSetup gameSetup;
 
@@ -30,8 +25,7 @@ public class CharterFlightListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (!board.currentPlayer.canCharterFlight()) {
-			JOptionPane.showConfirmDialog(null, board.messages.getString("noCurrentCityCard"),
-					board.messages.getString("noValidCard"), JOptionPane.OK_OPTION);
+			gui.displayMessage(board.messages.getString("noValidCard"), board.messages.getString("noCurrentCityCard"));
 			return;
 		}
 
@@ -43,7 +37,7 @@ public class CharterFlightListener implements ActionListener {
 		cities.remove(board.currentPlayer.playerData.location);
 		/* ====Extract & Move Method NEEDDED= */
 
-		CityChooser cityChooser = new CityChooser(cities, null, board.messages.getString("charterFlight"));
+		CityChooser cityChooser = new CityChooser(cities, gui, board.messages.getString("charterFlight"));
 		cityChooser.letUserChooseACity().ifPresent(this::cityChosen);
 	}
 
@@ -51,7 +45,6 @@ public class CharterFlightListener implements ActionListener {
 		board.cityCardNameCharter = chosenCity;
 		board.actionName = Board.ActionName.CHARTERFLIGHT;
 		gameSetup.oneTurn();
-		gui.removePanel(panel);
 		gui.updateImage();
 	}
 

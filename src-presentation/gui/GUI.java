@@ -12,6 +12,7 @@ import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -217,5 +218,14 @@ public class GUI {
 //		System.out.println(board.currentPlayerIndex);
 		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
 		pickCardsToBeDiscard.pickCardsPrompt();
+	}
+
+	public void displayMessage(String title, String content) {
+		JOptionPane.showMessageDialog(frame, content, title, JOptionPane.PLAIN_MESSAGE);
+	}
+
+	public UserResponseAdapter displayOption(String title, JComponent content) {
+		return new UserResponseAdapter(JOptionPane.showConfirmDialog(frame, content, title,
+				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE));
 	}
 }

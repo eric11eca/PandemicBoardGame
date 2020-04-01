@@ -23,9 +23,13 @@ public class DriveListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		// TODO move to domain layer
+		/* ====Under Construction=== */
 		HashSet<City> cities = new HashSet<>();
 		cities.addAll(board.currentPlayer.playerData.location.neighbors.values());
-		CityChooser cityChooser = new CityChooser(cities, null, board.messages.getString("Drive"));
+		/* ====Under Construction=== */
+
+		CityChooser cityChooser = new CityChooser(cities, gui, board.messages.getString("Drive"));
 		cityChooser.letUserChooseACity().ifPresent(this::cityChosen);
 	}
 
