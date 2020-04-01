@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
 import gui.CityChooser;
 import gui.GUI;
 import initialize.GameSetup;
@@ -25,15 +25,15 @@ public class DriveListener implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO move to domain layer
 		/* ====Under Construction=== */
-		HashSet<City> cities = new HashSet<>();
-		cities.addAll(board.currentPlayer.playerData.location.neighbors.values());
+		HashSet<CityOLD> cities = new HashSet<>();
+		cities.addAll(board.currentPlayer.playerData.location.neighbors);
 		/* ====Under Construction=== */
 
 		CityChooser cityChooser = new CityChooser(cities, gui, board.messages.getString("Drive"));
 		cityChooser.letUserChooseACity().ifPresent(this::cityChosen);
 	}
 
-	private void cityChosen(City chosenCity) {
+	private void cityChosen(CityOLD chosenCity) {
 		board.driveDestination = chosenCity;
 		board.actionName = Board.ActionName.DRIVE;
 		gameSetup.oneTurn();

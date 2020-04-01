@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
 import player.Player;
 import player.PlayerData;
 
@@ -22,7 +22,7 @@ public abstract class PlayerAction {
 		}
 	}
 	
-	public void moveTo(City destination) {
+	public void moveTo(CityOLD destination) {
 		if(board.dispatcherCase == 1) {
 			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
 			pawnData.location = destination;

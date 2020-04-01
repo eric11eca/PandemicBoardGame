@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
 import player.Player;
 import player.PlayerData;
 
@@ -13,14 +13,14 @@ public class Drive extends PlayerAction {
 
 	@Override
 	public boolean executeAction() {
-		City destination = board.driveDestination;
+		CityOLD destination = board.driveDestination;
 		if (board.dispatcherCase == 1) {
 			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
-			if (pawnData.location.neighbors.containsKey(destination.cityName)) {
+			if (pawnData.location.neighbors.contains(destination)) {
 				moveTo(destination);
 				player.consumeAction();
 			}
-		} else if (player.playerData.location.neighbors.containsKey(destination.cityName)) {
+		} else if (player.playerData.location.neighbors.contains(destination)) {
 			moveTo(destination);
 			player.consumeAction();
 		}

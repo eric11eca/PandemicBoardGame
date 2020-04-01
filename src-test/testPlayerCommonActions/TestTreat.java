@@ -7,7 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 import player.TreatMedic;
@@ -19,11 +20,13 @@ public class TestTreat {
 	Board board;
 	MedicAction medicAction;
 	DispatcherAction dispatcherAction;
-	PlayerData medicData,  dispatcherData;
+	PlayerData medicData, dispatcherData;
 	Player medic, dispatcher;
-	City city;
+	CityOLD city;
 	String blue = "BLUE";
 	String yellow = "YELLOW";
+
+	TestCityFactory cityFactory = new TestCityFactory();
 
 	@Before
 	public void setup() {
@@ -33,7 +36,7 @@ public class TestTreat {
 		medicData.treatAction = new TreatMedic(medicData, board);
 		dispatcherData = new PlayerData();
 		dispatcherAction = new DispatcherAction(board);
-		city = new City();
+		city = cityFactory.makeFakeCity();
 		medicData.location = city;
 		dispatcherData.location = city;
 		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
@@ -53,7 +56,7 @@ public class TestTreat {
 		assertEquals(11, numOfRemainCubes);
 		assertEquals(3, dispatcherData.action);
 	}
-	
+
 	@Test
 	public void testMedicTreatWithNoCure() {
 		city.diseaseCubes.put(blue, 2);
@@ -67,7 +70,7 @@ public class TestTreat {
 		assertTrue(board.eradicatedColor.contains(blue));
 		assertEquals(3, medicData.action);
 	}
-	
+
 	@Test
 	public void testMedicTreatWithCure() {
 		city.diseaseCubes.put(blue, 2);
@@ -82,7 +85,7 @@ public class TestTreat {
 		assertTrue(board.eradicatedColor.contains(blue));
 		assertEquals(3, medicData.action);
 	}
-	
+
 	@Test
 	public void testTreatWithSameColorCure() {
 		city.diseaseCubes.put(blue, 3);

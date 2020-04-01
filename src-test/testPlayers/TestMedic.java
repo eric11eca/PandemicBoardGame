@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
+import helpers.TestCityFactory;
 import player.PlayerData;
 import playerAction.MedicAction;
 
@@ -16,14 +17,14 @@ public class TestMedic {
 	MedicAction medicAction;
 	Board board;
 	PlayerData medic;
+	TestCityFactory cityFactory = new TestCityFactory();
 
 	@Before
 	public void setup() {
 		board = new Board();
 		medic = new PlayerData();
 		medicAction = new MedicAction(board, medic);
-		City city = new City();
-		city.cityName = "a";
+		CityOLD city = cityFactory.makeFakeCity();
 		medic.action = 4;
 		medic.location = city;
 	}
@@ -61,14 +62,12 @@ public class TestMedic {
 		assertEquals(4, medic.action);
 		assertEquals(2, board.eradicatedColor.size());
 	}
-	
+
 	@Test
 	public void testSpecialSkillCalls() {
-		medicAction = EasyMock.partialMockBuilder(MedicAction.class)
-				.withConstructor(board, medic)
-				.addMockedMethod("removeAllCubes")
-				.createMock();
-		
+		medicAction = EasyMock.partialMockBuilder(MedicAction.class).withConstructor(board, medic)
+				.addMockedMethod("removeAllCubes").createMock();
+
 		medicAction.removeAllCubes();
 		EasyMock.replay(medicAction);
 		medicAction.useSpecialSkill();

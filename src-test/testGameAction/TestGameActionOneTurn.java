@@ -15,7 +15,9 @@ import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.ActionName;
-import data.City;
+import data.CityData;
+import data.CityOLD;
+import data.GameColor;
 import gameAction.GameAction;
 import player.Player;
 import player.PlayerData;
@@ -33,7 +35,7 @@ public class TestGameActionOneTurn {
 		board = new Board();
 		action = new GameAction(board);
 		playerData = new PlayerData();
-		
+
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.currentPlayer.playerData = playerData;
 		board.currentPlayer.playerData.role = Board.Roles.OPERATIONSEXPERT;
@@ -42,7 +44,7 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testInfectCityOnQueitNight() {
 		board.inQueitNight = true;
-		City city = new City();
+		CityOLD city = new CityOLD(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
 		board.cities.put("NewYork", city);
 		city.diseaseCubes.put("RED", 1);
 		action.infection();
@@ -71,7 +73,7 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		EasyMock.verify(board.currentPlayer.playerData.hand);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawTwoCityCardWithFull() {
@@ -99,7 +101,6 @@ public class TestGameActionOneTurn {
 
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	@Test
@@ -151,8 +152,7 @@ public class TestGameActionOneTurn {
 
 		String infectCityName = "Infect";
 		board.validInfectionCards.add(infectCityName);
-		City infectCity = new City(infectCityName);
-		infectCity.color = "BLUE";
+		CityOLD infectCity = new CityOLD(new CityData(infectCityName, GameColor.BLUE, 10), 0, 0);
 		infectCity.diseaseCubes.put("BLUE", 1);
 		board.cities.put(infectCityName, infectCity);
 		board.remainDiseaseCube.put("BLUE", 13);
@@ -164,13 +164,11 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
 		EasyMock.expect(board.currentPlayer.playerData.hand.size()).andReturn(6);
 
-		EasyMock.replay(board.validPlayerCards, board.currentPlayer, 
-				epidemic, board.currentPlayer.playerData.hand);
+		EasyMock.replay(board.validPlayerCards, board.currentPlayer, epidemic, board.currentPlayer.playerData.hand);
 
 		action.drawTwoPlayerCards();
 
-		EasyMock.verify(board.validPlayerCards, board.currentPlayer, 
-				epidemic, board.currentPlayer.playerData.hand);
+		EasyMock.verify(board.validPlayerCards, board.currentPlayer, epidemic, board.currentPlayer.playerData.hand);
 	}
 
 	@Test
@@ -179,12 +177,8 @@ public class TestGameActionOneTurn {
 		board.remainDiseaseCube.put("BLUE", 24);
 		board.validInfectionCards.add("cityA");
 		board.validInfectionCards.add("cityB");
-		City cityA = new City();
-		City cityB = new City();
-		cityA.cityName = "cityA";
-		cityB.cityName = "cityB";
-		cityA.color = "RED";
-		cityB.color = "BLUE";
+		CityOLD cityA = new CityOLD(new CityData("cityA", GameColor.RED, 10), 0, 0);
+		CityOLD cityB = new CityOLD(new CityData("cityB", GameColor.BLUE, 10), 0, 0);
 		cityA.diseaseCubes.put("RED", 0);
 		cityB.diseaseCubes.put("BLUE", 0);
 		board.cities.put("cityA", cityA);
@@ -207,10 +201,10 @@ public class TestGameActionOneTurn {
 	public void testAirliftEventCard() {
 		board.eventCardName = "Airlift";
 		board.currentPlayer.eventCardName = "Airlift";
-		
+
 		PlayerAction playEventCard = EasyMock.createMock(PlayEventCard.class);
 		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.PLAYEVENTCARD)).andReturn(playEventCard);
-		
+
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(ActionName.PLAYEVENTCARD);
 		EasyMock.verify(board.currentPlayer);
@@ -221,10 +215,10 @@ public class TestGameActionOneTurn {
 	public void testPlayEventCard() {
 		board.eventCardName = "Forecast";
 		board.currentPlayer.eventCardName = "Forecast";
-		
+
 		PlayerAction playEventCard = EasyMock.createMock(PlayEventCard.class);
 		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.PLAYEVENTCARD)).andReturn(playEventCard);
-		
+
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
 		EasyMock.verify(board.currentPlayer);
@@ -233,10 +227,10 @@ public class TestGameActionOneTurn {
 	@Test
 	public void testDoPlayerAction() {
 		board.currentPlayer.cardsToCureDisease = new ArrayList<PlayerCard>();
-		
+
 		PlayerAction cureDisease = EasyMock.createNiceMock(CureDisease.class);
 		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.CUREDISEASE)).andReturn(cureDisease);
-		
+
 		EasyMock.replay(board.currentPlayer);
 		action.doAction(ActionName.CUREDISEASE);
 		EasyMock.verify(board.currentPlayer);

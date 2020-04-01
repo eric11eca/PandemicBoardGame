@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
 import player.Player;
 
 public class DrawingBoard {
@@ -50,7 +50,7 @@ public class DrawingBoard {
 		}
 		
 		drawOutBreaks(board.outbreakMark);
-		for (City city : board.cities.values()) {
+		for (CityOLD city : board.cities.values()) {
 			if (city.researchStation) {
 				drawResearch(city);
 			}
@@ -93,19 +93,19 @@ public class DrawingBoard {
 		graphic.drawString("X", 50 + ((i % 2) * 50), 395 + (i * 42));
 	}
 
-	public void drawPlayer(City city, String k) {
+	public void drawPlayer(CityOLD city, String k) {
 		graphic.setColor(Color.YELLOW);
 		String playerLabel = MessageFormat.format("P {0}", k);
 		graphic.setFont(new Font(playerLabel, Font.BOLD, 12));
 		graphic.drawString(playerLabel, city.x -50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
 	}
 
-	public void drawResearch(City city) {
+	public void drawResearch(CityOLD city) {
 		graphic.setColor(new Color(228, 180, 34));
 		graphic.fillRect(city.x - 5, city.y - 5, 10, 10);
 	}
 
-	public void drawCubes(City city) {
+	public void drawCubes(CityOLD city) {
 		for (String colorname : city.diseaseCubes.keySet()) {
 			Color color = nameToColor.get(colorname);
 			int cubes = city.diseaseCubes.get(colorname);

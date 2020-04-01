@@ -23,8 +23,8 @@ public class DispatcherListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		JButton moveToCity = new JButton(board.messages.getString("playerMove")); 
-		JButton moveAsSelf = new JButton(board.messages.getString("dispatcherMove.1")); 
+		JButton moveToCity = new JButton(board.messages.getString("playerMove"));
+		JButton moveAsSelf = new JButton(board.messages.getString("dispatcherMove.1"));
 		panel = new JPanel();
 		panel.add(moveToCity);
 		panel.add(moveAsSelf);
@@ -56,7 +56,7 @@ public class DispatcherListener implements ActionListener {
 						int count = 0;
 						for (int i = 0; i < board.currentPlayers.size(); i++) {
 							if (playerNumber != i) {
-								cities[count] = board.currentPlayers.get(i).playerData.location.cityName;
+								cities[count] = board.currentPlayers.get(i).playerData.location.getName();
 								count++;
 							}
 						}

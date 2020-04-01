@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
 import gui.CityChooser;
 import gui.GUI;
 import initialize.GameSetup;
@@ -32,7 +32,7 @@ public class CharterFlightListener implements ActionListener {
 		// TODO
 		/* ====Extract & Move Method NEEDDED= */
 		// This belongs to domain layer
-		HashSet<City> cities = new HashSet<>();
+		HashSet<CityOLD> cities = new HashSet<>();
 		cities.addAll(board.cities.values());
 		cities.remove(board.currentPlayer.playerData.location);
 		/* ====Extract & Move Method NEEDDED= */
@@ -41,7 +41,7 @@ public class CharterFlightListener implements ActionListener {
 		cityChooser.letUserChooseACity().ifPresent(this::cityChosen);
 	}
 
-	private void cityChosen(City chosenCity) {
+	private void cityChosen(CityOLD chosenCity) {
 		board.cityCardNameCharter = chosenCity;
 		board.actionName = Board.ActionName.CHARTERFLIGHT;
 		gameSetup.oneTurn();

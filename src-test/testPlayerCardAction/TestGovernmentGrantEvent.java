@@ -7,29 +7,30 @@ import org.junit.Test;
 
 import cards.GovernmentGrant;
 import data.Board;
-import data.City;
+import data.CityData;
+import data.CityOLD;
+import data.GameColor;
 
 public class TestGovernmentGrantEvent {
 	Board board;
 	GovernmentGrant grant;
 	String cityName = "NewYork";
-	
+
 	@Before
 	public void setup() {
 		board = new Board();
 		grant = new GovernmentGrant(board);
-		City city = new City();
-		city.cityName = cityName;
+		CityOLD city = new CityOLD(new CityData(cityName, GameColor.RED, 10), 0, 0);
 		board.cities.put(cityName, city);
 	}
 
 	@Test
 	public void testAddResearchStation() {
 		board.cityWithGrant = cityName;
-		City city_old = board.cities.get(cityName);
+		CityOLD city_old = board.cities.get(cityName);
 		assertFalse(city_old.researchStation);
 		grant.executeEvent();
-		City city_new = board.cities.get(cityName);
+		CityOLD city_new = board.cities.get(cityName);
 		assertTrue(city_new.researchStation);
 	}
 

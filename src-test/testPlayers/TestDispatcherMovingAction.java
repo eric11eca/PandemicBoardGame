@@ -9,8 +9,9 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import data.CityOLD;
 import data.Board.ActionName;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 
@@ -20,16 +21,18 @@ public class TestDispatcherMovingAction {
 	Player scientist;
 	PlayerData scientistData;
 	PlayerData dispatcherData;
-	City milan = new City();
-	City paris = new City();
-	City delhi = new City();
+	CityOLD milan;
+	CityOLD paris;
+	CityOLD delhi;
+
+	TestCityFactory cityFactory = new TestCityFactory();
 
 	@Before
 	public void setup() {
 		board = new Board();
-		milan.cityName = "Milan";
-		paris.cityName = "Paris";
-		delhi.cityName = "Delhi";
+		milan = cityFactory.makeFakeCity("Milan");
+		paris = cityFactory.makeFakeCity("Paris");
+		delhi = cityFactory.makeFakeCity("Delhi");
 
 		board.cities.put("Milan", milan);
 		board.cities.put("Paris", paris);
@@ -58,12 +61,12 @@ public class TestDispatcherMovingAction {
 	@Test
 	public void testDriveUsingOtherPlayer() {
 		board.dispatcherCase = 1;
-		City destination = board.cities.get("Milan");
-		scientistData.location.neighbors.put("Milan", destination);
+		CityOLD destination = board.cities.get("Milan");
+		scientistData.location.neighbors.add(destination);
 		EasyMock.replay(scientist);
 		board.driveDestination = destination;
 		dispatcher.getPlayerAction(ActionName.DRIVE).executeAction();
-		assertEquals("Milan", scientistData.location.cityName);
+		assertEquals("Milan", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
 		EasyMock.verify(scientist);
@@ -76,7 +79,7 @@ public class TestDispatcherMovingAction {
 		EasyMock.replay(scientist);
 		dispatcher.cityCard = cityCard;
 		dispatcher.getPlayerAction(ActionName.DIRECTFLIGHT).executeAction();
-		assertEquals("Milan", scientistData.location.cityName);
+		assertEquals("Milan", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
 		EasyMock.verify(scientist);
@@ -88,7 +91,7 @@ public class TestDispatcherMovingAction {
 		board.cityCardNameCharter = delhi;
 		EasyMock.replay(scientist);
 		dispatcher.getPlayerAction(ActionName.CHARTERFLIGHT).executeAction();
-		assertEquals("Delhi", scientistData.location.cityName);
+		assertEquals("Delhi", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
 		EasyMock.verify(scientist);
@@ -99,11 +102,11 @@ public class TestDispatcherMovingAction {
 		board.dispatcherCase = 1;
 		board.cities.get("Delhi").researchStation = true;
 		board.cities.get("Milan").researchStation = true;
-		City destination = board.cities.get("Milan");
+		CityOLD destination = board.cities.get("Milan");
 		EasyMock.replay(scientist);
 		dispatcher.destination = destination;
 		dispatcher.getPlayerAction(ActionName.SHUTTLEFLIGHT).executeAction();
-		assertEquals("Milan", scientistData.location.cityName);
+		assertEquals("Milan", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
 		EasyMock.verify(scientist);

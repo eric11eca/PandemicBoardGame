@@ -7,14 +7,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import data.City;
+import data.CityOLD;
 
-public class CityListCellRenderer implements ListCellRenderer<City> {
+public class CityListCellRenderer implements ListCellRenderer<CityOLD> {
 
 	@Override
-	public Component getListCellRendererComponent(JList<? extends City> jlist, City city, int index, boolean isSelected,
-			boolean cellHasFocus) {
-		JLabel label = new JLabel(String.format("%s [%s]", city.cityName, city.color));
+	public Component getListCellRendererComponent(JList<? extends CityOLD> jlist, CityOLD city, int index,
+			boolean isSelected, boolean cellHasFocus) {
+		JLabel label = new JLabel(String.format("%s [%s]", city.getName(), city.getColor()));
 		label.setOpaque(true);
 		if (isSelected) {
 			label.setBackground(Color.LIGHT_GRAY);

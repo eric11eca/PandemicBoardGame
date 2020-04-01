@@ -1,53 +1,52 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
-import data.City;
+import data.CityData;
+import data.CityOLD;
+import data.GameColor;
 
 public class TestCity {
 	@Test
 	public void testCoordinates() {
-		City city = new City();
-		city.x = 12;
-		city.y = 50;
+		CityOLD city = new CityOLD(new CityData("Some City", GameColor.RED, 10), 12, 50);
 		assertEquals(city.x, 12);
 		assertEquals(city.y, 50);
 	}
-	
+
 	@Test
-	public void testNeighbors () {
-		City city = new City();
-	
-		City c1 = new City();
-		City c2 = new City();
-		City c3 = new City();
-		
-		c1.cityName = "Atalanta";
-		c2.cityName = "NewYork";
-		c3.cityName = "Boston";
-		
-		city.neighbors.put(c1.cityName, c1); 
-		city.neighbors.put(c2.cityName, c2); 
-		city.neighbors.put(c3.cityName, c3);
-			
-		Set<String> neighbors = city.neighbors.keySet();
-		assertTrue(neighbors.contains("Atalanta"));
-		assertTrue(neighbors.contains("NewYork"));
-		assertTrue(neighbors.contains("Boston"));
+	public void testNeighbors() {
+		CityOLD city = new CityOLD(new CityData("Some City", GameColor.RED, 10), 0, 0);
+
+		CityOLD c1 = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
+		CityOLD c2 = new CityOLD(new CityData("NewYork", GameColor.RED, 10), 0, 0);
+		CityOLD c3 = new CityOLD(new CityData("Boston", GameColor.RED, 10), 0, 0);
+
+		city.neighbors.add(c1);
+		city.neighbors.add(c2);
+		city.neighbors.add(c3);
+
+		Set<String> neighborNames = new HashSet<>();
+		city.neighbors.stream().map(c -> c.getName()).forEach(neighborNames::add);
+		assertTrue(neighborNames.contains("Atalanta"));
+		assertTrue(neighborNames.contains("NewYork"));
+		assertTrue(neighborNames.contains("Boston"));
 	}
-	
+
 	@Test
-	public void testResearchStations(){
-		City city = new City();
+	public void testResearchStations() {
+		CityOLD city = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
 		city.researchStation = true;
 		assertTrue(city.researchStation);
 	}
-	
+
 	@Test
 	public void testDiseaseCubes() {
-		City city = new City();
+		CityOLD city = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
 		city.diseaseCubes.put("Yellow", 1);
 		city.diseaseCubes.put("Red", 2);
 		assertTrue(city.diseaseCubes.containsKey("Yellow"));
@@ -55,11 +54,10 @@ public class TestCity {
 		assertTrue(city.diseaseCubes.containsKey("Red"));
 		assertTrue(2 == city.diseaseCubes.get("Red"));
 	}
-	
-	@Test 
+
+	@Test
 	public void testColor() {
-		City city = new City();
-		city.color = "RED";
-		assertEquals("RED", city.color);
+		CityOLD city = new CityOLD(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
+		assertEquals("RED", city.getColor().compatibility_ColorString);
 	}
 }

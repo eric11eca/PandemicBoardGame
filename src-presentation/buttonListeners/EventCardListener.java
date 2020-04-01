@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import cards.PlayerCard;
 import data.Board;
+import data.CityOLD;
 import gui.GUI;
 
 public class EventCardListener implements ActionListener {
@@ -149,9 +150,9 @@ public class EventCardListener implements ActionListener {
 
 	private void performAirlift(int playerIndex) {
 		ArrayList<String> cities = new ArrayList<String>();
-		for (String cityName : board.cities.keySet()) {
-			if (!board.currentPlayers.get(playerIndex).playerData.location.cityName.equals(cityName)) {
-				cities.add(cityName);
+		for (CityOLD city : board.cities.values()) {
+			if (!board.currentPlayers.get(playerIndex).playerData.location.equals(city)) {
+				cities.add(city.getName());
 			}
 		}
 		String[] players = new String[board.playernumber];

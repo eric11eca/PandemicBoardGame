@@ -7,7 +7,7 @@ import java.util.Set;
 
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import data.CityOLD;
 import playerAction.BuildStation;
 import playerAction.CharterFlight;
 import playerAction.CureDisease;
@@ -24,7 +24,7 @@ public class Player {
 	public Board board;
 	public Map<Board.ActionName, PlayerAction> playerActions;
 
-	public City destination;
+	public CityOLD destination;
 	public String eventCardName;
 	public String diseaseTobeTreated;
 	public PlayerCard cityCard;
@@ -68,7 +68,7 @@ public class Player {
 
 	public void giveCard(Player giver, Player receiver, PlayerCard citycard) {
 		if (giver.playerData.role != Board.Roles.RESEARCHER
-				&& !citycard.cardName.equals(giver.playerData.location.cityName)) {
+				&& !citycard.cardName.equals(giver.playerData.location.getName())) {
 			throw new RuntimeException("CanNotShareKnowledgeException");
 		}
 		board.cardToBeDiscard.add(citycard.cardName);
@@ -86,7 +86,7 @@ public class Player {
 
 	public boolean canCharterFlight() {
 		Set<String> hand = playerData.hand.keySet();
-		String playerLocationCityName = playerData.location.cityName;
+		String playerLocationCityName = playerData.location.getName();
 		return hand.contains(playerLocationCityName);
 	}
 }

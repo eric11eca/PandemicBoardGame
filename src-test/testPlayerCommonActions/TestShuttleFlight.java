@@ -7,7 +7,8 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
-import data.City;
+import data.CityOLD;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 
@@ -16,8 +17,10 @@ public class TestShuttleFlight {
 	Player player;
 	PlayerData playerData;
 	EventCardAction eventCardAction;
-	City locationWithStation, locationNoStation;
-	City destinationWithStation, destinationNoStation;
+	CityOLD locationWithStation, locationNoStation;
+	CityOLD destinationWithStation, destinationNoStation;
+
+	TestCityFactory cityFactory = new TestCityFactory();
 
 	@Before
 	public void setup() {
@@ -27,18 +30,18 @@ public class TestShuttleFlight {
 		String city2 = "NewYork";
 		String city3 = "Seattle";
 		String city4 = "Miami";
-		locationWithStation = new City(city1);
+		locationWithStation = cityFactory.makeFakeCity(city1);
 		locationWithStation.researchStation = true;
 
-		locationNoStation = new City(city2);
+		locationNoStation = cityFactory.makeFakeCity(city2);
 		locationNoStation.researchStation = false;
 
-		destinationWithStation = new City(city3);
+		destinationWithStation = cityFactory.makeFakeCity(city3);
 		destinationWithStation.researchStation = true;
 
-		destinationNoStation = new City(city4);
+		destinationNoStation = cityFactory.makeFakeCity(city4);
 		destinationNoStation.researchStation = false;
-		
+
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
 	}
@@ -48,7 +51,7 @@ public class TestShuttleFlight {
 		initialPlayerLocationHasStation(true);
 		player.destination = destinationWithStation;
 		player.getPlayerAction(Board.ActionName.SHUTTLEFLIGHT).executeAction();
-		assertEquals(destinationWithStation.cityName, playerData.location.cityName);
+		assertEquals(destinationWithStation.getName(), playerData.location.getName());
 		assertEquals(3, playerData.action);
 	}
 

@@ -8,7 +8,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import data.CityOLD;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 
@@ -19,16 +20,17 @@ public class TestDirectFlight {
 	PlayerCard eventCard;
 	EventCardAction eventCardAction;
 	PlayerCard newyorkCityCard, chicagoCityCard;
-	
+
+	TestCityFactory cityFactory = new TestCityFactory();
 
 	@Before
 	public void setup() {
 		board = new Board();
 		playerData = new PlayerData();
-		String newyork = "NewYork";
-		City newyorkCity = new City(newyork);
 		String chicago = "Chicago";
-		City chicagoCity = new City(chicago);
+		CityOLD chicagoCity = cityFactory.makeFakeCity(chicago);
+		String newyork = "NewYork";
+		CityOLD newyorkCity = cityFactory.makeFakeCity(newyork);
 		playerData.location = chicagoCity;
 		newyorkCityCard = new PlayerCard(Board.CardType.CITYCARD, newyork);
 		chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
@@ -48,7 +50,7 @@ public class TestDirectFlight {
 		player.getPlayerAction(Board.ActionName.DIRECTFLIGHT).executeAction();
 		assertEquals(playerData.hand.size(), 2);
 		assertEquals(playerData.action, 3);
-		assertEquals("NewYork", playerData.location.cityName);
+		assertEquals("NewYork", playerData.location.getName());
 	}
 
 }

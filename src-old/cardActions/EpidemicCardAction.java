@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import data.Board;
-import data.City;
+import data.CityOLD;
 
 public class EpidemicCardAction {
 	Board board;
@@ -26,8 +26,8 @@ public class EpidemicCardAction {
 	public void epidemicInfect() {
 		int size = board.validInfectionCards.size();
 		String infection = board.validInfectionCards.get(size - 1);
-		City city = board.cities.get(infection);
-		String disease = city.color;
+		CityOLD city = board.cities.get(infection);
+		String disease = city.getColor().compatibility_ColorString;
 		if (!board.eradicatedColor.contains(disease)) {
 			int addCubeCount = 0;
 			while (city.diseaseCubes.get(disease) < 3) {
