@@ -42,7 +42,7 @@ public class Player {
 
 	public void drive(City destination) {
 		if (board.dispatcherCase == 1) {
-			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
+			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
 			if (pawnData.location.neighbors.containsKey(destination.cityName)) {
 				moveTo(destination);
 				consumeAction();
@@ -50,7 +50,7 @@ public class Player {
 		} else if (playerData.location.neighbors.containsKey(destination.cityName)) {
 			moveTo(destination);
 			consumeAction();
-		} 
+		}
 	}
 
 	public void directFlight(PlayerCard cityCard) {
@@ -68,8 +68,8 @@ public class Player {
 	}
 
 	public void moveTo(City destination) {
-		if(board.dispatcherCase == 1) {
-			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
+		if (board.dispatcherCase == 1) {
+			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
 			pawnData.location = destination;
 			destination.currentRoles.add(pawnData.role);
 		} else {
@@ -84,8 +84,8 @@ public class Player {
 	}
 
 	public void charterFlight() {
-		String destinationName = board.cityCardNameCharter;
-		City destination = board.cities.get(destinationName);
+		City destination = board.cityCardNameCharter;
+		// City destination = board.cities.get(destinationName);
 		board.cardToBeDiscard.add(playerData.location.cityName);
 		discardCardAndMoveTo(destination);
 		consumeAction();
@@ -96,7 +96,7 @@ public class Player {
 			if (destination.researchStation) {
 				moveTo(destination);
 				consumeAction();
-			} 
+			}
 		}
 	}
 
@@ -124,7 +124,7 @@ public class Player {
 			if (board.curedDiseases.size() == 4) {
 				throw new RuntimeException("PlayerWinException");
 			}
-			
+
 			eradicate(cardsToCureDisease.get(0).color);
 			discardCard();
 
@@ -151,7 +151,7 @@ public class Player {
 	}
 
 	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
-		if(giver.playerData.role != Board.Roles.RESEARCHER 
+		if (giver.playerData.role != Board.Roles.RESEARCHER
 				&& !citycard.cardName.equals(giver.playerData.location.cityName)) {
 			throw new RuntimeException("CanNotShareKnowledgeException");
 		}

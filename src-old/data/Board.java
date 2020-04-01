@@ -19,21 +19,20 @@ public class Board {
 	public enum CardType {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
-	
+
 	public enum ActionName {
-		DIRECTFLIGHT, PLAYEVENTCARD, CUREDISEASE, TREATDISEASE, DRIVE,
-		CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDRESEARCH, SHAREKNOWLEDGE;
+		DIRECTFLIGHT, PLAYEVENTCARD, CUREDISEASE, TREATDISEASE, DRIVE, CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDRESEARCH,
+		SHAREKNOWLEDGE;
 	}
-	
-	public enum Roles{
-		SCIENTIST, MEDIC, CONTINGENCYPLANNER, DISPATCHER, OPERATIONSEXPERT, 
-		QUARANTINESPECIALIST, RESEARCHER;
+
+	public enum Roles {
+		SCIENTIST, MEDIC, CONTINGENCYPLANNER, DISPATCHER, OPERATIONSEXPERT, QUARANTINESPECIALIST, RESEARCHER;
 	}
-	
-	public Map<String,String> messagesToShow = new HashMap<>();
-	
+
+	public Map<String, String> messagesToShow = new HashMap<>();
+
 	public Map<Board.Roles, Player> playerTable = new HashMap<>();
-	
+
 	public ListOfCityWithColorGenerator colorConcator = new ListOfCityWithColorGenerator();
 	public ActionName actionName;
 	public int playernumber = 0;
@@ -45,12 +44,12 @@ public class Board {
 	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	public Set<String> eradicatedColor = new HashSet<>();
 	public EventCardAction eventCardAction;
-	
+
 	public String eventCardName;
 	public String cityCardNameDirect;
-	public String cityCardNameCharter;
+	public City cityCardNameCharter;
 	public String diseaseBeingTreated;
-	public String driveDestinationName;
+	public City driveDestination;
 	public String shuttleDestinationName;
 	public Object stationToRemove;
 	public Player playerToShare;
@@ -59,10 +58,10 @@ public class Board {
 	public boolean isGiving;
 	public List<String> cardToBeDiscard = new ArrayList<>();
 	public List<PlayerCard> cardsToCureDisease = new ArrayList<>();
-	
+
 	public Player currentPlayer;
 	public int currentPlayerIndex = 0;
-	
+
 	public int idxofPlayerAirlift;
 	public boolean inQueitNight = false;
 	public String cityWithGrant;

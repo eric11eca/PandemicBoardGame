@@ -1,10 +1,13 @@
 package data;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class City {
+
 	public int x;
 	public int y;
 	public String cityName;
@@ -22,21 +25,31 @@ public class City {
 		this.researchStation = false;
 		this.neighbors = new HashMap<>();
 	}
-	
-	public City(String name){
+
+	public City(String name) {
 		this();
 		this.cityName = name;
 	}
-	
-	public City(String name, String color){
+
+	public City(String name, String color) {
 		this(name);
 		this.color = color;
 	}
-	
-	public City(String name, String color, int population, int x, int y){
-		this(name,color);
+
+	public City(String name, String color, int population, int x, int y) {
+		this(name, color);
 		this.x = x;
 		this.y = y;
 		this.population = population;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cityName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj != null && obj.getClass() == getClass() && Objects.equals(((City) obj).cityName, cityName);
 	}
 }

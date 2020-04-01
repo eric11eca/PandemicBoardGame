@@ -64,7 +64,7 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		EasyMock.verify(board.currentPlayer.playerData.hand);
 	}
-	
+
 	@Test
 	public void testDrawTwoCityCardWithFull() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -91,7 +91,6 @@ public class TestGameActionOneTurn {
 
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
-	
 
 	@Test
 	public void testDrawTwoCityCard() {
@@ -154,13 +153,11 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
 		EasyMock.expect(board.currentPlayer.playerData.hand.size()).andReturn(6);
 
-		EasyMock.replay(board.validPlayerCards, board.currentPlayer, 
-				epidemic, board.currentPlayer.playerData.hand);
+		EasyMock.replay(board.validPlayerCards, board.currentPlayer, epidemic, board.currentPlayer.playerData.hand);
 
 		action.drawTwoPlayerCards();
 
-		EasyMock.verify(board.validPlayerCards, board.currentPlayer, 
-				epidemic, board.currentPlayer.playerData.hand);
+		EasyMock.verify(board.validPlayerCards, board.currentPlayer, epidemic, board.currentPlayer.playerData.hand);
 	}
 
 	@Test
@@ -216,7 +213,7 @@ public class TestGameActionOneTurn {
 		board.messages = EasyMock.createMock(Messages.class);
 		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Airlift");
 		EasyMock.replay(board.currentPlayer, board.messages);
-		
+
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
 		EasyMock.verify(board.currentPlayer, board.messages);
 		assertTrue(action.doesChangeLocation);
@@ -230,11 +227,11 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData = this.playerData;
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
 		board.currentPlayer.useEventCard(board.eventCardName);
-		
+
 		board.messages = EasyMock.createMock(Messages.class);
 		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Forecast");
 		EasyMock.replay(board.currentPlayer, board.messages);
-		
+
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
 		EasyMock.verify(board.currentPlayer, board.messages);
 	}
@@ -267,13 +264,13 @@ public class TestGameActionOneTurn {
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.currentPlayer.playerData = this.playerData;
 		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
+
 		City city = new City("Shanghai");
-		board.cities = EasyMock.createMock(HashMap.class);
-		EasyMock.expect(board.cities.get(board.driveDestinationName)).andReturn(city);
+		board.driveDestination = city;
 		board.currentPlayer.drive(city);
-		EasyMock.replay(board.currentPlayer, board.cities);
+		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.DRIVE);
-		EasyMock.verify(board.currentPlayer, board.cities);
+		EasyMock.verify(board.currentPlayer);
 	}
 
 	@Test
