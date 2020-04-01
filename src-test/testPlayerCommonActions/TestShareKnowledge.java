@@ -65,11 +65,14 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1GiveSuccess() {
-		player1.receiveCard(newyorkCitycard);
+		player1.receivedPlayerCard = newyorkCitycard;
+		player1.getPlayerAction(Board.ActionName.RECEIVECARD).executeAction();
+		
 		board.playerToShare = player2;
 		board.cityToShare = newyorkCitycard;
 		board.isGiving = true;
-		player1.shareKnowledge();
+		
+		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
 		assertEquals(playerData1.location, playerData2.location);
 		assertFalse(playerData1.hand.containsKey(newyork));
 		assertTrue(playerData2.hand.containsKey(newyork));
@@ -79,11 +82,14 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1ReceiveSuccess() {
-		player2.receiveCard(newyorkCitycard);
+		player2.receivedPlayerCard = newyorkCitycard;
+		player2.getPlayerAction(Board.ActionName.RECEIVECARD).executeAction();
+		
 		board.playerToShare = player2;
 		board.cityToShare = newyorkCitycard;
 		board.isGiving = false;
-		player1.shareKnowledge();
+		
+		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
 		assertEquals(playerData1.location, playerData2.location);
 		assertFalse(playerData2.hand.containsKey(newyork));
 		assertTrue(playerData1.hand.containsKey(newyork));
@@ -96,7 +102,7 @@ public class TestShareKnowledge {
 		board.playerToShare = player2;
 		board.cityToShare = chicagoCitycard;
 		board.isGiving = true;
-		player1.shareKnowledge();
+		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
 	}
 
 	@Test
@@ -104,11 +110,15 @@ public class TestShareKnowledge {
 		City chicago = new City("Chicago");
 		researcher.playerData.location = chicago;
 		player1.playerData.location = chicago;
-		researcher.receiveCard(newyorkCitycard);
+		
+		researcher.receivedPlayerCard = newyorkCitycard;
+		researcher.getPlayerAction(Board.ActionName.RECEIVECARD).executeAction();
+		
 		board.playerToShare = researcher;
 		board.cityToShare = newyorkCitycard;
 		board.isGiving = false;
-		player1.shareKnowledge();
+		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		
 		assertTrue(player1.playerData.hand.containsKey(newyork));
 		assertFalse(researcher.playerData.hand.containsKey(newyork));
 	}

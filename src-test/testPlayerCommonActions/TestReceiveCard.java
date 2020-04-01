@@ -36,7 +36,8 @@ public class TestReceiveCard {
 
 	@Test
 	public void testNormalReceiveCard() {
-		player.receiveCard(citycards.get(0));
+		player.receivedPlayerCard = citycards.get(0);
+		player.getPlayerAction(Board.ActionName.RECEIVECARD).executeAction();
 		assertEquals(1, playerData.hand.size());
 	}
 	
@@ -44,7 +45,8 @@ public class TestReceiveCard {
 	public void testNormalReceiveSevenCard() {
 		for (int i = 0; i < 7; i++) {
 			PlayerCard playercard = citycards.get(i);
-			player.receiveCard(playercard);
+			player.receivedPlayerCard = playercard;
+			player.getPlayerAction(Board.ActionName.RECEIVECARD).executeAction();
 		}
 		assertEquals(7, playerData.hand.size());
 	}

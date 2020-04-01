@@ -16,13 +16,15 @@ import parse.ListOfCityWithColorGenerator;
 import player.Player;
 
 public class Board {
+	public Board() {}
+	
 	public enum CardType {
 		CITYCARD, EVENTCARD, EPIDEMIC;
 	}
 	
 	public enum ActionName {
 		DIRECTFLIGHT, PLAYEVENTCARD, CUREDISEASE, TREATDISEASE, DRIVE,
-		CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDRESEARCH, SHAREKNOWLEDGE;
+		CHARTERFLIGHT, SHUTTLEFLIGHT, BUILDSTATION, SHAREKNOWLEDGE;
 	}
 	
 	public enum Roles{

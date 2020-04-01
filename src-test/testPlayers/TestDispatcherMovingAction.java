@@ -10,6 +10,7 @@ import org.junit.Test;
 import cards.PlayerCard;
 import data.Board;
 import data.City;
+import data.Board.ActionName;
 import player.Player;
 import player.PlayerData;
 
@@ -60,7 +61,8 @@ public class TestDispatcherMovingAction {
 		City destination = board.cities.get("Milan");
 		scientistData.location.neighbors.put("Milan", destination);
 		EasyMock.replay(scientist);
-		dispatcher.drive(destination);
+		dispatcher.destination = destination;
+		dispatcher.getPlayerAction(ActionName.DRIVE).executeAction();
 		assertEquals("Milan", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -72,7 +74,8 @@ public class TestDispatcherMovingAction {
 		board.dispatcherCase = 1;
 		PlayerCard cityCard = dispatcherData.hand.get("Milan");
 		EasyMock.replay(scientist);
-		dispatcher.directFlight(cityCard);
+		dispatcher.cityCard = cityCard;
+		dispatcher.getPlayerAction(ActionName.DIRECTFLIGHT).executeAction();
 		assertEquals("Milan", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -84,7 +87,7 @@ public class TestDispatcherMovingAction {
 		board.dispatcherCase = 1;
 		board.cityCardNameCharter = "Delhi";
 		EasyMock.replay(scientist);
-		dispatcher.charterFlight();
+		dispatcher.getPlayerAction(ActionName.CHARTERFLIGHT).executeAction();
 		assertEquals("Delhi", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -98,7 +101,8 @@ public class TestDispatcherMovingAction {
 		board.cities.get("Milan").researchStation = true;
 		City destination = board.cities.get("Milan");
 		EasyMock.replay(scientist);
-		dispatcher.shuttleFlight(destination);
+		dispatcher.destination = destination;
+		dispatcher.getPlayerAction(ActionName.SHUTTLEFLIGHT).executeAction();
 		assertEquals("Milan", scientistData.location.cityName);
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);

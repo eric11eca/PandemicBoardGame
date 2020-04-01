@@ -12,9 +12,10 @@ public class TestConsumeAction {
 
 	@Test
 	public void testConsumeAction() {
+		Board board = new Board();
 		PlayerData medicData = new PlayerData();
 		medicData.action = 4;
-		Player medic = new Player(new Board(), medicData);
+		Player medic = new Player(board, medicData);
 		medic.consumeAction();
 		assertEquals(3, medicData.action);
 	}

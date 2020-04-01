@@ -45,7 +45,8 @@ public class TestDrive {
 
 	@Test
 	public void testNeighborDrive() {
-		player.drive(neighborCity);
+		player.destination = neighborCity;
+		player.getPlayerAction(Board.ActionName.DRIVE).executeAction();
 		assertEquals(3, playerData.action);
 		assertEquals(playerData.location.cityName, "Atlanta");
 	}
