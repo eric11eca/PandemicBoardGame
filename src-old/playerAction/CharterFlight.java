@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import game.City;
+import game.city.City;
 import player.Player;
 
 public class CharterFlight extends PlayerAction {

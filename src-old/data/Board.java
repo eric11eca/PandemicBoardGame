@@ -11,7 +11,7 @@ import java.util.Stack;
 import cardActions.EventCardAction;
 import cards.EventCard;
 import cards.PlayerCard;
-import game.City;
+import game.city.City;
 import initialize.Messages;
 import parse.ListOfCityWithColorGenerator;
 import player.Player;
@@ -43,11 +43,11 @@ public class Board {
 	public int playernumber = 0;
 	public int initialhandcard = 0;
 	public int epidemicCardNum = 0;
-	public int outbreakMark = 0;
+	// public int outbreakMark = 0;
 	public Map<String, City> currentResearchStation = new HashMap<>();
 	public Stack<Integer> infectionRateTracker = new Stack<>();
-	public Map<String, Integer> remainDiseaseCube = new HashMap<>();
-	public Set<String> eradicatedColor = new HashSet<>();
+	// public Map<String, Integer> remainDiseaseCube = new HashMap<>();
+	// public Set<String> eradicatedColor = new HashSet<>();
 	@Deprecated // Refactor as parameter
 	public EventCardAction eventCardAction;
 

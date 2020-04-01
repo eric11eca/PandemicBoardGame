@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import cards.PlayerCard;
 import data.Board;
-import game.City;
+import game.city.City;
 import helpers.TestCityFactory;
 import player.PlayerData;
 import player.StationBuilder;
@@ -29,11 +29,11 @@ public class TestStationBuilderOperationsExpert {
 
 		playerLocation = "PlayerLocation";
 		playerLocatedCity = cityFactory.makeFakeCity(playerLocation);
-		playerLocatedCity.researchStation = false;
+		playerLocatedCity.removeResearchStation();
 
 		theNameOfCityWithStation = "theNameOfCityWithStation";
 		cityWithStation = cityFactory.makeFakeCity(theNameOfCityWithStation);
-		cityWithStation.researchStation = true;
+		cityWithStation.buildResearchStation();
 
 		operationsExpertData.location = playerLocatedCity;
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
@@ -47,7 +47,7 @@ public class TestStationBuilderOperationsExpert {
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
 		operationsExpertData.hand.put(playerLocation, cityCard);
 		stationBuilderOperationExpert.buildStation();
-		assertTrue(playerLocatedCity.researchStation);
+		assertTrue(playerLocatedCity.hasResearchStation());
 		assertEquals(1, operationsExpertData.hand.size());
 	}
 
@@ -55,7 +55,7 @@ public class TestStationBuilderOperationsExpert {
 	public void testBuildStationWithoutSameCityCardOperationsExpert() {
 		operationsExpertData.hand.remove(playerLocation);
 		stationBuilderOperationExpert.buildStation();
-		assertTrue(playerLocatedCity.researchStation);
+		assertTrue(playerLocatedCity.hasResearchStation());
 		assertTrue(board.currentResearchStation.containsKey(playerLocation));
 	}
 

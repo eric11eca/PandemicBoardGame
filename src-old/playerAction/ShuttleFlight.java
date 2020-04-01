@@ -3,16 +3,16 @@ package playerAction;
 import data.Board;
 import player.Player;
 
-public class ShuttleFlight extends PlayerAction{
+public class ShuttleFlight extends PlayerAction {
 
 	public ShuttleFlight(Board board, Player player) {
 		super(board, player);
 	}
-	
+
 	@Override
 	public boolean executeAction() {
-		if (player.playerData.location.researchStation) {
-			if (player.destination.researchStation) {
+		if (player.playerData.location.hasResearchStation()) {
+			if (player.destination.hasResearchStation()) {
 				moveTo(player.destination);
 				player.consumeAction();
 			}

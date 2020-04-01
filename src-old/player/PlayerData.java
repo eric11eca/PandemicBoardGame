@@ -5,7 +5,7 @@ import java.util.Map;
 
 import cards.PlayerCard;
 import data.Board;
-import game.City;
+import game.city.City;
 import playerAction.SpecialSkill;
 
 public class PlayerData {

@@ -1,10 +1,10 @@
 package gameAction;
 
 import cardActions.EpidemicCardAction;
-import cardActions.InfectionCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.ActionName;
+import game.cards.InfectionCardAction;
 import player.Player;
 import playerAction.PlayerAction;
 

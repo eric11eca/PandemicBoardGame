@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
-import game.City;
+import game.city.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -31,16 +31,16 @@ public class TestShuttleFlight {
 		String city3 = "Seattle";
 		String city4 = "Miami";
 		locationWithStation = cityFactory.makeFakeCity(city1);
-		locationWithStation.researchStation = true;
+		locationWithStation.buildResearchStation();
 
 		locationNoStation = cityFactory.makeFakeCity(city2);
-		locationNoStation.researchStation = false;
+		locationNoStation.removeResearchStation();
 
 		destinationWithStation = cityFactory.makeFakeCity(city3);
-		destinationWithStation.researchStation = true;
+		destinationWithStation.buildResearchStation();
 
 		destinationNoStation = cityFactory.makeFakeCity(city4);
-		destinationNoStation.researchStation = false;
+		destinationNoStation.removeResearchStation();
 
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);

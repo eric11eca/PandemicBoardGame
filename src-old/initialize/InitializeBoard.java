@@ -16,7 +16,8 @@ import cards.ResilientPopulation;
 import data.Board;
 import data.CityData;
 import data.GameColor;
-import game.City;
+import game.Game;
+import game.city.City;
 import parse.CityDataParser;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;
@@ -29,6 +30,7 @@ import player.TreatNormal;
 import playerAction.ContingencyPlannerAction;
 import playerAction.MedicAction;
 import playerAction.OperationsExpertAction;
+import render.RenderCity;
 
 public class InitializeBoard {
 	public Board board;
@@ -45,6 +47,7 @@ public class InitializeBoard {
 	}
 
 	public void initializeWithCityData() {
+		// TODO Move to Data Layer
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
 		for (List<String> cityData : citiesData) {
 			String cityName = cityData.get(0);
@@ -53,9 +56,8 @@ public class InitializeBoard {
 			Integer x = Integer.parseInt(cityData.get(3));
 			Integer y = Integer.parseInt(cityData.get(4));
 
-			City city = new City(new CityData(cityName, GameColor.compatibility_getByName(color), population), x,
-					y);
-
+			City city = new City(new CityData(cityName, GameColor.compatibility_getByName(color), population));
+			RenderCity renderCity = new RenderCity(x, y, city);
 			initializeCity(city);
 			initializeInfectionCard(cityName);
 			initializePlayerCard(Board.CardType.CITYCARD, cityName);
@@ -187,13 +189,13 @@ public class InitializeBoard {
 		contingencyPlannerData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		quarantineSpecialistData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 
-		scientistData.treatAction = new TreatNormal(scientistData, board);
-		medicData.treatAction = new TreatMedic(medicData, board);
-		researcherData.treatAction = new TreatNormal(researcherData, board);
-		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
-		operationsExpertData.treatAction = new TreatNormal(operationsExpertData, board);
-		contingencyPlannerData.treatAction = new TreatNormal(contingencyPlannerData, board);
-		quarantineSpecialistData.treatAction = new TreatNormal(quarantineSpecialistData, board);
+		scientistData.treatAction = new TreatNormal(board);
+		medicData.treatAction = new TreatMedic();
+		researcherData.treatAction = new TreatNormal(board);
+		dispatcherData.treatAction = new TreatNormal(board);
+		operationsExpertData.treatAction = new TreatNormal(board);
+		contingencyPlannerData.treatAction = new TreatNormal(board);
+		quarantineSpecialistData.treatAction = new TreatNormal(board);
 
 		operationsExpertData.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medicData.specialSkill = new MedicAction(board, medicData);
@@ -227,17 +229,14 @@ public class InitializeBoard {
 	}
 
 	public void initializeRemainDiseaseCube() {
-		board.remainDiseaseCube.put("RED", 24);
-		board.remainDiseaseCube.put("BLUE", 24);
-		board.remainDiseaseCube.put("BLACK", 24);
-		board.remainDiseaseCube.put("YELLOW", 24);
+		Game.getInstance().initializeDiseaseCubes();
 	}
 
 	public void initializeCity(City city) {
-		city.diseaseCubes.put("RED", 0);
-		city.diseaseCubes.put("BLUE", 0);
-		city.diseaseCubes.put("BLACK", 0);
-		city.diseaseCubes.put("YELLOW", 0);
+//		city.diseaseCubes.put("RED", 0);
+//		city.diseaseCubes.put("BLUE", 0);
+//		city.diseaseCubes.put("BLACK", 0);
+//		city.diseaseCubes.put("YELLOW", 0);
 		board.cities.put(city.getName(), city);
 	}
 
@@ -263,10 +262,12 @@ public class InitializeBoard {
 	}
 
 	private void placeDiseaseCube(City city, int count) {
-		String color = city.getColor().compatibility_ColorString;
-		int numOfCubes = board.remainDiseaseCube.get(color);
-		city.diseaseCubes.put(color, count);
-		board.remainDiseaseCube.put(color, numOfCubes - count);
+		Game.getInstance().takeCubeFromPool(city.getColor(), count);
+		city.initializeDisease(count);
+//		String color = city.getColor().compatibility_ColorString;
+//		int numOfCubes = board.remainDiseaseCube.get(color);
+//		city.diseaseCubes.put(color, count);
+//		board.remainDiseaseCube.put(color, numOfCubes - count);
 	}
 
 	public void shuffleCards() {

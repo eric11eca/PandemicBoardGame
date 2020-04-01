@@ -8,7 +8,7 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import game.City;
+import game.city.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;

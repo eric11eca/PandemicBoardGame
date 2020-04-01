@@ -10,7 +10,8 @@ import cards.Airlift;
 import data.Board;
 import data.CityData;
 import data.GameColor;
-import game.City;
+import game.city.City;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 
@@ -20,6 +21,8 @@ public class TestAirliftEvent {
 	Player player;
 	PlayerData playerData;
 
+	TestCityFactory cityFactory = new TestCityFactory();
+
 	@Before
 	public void setup() {
 		board = new Board();
@@ -27,7 +30,7 @@ public class TestAirliftEvent {
 		player = EasyMock.createMock(Player.class);
 		player.board = board;
 		player.playerData = new PlayerData();
-		City city = new City(new CityData("Atlanta", GameColor.RED, 10), 0, 0);
+		City city = cityFactory.makeFakeCity("Atlanta");
 		player.playerData.location = city;
 		board.currentPlayers.add(player);
 		board.currentPlayer = player;
@@ -38,8 +41,8 @@ public class TestAirliftEvent {
 		board.idxofPlayerAirlift = 0;
 		board.nameofCityAirlift = "Chicago";
 
-		City city1 = new City(new CityData("Atlanta", GameColor.RED, 10), 0, 0);
-		City city2 = new City(new CityData("Chicago", GameColor.RED, 10), 0, 0);
+		City city1 = cityFactory.makeFakeCity("Atlanta");
+		City city2 = cityFactory.makeFakeCity("Chicago");
 
 		board.cities.put("Atlanta", city1);
 		board.cities.put("Chicago", city2);

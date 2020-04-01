@@ -2,13 +2,17 @@ package testPlayers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.City;
+import data.GameColor;
+import game.Game;
+import game.city.City;
+import helpers.TestAccess;
 import helpers.TestCityFactory;
 import player.PlayerData;
 import playerAction.MedicAction;
@@ -18,6 +22,7 @@ public class TestMedic {
 	Board board;
 	PlayerData medic;
 	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
 
 	@Before
 	public void setup() {
@@ -27,16 +32,17 @@ public class TestMedic {
 		City city = cityFactory.makeFakeCity();
 		medic.action = 4;
 		medic.location = city;
+		access.resetGame();
 	}
 
 	@Test
 	public void testRemoveAllUncuredCubes() {
-		medic.location.diseaseCubes.put("YELLOW", 2);
-		medic.location.diseaseCubes.put("BLUE", 1);
-		assertFalse(medic.location.diseaseCubes.isEmpty());
+		access.getCityDisease(medic.location).setDiseaseCubeCount(GameColor.YELLOW, 2);
+		access.getCityDisease(medic.location).setDiseaseCubeCount(GameColor.BLUE, 1);
+		assertFalse(access.getCityDisease(medic.location).getExistingDiseases().isEmpty());
 		medicAction.removeAllCubes();
-		int numOfYellowCube = medic.location.diseaseCubes.get("YELLOW");
-		int numOfBlueCube = medic.location.diseaseCubes.get("BLUE");
+		int numOfYellowCube = access.getCityDisease(medic.location).getDiseaseCubeCount(GameColor.YELLOW);
+		int numOfBlueCube = access.getCityDisease(medic.location).getDiseaseCubeCount(GameColor.BLUE);
 		assertEquals(2, numOfYellowCube);
 		assertEquals(1, numOfBlueCube);
 		assertEquals(4, medic.action);
@@ -44,23 +50,24 @@ public class TestMedic {
 
 	@Test
 	public void testRemoveAllCuredCubes() {
-		medic.location.diseaseCubes.put("YELLOW", 2);
-		medic.location.diseaseCubes.put("BLUE", 1);
+		access.getCityDisease(medic.location).setDiseaseCubeCount(GameColor.YELLOW, 2);
+		access.getCityDisease(medic.location).setDiseaseCubeCount(GameColor.BLUE, 1);
 		board.curedDiseases.add("YELLOW");
 		board.curedDiseases.add("BLUE");
-		board.remainDiseaseCube.put("YELLOW", 10);
-		board.remainDiseaseCube.put("BLUE", 11);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.YELLOW, 10);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 11);
 		medicAction.removeAllCubes();
-		int locationYellowCube = medic.location.diseaseCubes.get("YELLOW");
-		int locationBlueCube = medic.location.diseaseCubes.get("BLUE");
+		int locationYellowCube = access.getCityDisease(medic.location).getDiseaseCubeCount(GameColor.YELLOW);
+		int locationBlueCube = access.getCityDisease(medic.location).getDiseaseCubeCount(GameColor.BLUE);
 		assertEquals(0, locationYellowCube);
 		assertEquals(0, locationBlueCube);
-		int remainBlueCube = board.remainDiseaseCube.get("BLUE");
-		int remainYellowCube = board.remainDiseaseCube.get("YELLOW");
+		int remainBlueCube = access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE);
+		int remainYellowCube = access.getGameCubeData().getDiseaseCubeCount(GameColor.YELLOW);
 		assertEquals(12, remainBlueCube);
 		assertEquals(12, remainYellowCube);
 		assertEquals(4, medic.action);
-		assertEquals(2, board.eradicatedColor.size());
+		assertTrue(!Game.getInstance().isDiseaseEradicated(GameColor.YELLOW));
+		assertTrue(!Game.getInstance().isDiseaseEradicated(GameColor.BLUE));
 	}
 
 	@Test

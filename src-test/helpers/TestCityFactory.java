@@ -2,7 +2,7 @@ package helpers;
 
 import data.CityData;
 import data.GameColor;
-import game.City;
+import game.city.City;
 
 public class TestCityFactory {
 	public City makeFakeCity() {
@@ -14,18 +14,14 @@ public class TestCityFactory {
 	}
 
 	public City makeFakeCity(String name, int population) {
-		return makeFakeCity(name, GameColor.BLACK, population, 0, 0);
+		return makeFakeCity(name, GameColor.BLACK, population);
 	}
 
 	public City makeFakeCity(String name, GameColor color) {
-		return makeFakeCity(name, color, 10, 0, 0);
+		return makeFakeCity(name, color, 10);
 	}
 
 	public City makeFakeCity(String name, GameColor color, int population) {
-		return makeFakeCity(name, color, population, 0, 0);
-	}
-
-	public City makeFakeCity(String name, GameColor color, int population, int x, int y) {
-		return new City(new CityData(name, color, population), x, y);
+		return new City(new CityData(name, color, population));
 	}
 }

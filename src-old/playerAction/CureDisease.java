@@ -4,15 +4,15 @@ import cards.PlayerCard;
 import data.Board;
 import player.Player;
 
-public class CureDisease extends PlayerAction{
+public class CureDisease extends PlayerAction {
 
 	public CureDisease(Board board, Player player) {
 		super(board, player);
 	}
-	
+
 	@Override
 	public boolean executeAction() {
-		boolean isResearchStation = player.playerData.location.researchStation;
+		boolean isResearchStation = player.playerData.location.hasResearchStation();
 		if (isResearchStation) {
 			if (player.playerData.discoverCureModel.discover(player.cardsToCureDisease)) {
 				for (PlayerCard playercard : player.cardsToCureDisease) {
@@ -24,7 +24,7 @@ public class CureDisease extends PlayerAction{
 				throw new RuntimeException("PlayerWinException");
 			}
 
-			eradicate(player.cardsToCureDisease.get(0).color);
+			// eradicate(player.cardsToCureDisease.get(0).color);
 			player.discardCard();
 		} else {
 			throw new RuntimeException("NoStationException");

@@ -7,7 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.City;
+import data.GameColor;
+import game.Game;
+import game.city.City;
+import game.city.CubeData;
+import helpers.TestAccess;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -23,35 +27,37 @@ public class TestTreat {
 	PlayerData medicData, dispatcherData;
 	Player medic, dispatcher;
 	City city;
-	String blue = "BLUE";
-	String yellow = "YELLOW";
+	CubeData cityDisease;
 
 	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
 
 	@Before
 	public void setup() {
 		board = new Board();
 		medicData = new PlayerData();
 		medicAction = new MedicAction(board, medicData);
-		medicData.treatAction = new TreatMedic(medicData, board);
+		medicData.treatAction = new TreatMedic();
 		dispatcherData = new PlayerData();
 		dispatcherAction = new DispatcherAction(board);
 		city = cityFactory.makeFakeCity();
 		medicData.location = city;
 		dispatcherData.location = city;
-		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
+		dispatcherData.treatAction = new TreatNormal(board);
 		medic = new Player(board, medicData);
 		dispatcher = new Player(board, dispatcherData);
+		cityDisease = access.getCityDisease(city);
+		access.resetGame();
 	}
 
 	@Test
 	public void testDispatcherTreat() {
-		city.diseaseCubes.put(blue, 2);
-		board.remainDiseaseCube.put(blue, 10);
-		dispatcher.diseaseTobeTreated = blue;
+		cityDisease.setDiseaseCubeCount(GameColor.BLUE, 2);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 10);
+		dispatcher.diseaseTobeTreated = GameColor.BLUE.compatibility_ColorString;
 		dispatcher.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
-		int numOfBlueCubes = city.diseaseCubes.get(blue);
-		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
+		int numOfBlueCubes = cityDisease.getDiseaseCubeCount(GameColor.BLUE);
+		int numOfRemainCubes = access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE);
 		assertEquals(1, numOfBlueCubes);
 		assertEquals(11, numOfRemainCubes);
 		assertEquals(3, dispatcherData.action);
@@ -59,55 +65,56 @@ public class TestTreat {
 
 	@Test
 	public void testMedicTreatWithNoCure() {
-		city.diseaseCubes.put(blue, 2);
-		board.remainDiseaseCube.put(blue, 22);
-		medic.diseaseTobeTreated = blue;
+		cityDisease.setDiseaseCubeCount(GameColor.BLUE, 2);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 22);
+		// board.remainDiseaseCube.put(GameColor.BLUE.compatibility_ColorString, 22);
+		medic.diseaseTobeTreated = GameColor.BLUE.compatibility_ColorString;
 		medic.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
-		int numOfBlueCubes = city.diseaseCubes.get(blue);
-		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
+		int numOfBlueCubes = cityDisease.getDiseaseCubeCount(GameColor.BLUE);
+		int numOfRemainCubes = access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE);
 		assertEquals(0, numOfBlueCubes);
 		assertEquals(24, numOfRemainCubes);
-		assertTrue(board.eradicatedColor.contains(blue));
+		assertTrue(Game.getInstance().isDiseaseEradicated(GameColor.BLUE));// board.eradicatedColor.contains(GameColor.BLUE.compatibility_ColorString));
 		assertEquals(3, medicData.action);
 	}
 
 	@Test
 	public void testMedicTreatWithCure() {
-		city.diseaseCubes.put(blue, 2);
-		board.remainDiseaseCube.put(blue, 22);
-		medic.diseaseTobeTreated = blue;
+		cityDisease.setDiseaseCubeCount(GameColor.BLUE, 2);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 22);
+		medic.diseaseTobeTreated = GameColor.BLUE.compatibility_ColorString;
 		medic.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
-		int numOfBlueCubes = city.diseaseCubes.get(blue);
-		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
-		board.curedDiseases.add(blue);
+		int numOfBlueCubes = cityDisease.getDiseaseCubeCount(GameColor.BLUE);
+		int numOfRemainCubes = access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE);
+		board.curedDiseases.add(GameColor.BLUE.compatibility_ColorString);
 		assertEquals(0, numOfBlueCubes);
 		assertEquals(24, numOfRemainCubes);
-		assertTrue(board.eradicatedColor.contains(blue));
+		assertTrue(Game.getInstance().isDiseaseEradicated(GameColor.BLUE));// board.eradicatedColor.contains(GameColor.BLUE.compatibility_ColorString));
 		assertEquals(3, medicData.action);
 	}
 
 	@Test
 	public void testTreatWithSameColorCure() {
-		city.diseaseCubes.put(blue, 3);
-		board.remainDiseaseCube.put(blue, 9);
-		board.curedDiseases.add(blue);
-		dispatcher.diseaseTobeTreated = blue;
+		cityDisease.setDiseaseCubeCount(GameColor.BLUE, 3);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 9);
+		board.curedDiseases.add(GameColor.BLUE.compatibility_ColorString);
+		dispatcher.diseaseTobeTreated = GameColor.BLUE.compatibility_ColorString;
 		dispatcher.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
-		int numOfBlueCubes = city.diseaseCubes.get(blue);
-		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
+		int numOfBlueCubes = cityDisease.getDiseaseCubeCount(GameColor.BLUE);
+		int numOfRemainCubes = access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE);
 		assertEquals(0, numOfBlueCubes);
 		assertEquals(12, numOfRemainCubes);
 	}
 
 	@Test
 	public void testTreateWithDifferentColorCure() {
-		city.diseaseCubes.put(blue, 3);
-		board.remainDiseaseCube.put(blue, 9);
-		board.curedDiseases.add(yellow);
-		dispatcher.diseaseTobeTreated = blue;
+		cityDisease.setDiseaseCubeCount(GameColor.BLUE, 3);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 9);
+		board.curedDiseases.add(GameColor.YELLOW.compatibility_ColorString);
+		dispatcher.diseaseTobeTreated = GameColor.BLUE.compatibility_ColorString;
 		dispatcher.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
-		int numOfBlueCubes = city.diseaseCubes.get(blue);
-		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
+		int numOfBlueCubes = cityDisease.getDiseaseCubeCount(GameColor.BLUE);
+		int numOfRemainCubes = access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE);
 		assertEquals(2, numOfBlueCubes);
 		assertEquals(10, numOfRemainCubes);
 	}

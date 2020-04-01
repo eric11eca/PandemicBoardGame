@@ -2,7 +2,7 @@ package parse;
 
 import java.util.Map;
 
-import game.City;
+import game.city.City;
 
 @Deprecated
 public class ListOfCityWithColorGenerator {

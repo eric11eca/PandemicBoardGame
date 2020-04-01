@@ -1,17 +1,16 @@
 package player;
 
-import data.Board;
+import data.GameColor;
+import game.city.City;
 
-public class Treat {
-	public PlayerData playerData;
-	public Board board;
-	public int remainCube;
+public interface Treat {
 
-	public void treat(String diseaseColor) {
-		int currentCityNumOfCube = playerData.location.diseaseCubes.get(diseaseColor);
-		playerData.location.diseaseCubes.put(diseaseColor, remainCube);
-		int remainDiseaseCube = board.remainDiseaseCube.get(diseaseColor);
-		board.remainDiseaseCube.put(diseaseColor, remainDiseaseCube + currentCityNumOfCube - remainCube);
-	}
-	
+	public void treat(City city, GameColor diseaseColor);
+//	{
+//		int currentCityNumOfCube = playerData.location.
+//		playerData.location.diseaseCubes.put(diseaseColor, remainCube);
+//		int remainDiseaseCube = board.remainDiseaseCube.get(diseaseColor);
+//		board.remainDiseaseCube.put(diseaseColor, remainDiseaseCube + currentCityNumOfCube - remainCube);
+//	}
+
 }

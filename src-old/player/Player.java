@@ -7,7 +7,7 @@ import java.util.Set;
 
 import cards.PlayerCard;
 import data.Board;
-import game.City;
+import game.city.City;
 import playerAction.BuildStation;
 import playerAction.CharterFlight;
 import playerAction.CureDisease;
@@ -23,11 +23,15 @@ public class Player {
 	public PlayerData playerData;
 	public Board board;
 	public Map<Board.ActionName, PlayerAction> playerActions;
-
+	@Deprecated // Remove temporary fields
 	public City destination;
+	@Deprecated // Remove temporary fields
 	public String eventCardName;
+	@Deprecated // Remove temporary fields
 	public String diseaseTobeTreated;
+	@Deprecated // Remove temporary fields
 	public PlayerCard cityCard;
+	@Deprecated // Remove temporary fields
 	public List<PlayerCard> cardsToCureDisease;
 
 	public Player(Board board, PlayerData playerData) {

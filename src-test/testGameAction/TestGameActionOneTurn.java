@@ -15,10 +15,12 @@ import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.ActionName;
-import game.City;
-import data.CityData;
 import data.GameColor;
+import game.city.City;
+import game.city.CubeData;
 import gameAction.GameAction;
+import helpers.TestAccess;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 import playerAction.CureDisease;
@@ -30,6 +32,9 @@ public class TestGameActionOneTurn {
 	GameAction action;
 	PlayerData playerData;
 
+	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
+
 	@Before
 	public void setup() {
 		board = new Board();
@@ -39,16 +44,20 @@ public class TestGameActionOneTurn {
 		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.currentPlayer.playerData = playerData;
 		board.currentPlayer.playerData.role = Board.Roles.OPERATIONSEXPERT;
+
+		access.resetGame();
 	}
 
 	@Test
 	public void testInfectCityOnQueitNight() {
 		board.inQueitNight = true;
-		City city = new City(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
+		City city = cityFactory.makeFakeCity("NewYork");
 		board.cities.put("NewYork", city);
-		city.diseaseCubes.put("RED", 1);
+		CubeData cityDisease = access.getCityDisease(city);
+		cityDisease.addDiseaseCube(GameColor.RED);
+
 		action.infection();
-		int numOfRedCubes = city.diseaseCubes.get("RED");
+		int numOfRedCubes = cityDisease.getDiseaseCubeCount(GameColor.RED);
 		assertEquals(1, numOfRedCubes);
 		assertFalse(board.inQueitNight);
 	}
@@ -152,10 +161,12 @@ public class TestGameActionOneTurn {
 
 		String infectCityName = "Infect";
 		board.validInfectionCards.add(infectCityName);
-		City infectCity = new City(new CityData(infectCityName, GameColor.BLUE, 10), 0, 0);
-		infectCity.diseaseCubes.put("BLUE", 1);
+		City infectCity = cityFactory.makeFakeCity(infectCityName, GameColor.BLUE);
+		CubeData cityDisease = access.getCityDisease(infectCity);
+		cityDisease.addDiseaseCube(GameColor.BLUE);
 		board.cities.put(infectCityName, infectCity);
-		board.remainDiseaseCube.put("BLUE", 13);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 13);
+		// board.remainDiseaseCube.put("BLUE", 13);
 
 		action.epidemic = epidemic;
 		epidemic.performEpidemic();
@@ -173,14 +184,15 @@ public class TestGameActionOneTurn {
 
 	@Test
 	public void testInfectionPhase() {
-		board.remainDiseaseCube.put("RED", 24);
-		board.remainDiseaseCube.put("BLUE", 24);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 23);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.BLUE, 23);
+
+		// board.remainDiseaseCube.put("RED", 24);
+		// board.remainDiseaseCube.put("BLUE", 24);
 		board.validInfectionCards.add("cityA");
 		board.validInfectionCards.add("cityB");
-		City cityA = new City(new CityData("cityA", GameColor.RED, 10), 0, 0);
-		City cityB = new City(new CityData("cityB", GameColor.BLUE, 10), 0, 0);
-		cityA.diseaseCubes.put("RED", 0);
-		cityB.diseaseCubes.put("BLUE", 0);
+		City cityA = cityFactory.makeFakeCity("cityA", GameColor.RED);
+		City cityB = cityFactory.makeFakeCity("cityB", GameColor.BLUE);
 		board.cities.put("cityA", cityA);
 		board.cities.put("cityB", cityB);
 
@@ -191,10 +203,10 @@ public class TestGameActionOneTurn {
 		int newDiscardInfectionPileSize = board.discardInfectionCards.size();
 		assertEquals(0, newValidInfectionPileSize);
 		assertEquals(2, newDiscardInfectionPileSize);
-		assertTrue(23 == board.remainDiseaseCube.get("RED"));
-		assertTrue(23 == board.remainDiseaseCube.get("BLUE"));
-		assertTrue(1 == cityA.diseaseCubes.get("RED"));
-		assertTrue(1 == cityB.diseaseCubes.get("BLUE"));
+		assertEquals(22, access.getGameCubeData().getDiseaseCubeCount(GameColor.RED));// board.remainDiseaseCube.get("RED").intValue());
+		assertEquals(22, access.getGameCubeData().getDiseaseCubeCount(GameColor.BLUE));
+		assertEquals(1, access.getCityDisease(cityA).getDiseaseCubeCount(GameColor.RED));
+		assertEquals(1, access.getCityDisease(cityB).getDiseaseCubeCount(GameColor.BLUE));
 	}
 
 	@Test

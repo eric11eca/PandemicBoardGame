@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.City;
+import game.city.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;

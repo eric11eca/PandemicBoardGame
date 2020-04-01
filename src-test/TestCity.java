@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -6,25 +7,23 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import data.CityData;
 import data.GameColor;
-import game.City;
+import game.city.City;
+import game.city.CubeData;
+import helpers.TestAccess;
+import helpers.TestCityFactory;
 
 public class TestCity {
-	@Test
-	public void testCoordinates() {
-		City city = new City(new CityData("Some City", GameColor.RED, 10), 12, 50);
-		assertEquals(city.x, 12);
-		assertEquals(city.y, 50);
-	}
+	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
 
 	@Test
 	public void testNeighbors() {
-		City city = new City(new CityData("Some City", GameColor.RED, 10), 0, 0);
+		City city = cityFactory.makeFakeCity();
 
-		City c1 = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
-		City c2 = new City(new CityData("NewYork", GameColor.RED, 10), 0, 0);
-		City c3 = new City(new CityData("Boston", GameColor.RED, 10), 0, 0);
+		City c1 = cityFactory.makeFakeCity("Atalanta");
+		City c2 = cityFactory.makeFakeCity("NewYork");
+		City c3 = cityFactory.makeFakeCity("Boston");
 
 		city.neighbors.add(c1);
 		city.neighbors.add(c2);
@@ -39,25 +38,29 @@ public class TestCity {
 
 	@Test
 	public void testResearchStations() {
-		City city = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
-		city.researchStation = true;
-		assertTrue(city.researchStation);
+		City city = cityFactory.makeFakeCity();
+		city.buildResearchStation();
+		assertTrue(city.hasResearchStation());
+		city.removeResearchStation();
+		assertFalse(city.hasResearchStation());
 	}
 
 	@Test
 	public void testDiseaseCubes() {
-		City city = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
-		city.diseaseCubes.put("Yellow", 1);
-		city.diseaseCubes.put("Red", 2);
-		assertTrue(city.diseaseCubes.containsKey("Yellow"));
-		assertTrue(1 == city.diseaseCubes.get("Yellow"));
-		assertTrue(city.diseaseCubes.containsKey("Red"));
-		assertTrue(2 == city.diseaseCubes.get("Red"));
+		CubeData cityDisease = access.getCityDisease(cityFactory.makeFakeCity());
+		cityDisease.addDiseaseCube(GameColor.YELLOW);
+		cityDisease.addDiseaseCube(GameColor.YELLOW);
+		cityDisease.addDiseaseCube(GameColor.RED);
+		Set<GameColor> diseasesColors = cityDisease.getExistingDiseases();
+		assertTrue(diseasesColors.contains(GameColor.YELLOW));
+		assertEquals(1, cityDisease.getDiseaseCubeCount(GameColor.RED));
+		assertTrue(diseasesColors.contains(GameColor.RED));
+		assertEquals(2, cityDisease.getDiseaseCubeCount(GameColor.YELLOW));
 	}
 
 	@Test
 	public void testColor() {
-		City city = new City(new CityData("Atalanta", GameColor.RED, 10), 0, 0);
-		assertEquals("RED", city.getColor().compatibility_ColorString);
+		City city = cityFactory.makeFakeCity("City", GameColor.RED);
+		assertEquals(GameColor.RED, city.getColor());
 	}
 }

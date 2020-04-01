@@ -26,6 +26,7 @@ import buttonListeners.DispatcherListener;
 import buttonListeners.EventCardListener;
 import cards.PlayerCard;
 import data.Board;
+import data.GameColor;
 import data.Board.Roles;
 import initialize.GameSetup;
 
@@ -152,8 +153,8 @@ public class GUI {
 
 		addColorStrings();
 		int i = 0;
-		for (String disease : board.remainDiseaseCube.keySet()) {
-			int remainDiseaseCubeNum = board.remainDiseaseCube.get(disease);
+		for (GameColor disease : GameColor.values()) {
+			int remainDiseaseCubeNum = 999;// broken board.remainDiseaseCube.get(disease);
 			String diseaseCubeInfo = MessageFormat.format(diseaseColors.get(disease), remainDiseaseCubeNum);
 			JLabel label = new JLabel(diseaseCubeInfo);
 			label.setLocation(475, i * 25);

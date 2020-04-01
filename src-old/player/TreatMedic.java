@@ -1,17 +1,14 @@
 package player;
 
 import data.Board;
+import data.GameColor;
+import game.city.City;
 
-public class TreatMedic extends Treat {
+public class TreatMedic implements Treat {
 
-	public TreatMedic(PlayerData medicData, Board gameBoard) {
-		playerData = medicData;
-		board = gameBoard;
+	@Override
+	public void treat(City city, GameColor diseaseColor) {
+		city.eradicateDisease(diseaseColor);
 	}
-	
-	public void treat(String diseaseColor) {
-		remainCube = 0;
-		super.treat(diseaseColor);
-	}
-	
+
 }

@@ -1,44 +1,41 @@
 package testOutbreak;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import cardActions.Outbreak;
 import data.Board;
-import data.CityData;
 import data.GameColor;
-import game.City;
+import game.Game;
+import game.city.City;
+import helpers.TestAccess;
+import helpers.TestCityFactory;
 
 public class TestOutbreak {
 	Board board;
-	Outbreak outBreak;
+	// Outbreak outBreak;
 	City city;
 	City city1;
 	City city2;
 	City city3;
 	City city4;
 
+	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
+
 	@Before
 	public void setup() {
 		board = new Board();
-		city = new City(new CityData("Paris", GameColor.RED, 10), 0, 0);
-		city.diseaseCubes.put("RED", 0);
-		city1 = new City(new CityData("Chicago", GameColor.BLUE, 10), 0, 0);
-		city1.diseaseCubes.put("RED", 0);
-		city2 = new City(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
-		city2.diseaseCubes.put("RED", 0);
-		city3 = new City(new CityData("London", GameColor.BLUE, 10), 0, 0);
-		city3.diseaseCubes.put("RED", 0);
-		city3.diseaseCubes.put("BLUE", 0);
-		city3.diseaseCubes.put("BLACK", 0);
-		city4 = new City(new CityData("Austin", GameColor.BLACK, 10), 0, 0);
-		city4.diseaseCubes.put("RED", 0);
-		city4.diseaseCubes.put("BLUE", 0);
-		city4.diseaseCubes.put("BLACK", 0);
+		city = cityFactory.makeFakeCity("Paris", GameColor.RED);
+		city1 = cityFactory.makeFakeCity("Chicago", GameColor.BLUE);
+		city2 = cityFactory.makeFakeCity("NewYork", GameColor.BLACK);
+		city3 = cityFactory.makeFakeCity("London", GameColor.BLUE);
+		city4 = cityFactory.makeFakeCity("Austin", GameColor.BLACK);
 		city.neighbors.add(city1);
 		city.neighbors.add(city2);
 		board.cities.put(city.getName(), city);
@@ -46,128 +43,145 @@ public class TestOutbreak {
 		board.cities.put(city2.getName(), city2);
 		board.cities.put(city3.getName(), city3);
 		board.cities.put(city4.getName(), city4);
-		board.remainDiseaseCube.put("RED", 24);
-		board.remainDiseaseCube.put("BLUE", 24);
-		board.remainDiseaseCube.put("BLACK", 24);
-		board.remainDiseaseCube.put("YELLOW", 24);
-		outBreak = new Outbreak(board);
+		access.resetGame();
+		Game.getInstance().initializeDiseaseCubes();
+//		board.remainDiseaseCube.put("RED", 24);
+//		board.remainDiseaseCube.put("BLUE", 24);
+//		board.remainDiseaseCube.put("BLACK", 24);
+//		board.remainDiseaseCube.put("YELLOW", 24);
+//		outBreak = new Outbreak(board);
 	}
 
 	@Test
 	public void testMoveOutbreakMarkForward() {
-		outBreak.moveOutbreakMarkForward();
-		assertTrue(1 == board.outbreakMark);
+		Game.getInstance().moveOutbreakMarkForward();
+		assertEquals(1, access.getGameOutbreakMark());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testMoveOutbreakMarkForwardEndGame() {
-		board.outbreakMark = 7;
-		outBreak.moveOutbreakMarkForward();
+		access.setGameOutbreakMark(7);
+		Game.getInstance().moveOutbreakMarkForward();
+		assertTrue(Game.getInstance().isLost());
 	}
 
 	@Test
 	public void testPlaceDiseaseCubeOnConnectedCities() {
-		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
-		assertTrue(continueOutbreak.isEmpty());
-		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
-		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
+		access.outbreak(city, city.getColor());
+		// List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		// assertTrue(continueOutbreak.isEmpty());
+		int numOfCubesCity1 = access.getCityDisease(city1).getDiseaseCubeCount(GameColor.RED);
+		int numOfCubesCity2 = access.getCityDisease(city2).getDiseaseCubeCount(GameColor.RED);
 		assertEquals(1, numOfCubesCity1);
 		assertEquals(1, numOfCubesCity2);
-		assertTrue(22 == board.remainDiseaseCube.get("RED"));
+		assertTrue(22 == access.getGameCubeData().getDiseaseCubeCount(GameColor.RED));// board.remainDiseaseCube.get("RED"));
 	}
 
 	@Test
 	public void testPerformeOutbreak() {
-		outBreak.performeOutbreak(city);
-		assertTrue(city.isInOutbreak);
-		assertTrue(1 == board.outbreakMark);
-		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
-		int numOfCubesCity2 = city2.diseaseCubes.get("RED");
+		access.outbreak(city, city.getColor());
+		// assertTrue(city.isInOutbreak);
+		assertEquals(1, access.getGameOutbreakMark());
+		int numOfCubesCity1 = access.getCityDisease(city1).getDiseaseCubeCount(GameColor.RED);
+		int numOfCubesCity2 = access.getCityDisease(city2).getDiseaseCubeCount(GameColor.RED);
 		assertEquals(1, numOfCubesCity1);
 		assertEquals(1, numOfCubesCity2);
 	}
 
-	@Test
-	public void testInfecAndCauseOtherOutbreaks() {
-		city1.diseaseCubes.put("RED", 2);
-		city2.diseaseCubes.put("RED", 3);
-		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
-		assertTrue(!continueOutbreak.isEmpty());
-		assertEquals(city1, continueOutbreak.get(0));
-		assertEquals(city2, continueOutbreak.get(1));
-	}
+//	@Test
+//	public void testInfecAndCauseOtherOutbreaks() {
+//		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 2);
+//		access.getCityDisease(city2).setDiseaseCubeCount(GameColor.RED, 3);
+//		access.outbreak(city, city.getColor());
+//		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+//		assertTrue(!continueOutbreak.isEmpty());
+//		assertEquals(city1, continueOutbreak.get(0));
+//		assertEquals(city2, continueOutbreak.get(1));
+//	}
 
 	@Test
 	public void testChainReaction() {
-		city1.diseaseCubes.put("RED", 2);
-		city2.diseaseCubes.put("RED", 3);
+		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 2);
+		access.getCityDisease(city2).setDiseaseCubeCount(GameColor.RED, 3);
 		city1.neighbors.add(city3);
 		city2.neighbors.add(city4);
 
-		board.outbreakMark += 1;
-		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
-		outBreak.continueRestOfOutbreaks(continueOutbreak);
+		access.setGameOutbreakMark(1);
+		access.outbreak(city, city.getColor());
+		// List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		// outBreak.continueRestOfOutbreaks(continueOutbreak);
 
-		assertEquals(3, board.outbreakMark);
-		assertTrue(city1.isInOutbreak);
-		assertTrue(city2.isInOutbreak);
+		assertEquals(3, access.getGameOutbreakMark());
+		// assertTrue(city1.isInOutbreak);
+		// assertTrue(city2.isInOutbreak);
 
-		assertTrue(3 == city1.diseaseCubes.get("RED"));
-		assertTrue(3 == city2.diseaseCubes.get("RED"));
-		assertTrue(1 == city3.diseaseCubes.get("BLUE"));
-		assertTrue(1 == city4.diseaseCubes.get("BLACK"));
+		assertEquals(3, access.getCityDisease(city1).getDiseaseCubeCount(GameColor.RED));
+		assertEquals(3, access.getCityDisease(city2).getDiseaseCubeCount(GameColor.RED));
+		assertEquals(0, access.getCityDisease(city3).getDiseaseCubeCount(GameColor.RED));
+		assertEquals(1, access.getCityDisease(city4).getDiseaseCubeCount(GameColor.RED));
 	}
 
 	@Test
 	public void testChainReactionWithCityAlreadyInOutbreak() {
 		city.neighbors.add(city3);
-		city3.isInOutbreak = true;
-		board.outbreakMark += 1;
-		List<City> continueOutbreak = outBreak.infectConnectedCities(city);
-		outBreak.continueRestOfOutbreaks(continueOutbreak);
-		assertEquals(1, board.outbreakMark);
-		assertTrue(0 == city3.diseaseCubes.get("RED"));
+		HashSet<City> inOutBreak = new HashSet<>();
+		inOutBreak.add(city3);
+		// city3.isInOutbreak = true;
+		// board.outbreakMark += 1;
+		access.setGameOutbreakMark(0);
+		access.outbreak(city, city.getColor(), inOutBreak);
+		// List<City> continueOutbreak = outBreak.infectConnectedCities(city);
+		// outBreak.continueRestOfOutbreaks(continueOutbreak);
+		assertEquals(1, access.getGameOutbreakMark());
+		assertEquals(0, access.getCityDisease(city3).getDiseaseCubeCount(GameColor.RED));
 	}
 
 	@Test
 	public void testPerformeOutbreakWithChainReaction() {
-		city1.diseaseCubes.put("RED", 3);
+		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 3);
 		city1.neighbors.add(city3);
-		outBreak.performeOutbreak(city);
-		assertTrue(city.isInOutbreak);
-		assertTrue(city1.isInOutbreak);
-		assertTrue(2 == board.outbreakMark);
-		int numOfCubesCity1 = city1.diseaseCubes.get("RED");
-		int numOdCubesCity3 = city3.diseaseCubes.get("BLUE");
+		access.outbreak(city, city.getColor());
+		// assertTrue(city.isInOutbreak);
+		// assertTrue(city1.isInOutbreak);
+		assertEquals(2, access.getGameOutbreakMark());
+		int numOfCubesCity1 = access.getCityDisease(city1).getDiseaseCubeCount(GameColor.RED);
+		int numOdCubesCity3 = access.getCityDisease(city3).getDiseaseCubeCount(GameColor.RED);
 		assertEquals(3, numOfCubesCity1);
 		assertEquals(1, numOdCubesCity3);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testEndGameWhenOutbreakMarkIsMaximum() {
-		board.outbreakMark = 7;
-		outBreak.performeOutbreak(city);
+		access.setGameOutbreakMark(7);
+		access.outbreak(city, city.getColor());
+		assertTrue(Game.getInstance().isLost());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testEndGameWhenNoMoreDiseaseCubeLeft() {
-		board.remainDiseaseCube.put("RED", 0);
-		outBreak.performeOutbreak(city);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 0);
+		// board.remainDiseaseCube.put("RED", 0);
+		access.outbreak(city, city.getColor());
+		assertTrue(Game.getInstance().isLost());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testEndGameInChainReactionWhenOutbreakMarkIsMaximum() {
-		board.outbreakMark = 6;
-		city1.diseaseCubes.put("RED", 3);
+		access.setGameOutbreakMark(6);
+//		board.outbreakMark = 6;
+		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 3);
 		city1.neighbors.add(city3);
-		outBreak.performeOutbreak(city);
+		access.outbreak(city, city.getColor());
+		assertTrue(Game.getInstance().isLost());
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	public void testEndGameInChainReactionWhenNoMoreDiseaseCubeLeft() {
-		board.remainDiseaseCube.put("RED", 0);
-		city1.diseaseCubes.put("RED", 3);
-		city2.diseaseCubes.put("RED", 2);
-		outBreak.infectConnectedCities(city);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 0);
+
+		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 3);
+		access.getCityDisease(city2).setDiseaseCubeCount(GameColor.RED, 2);
+		access.outbreak(city, city.getColor());// outBreak.infectConnectedCities(city);
+		assertTrue(Game.getInstance().isLost());
 	}
 }

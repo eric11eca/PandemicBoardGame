@@ -10,7 +10,7 @@ import org.junit.Test;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.ActionName;
-import game.City;
+import game.city.City;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -100,8 +100,8 @@ public class TestDispatcherMovingAction {
 	@Test
 	public void testShuttleFlightUsingOtherPlayer() {
 		board.dispatcherCase = 1;
-		board.cities.get("Delhi").researchStation = true;
-		board.cities.get("Milan").researchStation = true;
+		board.cities.get("Delhi").buildResearchStation();
+		board.cities.get("Milan").buildResearchStation();
 		City destination = board.cities.get("Milan");
 		EasyMock.replay(scientist);
 		dispatcher.destination = destination;

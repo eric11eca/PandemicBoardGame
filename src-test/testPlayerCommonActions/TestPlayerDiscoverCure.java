@@ -11,7 +11,9 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import game.City;
+import data.GameColor;
+import game.Game;
+import helpers.TestAccess;
 import helpers.TestCityFactory;
 import player.DiscoverCureNormal;
 import player.Player;
@@ -27,6 +29,7 @@ public class TestPlayerDiscoverCure {
 	ArrayList<PlayerCard> cards;
 
 	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
 
 	@Before
 	public void setup() {
@@ -68,24 +71,26 @@ public class TestPlayerDiscoverCure {
 
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
-		board.remainDiseaseCube.put("RED", 7);
+		access.resetGame();
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 7);
+		// board.remainDiseaseCube.put("RED", 7);
 	}
 
 	@Test
 	public void testEradicateDiseaseWhenDiscoverCure() {
-		board.remainDiseaseCube.put("RED", 24);
+		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 24);
 		playerData.location = cityFactory.makeFakeCity();
-		playerData.location.researchStation = true;
+		playerData.location.buildResearchStation();
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
 		assertTrue(board.curedDiseases.contains("RED"));
-		assertTrue(board.eradicatedColor.contains("RED"));
+		assertTrue(Game.getInstance().isDiseaseEradicated(GameColor.RED));// board.eradicatedColor.contains("RED"));
 	}
 
 	@Test
 	public void testPlayerdiscardCardWhenDiscoverCure() {
 		playerData.location = cityFactory.makeFakeCity();
-		playerData.location.researchStation = true;
+		playerData.location.buildResearchStation();
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
 		assertTrue(board.curedDiseases.contains("RED"));
@@ -96,7 +101,7 @@ public class TestPlayerDiscoverCure {
 	@Test(expected = RuntimeException.class)
 	public void testNotAtResearchStation() {
 		playerData.location = cityFactory.makeFakeCity();
-		playerData.location.researchStation = false;
+		playerData.location.removeResearchStation();
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
 	}
@@ -104,7 +109,7 @@ public class TestPlayerDiscoverCure {
 	@Test
 	public void testDiscoverDiscoveredCure() {
 		playerData.location = cityFactory.makeFakeCity();
-		playerData.location.researchStation = true;
+		playerData.location.buildResearchStation();
 		board.curedDiseases.add("RED");
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
@@ -114,7 +119,7 @@ public class TestPlayerDiscoverCure {
 	@Test(expected = RuntimeException.class)
 	public void testWinGameAfterDiscoverAllCures() {
 		playerData.location = cityFactory.makeFakeCity();
-		playerData.location.researchStation = true;
+		playerData.location.buildResearchStation();
 		board.curedDiseases.add("BLUE");
 		board.curedDiseases.add("BLACK");
 		board.curedDiseases.add("YELLOW");

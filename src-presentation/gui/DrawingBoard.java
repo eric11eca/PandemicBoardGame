@@ -16,13 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import data.Board;
-import game.City;
+import game.city.City;
 import player.Player;
+import render.Render;
 import render.RenderCity;
 
 public class DrawingBoard {
-	private Map<String, Color> nameToColor;
 	private Map<City, RenderCity> cityRenderers;
+
 	private Board board;
 	public Graphics2D graphic;
 	JFrame frame;
@@ -33,11 +34,6 @@ public class DrawingBoard {
 			throws IOException {
 		this.board = board;
 		this.label = label;
-		nameToColor = new HashMap<>();
-		nameToColor.put("RED", Color.RED);
-		nameToColor.put("YELLOW", Color.YELLOW);
-		nameToColor.put("BLUE", Color.BLUE);
-		nameToColor.put("BLACK", Color.BLACK);
 		File picture = new File("Main Picture.png");
 		img = ImageIO.read(picture);
 		graphic = img.createGraphics();
@@ -47,21 +43,20 @@ public class DrawingBoard {
 
 	// =========REFACTOR NEEDED============*/
 	public void repaint() throws IOException {
+
 		File picture = new File("Main Picture.png");
 		img = ImageIO.read(picture);
 		graphic = img.createGraphics();
+
+		Render render = new Render(graphic);
+
 		if (!board.infectionRateTracker.isEmpty()) {
 			drawInfect(7 - board.infectionRateTracker.size());
 		}
 
-		drawOutBreaks(board.outbreakMark);
-		for (City city : board.cities.values()) {
-			if (city.researchStation) {
-				drawResearch(city);
-			}
-			drawCubes(city);
+		// FIXME: broken drawOutBreaks(board.outbreakMark);
+		cityRenderers.values().forEach(r -> r.drawCity(render));
 
-		}
 		String uncureMark = board.messages.getString("UNCURED");
 		graphic.setColor(Color.RED);
 		graphic.setFont(new Font(uncureMark, 12, 12));
@@ -108,41 +103,6 @@ public class DrawingBoard {
 		String playerLabel = MessageFormat.format("P {0}", k);
 		graphic.setFont(new Font(playerLabel, Font.BOLD, 12));
 		graphic.drawString(playerLabel, city.x - 50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
-	}
-
-	// TODO move to RenderCity
-	private void drawResearch(City city) {
-		graphic.setColor(new Color(228, 180, 34));
-		graphic.fillRect(city.x - 5, city.y - 5, 10, 10);
-	}
-
-	// TODO move to RenderCity
-	private void drawCubes(City city) {
-		for (String colorname : city.diseaseCubes.keySet()) {
-			Color color = nameToColor.get(colorname);
-			int cubes = city.diseaseCubes.get(colorname);
-			while (cubes > 0) {
-				if (color.equals(Color.RED)) {
-					drawcube(city.x - 20, city.y - 12 + (10 * cubes), color);
-				} else if (color.equals(Color.YELLOW)) {
-					drawcube(city.x + 20, city.y - 12 + (10 * cubes), color);
-				} else if (color.equals(Color.BLACK)) {
-					drawcube(city.x - 12 + (10 * cubes), city.y - 20, color);
-				} else if (color.equals(Color.BLUE)) {
-					drawcube(city.x - 12 + (10 * cubes), city.y + 20, color);
-				} else {
-					System.out.println("Critical Failure in drawing board draw cubes");
-					return;
-				}
-				cubes--;
-			}
-		}
-	}
-
-//TODO move to Render
-	private void drawcube(int x, int y, Color color) {
-		graphic.setColor(color);
-		graphic.fillRect(x, y, 7, 7);
 	}
 
 }

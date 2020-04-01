@@ -1,7 +1,7 @@
 package player;
 
 import data.Board;
-import game.City;
+import game.city.City;
 
 public class StationBuilder {
 	PlayerData playerData;
@@ -13,16 +13,16 @@ public class StationBuilder {
 	}
 
 	public void buildStation() {
-		if (playerData.location.researchStation) {
+		if (playerData.location.hasResearchStation()) {
 			throw new RuntimeException("ResearchStationBuilt");
 		}
 		City playerLocation = playerData.location;
-		playerLocation.researchStation = true;
+		playerLocation.buildResearchStation();
 		board.currentResearchStation.put(playerLocation.getName(), playerLocation);
 	}
 
 	public void removeStation(City stationToRemove) {
 		board.currentResearchStation.remove(stationToRemove.getName());
-		stationToRemove.researchStation = false;
+		stationToRemove.removeResearchStation();
 	}
 }

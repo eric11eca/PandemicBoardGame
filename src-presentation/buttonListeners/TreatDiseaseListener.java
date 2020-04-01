@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
+import data.GameColor;
 import gui.GUI;
 import initialize.GameSetup;
 
@@ -30,17 +32,12 @@ public class TreatDiseaseListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
-			Map<String, Integer> colorsmap = board.currentPlayer.playerData.location.diseaseCubes;
-			ArrayList<String> colors = new ArrayList<>();
-			for (String i : colorsmap.keySet()) {
-				if (colorsmap.get(i) != 0) {
-					colors.add(i);
-				}
-			}
-			colors.add(board.messages.getString("cancel")); 
-			if (colorsmap.size() == 0) {
+			// TODO broken
+			Set<GameColor> colors = null;// board.currentPlayer.playerData.location.getExistingDiseases();
+			if (colors.isEmpty()) {
 				return;
 			}
+			// TODO broken right now
 			String[] colorOptions = colors.toArray(new String[colors.size()]);
 
 			JComboBox<String> options = new JComboBox<String>(colorOptions);
@@ -53,22 +50,19 @@ public class TreatDiseaseListener implements ActionListener {
 			panel.add(options);
 			gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
-			JOptionPane.showMessageDialog(null,  
-					board.messages.getString("dispatcherErrorMessage")); 
+			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
 
 	}
 
 	protected void confirmRemoveDisease(JComboBox<String> options) {
 		String chosenCity = options.getSelectedItem().toString();
-		if (chosenCity.equals(board.messages.getString("cancel"))) { 
+		if (chosenCity.equals(board.messages.getString("cancel"))) {
 			gui.removePanel(panel);
 			return;
 		}
-		int choice = JOptionPane.showConfirmDialog(null, 
-				board.messages.getString("treatConfirmation"), 
-				board.messages.getString("treatConfirmation"), 
-				JOptionPane.YES_NO_OPTION); 
+		int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("treatConfirmation"),
+				board.messages.getString("treatConfirmation"), JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.diseaseBeingTreated = chosenCity;
 			board.actionName = Board.ActionName.TREATDISEASE;
