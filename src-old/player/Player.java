@@ -1,36 +1,55 @@
 package player;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
-import javax.swing.JOptionPane;
 
 import cards.PlayerCard;
 import data.Board;
 import data.City;
+import playerAction.BuildStation;
+import playerAction.CharterFlight;
+import playerAction.CureDisease;
+import playerAction.DirectFlight;
+import playerAction.Drive;
+import playerAction.PlayEventCard;
+import playerAction.PlayerAction;
+import playerAction.ShareKnowledge;
+import playerAction.ShuttleFlight;
+import playerAction.TreatDisease;
 
 public class Player {
 	public PlayerData playerData;
 	public Board board;
+	public Map<Board.ActionName, PlayerAction> playerActions;
 
-	public Player(Board gameBoard, PlayerData playerData) {
-		board = gameBoard;
+	public City destination;
+	public String eventCardName;
+	public String diseaseTobeTreated;
+	public PlayerCard cityCard;
+	public List<PlayerCard> cardsToCureDisease;
+
+	public Player(Board board, PlayerData playerData) {
+		this.board = board;
 		this.playerData = playerData;
+
+		playerActions = new HashMap<>();
 		playerData.action = 4;
+
+		playerActions.put(Board.ActionName.DRIVE, new Drive(board, this));
+		playerActions.put(Board.ActionName.DIRECTFLIGHT, new DirectFlight(board, this));
+		playerActions.put(Board.ActionName.CHARTERFLIGHT, new CharterFlight(board, this));
+		playerActions.put(Board.ActionName.SHUTTLEFLIGHT, new ShuttleFlight(board, this));
+		playerActions.put(Board.ActionName.CUREDISEASE, new CureDisease(board, this));
+		playerActions.put(Board.ActionName.TREATDISEASE, new TreatDisease(board, this));
+		playerActions.put(Board.ActionName.BUILDSTATION, new BuildStation(board, this));
+		playerActions.put(Board.ActionName.PLAYEVENTCARD, new PlayEventCard(board, this));
+		playerActions.put(Board.ActionName.SHAREKNOWLEDGE, new ShareKnowledge(board, this));
 	}
 
 	public void receiveCard(PlayerCard playerCard) {
 		playerData.hand.put(playerCard.cardName, playerCard);
-	}
-
-	public void useEventCard(String cardName) {
-		if (cardName.equals(playerData.specialEventCard)) {
-			playerData.specialEventCard = null;
-		} else {
-			playerData.hand.remove(cardName);
-			board.discardEventCards.add(cardName);
-		}
-		board.eventCardAction.executeEventCard(cardName);
 	}
 
 	public void discardCard() {
@@ -43,117 +62,11 @@ public class Player {
 		board.cardToBeDiscard.clear();
 	}
 
-	public void drive(City destination) {
-		if (board.dispatcherCase == 1) {
-			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
-			if (pawnData.location.neighbors.containsKey(destination.cityName)) {
-				moveTo(destination);
-				consumeAction();
-			}
-		} else if (playerData.location.neighbors.containsKey(destination.cityName)) {
-			moveTo(destination);
-			consumeAction();
-		}
-	}
-
-	public void directFlight(PlayerCard cityCard) {
-		if (cityCard.cardType == Board.CardType.CITYCARD) {
-			board.cardToBeDiscard.add(cityCard.cardName);
-			discardCard();
-			consumeAction();
-			City destination = board.cities.get(cityCard.cardName);
-			moveTo(destination);
-		}
-	}
-
 	public void consumeAction() {
 		playerData.action -= 1;
 	}
 
-	public void moveTo(City destination) {
-		if (board.dispatcherCase == 1) {
-			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
-			pawnData.location = destination;
-			destination.currentRoles.add(pawnData.role);
-		} else {
-			playerData.location = destination;
-			destination.currentRoles.add(this.playerData.role);
-		}
-	}
-
-	public void discardCardAndMoveTo(City destination) {
-		discardCard();
-		moveTo(destination);
-	}
-
-	public void charterFlight() {
-		City destination = board.cityCardNameCharter;
-		// City destination = board.cities.get(destinationName);
-		board.cardToBeDiscard.add(playerData.location.cityName);
-		discardCardAndMoveTo(destination);
-		consumeAction();
-	}
-
-	public void shuttleFlight(City destination) {
-		if (playerData.location.researchStation) {
-			if (destination.researchStation) {
-				moveTo(destination);
-				consumeAction();
-			}
-		}
-	}
-
-	public void treat(String diseaseColor) {
-		playerData.treatAction.treat(diseaseColor);
-		eradicate(diseaseColor);
-		consumeAction();
-	}
-
-	public void eradicate(String diseaseColor) {
-		if (board.remainDiseaseCube.get(diseaseColor) == 24) {
-			board.eradicatedColor.add(diseaseColor);
-		}
-	}
-
-	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
-		boolean isResearchStation = playerData.location.researchStation;
-		if (isResearchStation) {
-			if (playerData.discoverCureModel.discover(cardsToCureDisease)) {
-				for (PlayerCard playercard : cardsToCureDisease) {
-					board.cardToBeDiscard.add(playercard.cardName);
-				}
-				consumeAction();
-			}
-			if (board.curedDiseases.size() == 4) {
-				throw new RuntimeException("PlayerWinException");
-			}
-
-			eradicate(cardsToCureDisease.get(0).color);
-			discardCard();
-
-		} else {
-			throw new RuntimeException("NoStationException");
-		}
-	}
-
-	public void buildStation() {
-		playerData.buildStationModel.buildStation();
-		consumeAction();
-	}
-
-	public void shareKnowledge() {
-		if (board.cityToShare.cardType != Board.CardType.CITYCARD) {
-			throw new RuntimeException("CantUseEventCardException");
-		}
-		if (board.isGiving) {
-			giveCard(this, board.playerToShare, board.cityToShare);
-		} else {
-			giveCard(board.playerToShare, this, board.cityToShare);
-		}
-		consumeAction();
-	}
-
-	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
+	public void giveCard(Player giver, Player receiver, PlayerCard citycard) {
 		if (giver.playerData.role != Board.Roles.RESEARCHER
 				&& !citycard.cardName.equals(giver.playerData.location.cityName)) {
 			throw new RuntimeException("CanNotShareKnowledgeException");
@@ -161,6 +74,14 @@ public class Player {
 		board.cardToBeDiscard.add(citycard.cardName);
 		giver.discardCard();
 		receiver.receiveCard(citycard);
+	}
+
+	public PlayerAction getPlayerAction(Board.ActionName actionType) {
+		PlayerAction action = playerActions.get(actionType);
+		if (action == null) {
+			throw new IllegalArgumentException("Invalid action type: " + actionType);
+		}
+		return action;
 	}
 
 	public boolean canCharterFlight() {

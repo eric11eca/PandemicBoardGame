@@ -18,7 +18,7 @@ public class BuildResearchStationListener implements ActionListener {
 	private GameSetup gameSetup;
 	private GUI gui;
 	private JPanel panel;
-	
+
 	public BuildResearchStationListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gameSetup = gameSetup;
@@ -28,10 +28,8 @@ public class BuildResearchStationListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
-			int choice = JOptionPane.showConfirmDialog(null, 
-					board.messages.getString("buildConfirmation"), 
-					board.messages.getString("buildResearchStation"), 
-					JOptionPane.YES_NO_OPTION);
+			int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("buildConfirmation"),
+					board.messages.getString("buildResearchStation"), JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				if (board.currentResearchStation.size() == 6) {
 					ArrayList<String> cityOptions = new ArrayList<>();
@@ -57,31 +55,27 @@ public class BuildResearchStationListener implements ActionListener {
 					gui.addPanel(panel, BorderLayout.CENTER);
 
 				} else {
-					board.actionName = Board.ActionName.BUILDRESEARCH;
+					board.actionName = Board.ActionName.BUILDSTATION;
 					gameSetup.oneTurn();
 					gui.updateImage();
 				}
 			}
-		} else{
-			JOptionPane.showMessageDialog(null, 
-					board.messages.getString("dispatcherErrorMessage")); 
+		} else {
+			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
-		String chosenCity = (options.getSelectedItem().toString()
-				.split(board.messages.getString("lineConnector")))[0];
+		String chosenCity = (options.getSelectedItem().toString().split(board.messages.getString("lineConnector")))[0];
 		if (chosenCity.equals(board.messages.getString("cancel"))) {
 			gui.removePanel(panel);
 			return;
 		}
-		int choice = JOptionPane.showConfirmDialog(null, 
-				board.messages.getString("removeStationConfirmation"),
-				board.messages.getString("buildResearchStation"), 
-				JOptionPane.YES_NO_OPTION); 
+		int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("removeStationConfirmation"),
+				board.messages.getString("buildResearchStation"), JOptionPane.YES_NO_OPTION);
 		if (choice == 0) {
 			board.stationToRemove = chosenCity;
-			board.actionName = Board.ActionName.BUILDRESEARCH;
+			board.actionName = Board.ActionName.BUILDSTATION;
 			gameSetup.oneTurn();
 			gui.removePanel(panel);
 			gui.updateImage();

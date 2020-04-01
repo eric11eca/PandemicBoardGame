@@ -39,7 +39,7 @@ public class TestReceiveCard {
 		player.receiveCard(citycards.get(0));
 		assertEquals(1, playerData.hand.size());
 	}
-	
+
 	@Test
 	public void testNormalReceiveSevenCard() {
 		for (int i = 0; i < 7; i++) {

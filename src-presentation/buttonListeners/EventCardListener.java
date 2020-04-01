@@ -18,7 +18,7 @@ import gui.GUI;
 
 public class EventCardListener implements ActionListener {
 	JComboBox<String> cardList;
-	
+
 	private Board board;
 	private JComboBox<String> eventCards;
 	private GUI gui;
@@ -38,11 +38,11 @@ public class EventCardListener implements ActionListener {
 			if (playerHand.keySet().contains(card)) {
 				if (card.equals(board.messages.getString("Airlift"))) {
 					performAirlift(i);
-				} else if (card.equals(board.messages.getString("OneQuietNight"))) { 
+				} else if (card.equals(board.messages.getString("OneQuietNight"))) {
 					performOneQuietNight(i);
-				} else if (card.equals(board.messages.getString("ResilientPopulation"))) { 
+				} else if (card.equals(board.messages.getString("ResilientPopulation"))) {
 					performResilientPopulation(i);
-				} else if (card.equals(board.messages.getString("GovernmentGrant"))) { 
+				} else if (card.equals(board.messages.getString("GovernmentGrant"))) {
 					performGovernmentGrant(i);
 				} else {
 					performForecast(i);
@@ -56,28 +56,29 @@ public class EventCardListener implements ActionListener {
 
 	private void performForecast(int playerIndex) {
 		String[] cards = new String[6];
-		for(int i=0;i<6;i++){
+		for (int i = 0; i < 6; i++) {
 			cards[i] = board.validInfectionCards.get(i);
 			board.validInfectionCards.remove(i);
 		}
 		ArrayList<String> orderedCards = new ArrayList<String>();
 		cardList = new JComboBox<String>(cards);
-		cardList.addActionListener(new ActionListener(){
+		cardList.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				orderedCards.add(0,cardList.getSelectedItem().toString());
+				orderedCards.add(0, cardList.getSelectedItem().toString());
 				cardList.removeItem(cardList.getSelectedItem());
-				if(cardList.getItemCount()==0){
+				if (cardList.getItemCount() == 0) {
 					board.rearrangeInstruction = orderedCards;
-					board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("Forecast")); 
+					// TODO broken
+					// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("Forecast"));
 					gui.removePanel(panel);
 					gui.updateImage();
 				}
 			}
 		});
-		
-		JButton button = new JButton(board.messages.getString("Clear")); 
-		button.addActionListener(new ActionListener(){
+
+		JButton button = new JButton(board.messages.getString("Clear"));
+		button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -85,9 +86,9 @@ public class EventCardListener implements ActionListener {
 				cardList.removeAll();
 				cardList.setModel((ComboBoxModel<String>) new DefaultComboBoxModel<String>(cards));
 			}
-			
+
 		});
-		
+
 		panel = new JPanel();
 		panel.add(cardList);
 		panel.add(button);
@@ -109,7 +110,8 @@ public class EventCardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				board.cityWithGrant = listOfCities.getSelectedItem().toString();
-				board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("GovernmentGrant")); 
+				// TODO broken
+				// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("GovernmentGrant"));
 				gui.removePanel(panel);
 				gui.updateImage();
 			}
@@ -123,12 +125,13 @@ public class EventCardListener implements ActionListener {
 	private void performResilientPopulation(int playerIndex) {
 		String[] infections = board.discardInfectionCards.toArray(new String[board.discardInfectionCards.size()]);
 		JComboBox<String> listOfInfections = new JComboBox<String>(infections);
-		listOfInfections.addActionListener(new ActionListener(){
+		listOfInfections.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				board.cardRemovedByResilient = listOfInfections.getSelectedItem().toString();
-				board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("ResilientPopulation")); 
+				// TODO broken
+				// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("ResilientPopulation"));
 				gui.removePanel(panel);
 				gui.updateImage();
 			}
@@ -140,7 +143,8 @@ public class EventCardListener implements ActionListener {
 	}
 
 	private void performOneQuietNight(int playerIndex) {
-		board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("OneQuietNight"));
+		// TODO broken
+		// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("OneQuietNight"));
 	}
 
 	private void performAirlift(int playerIndex) {
@@ -163,7 +167,9 @@ public class EventCardListener implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				board.nameofCityAirlift = listOfCities.getSelectedItem().toString();
 				board.idxofPlayerAirlift = Integer.parseInt(listOfPlayers.getSelectedItem().toString()) - 1;
-				board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("Airlift")); 
+				// TODO broken
+				// board.currentPlayers.get(playerIndex).getPlayerAction(Board.ActionName.PLAYEVENTCARD).executeAction();//
+				// .useEventCard(board.messages.getString("Airlift"));
 				gui.removePanel(panel);
 				gui.updateImage();
 			}

@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -15,12 +14,14 @@ import org.junit.Test;
 import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
+import data.Board.ActionName;
 import data.City;
 import gameAction.GameAction;
-import initialize.Messages;
 import player.Player;
 import player.PlayerData;
-import playerAction.MedicAction;
+import playerAction.CureDisease;
+import playerAction.PlayEventCard;
+import playerAction.PlayerAction;
 
 public class TestGameActionOneTurn {
 	Board board;
@@ -32,6 +33,10 @@ public class TestGameActionOneTurn {
 		board = new Board();
 		action = new GameAction(board);
 		playerData = new PlayerData();
+		
+		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer.playerData = playerData;
+		board.currentPlayer.playerData.role = Board.Roles.OPERATIONSEXPERT;
 	}
 
 	@Test
@@ -46,6 +51,7 @@ public class TestGameActionOneTurn {
 		assertFalse(board.inQueitNight);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test(expected = RuntimeException.class)
 	public void testNoMorePlayerCardToDraw() {
 		board.validPlayerCards = EasyMock.createMock(ArrayList.class);
@@ -56,6 +62,7 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.validPlayerCards);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test(expected = RuntimeException.class)
 	public void testDrawTwoCityCardsWithPlayerExceedHandLimit() {
 		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
@@ -64,7 +71,8 @@ public class TestGameActionOneTurn {
 		action.drawTwoPlayerCards();
 		EasyMock.verify(board.currentPlayer.playerData.hand);
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawTwoCityCardWithFull() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -91,7 +99,9 @@ public class TestGameActionOneTurn {
 
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
+	
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawTwoCityCard() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -119,6 +129,7 @@ public class TestGameActionOneTurn {
 		EasyMock.verify(board.validPlayerCards, board.currentPlayer, board.currentPlayer.playerData.hand);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDrawOneCityCardAndOneEpidemicCard() {
 		board.validPlayerCards = EasyMock.strictMock(ArrayList.class);
@@ -153,11 +164,13 @@ public class TestGameActionOneTurn {
 		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
 		EasyMock.expect(board.currentPlayer.playerData.hand.size()).andReturn(6);
 
-		EasyMock.replay(board.validPlayerCards, board.currentPlayer, epidemic, board.currentPlayer.playerData.hand);
+		EasyMock.replay(board.validPlayerCards, board.currentPlayer, 
+				epidemic, board.currentPlayer.playerData.hand);
 
 		action.drawTwoPlayerCards();
 
-		EasyMock.verify(board.validPlayerCards, board.currentPlayer, epidemic, board.currentPlayer.playerData.hand);
+		EasyMock.verify(board.validPlayerCards, board.currentPlayer, 
+				epidemic, board.currentPlayer.playerData.hand);
 	}
 
 	@Test
@@ -191,157 +204,41 @@ public class TestGameActionOneTurn {
 	}
 
 	@Test
-	public void testDirectFlight() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		PlayerCard citycard = new PlayerCard(Board.CardType.CITYCARD, "Shanghai");
-		board.currentPlayer.playerData.hand = EasyMock.createMock(HashMap.class);
-		EasyMock.expect(board.currentPlayer.playerData.hand.get(board.cityCardNameDirect)).andReturn(citycard);
-		board.currentPlayer.directFlight(citycard);
-		EasyMock.replay(board.currentPlayer, board.currentPlayer.playerData.hand);
-		action.doAction(Board.ActionName.DIRECTFLIGHT);
-		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.hand);
-	}
-
-	@Test
 	public void testAirliftEventCard() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.eventCardName = "Airlift";
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		board.currentPlayer.useEventCard(board.eventCardName);
-		board.messages = EasyMock.createMock(Messages.class);
-		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Airlift");
-		EasyMock.replay(board.currentPlayer, board.messages);
-
-		action.doAction(Board.ActionName.PLAYEVENTCARD);
-		EasyMock.verify(board.currentPlayer, board.messages);
+		board.currentPlayer.eventCardName = "Airlift";
+		
+		PlayerAction playEventCard = EasyMock.createMock(PlayEventCard.class);
+		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.PLAYEVENTCARD)).andReturn(playEventCard);
+		
+		EasyMock.replay(board.currentPlayer);
+		action.doAction(ActionName.PLAYEVENTCARD);
+		EasyMock.verify(board.currentPlayer);
 		assertTrue(action.doesChangeLocation);
 	}
 
 	@Test
 	public void testPlayEventCard() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
 		board.eventCardName = "Forecast";
-
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		board.currentPlayer.useEventCard(board.eventCardName);
-
-		board.messages = EasyMock.createMock(Messages.class);
-		EasyMock.expect(board.messages.getString("Airlift")).andReturn("Forecast");
-		EasyMock.replay(board.currentPlayer, board.messages);
-
+		board.currentPlayer.eventCardName = "Forecast";
+		
+		PlayerAction playEventCard = EasyMock.createMock(PlayEventCard.class);
+		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.PLAYEVENTCARD)).andReturn(playEventCard);
+		
+		EasyMock.replay(board.currentPlayer);
 		action.doAction(Board.ActionName.PLAYEVENTCARD);
-		EasyMock.verify(board.currentPlayer, board.messages);
-	}
-
-	@Test
-	public void testDiscoverCure() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		List<PlayerCard> cardsToCureDisease = new ArrayList<>();
-		board.currentPlayer.discoverCure(cardsToCureDisease);
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.CUREDISEASE);
 		EasyMock.verify(board.currentPlayer);
 	}
 
 	@Test
-	public void testTreatDisease() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		board.currentPlayer.treat(board.diseaseBeingTreated);
+	public void testDoPlayerAction() {
+		board.currentPlayer.cardsToCureDisease = new ArrayList<PlayerCard>();
+		
+		PlayerAction cureDisease = EasyMock.createNiceMock(CureDisease.class);
+		EasyMock.expect(board.currentPlayer.getPlayerAction(ActionName.CUREDISEASE)).andReturn(cureDisease);
+		
 		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.TREATDISEASE);
+		action.doAction(ActionName.CUREDISEASE);
 		EasyMock.verify(board.currentPlayer);
-	}
-
-	@Test
-	public void testDrive() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-
-		City city = new City("Shanghai");
-		board.driveDestination = city;
-		board.currentPlayer.drive(city);
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.DRIVE);
-		EasyMock.verify(board.currentPlayer);
-	}
-
-	@Test
-	public void testCharterFlight() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		board.currentPlayer.charterFlight();
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.CHARTERFLIGHT);
-		EasyMock.verify(board.currentPlayer);
-	}
-
-	@Test
-	public void testShuttleFlight() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		City city = new City("Shanghai");
-		board.cities = EasyMock.createMock(HashMap.class);
-		EasyMock.expect(board.cities.get(board.shuttleDestinationName)).andReturn(city);
-		board.currentPlayer.shuttleFlight(city);
-		EasyMock.replay(board.currentPlayer, board.cities);
-		action.doAction(Board.ActionName.SHUTTLEFLIGHT);
-		EasyMock.verify(board.currentPlayer, board.cities);
-	}
-
-	@Test
-	public void testBuildStation() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		board.currentPlayer.buildStation();
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.BUILDRESEARCH);
-		EasyMock.verify(board.currentPlayer);
-	}
-
-	@Test
-	public void testShareKnowledge() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.role = Board.Roles.DISPATCHER;
-		board.currentPlayer.shareKnowledge();
-		EasyMock.replay(board.currentPlayer);
-		action.doAction(Board.ActionName.SHAREKNOWLEDGE);
-		EasyMock.verify(board.currentPlayer);
-	}
-
-	@Test
-	public void testMedicChangeCityUseSpecialSkill() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.specialSkill = EasyMock.createNiceMock(MedicAction.class);
-		board.currentPlayer.playerData.role = Board.Roles.MEDIC;
-		board.currentPlayer.playerData.specialSkill.useSpecialSkill();
-		board.currentPlayer.charterFlight();
-		EasyMock.replay(board.currentPlayer.playerData.specialSkill);
-		action.doAction(Board.ActionName.CHARTERFLIGHT);
-		EasyMock.verify(board.currentPlayer.playerData.specialSkill);
-	}
-
-	@Test
-	public void testMedicNotChangeCityNotUseSpecialSkill() {
-		board.currentPlayer = EasyMock.createMock(Player.class);
-		board.currentPlayer.playerData = this.playerData;
-		board.currentPlayer.playerData.specialSkill = EasyMock.createNiceMock(MedicAction.class);
-		board.currentPlayer.playerData.role = Board.Roles.MEDIC;
-		board.currentPlayer.buildStation();
-		EasyMock.replay(board.currentPlayer, board.currentPlayer.playerData.specialSkill);
-		action.doAction(Board.ActionName.BUILDRESEARCH);
-		EasyMock.verify(board.currentPlayer, board.currentPlayer.playerData.specialSkill);
 	}
 }

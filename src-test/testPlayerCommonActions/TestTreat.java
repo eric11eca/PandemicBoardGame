@@ -1,7 +1,6 @@
 package testPlayerCommonActions;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -39,14 +38,15 @@ public class TestTreat {
 		dispatcherData.location = city;
 		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
 		medic = new Player(board, medicData);
-		dispatcher = new Player(board,dispatcherData);
+		dispatcher = new Player(board, dispatcherData);
 	}
 
 	@Test
 	public void testDispatcherTreat() {
 		city.diseaseCubes.put(blue, 2);
 		board.remainDiseaseCube.put(blue, 10);
-		dispatcher.treat(blue);
+		dispatcher.diseaseTobeTreated = blue;
+		dispatcher.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(1, numOfBlueCubes);
@@ -58,7 +58,8 @@ public class TestTreat {
 	public void testMedicTreatWithNoCure() {
 		city.diseaseCubes.put(blue, 2);
 		board.remainDiseaseCube.put(blue, 22);
-		medic.treat(blue);
+		medic.diseaseTobeTreated = blue;
+		medic.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
@@ -71,7 +72,8 @@ public class TestTreat {
 	public void testMedicTreatWithCure() {
 		city.diseaseCubes.put(blue, 2);
 		board.remainDiseaseCube.put(blue, 22);
-		medic.treat(blue);
+		medic.diseaseTobeTreated = blue;
+		medic.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		board.curedDiseases.add(blue);
@@ -86,7 +88,8 @@ public class TestTreat {
 		city.diseaseCubes.put(blue, 3);
 		board.remainDiseaseCube.put(blue, 9);
 		board.curedDiseases.add(blue);
-		dispatcher.treat(blue);
+		dispatcher.diseaseTobeTreated = blue;
+		dispatcher.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(0, numOfBlueCubes);
@@ -98,7 +101,8 @@ public class TestTreat {
 		city.diseaseCubes.put(blue, 3);
 		board.remainDiseaseCube.put(blue, 9);
 		board.curedDiseases.add(yellow);
-		dispatcher.treat(blue);
+		dispatcher.diseaseTobeTreated = blue;
+		dispatcher.getPlayerAction(Board.ActionName.TREATDISEASE).executeAction();
 		int numOfBlueCubes = city.diseaseCubes.get(blue);
 		int numOfRemainCubes = board.remainDiseaseCube.get(blue);
 		assertEquals(2, numOfBlueCubes);

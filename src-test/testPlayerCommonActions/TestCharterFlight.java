@@ -34,7 +34,7 @@ public class TestCharterFlight {
 		Player medic = new Player(board, playerData);
 
 		assertTrue(playerData.hand.containsKey(location));
-		medic.charterFlight();
+		medic.getPlayerAction(Board.ActionName.CHARTERFLIGHT).executeAction();
 		assertFalse(playerData.hand.containsKey(location));
 
 		assertEquals(newyork, playerData.location.cityName);

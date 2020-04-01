@@ -28,6 +28,7 @@ public class CharterFlightListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (!board.currentPlayer.canCharterFlight()) {
 			JOptionPane.showConfirmDialog(null, board.messages.getString("noCurrentCityCard"),
 					board.messages.getString("noValidCard"), JOptionPane.OK_OPTION);
