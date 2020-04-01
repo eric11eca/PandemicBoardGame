@@ -10,7 +10,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import data.CityData;
+import game.City;
 import player.Player;
 import player.PlayerData;
 
@@ -45,7 +46,9 @@ public class TestShareKnowledge {
 
 		newyork = "NewYork";
 		newyorkCitycard = new PlayerCard(Board.CardType.CITYCARD, newyork);
-		City newyorkCity = new City(newyork);
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		
 		playerData1.location = newyorkCity;
 		playerData2.location = newyorkCity;
 		researcherData.location = newyorkCity;
@@ -92,11 +95,15 @@ public class TestShareKnowledge {
 
 	@Test
 	public void testShareKnowledgePlayer1ReceiveFromAResearcher() {
-		City chicago = new City("Chicago");
-		researcher.playerData.location = chicago;
-		player1.playerData.location = chicago;
+		String chicago = "Chicago";
+		CityData chicago_data = new CityData(chicago, null, 0);
+		City chicagoCity = new City(chicago_data, 0, 0);
+		
+		researcher.playerData.location = chicagoCity;
+		player1.playerData.location = chicagoCity;
 		researcher.receiveCard(newyorkCitycard);
 		player1.shareKnowledge(researcher, newyorkCitycard, false);
+		
 		assertTrue(player1.playerData.hand.containsKey(newyork));
 		assertFalse(researcher.playerData.hand.containsKey(newyork));
 	}

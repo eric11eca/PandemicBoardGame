@@ -13,24 +13,24 @@ import org.junit.Test;
 
 import cardActions.InfectionCardAction;
 import data.Board;
-import data.City;
+import data.CityData;
+import data.GameColor;
+import game.City;
 
 public class TestInfectionCardAction {
 	Board board;
 	InfectionCardAction infect;
 	String cityName;
-	String diseaseColor;
+	GameColor diseaseColor;
 
 	@Before
 	public void setup() {
 		cityName = "Chicago";
-		diseaseColor = "RED";
+		diseaseColor = GameColor.RED;
 		board = new Board();
-		City city = new City();
-		city.cityName = cityName;
+		City city = new City(new CityData(cityName, diseaseColor, 10), 0, 0);
 		board.cities.put(cityName, city);
-		city.color = diseaseColor;
-		board.remainDiseaseCube.put(diseaseColor, 24);
+		board.remainDiseaseCube.put(diseaseColor.compatibility_ColorString, 24);
 		infect = new InfectionCardAction(board);
 	}
 
@@ -40,7 +40,7 @@ public class TestInfectionCardAction {
 		infect.drawOneInfectionCard();
 		City infectedCity = board.cities.get(cityName);
 		Map<String, Integer> diseaseCubes = infectedCity.diseaseCubes;
-		int redCube = diseaseCubes.get(this.diseaseColor);
+		int redCube = diseaseCubes.get(this.diseaseColor.compatibility_ColorString);
 		assertEquals(1, redCube);
 	}
 
@@ -51,71 +51,71 @@ public class TestInfectionCardAction {
 
 	@Test
 	public void testInfectCityWithNewDisease() {
-		infect.infectCity(cityName, diseaseColor);
+		infect.infectCity(cityName, diseaseColor.compatibility_ColorString);
 		City city = board.cities.get(cityName);
-		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor.compatibility_ColorString);
 		assertEquals(1, numOfRedCubes);
-		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor);
+		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor.compatibility_ColorString);
 		assertEquals(23, numOfRemainRedCubes);
 	}
-	
+
 	@Test
 	public void testInfectCityWithEixstingDisease() {
 		City city_old = board.cities.get(cityName);
-		city_old.diseaseCubes.put(diseaseColor, 2);
+		city_old.diseaseCubes.put(diseaseColor.compatibility_ColorString, 2);
 		board.cities.put(cityName, city_old);
-		infect.infectCity(cityName, diseaseColor);
+		infect.infectCity(cityName, diseaseColor.compatibility_ColorString);
 		City city_new = board.cities.get(cityName);
-		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor);
+		int numOfRedCubes = city_new.diseaseCubes.get(diseaseColor.compatibility_ColorString);
 		assertEquals(3, numOfRedCubes);
-		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor);
+		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor.compatibility_ColorString);
 		assertEquals(21, numOfRemainRedCubes);
 		assertFalse(city_new.isInOutbreak);
 	}
-	
+
 	@Test
 	public void testInfectCitywithOutbreak() {
 		City city = board.cities.get(cityName);
-		city.diseaseCubes.put(diseaseColor, 3);
-		infect.infectCity(cityName, diseaseColor);
-		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		city.diseaseCubes.put(diseaseColor.compatibility_ColorString, 3);
+		infect.infectCity(cityName, diseaseColor.compatibility_ColorString);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor.compatibility_ColorString);
 		assertEquals(3, numOfRedCubes);
-		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor);
+		int numOfRemainRedCubes = board.remainDiseaseCube.get(diseaseColor.compatibility_ColorString);
 		assertEquals(24, numOfRemainRedCubes);
 		assertTrue(city.isInOutbreak);
 	}
-	
-	@Test 
+
+	@Test
 	public void testInfectWhenQuarantineSpecialistExist() {
 		City city = board.cities.get(cityName);
 		city.currentRoles.add(Board.Roles.QUARANTINESPECIALIST);
-		city.diseaseCubes.put(diseaseColor, 1);
-		infect.infectCity(cityName, diseaseColor);
-		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		city.diseaseCubes.put(diseaseColor.compatibility_ColorString, 1);
+		infect.infectCity(cityName, diseaseColor.compatibility_ColorString);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor.compatibility_ColorString);
 		assertEquals(1, numOfRedCubes);
 	}
-	
-	@Test 
+
+	@Test
 	public void testInfectWhenQuarantineSpecialistExistInNeighbor() {
 		City city = board.cities.get(cityName);
-		City city1 = new City();
-		city1.cityName = "NewYork";
+		City city1 = new City(new CityData("NewYork", GameColor.BLACK, 10), 0, 0);
+
 		city1.currentRoles.add(Board.Roles.QUARANTINESPECIALIST);
 		board.cities.put("NewYork", city1);
-		city.neighbors.put("NewYork", city1);
-		city.diseaseCubes.put(diseaseColor, 2);
-		infect.infectCity(cityName, diseaseColor);
-		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		city.neighbors.add(city1);
+		city.diseaseCubes.put(diseaseColor.compatibility_ColorString, 2);
+		infect.infectCity(cityName, diseaseColor.compatibility_ColorString);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor.compatibility_ColorString);
 		assertEquals(2, numOfRedCubes);
 	}
-	
-	@Test 
+
+	@Test
 	public void testInfectFailsWhenDiseaseIsEradicated() {
 		City city = board.cities.get(cityName);
-		city.diseaseCubes.put(diseaseColor, 0);
-		board.eradicatedColor.add(diseaseColor);
-		infect.infectCity(cityName, diseaseColor);
-		int numOfRedCubes = city.diseaseCubes.get(diseaseColor);
+		city.diseaseCubes.put(diseaseColor.compatibility_ColorString, 0);
+		board.eradicatedColor.add(diseaseColor.compatibility_ColorString);
+		infect.infectCity(cityName, diseaseColor.compatibility_ColorString);
+		int numOfRedCubes = city.diseaseCubes.get(diseaseColor.compatibility_ColorString);
 		assertEquals(0, numOfRedCubes);
 	}
 }

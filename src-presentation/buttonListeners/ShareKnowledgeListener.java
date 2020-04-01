@@ -22,7 +22,7 @@ public class ShareKnowledgeListener implements ActionListener {
 	GUI gui;
 	int playerNumber;
 	GameSetup gameSetup;
-	
+
 	public ShareKnowledgeListener(Board board, GUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
@@ -32,11 +32,11 @@ public class ShareKnowledgeListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
-			String currentCity = board.currentPlayer.playerData.location.cityName;
+			String currentCity = board.currentPlayer.playerData.location.getName();
 			ArrayList<Player> players = new ArrayList<>();
 			int count = 0;
 			for (int i = 0; i < board.currentPlayers.size(); i++) {
-				if (board.currentPlayers.get(i).playerData.location.cityName.equals(currentCity)) {
+				if (board.currentPlayers.get(i).playerData.location.getName().equals(currentCity)) {
 					if (!board.currentPlayer.equals(board.currentPlayers.get(i))) {
 						players.add(board.currentPlayers.get(i));
 						count++;
@@ -44,14 +44,11 @@ public class ShareKnowledgeListener implements ActionListener {
 				}
 			}
 			if (count <= 0) {
-				JOptionPane.showMessageDialog(null, 
-						board.messages.getString("noPlayerInCityErrorMessage")); 
+				JOptionPane.showMessageDialog(null, board.messages.getString("noPlayerInCityErrorMessage"));
 				return;
 			} else {
-				int choice = JOptionPane.showConfirmDialog(null, 
-						board.messages.getString("shareKnowledgePrompt"), 
-						board.messages.getString("shareKnowledgePrompt"), 
-						JOptionPane.YES_NO_OPTION);
+				int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("shareKnowledgePrompt"),
+						board.messages.getString("shareKnowledgePrompt"), JOptionPane.YES_NO_OPTION);
 				if (choice == 0) {
 					action = true;
 				} else {
@@ -79,8 +76,7 @@ public class ShareKnowledgeListener implements ActionListener {
 			}
 			gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
-			JOptionPane.showMessageDialog(null, 
-					board.messages.getString("dispatcherErrorMessage")); 
+			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
 
 	}
@@ -100,12 +96,12 @@ public class ShareKnowledgeListener implements ActionListener {
 				System.out.println("Not Researcher");
 				options = new String[1];
 				for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
-					if (i.equals(board.currentPlayer.playerData.location.cityName)) {
+					if (i.equals(board.currentPlayer.playerData.location.getName())) {
 						options[0] = i;
 						break;
 					}
-					if(options[0]==null){
-						JOptionPane.showMessageDialog(null,board.messages.getString("noCityCard"));
+					if (options[0] == null) {
+						JOptionPane.showMessageDialog(null, board.messages.getString("noCityCard"));
 						return;
 					}
 				}
@@ -119,7 +115,7 @@ public class ShareKnowledgeListener implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					String card = (list.getSelectedItem().toString()
-							.split(board.messages.getString("lineConnector")))[0]; 
+							.split(board.messages.getString("lineConnector")))[0];
 					board.actionName = Board.ActionName.SHAREKNOWLEDGE;
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
@@ -144,12 +140,12 @@ public class ShareKnowledgeListener implements ActionListener {
 				System.out.println("Not Researcher 1");
 				options = new String[1];
 				for (String i : board.currentPlayers.get(playerNumber).playerData.hand.keySet()) {
-					if (i.equals(board.currentPlayer.playerData.location.cityName)) {
+					if (i.equals(board.currentPlayer.playerData.location.getName())) {
 						options[0] = i;
 						break;
 					}
-					if(options[0]==null){
-						JOptionPane.showMessageDialog(null,board.messages.getString("noCityCard"));
+					if (options[0] == null) {
+						JOptionPane.showMessageDialog(null, board.messages.getString("noCityCard"));
 						return;
 					}
 				}
@@ -162,8 +158,8 @@ public class ShareKnowledgeListener implements ActionListener {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					String card = (list.getSelectedItem().
-							toString().split(board.messages.getString("lineConnector")))[0]; 
+					String card = (list.getSelectedItem().toString()
+							.split(board.messages.getString("lineConnector")))[0];
 					board.actionName = Board.ActionName.SHAREKNOWLEDGE;
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;

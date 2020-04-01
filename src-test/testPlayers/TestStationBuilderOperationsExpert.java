@@ -7,7 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import game.City;
+import helpers.TestCityFactory;
 import player.PlayerData;
 import player.StationBuilder;
 import player.StationBuilderOperationsExpert;
@@ -18,24 +19,26 @@ public class TestStationBuilderOperationsExpert {
 	StationBuilder stationBuilderOperationExpert;
 	City playerLocatedCity, cityWithStation;
 	String playerLocation, theNameOfCityWithStation;
-	
+
+	TestCityFactory cityFactory = new TestCityFactory();
+
 	@Before
 	public void setup() {
 		board = new Board();
 		operationsExpertData = new PlayerData();
-		
+
 		playerLocation = "PlayerLocation";
-		playerLocatedCity = new City(playerLocation);
+		playerLocatedCity = cityFactory.makeFakeCity(playerLocation);
 		playerLocatedCity.researchStation = false;
 
 		theNameOfCityWithStation = "theNameOfCityWithStation";
-		cityWithStation = new City(theNameOfCityWithStation);
+		cityWithStation = cityFactory.makeFakeCity(theNameOfCityWithStation);
 		cityWithStation.researchStation = true;
 
 		operationsExpertData.location = playerLocatedCity;
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);
 		operationsExpertData.hand.put(playerLocation, cityCard);
-		
+
 		stationBuilderOperationExpert = new StationBuilderOperationsExpert(operationsExpertData, board);
 	}
 

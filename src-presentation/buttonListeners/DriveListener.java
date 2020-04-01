@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import data.Board;
-import data.City;
+import game.City;
 import gui.CityChooser;
 import gui.GUI;
 import initialize.GameSetup;
@@ -26,7 +26,7 @@ public class DriveListener implements ActionListener {
 		// TODO move to domain layer
 		/* ====Under Construction=== */
 		HashSet<City> cities = new HashSet<>();
-		cities.addAll(board.currentPlayer.playerData.location.neighbors.values());
+		cities.addAll(board.currentPlayer.playerData.location.neighbors);
 		/* ====Under Construction=== */
 
 		CityChooser cityChooser = new CityChooser(cities, gui, board.messages.getString("Drive"));

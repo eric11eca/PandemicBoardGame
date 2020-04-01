@@ -5,7 +5,8 @@ import java.util.Set;
 
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import game.City;
+
 
 public class Player {
 	public PlayerData playerData;
@@ -36,12 +37,6 @@ public class Player {
 		playerData.action -= 1;
 	}
 
-	public boolean canCharterFlight() {
-		Set<String> hand = playerData.hand.keySet();
-		String playerLocationCityName = playerData.location.cityName;
-		return hand.contains(playerLocationCityName);
-	}
-
 	public void useEventCard(String cardName) {
 		if (cardName.equals(playerData.specialEventCard)) {
 			playerData.specialEventCard = null;
@@ -52,15 +47,14 @@ public class Player {
 		board.eventCardAction.executeEventCard(cardName);
 	}
 
-
 	public void drive(City destination) {
 		if (board.dispatcherCase == 1) {
 			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData; 
-			if (pawnData.location.neighbors.containsKey(destination.cityName)) {
+			if (pawnData.location.neighbors.contains(destination)) {
 				moveTo(destination);
 				consumeAction();
 			}
-		} else if (playerData.location.neighbors.containsKey(destination.cityName)) {
+		} else if (playerData.location.neighbors.contains(destination)) {
 			moveTo(destination);
 			consumeAction();
 		} 
@@ -75,7 +69,6 @@ public class Player {
 			moveTo(destination);
 		}
 	}
-
 
 	public void moveTo(City destination) {
 		if(board.dispatcherCase == 1) {
@@ -94,7 +87,7 @@ public class Player {
 	}
 
 	public void charterFlight(City destination) {
-		board.cardToBeDiscard.add(playerData.location.cityName);
+		board.cardToBeDiscard.add(playerData.location.data.getCityName());
 		discardCardAndMoveTo(destination);
 		consumeAction();
 	}
@@ -160,11 +153,17 @@ public class Player {
 
 	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
 		if(giver.playerData.role != Board.Roles.RESEARCHER 
-				&& !citycard.cardName.equals(giver.playerData.location.cityName)) {
+				&& !citycard.cardName.equals(giver.playerData.location.data.getCityName())) {
 			throw new RuntimeException("CanNotShareKnowledgeException");
 		}
 		board.cardToBeDiscard.add(citycard.cardName);
 		giver.discardCard();
 		receiver.receiveCard(citycard);
+	}
+
+	public boolean canCharterFlight() {
+		Set<String> hand = playerData.hand.keySet();
+		String playerLocationCityName = playerData.location.getName();
+		return hand.contains(playerLocationCityName);
 	}
 }

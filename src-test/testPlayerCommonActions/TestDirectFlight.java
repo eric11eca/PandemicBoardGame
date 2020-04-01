@@ -8,7 +8,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import data.CityData;
+import game.City;
 import player.Player;
 import player.PlayerData;
 
@@ -26,9 +27,11 @@ public class TestDirectFlight {
 		board = new Board();
 		playerData = new PlayerData();
 		String newyork = "NewYork";
-		City newyorkCity = new City(newyork);
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
 		String chicago = "Chicago";
-		City chicagoCity = new City(chicago);
+		CityData chicago_data = new CityData(chicago, null, 0);
+		City chicagoCity = new City(chicago_data, 0, 0);
 		playerData.location = chicagoCity;
 		newyorkCityCard = new PlayerCard(Board.CardType.CITYCARD, newyork);
 		chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
@@ -47,7 +50,7 @@ public class TestDirectFlight {
 		player.directFlight(newyorkCityCard);
 		assertEquals(playerData.hand.size(), 2);
 		assertEquals(playerData.action, 3);
-		assertEquals("NewYork", playerData.location.cityName);
+		assertEquals("NewYork", playerData.location.data.getCityName());
 	}
 
 }

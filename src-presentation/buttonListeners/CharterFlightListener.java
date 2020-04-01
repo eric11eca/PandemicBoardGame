@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import data.Board;
-import data.City;
+import game.City;
 import gui.CityChooser;
 import gui.GUI;
 import initialize.GameSetup;

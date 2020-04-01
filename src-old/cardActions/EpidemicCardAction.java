@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import data.Board;
-import data.City;
+import game.City;
 
 public class EpidemicCardAction {
 	Board board;
@@ -27,7 +27,10 @@ public class EpidemicCardAction {
 		int size = board.validInfectionCards.size();
 		String infection = board.validInfectionCards.get(size - 1);
 		City city = board.cities.get(infection);
-		String disease = city.color;
+		
+		//TODO: Needs to be adapted to the new color type
+		String disease = ""; //city.data.getColor();
+		
 		if (!board.eradicatedColor.contains(disease)) {
 			int addCubeCount = 0;
 			while (city.diseaseCubes.get(disease) < 3) {

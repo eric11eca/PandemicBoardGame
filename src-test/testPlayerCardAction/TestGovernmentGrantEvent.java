@@ -7,19 +7,20 @@ import org.junit.Test;
 
 import cards.GovernmentGrant;
 import data.Board;
-import data.City;
+import data.CityData;
+import data.GameColor;
+import game.City;
 
 public class TestGovernmentGrantEvent {
 	Board board;
 	GovernmentGrant grant;
 	String cityName = "NewYork";
-	
+
 	@Before
 	public void setup() {
 		board = new Board();
 		grant = new GovernmentGrant(board);
-		City city = new City();
-		city.cityName = cityName;
+		City city = new City(new CityData(cityName, GameColor.RED, 10), 0, 0);
 		board.cities.put(cityName, city);
 	}
 

@@ -6,7 +6,7 @@ import cardActions.EpidemicCardAction;
 import cardActions.InfectionCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import game.City;
 import player.Player;
 
 public class GameAction {
@@ -75,7 +75,7 @@ public class GameAction {
 	
 	public void playEventCard(String eventCardName) {
 		board.currentPlayer.useEventCard(eventCardName);
-		if (eventCardName.equals(board.messages.getString("Airlift"))) {
+		if (eventCardName.equals("Airlift")) {
 			doesChangeLocation = true;
 		}
 		checkSpeicialSkill();

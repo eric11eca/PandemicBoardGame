@@ -8,19 +8,21 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import game.City;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 
 public class TestCharterFlight {
+	TestCityFactory cityFactory = new TestCityFactory();
 
 	@Test
 	public void testCharterFlight() {
 		Board board = new Board();
 		String chicago = "Chicago";
-		City chicagoCity = new City(chicago);
+		City chicagoCity = cityFactory.makeFakeCity(chicago);
 		String newyork = "NewYork";
-		City newyorkCity = new City(newyork);
+		City newyorkCity = cityFactory.makeFakeCity(newyork);
 		board.cities.put(newyork, newyorkCity);
 		
 		PlayerData playerData = new PlayerData();		
@@ -28,14 +30,14 @@ public class TestCharterFlight {
 		playerData.location = chicagoCity;
 		playerData.action = 4;
 		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
-		String location = playerData.location.cityName;
+		String location = playerData.location.getName();
 		
 		Player medic = new Player(board, playerData);
 		assertTrue(playerData.hand.containsKey(location));
 		medic.charterFlight(newyorkCity);	
 		assertFalse(playerData.hand.containsKey(location));
 	
-		assertEquals(newyork, playerData.location.cityName);
+		assertEquals(newyork, playerData.location.getName());
 		assertEquals(0, playerData.hand.size());
 		assertEquals(3, playerData.action);
 	}

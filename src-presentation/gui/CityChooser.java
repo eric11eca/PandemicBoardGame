@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.swing.JComboBox;
 
-import data.City;
+import game.City;
 import gui.view.CityListCellRenderer;
 
 public class CityChooser {

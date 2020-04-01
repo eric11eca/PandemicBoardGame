@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.City;
+import data.CityData;
+import game.City;
 import parse.ListOfCityWithColorGenerator;
 
 public class TestListOfCityWithColorGenerator {
@@ -18,7 +19,9 @@ public class TestListOfCityWithColorGenerator {
 		board = new Board();
 		generator = new ListOfCityWithColorGenerator();
 		for (int i = 0; i < citynames.length; i++) {
-			board.cities.put(citynames[i], new City(citynames[i], cityColors[i]));
+			//cityColors[i]
+			CityData data = new CityData(citynames[i], null, 0);
+			board.cities.put(citynames[i], new City(data, 0, 0));
 		}
 	}
 

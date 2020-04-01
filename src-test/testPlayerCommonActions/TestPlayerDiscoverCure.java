@@ -11,7 +11,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import data.CityData;
+import game.City;
 import player.DiscoverCureNormal;
 import player.Player;
 import player.PlayerData;
@@ -71,7 +72,10 @@ public class TestPlayerDiscoverCure {
 	@Test
 	public void testEradicateDiseaseWhenDiscoverCure() {
 		board.remainDiseaseCube.put("RED", 24);
-		playerData.location = new City();
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
 		playerData.location.researchStation = true;
 		player.discoverCure(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
@@ -80,7 +84,10 @@ public class TestPlayerDiscoverCure {
 
 	@Test
 	public void testPlayerdiscardCardWhenDiscoverCure() {
-		playerData.location = new City();
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
 		playerData.location.researchStation = true;
 		player.discoverCure(cards);
 		assertTrue(board.curedDiseases.contains("RED"));
@@ -90,14 +97,20 @@ public class TestPlayerDiscoverCure {
 
 	@Test(expected = RuntimeException.class)
 	public void testNotAtResearchStation() {
-		playerData.location = new City();
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
 		playerData.location.researchStation = false;
 		player.discoverCure(cards);
 	}
 
 	@Test
 	public void testDiscoverDiscoveredCure() {
-		playerData.location = new City();
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
 		playerData.location.researchStation = true;
 		board.curedDiseases.add("RED");
 		player.discoverCure(cards);
@@ -106,7 +119,10 @@ public class TestPlayerDiscoverCure {
 	
 	@Test(expected= RuntimeException.class)
 	public void testWinGameAfterDiscoverAllCures() {
-		playerData.location = new City();
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
 		playerData.location.researchStation = true;
 		board.curedDiseases.add("BLUE");
 		board.curedDiseases.add("BLACK");

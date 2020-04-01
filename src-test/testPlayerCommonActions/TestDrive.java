@@ -7,7 +7,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import game.City;
+import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
 
@@ -20,21 +21,20 @@ public class TestDrive {
 	PlayerCard cityCard2;
 	City location, neighborCity, notNeighborCity;
 
+	TestCityFactory cityFactory = new TestCityFactory();
+
 	@Before
 	public void setup() {
 		board = new Board();
 		playerData = new PlayerData();
 		
-		location = new City();
-		location.cityName = "Chicago";
+		location = cityFactory.makeFakeCity("Chicago");
 
-		neighborCity = new City();
-		neighborCity.cityName = "Atlanta";
+		neighborCity = cityFactory.makeFakeCity("Atlanta");
 
-		location.neighbors.put("Atlanta", neighborCity);
+		location.neighbors.add(neighborCity);
 
-		notNeighborCity = new City();
-		notNeighborCity.cityName = "Shanghai";
+		notNeighborCity = cityFactory.makeFakeCity("Shanghai");
 
 		playerData.location = location;
 		playerData.action = 4;
@@ -47,7 +47,7 @@ public class TestDrive {
 	public void testNeighborDrive() {
 		player.drive(neighborCity);
 		assertEquals(3, playerData.action);
-		assertEquals(playerData.location.cityName, "Atlanta");
+		assertEquals(playerData.location.getName(), "Atlanta");
 	}
 
 }

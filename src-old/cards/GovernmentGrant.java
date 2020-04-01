@@ -1,11 +1,11 @@
 package cards;
 
 import data.Board;
-import data.City;
+import game.City;
 
-public class GovernmentGrant implements EventCard{
+public class GovernmentGrant implements EventCard {
 	private Board board;
-	
+
 	public GovernmentGrant(Board gameBoard) {
 		board = gameBoard;
 	}
@@ -15,6 +15,6 @@ public class GovernmentGrant implements EventCard{
 		String cityName = board.cityWithGrant;
 		City city = board.cities.get(cityName);
 		city.researchStation = true;
-		board.currentResearchStation.put(city.cityName, city);
+		board.currentResearchStation.put(city.getName(), city);
 	}
 }

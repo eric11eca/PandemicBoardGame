@@ -14,7 +14,9 @@ import cards.OneQuietNight;
 import cards.PlayerCard;
 import cards.ResilientPopulation;
 import data.Board;
-import data.City;
+import data.CityData;
+import data.GameColor;
+import game.City;
 import parse.CityDataParser;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;
@@ -41,7 +43,7 @@ public class InitializeBoard {
 		this.cityDataParser = new CityDataParser();
 		this.eventCardNames = new ArrayList<String>();
 	}
-	
+
 	public void initializeWithCityData() {
 		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
 		for (List<String> cityData : citiesData) {
@@ -51,7 +53,8 @@ public class InitializeBoard {
 			Integer x = Integer.parseInt(cityData.get(3));
 			Integer y = Integer.parseInt(cityData.get(4));
 
-			City city = new City(cityName, color, population, x, y);
+			City city = new City(new CityData(cityName, GameColor.compatibility_getByName(color), population), x,
+					y);
 
 			initializeCity(city);
 			initializeInfectionCard(cityName);
@@ -61,15 +64,18 @@ public class InitializeBoard {
 	}
 
 	public void initializeNeighbors(List<List<String>> citiesData) {
+		/* =====UNDER CONSTRUCTION===== */
+		// Move to Data Layer
 		for (List<String> cityData : citiesData) {
 			String cityName = cityData.get(0);
 			City city = board.cities.get(cityName);
 			for (int i = 5; i < cityData.size(); i++) {
 				String neighborName = cityData.get(i);
 				City neighbor = board.cities.get(neighborName);
-				city.neighbors.put(neighborName, neighbor);
+				city.neighbors.add(neighbor);
 			}
 		}
+		/* =====UNDER CONSTRUCTION===== */
 	}
 
 	public void initializePlayerRoles() {
@@ -132,7 +138,7 @@ public class InitializeBoard {
 			board.validPlayerCards.remove(card);
 		}
 	}
-	
+
 	public void initializeEventCardAction() {
 		Airlift airlift = new Airlift(board);
 		board.eventCards.put(board.messages.getString("Airlift"), airlift);
@@ -164,8 +170,7 @@ public class InitializeBoard {
 		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
 		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
 		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
-		
-		
+
 		scientistData.buildStationModel = new StationBuilderNormal(scientistData, board);
 		medicData.buildStationModel = new StationBuilderNormal(medicData, board);
 		researcherData.buildStationModel = new StationBuilderNormal(researcherData, board);
@@ -173,7 +178,7 @@ public class InitializeBoard {
 		contingencyPlannerData.buildStationModel = new StationBuilderNormal(contingencyPlannerData, board);
 		quarantineSpecialistData.buildStationModel = new StationBuilderNormal(quarantineSpecialistData, board);
 		operationsExpertData.buildStationModel = new StationBuilderOperationsExpert(operationsExpertData, board);
-		
+
 		scientistData.discoverCureModel = new DiscoverCureScientist(board.curedDiseases);
 		medicData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		researcherData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
@@ -181,19 +186,19 @@ public class InitializeBoard {
 		operationsExpertData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		contingencyPlannerData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 		quarantineSpecialistData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-		
+
 		scientistData.treatAction = new TreatNormal(scientistData, board);
 		medicData.treatAction = new TreatMedic(medicData, board);
 		researcherData.treatAction = new TreatNormal(researcherData, board);
 		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
 		operationsExpertData.treatAction = new TreatNormal(operationsExpertData, board);
 		contingencyPlannerData.treatAction = new TreatNormal(contingencyPlannerData, board);
-		quarantineSpecialistData.treatAction = new TreatNormal(quarantineSpecialistData, board);		
-		
+		quarantineSpecialistData.treatAction = new TreatNormal(quarantineSpecialistData, board);
+
 		operationsExpertData.specialSkill = new OperationsExpertAction(board, operationsExpertData);
 		medicData.specialSkill = new MedicAction(board, medicData);
 		contingencyPlannerData.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
-		
+
 		Player scientist = new Player(board, scientistData);
 		Player medic = new Player(board, medicData);
 		Player researcher = new Player(board, researcherData);
@@ -233,7 +238,7 @@ public class InitializeBoard {
 		city.diseaseCubes.put("BLUE", 0);
 		city.diseaseCubes.put("BLACK", 0);
 		city.diseaseCubes.put("YELLOW", 0);
-		board.cities.put(city.cityName, city);
+		board.cities.put(city.getName(), city);
 	}
 
 	public void initializeInfectionCard(String cityName) {
@@ -258,9 +263,10 @@ public class InitializeBoard {
 	}
 
 	private void placeDiseaseCube(City city, int count) {
-		int numOfCubes = board.remainDiseaseCube.get(city.color);
-		city.diseaseCubes.put(city.color, count);
-		board.remainDiseaseCube.put(city.color, numOfCubes - count);
+		String color = city.getColor().compatibility_ColorString;
+		int numOfCubes = board.remainDiseaseCube.get(color);
+		city.diseaseCubes.put(color, count);
+		board.remainDiseaseCube.put(color, numOfCubes - count);
 	}
 
 	public void shuffleCards() {
@@ -270,7 +276,7 @@ public class InitializeBoard {
 
 	public void initializePlayerCard(Board.CardType cardType, String cardName) {
 		PlayerCard cityCard = new PlayerCard(cardType, cardName);
-		cityCard.color = board.cities.get(cardName).color;
+		cityCard.color = board.cities.get(cardName).getColor().compatibility_ColorString;
 		board.validPlayerCards.add(cityCard);
 	}
 

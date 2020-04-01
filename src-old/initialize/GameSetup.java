@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import javax.swing.JOptionPane;
 import data.Board;
-import data.City;
+import game.City;
 import gameAction.GameAction;
 import player.Player;
 

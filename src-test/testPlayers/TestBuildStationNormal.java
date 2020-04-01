@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.City;
+import game.City;
+import helpers.TestCityFactory;
 import player.PlayerData;
 import player.StationBuilder;
 import player.StationBuilderNormal;
@@ -19,13 +20,14 @@ public class TestBuildStationNormal {
 	StationBuilder stationBuilderNormal;
 	City playerLocatedCity;
 	String playerLocation;
-	
+	TestCityFactory cityFactory = new TestCityFactory();
+
 	@Before
 	public void setup() {
 		board = new Board();
 		medicData = new PlayerData();
 		playerLocation = "PlayerLocation";
-		playerLocatedCity = new City(playerLocation);
+		playerLocatedCity = cityFactory.makeFakeCity(playerLocation);
 		playerLocatedCity.researchStation = false;
 		medicData.location = playerLocatedCity;
 		PlayerCard cityCard = new PlayerCard(Board.CardType.CITYCARD, playerLocation);

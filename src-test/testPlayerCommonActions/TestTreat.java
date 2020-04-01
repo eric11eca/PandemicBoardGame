@@ -7,7 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import data.City;
+import data.CityData;
+import game.City;
 import player.Player;
 import player.PlayerData;
 import player.TreatMedic;
@@ -33,7 +34,8 @@ public class TestTreat {
 		medicData.treatAction = new TreatMedic(medicData, board);
 		dispatcherData = new PlayerData();
 		dispatcherAction = new DispatcherAction(board);
-		city = new City();
+		CityData data = new CityData("New York", null, 0);
+		city = new City(data, 0 , 0);
 		medicData.location = city;
 		dispatcherData.location = city;
 		dispatcherData.treatAction = new TreatNormal(dispatcherData, board);
