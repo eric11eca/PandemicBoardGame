@@ -11,18 +11,14 @@ import game.Game;
 
 public class City {
 
-	@Deprecated // Graphical Data
-	public int x;
-	@Deprecated // Graphical Data
-	public int y;
-
 	private CityData data;
 	private Set<City> neighbors;
-
-	// TODO game data
 	private CubeData disease;
 	private boolean researchStation;
+
+	// TODO what is this for?
 	public boolean underQuarantine = false;
+
 	// ===UNDER CONSTRUCTION===//
 	// This could result in data duplication/scattering
 	@Deprecated

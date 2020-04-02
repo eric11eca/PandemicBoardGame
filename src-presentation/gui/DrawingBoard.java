@@ -89,11 +89,11 @@ public class DrawingBoard extends JComponent {
 	}
 
 	// TODO move to RenderPlayer
-	private void drawPlayer(Graphics2D g2d, City city, String k) {
-		g2d.setColor(Color.YELLOW);
-		String playerLabel = MessageFormat.format("P {0}", k);
-		g2d.setFont(new Font(playerLabel, Font.BOLD, 12));
-		g2d.drawString(playerLabel, city.x - 50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
-	}
+//	private void drawPlayer(Graphics2D g2d, City city, String k) {
+//		g2d.setColor(Color.YELLOW);
+//		String playerLabel = MessageFormat.format("P {0}", k);
+//		g2d.setFont(new Font(playerLabel, Font.BOLD, 12));
+//		g2d.drawString(playerLabel, city.x - 50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
+//	}
 
 }
