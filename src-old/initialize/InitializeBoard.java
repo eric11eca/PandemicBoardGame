@@ -34,7 +34,6 @@ import render.RenderCity;
 
 public class InitializeBoard {
 	public Board board;
-	public CityDataParser cityDataParser;
 	public String cityDataPath = "CityData";
 	public ThreadLocalRandom random;
 	public ArrayList<String> eventCardNames;
@@ -42,42 +41,7 @@ public class InitializeBoard {
 	public InitializeBoard(Board mainBoard) {
 		random = ThreadLocalRandom.current();
 		this.board = mainBoard;
-		this.cityDataParser = new CityDataParser();
 		this.eventCardNames = new ArrayList<String>();
-	}
-
-	public void initializeWithCityData() {
-		// TODO Move to Data Layer
-		List<List<String>> citiesData = this.cityDataParser.parse(this.cityDataPath);
-		for (List<String> cityData : citiesData) {
-			String cityName = cityData.get(0);
-			String color = cityData.get(1);
-			Integer population = Integer.parseInt(cityData.get(2));
-			Integer x = Integer.parseInt(cityData.get(3));
-			Integer y = Integer.parseInt(cityData.get(4));
-
-			City city = new City(new CityData(cityName, GameColor.compatibility_getByName(color), population));
-			RenderCity renderCity = new RenderCity(x, y, city);
-			initializeCity(city);
-			initializeInfectionCard(cityName);
-			initializePlayerCard(Board.CardType.CITYCARD, cityName);
-		}
-		initializeNeighbors(citiesData);
-	}
-
-	public void initializeNeighbors(List<List<String>> citiesData) {
-		/* =====UNDER CONSTRUCTION===== */
-		// Move to Data Layer
-		for (List<String> cityData : citiesData) {
-			String cityName = cityData.get(0);
-			City city = board.cities.get(cityName);
-			for (int i = 5; i < cityData.size(); i++) {
-				String neighborName = cityData.get(i);
-				City neighbor = board.cities.get(neighborName);
-				city.neighbors.add(neighbor);
-			}
-		}
-		/* =====UNDER CONSTRUCTION===== */
 	}
 
 	public void initializePlayerRoles() {
@@ -232,18 +196,6 @@ public class InitializeBoard {
 		Game.getInstance().initializeDiseaseCubes();
 	}
 
-	public void initializeCity(City city) {
-//		city.diseaseCubes.put("RED", 0);
-//		city.diseaseCubes.put("BLUE", 0);
-//		city.diseaseCubes.put("BLACK", 0);
-//		city.diseaseCubes.put("YELLOW", 0);
-		board.cities.put(city.getName(), city);
-	}
-
-	public void initializeInfectionCard(String cityName) {
-		board.validInfectionCards.add(cityName);
-	}
-
 	public void initializeDiseaseCube() {
 		for (int i = 0; i < 9; i++) {
 			String cardName = board.validInfectionCards.get(0);
@@ -273,12 +225,6 @@ public class InitializeBoard {
 	public void shuffleCards() {
 		Collections.shuffle(board.validInfectionCards);
 		Collections.shuffle(board.validPlayerCards);
-	}
-
-	public void initializePlayerCard(Board.CardType cardType, String cardName) {
-		PlayerCard cityCard = new PlayerCard(cardType, cardName);
-		cityCard.color = board.cities.get(cardName).getColor().compatibility_ColorString;
-		board.validPlayerCards.add(cityCard);
 	}
 
 	public void initializeEpidemicCard(int validPlayerNum) {

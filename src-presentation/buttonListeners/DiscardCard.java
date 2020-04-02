@@ -18,17 +18,17 @@ import javax.swing.JPanel;
 
 import cards.PlayerCard;
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 
 public class DiscardCard {
 	private Board board;
-	private GUI gui;
+	private GameGUI gui;
 	private JPanel panel;
 	private int selected = 0;
 	private GameSetup gameSetup;
 
-	public DiscardCard(GUI gui, Board board, GameSetup gameSetup){
+	public DiscardCard(GameGUI gui, Board board, GameSetup gameSetup){
 		this.board=board;
 		this.gui=gui;
 		this.gameSetup = gameSetup;

@@ -9,8 +9,8 @@ import java.util.Set;
 import java.util.Stack;
 
 import cardActions.EventCardAction;
-import cards.EventCard;
 import cards.PlayerCard;
+import game.cards.CardEvent;
 import game.city.City;
 import initialize.Messages;
 import parse.ListOfCityWithColorGenerator;
@@ -69,7 +69,7 @@ public class Board {
 	public Player playerToShare;
 	@Deprecated // Refactor as parameter
 	public PlayerCard cityToShare;
-	public Map<String, EventCard> eventCards = new HashMap<>();
+	public Map<String, CardEvent> eventCards = new HashMap<>();
 	@Deprecated // Refactor as parameter
 	public boolean isGiving;
 	@Deprecated // Refactor as parameter

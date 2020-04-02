@@ -7,15 +7,15 @@ import java.util.HashSet;
 import data.Board;
 import game.city.City;
 import gui.CityChooser;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 
 public class DriveListener implements ActionListener {
 	private Board board;
-	private GUI gui;
+	private GameGUI gui;
 	private GameSetup gameSetup;
 
-	public DriveListener(Board board, GUI gui, GameSetup gameSetup) {
+	public DriveListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;

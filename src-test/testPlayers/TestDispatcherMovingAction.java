@@ -9,8 +9,12 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
+<<<<<<< HEAD
 import data.Board.ActionName;
 import game.city.City;
+=======
+import game.City;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -64,8 +68,7 @@ public class TestDispatcherMovingAction {
 		City destination = board.cities.get("Milan");
 		scientistData.location.neighbors.add(destination);
 		EasyMock.replay(scientist);
-		board.driveDestination = destination;
-		dispatcher.getPlayerAction(ActionName.DRIVE).executeAction();
+		dispatcher.drive(destination);
 		assertEquals("Milan", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -77,8 +80,7 @@ public class TestDispatcherMovingAction {
 		board.dispatcherCase = 1;
 		PlayerCard cityCard = dispatcherData.hand.get("Milan");
 		EasyMock.replay(scientist);
-		dispatcher.cityCard = cityCard;
-		dispatcher.getPlayerAction(ActionName.DIRECTFLIGHT).executeAction();
+		dispatcher.directFlight(cityCard);
 		assertEquals("Milan", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -88,9 +90,8 @@ public class TestDispatcherMovingAction {
 	@Test
 	public void testCharterFlightUsingOtherPlayer() {
 		board.dispatcherCase = 1;
-		board.cityCardNameCharter = delhi;
 		EasyMock.replay(scientist);
-		dispatcher.getPlayerAction(ActionName.CHARTERFLIGHT).executeAction();
+		dispatcher.charterFlight(delhi);
 		assertEquals("Delhi", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);
@@ -104,8 +105,7 @@ public class TestDispatcherMovingAction {
 		board.cities.get("Milan").buildResearchStation();
 		City destination = board.cities.get("Milan");
 		EasyMock.replay(scientist);
-		dispatcher.destination = destination;
-		dispatcher.getPlayerAction(ActionName.SHUTTLEFLIGHT).executeAction();
+		dispatcher.shuttleFlight(destination);
 		assertEquals("Milan", scientistData.location.getName());
 		assertTrue(scientistData.action == 4);
 		assertTrue(dispatcherData.action == 3);

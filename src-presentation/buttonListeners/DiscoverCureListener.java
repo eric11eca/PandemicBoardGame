@@ -17,17 +17,17 @@ import javax.swing.JPanel;
 
 import cards.PlayerCard;
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 import player.PlayerData;
 
 public class DiscoverCureListener implements ActionListener {
 	private Board board;
-	private GUI gui;
+	private GameGUI gui;
 	private GameSetup gameSetup;
 	private JPanel panel;
 
-	public DiscoverCureListener(Board board, GUI gui, GameSetup gameSetup) {
+	public DiscoverCureListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;

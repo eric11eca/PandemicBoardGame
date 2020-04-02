@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 import player.Player;
 
@@ -19,11 +19,11 @@ public class ShareKnowledgeListener implements ActionListener {
 	Board board;
 	boolean action;
 	JPanel panel;
-	GUI gui;
+	GameGUI gui;
 	int playerNumber;
 	GameSetup gameSetup;
 
-	public ShareKnowledgeListener(Board board, GUI gui, GameSetup gameSetup) {
+	public ShareKnowledgeListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;

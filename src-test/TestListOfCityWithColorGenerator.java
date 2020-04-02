@@ -5,8 +5,12 @@ import org.junit.Test;
 
 import data.Board;
 import data.CityData;
+<<<<<<< HEAD
 import data.GameColor;
 import game.city.City;
+=======
+import game.City;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 import parse.ListOfCityWithColorGenerator;
 
 public class TestListOfCityWithColorGenerator {
@@ -20,8 +24,14 @@ public class TestListOfCityWithColorGenerator {
 		board = new Board();
 		generator = new ListOfCityWithColorGenerator();
 		for (int i = 0; i < citynames.length; i++) {
+<<<<<<< HEAD
 			board.cities.put(citynames[i],
 					new City(new CityData(citynames[i], GameColor.compatibility_getByName(cityColors[i]), 10)));
+=======
+			//cityColors[i]
+			CityData data = new CityData(citynames[i], null, 0);
+			board.cities.put(citynames[i], new City(data, 0, 0));
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 		}
 	}
 
@@ -31,7 +41,7 @@ public class TestListOfCityWithColorGenerator {
 				+ "city7 [YELLOW], city8 [YELLOW], city9 [RED], city10 [RED]";
 		String[] cityWithColor = generator.concatColor(citynames, board.cities);
 		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < citynames.length - 1; i++) {
+		for(int i = 0; i < citynames.length - 1; i++) {
 			sb.append(cityWithColor[i]);
 			sb.append(", ");
 		}
@@ -39,10 +49,10 @@ public class TestListOfCityWithColorGenerator {
 		String actual = sb.toString();
 		assertEquals(expected, actual);
 	}
-
+	
 	@Test
 	public void testWithInvalidCity() {
-		String[] cityname = { "Cancel" };
+		String[] cityname = {"Cancel"};
 		String[] cityWithColor = generator.concatColor(cityname, board.cities);
 		String expected = "Cancel";
 		String actual = cityWithColor[0];

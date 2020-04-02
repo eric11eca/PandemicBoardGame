@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 
 public class BuildResearchStationListener implements ActionListener {
 	private Board board;
 	private GameSetup gameSetup;
-	private GUI gui;
+	private GameGUI gui;
 	private JPanel panel;
 
-	public BuildResearchStationListener(Board board, GUI gui, GameSetup gameSetup) {
+	public BuildResearchStationListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gameSetup = gameSetup;
 		this.gui = gui;

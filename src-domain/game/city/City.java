@@ -16,9 +16,8 @@ public class City {
 	@Deprecated // Graphical Data
 	public int y;
 
-	public CityData data;
-
-	public Set<City> neighbors;
+	private CityData data;
+	private Set<City> neighbors;
 
 	// TODO game data
 	private CubeData disease;
@@ -30,11 +29,11 @@ public class City {
 	public Set<Board.Roles> currentRoles = new HashSet<>();
 	// ===UNDER CONSTRUCTION===//
 
-	public City(CityData data) {
+	public City(CityData data, Set<City> neighbors) {
 		this.data = data;
 		disease = new CubeData();
 		this.researchStation = false;
-		this.neighbors = new HashSet<>();
+		this.neighbors = neighbors;
 	}
 
 	public void initializeDisease(int count) {
@@ -169,6 +168,14 @@ public class City {
 	public void eradicateDisease(GameColor color) {
 		Game.getInstance().putCubeToPool(color, disease.getDiseaseCubeCount(color));
 		disease.removeAllDiseaseCube(color);
+	}
+
+	public boolean isNeighbor(City other) {
+		return neighbors.contains(other);
+	}
+
+	public boolean isStartingCity() {
+		return data.isStart();
 	}
 
 	@Override

@@ -9,15 +9,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 
 public class ContingencyPlannerListener implements ActionListener {
 
 	private Board board;
 	JPanel panel;
-	GUI gui;
+	GameGUI gui;
 
-	public ContingencyPlannerListener(Board board, GUI gui) {
+	public ContingencyPlannerListener(Board board, GameGUI gui) {
 		this.board = board;
 		this.gui = gui;
 	}

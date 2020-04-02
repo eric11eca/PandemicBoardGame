@@ -10,10 +10,10 @@ import gui.view.CityListCellRenderer;
 
 public class CityChooser {
 	private Set<City> options;
-	private GUI gui;
+	private GameGUI gui;
 	private String dialogTitle;
 
-	public CityChooser(Set<City> options, GUI gui, String dialogTitle) {
+	public CityChooser(Set<City> options, GameGUI gui, String dialogTitle) {
 		this.options = options;
 		this.gui = gui;
 		this.dialogTitle = dialogTitle;

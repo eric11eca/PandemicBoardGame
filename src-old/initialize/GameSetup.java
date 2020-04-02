@@ -1,12 +1,19 @@
 package initialize;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.JOptionPane;
+
+import cards.PlayerCard;
 import data.Board;
+import data.CityData;
+import data.GameColor;
+import game.Game;
 import game.city.City;
 import gameAction.GameAction;
 import player.Player;
+import render.RenderCity;
 
 public class GameSetup {
 	public Board board;
@@ -15,19 +22,23 @@ public class GameSetup {
 	public InitializeBoard initBoard;
 	public InitializePlayerData initPlayerData;
 
-	public GameSetup() {
-
+	public GameSetup(Board board) {
+		this.board = board;
 	}
 
 	public void startGame() {
-		board = new Board();
 		gameAction = new GameAction(board);
+		initializeMessageBundle("en", "US");
+		initializeMessageToShow();
 		initGame = new InitializeGame(board, this);
 		initBoard = new InitializeBoard(board);
 		initPlayerData = new InitializePlayerData(board);
 	}
 
 	public void startGameSetup() {
+		Game.reset();
+		Game game = Game.getInstance();
+
 		if (board.playernumber == 2) {
 			board.initialhandcard = 4;
 		} else if (board.playernumber == 3) {
@@ -42,7 +53,7 @@ public class GameSetup {
 		initBoard.eventCardNames.add(board.messages.getString("GovernmentGrant"));
 		initBoard.eventCardNames.add(board.messages.getString("Airlift"));
 
-		initBoard.initializeWithCityData();
+		// initBoard.initializeWithCityData();
 		initBoard.initializeEventCard();
 		initBoard.shuffleCards();
 		initBoard.initializeRemainDiseaseCube();
@@ -73,34 +84,37 @@ public class GameSetup {
 		initGame.startCreationofBoard();
 	}
 
-	public void oneTurn() {
-		try {
-			gameAction.doAction(board.actionName);
-		} catch (RuntimeException e) {
-			System.out.println(e.getMessage());
-			JOptionPane.showMessageDialog(null, board.messagesToShow.get(e.getMessage()));
-		}
-
-		if (board.currentPlayer.playerData.action == 0) {
-			try {
-				gameAction.drawTwoPlayerCards();
-			} catch (RuntimeException e) {
-				if (e.getMessage().equals("NoPlayerCardsException")) {
-					JOptionPane.showMessageDialog(null, board.messagesToShow.get("NoPlayerCardsException"));
-				}
-
-				if (board.currentPlayer.playerData.hand.size() <= 7) {
-					changePlayer();
-				} else {
-					if (e.getMessage().equals("PlayerHandOverflow")) {
-						initGame.gui.showPlayerHand();
-					}
-				}
-				return;
-			}
-			changePlayer();
-		}
+	public void initializeInfectionCard(String cityName) {
+		board.validInfectionCards.add(cityName);
 	}
+
+	public void initializePlayerCard(Board.CardType cardType, String cardName) {
+		PlayerCard cityCard = new PlayerCard(cardType, cardName);
+		cityCard.color = board.cities.get(cardName).getColor().compatibility_ColorString;
+		board.validPlayerCards.add(cityCard);
+	}
+
+//	public void oneTurn() {
+//		if (board.currentPlayer.playerData.action == 0) {
+//			try {
+//				gameAction.drawTwoPlayerCards();
+//			} catch (RuntimeException e) {
+//				if (e.getMessage().equals("NoPlayerCardsException")) {
+//					JOptionPane.showMessageDialog(null, board.messagesToShow.get("NoPlayerCardsException"));
+//				}
+//
+//				if (board.currentPlayer.playerData.hand.size() <= 7) {
+//					changePlayer();
+//				} else {
+//					if (e.getMessage().equals("PlayerHandOverflow")) {
+//						initGame.gui.showPlayerHand();
+//					}
+//				}
+//				return;
+//			}
+//			changePlayer();
+//		}
+//	}
 
 	public void changePlayer() {
 		board.currentPlayerIndex++;

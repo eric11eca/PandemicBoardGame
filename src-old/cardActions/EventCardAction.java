@@ -1,7 +1,7 @@
 package cardActions;
 
-import cards.EventCard;
 import data.Board;
+import game.cards.CardEvent;
 
 public class EventCardAction {
 	Board board;
@@ -12,7 +12,7 @@ public class EventCardAction {
 
 	public boolean executeEventCard(String eventName) {
 		if(board.eventCards.containsKey(eventName)) {
-			EventCard eventCard = board.eventCards.get(eventName);
+			CardEvent eventCard = board.eventCards.get(eventName);
 			eventCard.executeEvent();
 			return true;
 		}

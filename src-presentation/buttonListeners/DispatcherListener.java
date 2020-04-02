@@ -9,14 +9,14 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 
 public class DispatcherListener implements ActionListener {
 	private Board board;
-	private GUI gui;
+	private GameGUI gui;
 	private JPanel panel;
 
-	public DispatcherListener(Board board, GUI gui) {
+	public DispatcherListener(Board board, GameGUI gui) {
 		this.board = board;
 		this.gui = gui;
 	}

@@ -1,11 +1,15 @@
 package cards;
 
 import data.Board;
+import game.cards.CardEvent;
 import player.Player;
 
-public class Airlift implements EventCard{
+public class Airlift implements CardEvent {
+	/*
+	 * Move any pawn to any city. Get permission before moving other player's pawn.
+	 */
 	private Board board;
-	
+
 	public Airlift(Board gameBoard) {
 		board = gameBoard;
 	}
@@ -13,7 +17,7 @@ public class Airlift implements EventCard{
 	@Override
 	public void executeEvent() {
 		int playeridx = board.idxofPlayerAirlift;
-		Player player = board.currentPlayers.get(playeridx); 
+		Player player = board.currentPlayers.get(playeridx);
 		String cityName = board.nameofCityAirlift;
 		player.playerData.location = board.cities.get(cityName);
 	}

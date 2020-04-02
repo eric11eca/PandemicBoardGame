@@ -29,12 +29,14 @@ public class EpidemicCardAction {
 		int size = board.validInfectionCards.size();
 		String infection = board.validInfectionCards.get(size - 1);
 		City city = board.cities.get(infection);
+
 		GameColor diseaseColor = city.getColor();
 		if (!Game.getInstance().isDiseaseEradicated(diseaseColor))
 			city.epidemicInfect(diseaseColor);
 //		if (!board.eradicatedColor.contains(diseaseColor.compatibility_ColorString)) {
 //			
 //		}
+
 		board.validInfectionCards.remove(size - 1);
 		board.discardInfectionCards.add(infection);
 	}

@@ -10,8 +10,13 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
+<<<<<<< HEAD
 import game.city.City;
 import helpers.TestCityFactory;
+=======
+import data.CityData;
+import game.City;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 import player.Player;
 import player.PlayerData;
 
@@ -35,8 +40,6 @@ public class TestShareKnowledge {
 
 	EventCardAction eventCardAction;
 
-	TestCityFactory cityFactory = new TestCityFactory();
-
 	@Before
 	public void setup() {
 		board = new Board();
@@ -48,7 +51,9 @@ public class TestShareKnowledge {
 
 		newyork = "NewYork";
 		newyorkCitycard = new PlayerCard(Board.CardType.CITYCARD, newyork);
-		City newyorkCity = cityFactory.makeFakeCity(newyork);
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		
 		playerData1.location = newyorkCity;
 		playerData2.location = newyorkCity;
 		researcherData.location = newyorkCity;
@@ -69,12 +74,7 @@ public class TestShareKnowledge {
 	@Test
 	public void testShareKnowledgePlayer1GiveSuccess() {
 		player1.receiveCard(newyorkCitycard);
-
-		board.playerToShare = player2;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = true;
-
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		player1.shareKnowledge(player2, newyorkCitycard, true);
 		assertEquals(playerData1.location, playerData2.location);
 		assertFalse(playerData1.hand.containsKey(newyork));
 		assertTrue(playerData2.hand.containsKey(newyork));
@@ -85,12 +85,7 @@ public class TestShareKnowledge {
 	@Test
 	public void testShareKnowledgePlayer1ReceiveSuccess() {
 		player2.receiveCard(newyorkCitycard);
-
-		board.playerToShare = player2;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = false;
-
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		player1.shareKnowledge(player2, newyorkCitycard, false);
 		assertEquals(playerData1.location, playerData2.location);
 		assertFalse(playerData2.hand.containsKey(newyork));
 		assertTrue(playerData1.hand.containsKey(newyork));
@@ -100,24 +95,20 @@ public class TestShareKnowledge {
 
 	@Test(expected = RuntimeException.class)
 	public void testShareKnowledgePlayer1GivePlayer2WrongCityCard() {
-		board.playerToShare = player2;
-		board.cityToShare = chicagoCitycard;
-		board.isGiving = true;
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
+		player1.shareKnowledge(player2, chicagoCitycard, true);
 	}
 
 	@Test
 	public void testShareKnowledgePlayer1ReceiveFromAResearcher() {
-		City chicago = cityFactory.makeFakeCity("Chicago");
-		researcher.playerData.location = chicago;
-		player1.playerData.location = chicago;
+		String chicago = "Chicago";
+		CityData chicago_data = new CityData(chicago, null, 0);
+		City chicagoCity = new City(chicago_data, 0, 0);
+		
+		researcher.playerData.location = chicagoCity;
+		player1.playerData.location = chicagoCity;
 		researcher.receiveCard(newyorkCitycard);
-
-		board.playerToShare = researcher;
-		board.cityToShare = newyorkCitycard;
-		board.isGiving = false;
-		player1.getPlayerAction(Board.ActionName.SHAREKNOWLEDGE).executeAction();
-
+		player1.shareKnowledge(researcher, newyorkCitycard, false);
+		
 		assertTrue(player1.playerData.hand.containsKey(newyork));
 		assertFalse(researcher.playerData.hand.containsKey(newyork));
 	}

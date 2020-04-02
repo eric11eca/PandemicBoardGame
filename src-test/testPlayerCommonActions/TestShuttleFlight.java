@@ -7,7 +7,12 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
+<<<<<<< HEAD
 import game.city.City;
+=======
+import data.CityData;
+import game.City;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -30,6 +35,7 @@ public class TestShuttleFlight {
 		String city2 = "NewYork";
 		String city3 = "Seattle";
 		String city4 = "Miami";
+<<<<<<< HEAD
 		locationWithStation = cityFactory.makeFakeCity(city1);
 		locationWithStation.buildResearchStation();
 
@@ -41,6 +47,25 @@ public class TestShuttleFlight {
 
 		destinationNoStation = cityFactory.makeFakeCity(city4);
 		destinationNoStation.removeResearchStation();
+=======
+		
+		CityData data1 = new CityData(city1, null, 0);
+		CityData data2 = new CityData(city2, null, 0);
+		CityData data3 = new CityData(city3, null, 0);
+		CityData data4 = new CityData(city4, null, 0);
+		
+		this.locationWithStation = new City(data1, 0, 0);
+		this.locationWithStation.researchStation = true;
+
+		this.locationNoStation = new City(data2, 0, 0);
+		this.locationNoStation.researchStation = false;
+
+		this.destinationWithStation = new City(data3, 0, 0);
+		this.destinationWithStation.researchStation = true;
+
+		this.destinationNoStation = new City(data4, 0, 0);
+		this.destinationNoStation.researchStation = false;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
@@ -48,18 +73,17 @@ public class TestShuttleFlight {
 
 	@Test
 	public void testStationToStation() {
-		initialPlayerLocationHasStation(true);
-		player.destination = destinationWithStation;
-		player.getPlayerAction(Board.ActionName.SHUTTLEFLIGHT).executeAction();
-		assertEquals(destinationWithStation.getName(), playerData.location.getName());
+		this.initialPlayerLocationHasStation(true);
+		player.shuttleFlight(this.destinationWithStation);
+		assertEquals(this.destinationWithStation.data.getCityName(), playerData.location.data.getCityName());
 		assertEquals(3, playerData.action);
 	}
 
 	private void initialPlayerLocationHasStation(boolean hasStation) {
 		if (hasStation) {
-			playerData.location = locationWithStation;
+			playerData.location = this.locationWithStation;
 		} else {
-			playerData.location = locationNoStation;
+			playerData.location = this.locationNoStation;
 		}
 	}
 

@@ -16,11 +16,11 @@ public class Drive extends PlayerAction {
 		City destination = board.driveDestination;
 		if (board.dispatcherCase == 1) {
 			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
-			if (pawnData.location.neighbors.contains(destination)) {
+			if (pawnData.location.isNeighbor(destination)) {
 				moveTo(destination);
 				player.consumeAction();
 			}
-		} else if (player.playerData.location.neighbors.contains(destination)) {
+		} else if (player.playerData.location.isNeighbor(destination)) {
 			moveTo(destination);
 			player.consumeAction();
 		}

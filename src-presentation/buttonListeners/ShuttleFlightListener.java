@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 
 public class ShuttleFlightListener implements ActionListener {
 	private Board board;
 	private GameSetup gameSetup;
-	private GUI gui;
+	private GameGUI gui;
 	private JPanel panel;
 	
-	public ShuttleFlightListener(Board board, GUI gui, GameSetup gameSetup) {
+	public ShuttleFlightListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;

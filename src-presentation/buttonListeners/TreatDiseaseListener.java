@@ -13,17 +13,17 @@ import javax.swing.JPanel;
 
 import data.Board;
 import data.GameColor;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 
 public class TreatDiseaseListener implements ActionListener {
 
 	Board board;
 	private GameSetup gameSetup;
-	private GUI gui;
+	private GameGUI gui;
 	private JPanel panel;
 
-	public TreatDiseaseListener(Board board, GUI gui, GameSetup gameSetup) {
+	public TreatDiseaseListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;

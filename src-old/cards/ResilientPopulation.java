@@ -1,10 +1,14 @@
 package cards;
 
 import data.Board;
+import game.cards.CardEvent;
 
-public class ResilientPopulation implements EventCard {
+public class ResilientPopulation implements CardEvent {
+	/*
+	 * Remove 1 card from the infection discard pile
+	 */
 	Board board;
-	
+
 	public ResilientPopulation(Board gameBoard) {
 		board = gameBoard;
 	}

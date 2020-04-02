@@ -1,9 +1,13 @@
 package cards;
 
 import data.Board;
+import game.cards.CardEvent;
 import game.city.City;
 
-public class GovernmentGrant implements EventCard {
+public class GovernmentGrant implements CardEvent {
+	/*
+	 * Built a research station anywhere
+	 */
 	private Board board;
 
 	public GovernmentGrant(Board gameBoard) {

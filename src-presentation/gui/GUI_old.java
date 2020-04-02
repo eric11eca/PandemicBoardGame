@@ -1,11 +1,11 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,29 +20,40 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import buttonListeners.BuildResearchStationListener;
+import buttonListeners.CharterFlightListener;
 import buttonListeners.ContingencyPlannerListener;
+import buttonListeners.DirectFlightListener;
 import buttonListeners.DiscardCard;
+import buttonListeners.DiscoverCureListener;
 import buttonListeners.DispatcherListener;
+import buttonListeners.DriveListener;
 import buttonListeners.EventCardListener;
+import buttonListeners.ShareKnowledgeListener;
+import buttonListeners.ShuttleFlightListener;
+import buttonListeners.TreatDiseaseListener;
 import cards.PlayerCard;
 import data.Board;
-import data.GameColor;
 import data.Board.Roles;
+import data.GameColor;
+import game.city.City;
 import initialize.GameSetup;
+import render.RenderCity;
 
-public class GUI {
+public class GUI_old {
 	public ArrayList<JPanel> panels = new ArrayList<>();
 	public Board board;
 	public JPanel mainPanel;
 	public ArrayList<JLabel> hands = new ArrayList<>();
 
 	private JFrame frame;
+	JPanel buttonPanel;
 	private GameSetup gameSetup;
 	private DrawingBoard draw;
 	private JLabel label = new JLabel();
 	private Map<String, String> diseaseColors;
 
-	public GUI(GameSetup gameSetup) {
+	public GUI_old(GameSetup gameSetup) {
 		frame = new JFrame();
 		this.gameSetup = gameSetup;
 		frame.setSize(1900, 1900);
@@ -50,6 +61,77 @@ public class GUI {
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainPanel = new JPanel();
 		diseaseColors = new HashMap<>();
+
+	}
+
+	private void createButtons() {
+		JButton drive = new JButton(board.messages.getString("drive"));
+		DriveListener driveListener = new DriveListener(board, this, gameSetup);
+		drive.addActionListener(driveListener);
+
+		JButton flight = new JButton(board.messages.getString("directFlight"));
+		DirectFlightListener flightListener = new DirectFlightListener(board, this, gameSetup);
+		flight.addActionListener(flightListener);
+
+		JButton cFlight = new JButton(board.messages.getString("charterFlight"));
+		CharterFlightListener cFlightListener = new CharterFlightListener(board, this, gameSetup);
+		cFlight.addActionListener(cFlightListener);
+
+		JButton sFlight = new JButton(board.messages.getString("shuttleFlight"));
+		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board, this, gameSetup);
+		sFlight.addActionListener(sFlightListener);
+
+		JButton buildResearchStation = new JButton(board.messages.getString("buildResearchStation"));
+		BuildResearchStationListener buildResearchStationListener = new BuildResearchStationListener(board, this,
+				gameSetup);
+		buildResearchStation.addActionListener(buildResearchStationListener);
+
+		JButton treatDisease = new JButton(board.messages.getString("treatDisease"));
+		TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board, this, gameSetup);
+		treatDisease.addActionListener(treatDiseaseListener);
+
+		JButton shareKnowledge = new JButton(board.messages.getString("shareKnowledge"));
+		ShareKnowledgeListener shareKnowledgeListener = new ShareKnowledgeListener(board, this, gameSetup);
+		shareKnowledge.addActionListener(shareKnowledgeListener);
+
+		JButton discoverCure = new JButton(board.messages.getString("discover"));
+		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board, this, gameSetup);
+		discoverCure.addActionListener(discoverCureListener);
+
+		HashMap<String, JButton> buttons = new HashMap<>();
+		buttons.put("drive", drive);
+		buttons.put("flight", flight);
+		buttons.put("cFlight", cFlight);
+		buttons.put("sFlight", sFlight);
+		buttons.put("buildResearchStation", buildResearchStation);
+		buttons.put("treatDisease", treatDisease);
+		buttons.put("shareKnowledge", shareKnowledge);
+		buttons.put("discoverCure", discoverCure);
+
+		addButtonsToPanel(buttons);
+		setButtonPanel(buttonPanel);
+	}
+
+	private void addButtonsToPanel(HashMap<String, JButton> buttons) {
+		int x = 0;
+		buttonPanel.setLayout(null);
+		buttonPanel.setSize(800, 800);
+		buttonPanel.setPreferredSize(new Dimension(800, 800));
+		for (String i : buttons.keySet()) {
+
+			if (x < 4) {
+				buttons.get(i).setLocation(x * 180, 0);
+				buttons.get(i).setSize(150, 20);
+				buttonPanel.add(buttons.get(i));
+			} else {
+				buttons.get(i).setLocation(x * (180) - 720, 40);
+				buttons.get(i).setSize(150, 20);
+
+				buttonPanel.add(buttons.get(i));
+			}
+			x++;
+		}
+		buttonPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 	}
 
 	private void addColorStrings() {
@@ -59,8 +141,8 @@ public class GUI {
 		diseaseColors.put("YELLOW", board.messages.getString("yellowDiseas"));
 	}
 
-	private void setPanels(JLabel labelToSet) {
-		frame.add(labelToSet, BorderLayout.PAGE_END);
+	private void setPanels() {
+		frame.add(new DrawingBoard(board,?), BorderLayout.PAGE_END);
 		frame.add(mainPanel, BorderLayout.WEST);
 	}
 
@@ -186,10 +268,10 @@ public class GUI {
 		return eventCardsInHands;
 	}
 
-	private void loadBoardImage() {
+	private void loadBoardImage(Map<City, RenderCity> cityRenderers) {
 		try {
 
-			draw = new DrawingBoard(board, frame, label, Collections.emptyMap());// TODO fix
+			draw = new DrawingBoard(board, frame, label, cityRenderers);
 			draw.repaint();
 			setPanels(label);
 

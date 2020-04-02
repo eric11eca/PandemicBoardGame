@@ -1,12 +1,14 @@
 package gameAction;
 
+import java.util.List;
+
 import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
-import data.Board.ActionName;
+import data.GameColor;
 import game.cards.InfectionCardAction;
+import game.city.City;
 import player.Player;
-import playerAction.PlayerAction;
 
 public class GameAction {
 	Board board;
@@ -43,63 +45,65 @@ public class GameAction {
 		}
 	}
 
-	public void doAction(Board.ActionName actionName) {
+	public void shuttleFlight(String chosenCity) {
+		City shuttleDestination = board.cities.get(chosenCity);
+		board.currentPlayer.shuttleFlight(shuttleDestination);
+		doesChangeLocation = true;
+		checkSpeicialSkill();
+	}
+
+	public void directFlight(String cityCardName) {
 		Player player = board.currentPlayer;
-		boolean isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
-		doesChangeLocation = false;
-//<<<<<<< HEAD
-//		switch (actionName) {
-//		default:
-//			break;
-//		case DIRECTFLIGHT:
-//			String cardName = board.cityCardNameDirect;
-//			PlayerCard cityCard = player.playerData.hand.get(cardName);
-//			player.directFlight(cityCard);
-//			doesChangeLocation = true;
-//			break;
-//		case PLAYEVENTCARD:
-//			player.useEventCard(board.eventCardName);
-//			if (board.eventCardName.equals(board.messages.getString("Airlift"))) {
-//				doesChangeLocation = true;
-//			}
-//			break;
-//		case CUREDISEASE:
-//			player.discoverCure(board.cardsToCureDisease);
-//			break;
-//		case TREATDISEASE:
-//			player.treat(board.diseaseBeingTreated);
-//			break;
-//		case DRIVE:
-//			City driveDestination = board.driveDestination;
-//			doesChangeLocation = true;
-//			player.drive(driveDestination);
-//			break;
-//		case CHARTERFLIGHT:
-//			player.charterFlight();
-//			doesChangeLocation = true;
-//			break;
-//		case SHUTTLEFLIGHT:
-//			City shuttleDestination = board.cities.get(board.shuttleDestinationName);
-//			player.shuttleFlight(shuttleDestination);
-//			doesChangeLocation = true;
-//			break;
-//		case BUILDRESEARCH:
-//			player.buildStation();
-//			break;
-//		case SHAREKNOWLEDGE:
-//			player.shareKnowledge();
-//			break;
-//=======
+		PlayerCard cityCard = player.playerData.hand.get(cityCardName);
+		player.directFlight(cityCard);
+		doesChangeLocation = true;
+		checkSpeicialSkill();
+	}
 
-		PlayerAction action = player.getPlayerAction(actionName);
-		doesChangeLocation = action.executeAction();
-		if (actionName == ActionName.PLAYEVENTCARD) {
-			if (board.eventCardName.equals("Airlift")) {
-				doesChangeLocation = true;
-			}
-//>>>>>>> 5664e0cc0737506fad8e220a65645bf0015f32c2
+	public void drive(String chosenCity) {
+		City driveDestination = board.cities.get(chosenCity);
+		board.currentPlayer.drive(driveDestination);
+		doesChangeLocation = true;
+		checkSpeicialSkill();
+	}
+
+	public void charterFlight(String chosenCity) {
+		City charterDestination = board.cities.get(chosenCity);
+		board.currentPlayer.charterFlight(charterDestination);
+		doesChangeLocation = true;
+		checkSpeicialSkill();
+	}
+
+	public void playEventCard(String eventCardName) {
+		board.currentPlayer.useEventCard(eventCardName);
+		if (eventCardName.equals("Airlift")) {
+			doesChangeLocation = true;
 		}
+		checkSpeicialSkill();
+	}
 
+	public void cureDisease(List<PlayerCard> cardsToCureDisease) {
+		board.currentPlayer.discoverCure(cardsToCureDisease);
+		checkSpeicialSkill();
+	}
+
+	public void treatDisease(GameColor diseaseBeingTreated) {
+		board.currentPlayer.treat(diseaseBeingTreated);
+		checkSpeicialSkill();
+	}
+
+	public void buildResearchStation() {
+		board.currentPlayer.buildStation();
+		checkSpeicialSkill();
+	}
+
+	public void sharreKnowledge(Player playerToShare, PlayerCard cityToShare, boolean isGiving) {
+		board.currentPlayer.shareKnowledge(playerToShare, cityToShare, isGiving);
+		checkSpeicialSkill();
+	}
+
+	private void checkSpeicialSkill() {
+		boolean isMedic = (board.currentPlayer.playerData.role == Board.Roles.MEDIC);
 		if (isMedic && doesChangeLocation) {
 			board.currentPlayer.playerData.specialSkill.useSpecialSkill();
 		}

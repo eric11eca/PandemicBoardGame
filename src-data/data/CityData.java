@@ -7,11 +7,17 @@ public class CityData {
 	private String cityName;
 	private GameColor color;
 	private int population;
+	private boolean isStart;
 
-	public CityData(String cityName, GameColor color, int population) {
+	public CityData(String cityName, GameColor color, int population, boolean isStart) {
 		this.cityName = cityName;
 		this.color = color;
 		this.population = population;
+		this.isStart = isStart;
+	}
+
+	public boolean isStart() {
+		return isStart;
 	}
 
 	public String getCityName() {

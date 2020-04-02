@@ -26,7 +26,7 @@ public class TestPlayerBuildStation {
 		
 		EasyMock.replay(playerData.buildStationModel);
 		
-		player.getPlayerAction(Board.ActionName.BUILDSTATION).executeAction();
+		player.buildStation();
 		assertEquals(3, playerData.action);
 		
 		EasyMock.verify(playerData.buildStationModel);

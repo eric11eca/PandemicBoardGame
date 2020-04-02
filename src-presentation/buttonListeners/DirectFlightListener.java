@@ -10,16 +10,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import gui.GUI;
+import gui.GameGUI;
 import initialize.GameSetup;
 
 public class DirectFlightListener implements ActionListener {
 	private Board board;
 	private JPanel panel;
 	private GameSetup gameSetup;
-	private GUI gui;
+	private GameGUI gui;
 
-	public DirectFlightListener(Board board, GUI gui, GameSetup gameSetup) {
+	public DirectFlightListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
 		this.gameSetup = gameSetup;

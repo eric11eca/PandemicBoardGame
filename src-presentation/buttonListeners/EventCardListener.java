@@ -15,17 +15,17 @@ import javax.swing.JPanel;
 import cards.PlayerCard;
 import data.Board;
 import game.city.City;
-import gui.GUI;
+import gui.GameGUI;
 
 public class EventCardListener implements ActionListener {
 	JComboBox<String> cardList;
 
 	private Board board;
 	private JComboBox<String> eventCards;
-	private GUI gui;
+	private GameGUI gui;
 	private JPanel panel;
 
-	public EventCardListener(Board board, JComboBox<String> eventCards, GUI gui) {
+	public EventCardListener(Board board, JComboBox<String> eventCards, GameGUI gui) {
 		this.board = board;
 		this.eventCards = eventCards;
 		this.gui = gui;

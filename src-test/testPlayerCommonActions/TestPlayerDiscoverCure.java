@@ -11,10 +11,15 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
+<<<<<<< HEAD
 import data.GameColor;
 import game.Game;
 import helpers.TestAccess;
 import helpers.TestCityFactory;
+=======
+import data.CityData;
+import game.City;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 import player.DiscoverCureNormal;
 import player.Player;
 import player.PlayerData;
@@ -28,14 +33,17 @@ public class TestPlayerDiscoverCure {
 	PlayerCard redCity1, redCity2, redCity3, redCity4, redCity5;
 	ArrayList<PlayerCard> cards;
 
+<<<<<<< HEAD
 	TestCityFactory cityFactory = new TestCityFactory();
 	TestAccess access = new TestAccess();
 
+=======
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 	@Before
 	public void setup() {
 		board = new Board();
 		playerData = new PlayerData();
-
+		
 		redCityName1 = "redCity1";
 		redCityName2 = "redCity2";
 		redCityName3 = "redCity3";
@@ -66,33 +74,52 @@ public class TestPlayerDiscoverCure {
 		cards.add(redCity3);
 		cards.add(redCity4);
 		cards.add(redCity5);
-
+		
 		playerData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
-
+		
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
 		access.resetGame();
 		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 7);
 		// board.remainDiseaseCube.put("RED", 7);
 	}
-
+	
 	@Test
 	public void testEradicateDiseaseWhenDiscoverCure() {
+<<<<<<< HEAD
 		access.getGameCubeData().setDiseaseCubeCount(GameColor.RED, 24);
 		playerData.location = cityFactory.makeFakeCity();
 		playerData.location.buildResearchStation();
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+=======
+		board.remainDiseaseCube.put("RED", 24);
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
+		playerData.location.researchStation = true;
+		player.discoverCure(cards);
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 		assertTrue(board.curedDiseases.contains("RED"));
 		assertTrue(Game.getInstance().isDiseaseEradicated(GameColor.RED));// board.eradicatedColor.contains("RED"));
 	}
 
 	@Test
 	public void testPlayerdiscardCardWhenDiscoverCure() {
+<<<<<<< HEAD
 		playerData.location = cityFactory.makeFakeCity();
 		playerData.location.buildResearchStation();
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+=======
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
+		playerData.location.researchStation = true;
+		player.discoverCure(cards);
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 		assertTrue(board.curedDiseases.contains("RED"));
 		assertEquals(0, playerData.hand.size());
 		assertEquals(3, playerData.action);
@@ -100,31 +127,54 @@ public class TestPlayerDiscoverCure {
 
 	@Test(expected = RuntimeException.class)
 	public void testNotAtResearchStation() {
+<<<<<<< HEAD
 		playerData.location = cityFactory.makeFakeCity();
 		playerData.location.removeResearchStation();
 		player.cardsToCureDisease = cards;
 		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+=======
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
+		playerData.location.researchStation = false;
+		player.discoverCure(cards);
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 	}
 
 	@Test
 	public void testDiscoverDiscoveredCure() {
+<<<<<<< HEAD
 		playerData.location = cityFactory.makeFakeCity();
 		playerData.location.buildResearchStation();
+=======
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
+		playerData.location.researchStation = true;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 		board.curedDiseases.add("RED");
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 		assertEquals(5, playerData.hand.size());
 	}
-
-	@Test(expected = RuntimeException.class)
+	
+	@Test(expected= RuntimeException.class)
 	public void testWinGameAfterDiscoverAllCures() {
+<<<<<<< HEAD
 		playerData.location = cityFactory.makeFakeCity();
 		playerData.location.buildResearchStation();
+=======
+		String newyork = "NewYork";
+		CityData newyork_data = new CityData(newyork, null, 0);
+		City newyorkCity = new City(newyork_data, 0, 0);
+		playerData.location = newyorkCity;
+		playerData.location.researchStation = true;
+>>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 		board.curedDiseases.add("BLUE");
 		board.curedDiseases.add("BLACK");
 		board.curedDiseases.add("YELLOW");
-		player.cardsToCureDisease = cards;
-		player.getPlayerAction(Board.ActionName.CUREDISEASE).executeAction();
+		player.discoverCure(cards);
 		assertEquals(4, board.curedDiseases.size());
 	}
 }
