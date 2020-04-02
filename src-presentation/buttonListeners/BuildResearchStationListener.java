@@ -52,12 +52,12 @@ public class BuildResearchStationListener implements ActionListener {
 					});
 					panel = new JPanel();
 					panel.add(options);
-					gui.addPanel(panel, BorderLayout.CENTER);
+					// gui.addPanel(panel, BorderLayout.CENTER);
 
 				} else {
 					board.actionName = Board.ActionName.BUILDSTATION;
-					gameSetup.oneTurn();
-					gui.updateImage();
+					// gameSetup.oneTurn();
+					// gui.updateImage();
 				}
 			}
 		} else {
@@ -68,7 +68,7 @@ public class BuildResearchStationListener implements ActionListener {
 	protected void confirmCity(JComboBox<String> options) {
 		String chosenCity = (options.getSelectedItem().toString().split(board.messages.getString("lineConnector")))[0];
 		if (chosenCity.equals(board.messages.getString("cancel"))) {
-			gui.removePanel(panel);
+			// gui.removePanel(panel);
 			return;
 		}
 		int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("removeStationConfirmation"),
@@ -76,9 +76,9 @@ public class BuildResearchStationListener implements ActionListener {
 		if (choice == 0) {
 			board.stationToRemove = chosenCity;
 			board.actionName = Board.ActionName.BUILDSTATION;
-			gameSetup.oneTurn();
-			gui.removePanel(panel);
-			gui.updateImage();
+			// gameSetup.oneTurn();
+			// gui.removePanel(panel);
+			// gui.updateImage();
 		}
 
 	}

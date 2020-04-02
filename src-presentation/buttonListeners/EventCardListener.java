@@ -48,7 +48,7 @@ public class EventCardListener implements ActionListener {
 				} else {
 					performForecast(i);
 				}
-				gui.updateImage();
+				// gui.updateImage();
 				break;
 			}
 		}
@@ -72,8 +72,8 @@ public class EventCardListener implements ActionListener {
 					board.rearrangeInstruction = orderedCards;
 					// TODO broken
 					// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("Forecast"));
-					gui.removePanel(panel);
-					gui.updateImage();
+					// gui.removePanel(panel);
+					// gui.updateImage();
 				}
 			}
 		});
@@ -93,7 +93,7 @@ public class EventCardListener implements ActionListener {
 		panel = new JPanel();
 		panel.add(cardList);
 		panel.add(button);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 
@@ -113,14 +113,14 @@ public class EventCardListener implements ActionListener {
 				board.cityWithGrant = listOfCities.getSelectedItem().toString();
 				// TODO broken
 				// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("GovernmentGrant"));
-				gui.removePanel(panel);
-				gui.updateImage();
+				// gui.removePanel(panel);
+				// gui.updateImage();
 			}
 
 		});
 		panel = new JPanel();
 		panel.add(listOfCities);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
 	private void performResilientPopulation(int playerIndex) {
@@ -133,14 +133,14 @@ public class EventCardListener implements ActionListener {
 				board.cardRemovedByResilient = listOfInfections.getSelectedItem().toString();
 				// TODO broken
 				// board.currentPlayers.get(playerIndex).useEventCard(board.messages.getString("ResilientPopulation"));
-				gui.removePanel(panel);
-				gui.updateImage();
+				// gui.removePanel(panel);
+				// gui.updateImage();
 			}
 
 		});
 		panel = new JPanel();
 		panel.add(listOfInfections);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
 	private void performOneQuietNight(int playerIndex) {
@@ -171,15 +171,15 @@ public class EventCardListener implements ActionListener {
 				// TODO broken
 				// board.currentPlayers.get(playerIndex).getPlayerAction(Board.ActionName.PLAYEVENTCARD).executeAction();//
 				// .useEventCard(board.messages.getString("Airlift"));
-				gui.removePanel(panel);
-				gui.updateImage();
+				// gui.removePanel(panel);
+				// gui.updateImage();
 			}
 
 		});
 		panel = new JPanel();
 		panel.add(listOfPlayers);
 		panel.add(listOfCities);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 

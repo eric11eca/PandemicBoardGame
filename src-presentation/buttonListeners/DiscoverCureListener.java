@@ -36,7 +36,7 @@ public class DiscoverCureListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
-			System.out.println(board.messages.getString("discoverCure")); 
+			System.out.println(board.messages.getString("discoverCure"));
 			PlayerData playerData = board.currentPlayer.playerData;
 			Map<String, PlayerCard> playerHand = playerData.hand;
 			Set<String> handNames = playerHand.keySet();
@@ -52,11 +52,10 @@ public class DiscoverCureListener implements ActionListener {
 
 			panel = new JPanel();
 			for (int i = 0; i < cards.length; i++) {
-				String checkBox = MessageFormat.format("{0} {1} {2} {3}", 
-						cards[i], board.messages.getString("openParentheses"),
-						playerHand.get(cards[i]).color, 
+				String checkBox = MessageFormat.format("{0} {1} {2} {3}", cards[i],
+						board.messages.getString("openParentheses"), playerHand.get(cards[i]).color,
 						board.messages.getString("closeParentheses"));
-				
+
 				JCheckBox cardOption = new JCheckBox(checkBox);
 				cardOption.addItemListener(new ItemListener() {
 					@Override
@@ -73,7 +72,7 @@ public class DiscoverCureListener implements ActionListener {
 				panel.add(cardOption);
 			}
 
-			JButton confirm = new JButton(board.messages.getString("confirm")); 
+			JButton confirm = new JButton(board.messages.getString("confirm"));
 			confirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
 
@@ -89,7 +88,7 @@ public class DiscoverCureListener implements ActionListener {
 				}
 			});
 			panel.add(confirm);
-			gui.addPanel(panel, BorderLayout.CENTER);
+			// gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
 			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
@@ -109,13 +108,14 @@ public class DiscoverCureListener implements ActionListener {
 
 	protected void cureDisease() {
 		board.actionName = Board.ActionName.CUREDISEASE;
-		try {
-			gameSetup.oneTurn();
-		} catch (RuntimeException e) {
-			JOptionPane.showMessageDialog(null, board.messages.getString("cureErrorMessage")); 
-		}
+		// try {
+		// gameSetup.oneTurn();
+		// } catch (RuntimeException e) {
+		// JOptionPane.showMessageDialog(null,
+		// board.messages.getString("cureErrorMessage"));
+		// }
 
-		gui.removePanel(panel);
-		gui.updateImage();
+		// gui.removePanel(panel);
+		// gui.updateImage();
 	}
 }

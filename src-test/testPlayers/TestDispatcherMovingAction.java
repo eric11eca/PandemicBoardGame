@@ -9,12 +9,8 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-<<<<<<< HEAD
-import data.Board.ActionName;
 import game.city.City;
-=======
-import game.City;
->>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
+import helpers.TestAccess;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -30,6 +26,7 @@ public class TestDispatcherMovingAction {
 	City delhi;
 
 	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
 
 	@Before
 	public void setup() {
@@ -66,7 +63,7 @@ public class TestDispatcherMovingAction {
 	public void testDriveUsingOtherPlayer() {
 		board.dispatcherCase = 1;
 		City destination = board.cities.get("Milan");
-		scientistData.location.neighbors.add(destination);
+		access.getCityNeighborSet(scientistData.location).add(destination);
 		EasyMock.replay(scientist);
 		dispatcher.drive(destination);
 		assertEquals("Milan", scientistData.location.getName());

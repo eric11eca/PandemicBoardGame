@@ -18,7 +18,7 @@ public class ShuttleFlightListener implements ActionListener {
 	private GameSetup gameSetup;
 	private GameGUI gui;
 	private JPanel panel;
-	
+
 	public ShuttleFlightListener(Board board, GameGUI gui, GameSetup gameSetup) {
 		this.board = board;
 		this.gui = gui;
@@ -32,7 +32,7 @@ public class ShuttleFlightListener implements ActionListener {
 		for (String i : board.currentResearchStation.keySet()) {
 			cityOptions.add(i);
 		}
-		cityOptions.add(board.messages.getString("cancel")); 
+		cityOptions.add(board.messages.getString("cancel"));
 		String[] cityNames = cityOptions.toArray(new String[cityOptions.size()]);
 		String[] concatColorOptions = board.colorConcator.concatColor(cityNames, board.cities);
 		JComboBox<String> options = new JComboBox<String>(concatColorOptions);
@@ -43,27 +43,24 @@ public class ShuttleFlightListener implements ActionListener {
 		});
 		panel = new JPanel();
 		panel.add(options);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
-		String chosenCity = (options.getSelectedItem().toString()
-				.split(board.messages.getString("lineConnector")))[0]; 
-		if (chosenCity.equals(board.messages.getString("cancel"))) { 
-			gui.removePanel(panel);
+		String chosenCity = (options.getSelectedItem().toString().split(board.messages.getString("lineConnector")))[0];
+		if (chosenCity.equals(board.messages.getString("cancel"))) {
+			// gui.removePanel(panel);
 			return;
 		} else {
-			int choice = JOptionPane.showConfirmDialog(null, 
-					board.messages.getString("flyConfirmation"), 
-					board.messages.getString("flyConfirmation"), 
-					JOptionPane.YES_NO_OPTION);
+			int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("flyConfirmation"),
+					board.messages.getString("flyConfirmation"), JOptionPane.YES_NO_OPTION);
 			if (choice == 0) {
 				board.shuttleDestinationName = chosenCity;
 				board.actionName = Board.ActionName.SHUTTLEFLIGHT;
-				gameSetup.oneTurn();
-				gui.removePanel(panel);
-				gui.updateImage();
+				// gameSetup.oneTurn();
+				// gui.removePanel(panel);
+				// gui.updateImage();
 			} else {
 
 			}

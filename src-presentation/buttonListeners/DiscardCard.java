@@ -28,9 +28,9 @@ public class DiscardCard {
 	private int selected = 0;
 	private GameSetup gameSetup;
 
-	public DiscardCard(GameGUI gui, Board board, GameSetup gameSetup){
-		this.board=board;
-		this.gui=gui;
+	public DiscardCard(GameGUI gui, Board board, GameSetup gameSetup) {
+		this.board = board;
+		this.gui = gui;
 		this.gameSetup = gameSetup;
 	}
 
@@ -40,50 +40,51 @@ public class DiscardCard {
 		Map<String, PlayerCard> playerHand = board.currentPlayer.playerData.hand;
 		Set<String> handNames = playerHand.keySet();
 		List<String> cardTobeDiscard = new ArrayList<>();
-		
+
 		for (String name : handNames) {
 			JCheckBox cardOption = new JCheckBox(name);
 			cardOption.addItemListener(new ItemListener() {
-			    @Override
-			    public void itemStateChanged(ItemEvent e) {
-			        if(e.getStateChange() == ItemEvent.SELECTED) {
-			            cardOption.setSelected(true);
-			        } else {
-			            cardOption.setSelected(false);
-			        };
-			    }
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					if (e.getStateChange() == ItemEvent.SELECTED) {
+						cardOption.setSelected(true);
+					} else {
+						cardOption.setSelected(false);
+					}
+					;
+				}
 			});
 			options.add(cardOption);
 			panel.add(cardOption);
 		}
-		
-		JButton confirm = new JButton(board.messages.getString("confirm")); 
+
+		JButton confirm = new JButton(board.messages.getString("confirm"));
 		confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				for(int i = 0;i<options.size();i++){
-					if(options.get(i).isSelected()){
+				for (int i = 0; i < options.size(); i++) {
+					if (options.get(i).isSelected()) {
 						selected++;
 						cardTobeDiscard.add(options.get(i).getText());
 					}
 				}
-				if(options.size()-selected!=7){
-					int numberToDiscard = options.size()-7;
-					String discardErrorMessage = MessageFormat.
-							format(board.messages.getString("discardErrorMessage"), numberToDiscard);
-					JOptionPane.showMessageDialog(null, discardErrorMessage); 
+				if (options.size() - selected != 7) {
+					int numberToDiscard = options.size() - 7;
+					String discardErrorMessage = MessageFormat.format(board.messages.getString("discardErrorMessage"),
+							numberToDiscard);
+					JOptionPane.showMessageDialog(null, discardErrorMessage);
 					cardTobeDiscard.clear();
 					selected = 0;
 				} else {
 					board.cardToBeDiscard = cardTobeDiscard;
 					board.currentPlayer.discardCard();
-					gui.removePanel(panel);
-					gui.updateImage();
+					// gui.removePanel(panel);
+					// gui.updateImage();
 					gameSetup.changePlayer();
 				}
 			}
 		});
-		
+
 		panel.add(confirm);
-		gui.addPanel(panel, BorderLayout.CENTER);		
+		// gui.addPanel(panel, BorderLayout.CENTER);
 	}
 }

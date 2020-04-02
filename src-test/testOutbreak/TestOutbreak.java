@@ -36,8 +36,9 @@ public class TestOutbreak {
 		city2 = cityFactory.makeFakeCity("NewYork", GameColor.BLACK);
 		city3 = cityFactory.makeFakeCity("London", GameColor.BLUE);
 		city4 = cityFactory.makeFakeCity("Austin", GameColor.BLACK);
-		city.neighbors.add(city1);
-		city.neighbors.add(city2);
+
+		access.getCityNeighborSet(city).add(city1);
+		access.getCityNeighborSet(city).add(city2);
 		board.cities.put(city.getName(), city);
 		board.cities.put(city1.getName(), city1);
 		board.cities.put(city2.getName(), city2);
@@ -103,8 +104,8 @@ public class TestOutbreak {
 	public void testChainReaction() {
 		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 2);
 		access.getCityDisease(city2).setDiseaseCubeCount(GameColor.RED, 3);
-		city1.neighbors.add(city3);
-		city2.neighbors.add(city4);
+		access.getCityNeighborSet(city1).add(city3);
+		access.getCityNeighborSet(city2).add(city4);
 
 		access.setGameOutbreakMark(1);
 		access.outbreak(city, city.getColor());
@@ -123,7 +124,7 @@ public class TestOutbreak {
 
 	@Test
 	public void testChainReactionWithCityAlreadyInOutbreak() {
-		city.neighbors.add(city3);
+		access.getCityNeighborSet(city).add(city3);
 		HashSet<City> inOutBreak = new HashSet<>();
 		inOutBreak.add(city3);
 		// city3.isInOutbreak = true;
@@ -139,7 +140,7 @@ public class TestOutbreak {
 	@Test
 	public void testPerformeOutbreakWithChainReaction() {
 		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 3);
-		city1.neighbors.add(city3);
+		access.getCityNeighborSet(city1).add(city3);
 		access.outbreak(city, city.getColor());
 		// assertTrue(city.isInOutbreak);
 		// assertTrue(city1.isInOutbreak);
@@ -170,7 +171,7 @@ public class TestOutbreak {
 		access.setGameOutbreakMark(6);
 //		board.outbreakMark = 6;
 		access.getCityDisease(city1).setDiseaseCubeCount(GameColor.RED, 3);
-		city1.neighbors.add(city3);
+		access.getCityNeighborSet(city1).add(city3);
 		access.outbreak(city, city.getColor());
 		assertTrue(Game.getInstance().isLost());
 	}

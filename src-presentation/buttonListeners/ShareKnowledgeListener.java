@@ -64,7 +64,7 @@ public class ShareKnowledgeListener implements ActionListener {
 						player.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent evt) {
 								setPlayernumber(Integer.parseInt(player.getText()));
-								gui.removePanel(panel);
+								// gui.removePanel(panel);
 								panel = new JPanel();
 								chooseCard();
 							}
@@ -74,7 +74,7 @@ public class ShareKnowledgeListener implements ActionListener {
 
 				}
 			}
-			gui.addPanel(panel, BorderLayout.CENTER);
+			// gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
 			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
@@ -109,7 +109,7 @@ public class ShareKnowledgeListener implements ActionListener {
 			String[] concatColorOptions = board.colorConcator.concatColor(options, board.cities);
 			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
 			panel.add(list);
-			gui.addPanel(panel, BorderLayout.CENTER);
+			// gui.addPanel(panel, BorderLayout.CENTER);
 			list.addActionListener(new ActionListener() {
 
 				@Override
@@ -120,9 +120,9 @@ public class ShareKnowledgeListener implements ActionListener {
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
 					board.cityToShare = board.currentPlayer.playerData.hand.get(card);
-					gameSetup.oneTurn();
-					gui.removePanel(panel);
-					gui.updateImage();
+					// gameSetup.oneTurn();
+					// gui.removePanel(panel);
+					// gui.updateImage();
 				}
 
 			});
@@ -153,7 +153,7 @@ public class ShareKnowledgeListener implements ActionListener {
 			String[] concatColorOptions = board.colorConcator.concatColor(options, board.cities);
 			JComboBox<String> list = new JComboBox<String>(concatColorOptions);
 			panel.add(list);
-			gui.addPanel(panel, BorderLayout.CENTER);
+			// gui.addPanel(panel, BorderLayout.CENTER);
 			list.addActionListener(new ActionListener() {
 
 				@Override
@@ -164,9 +164,9 @@ public class ShareKnowledgeListener implements ActionListener {
 					board.playerToShare = board.currentPlayers.get(playerNumber);
 					board.isGiving = action;
 					board.cityToShare = board.currentPlayers.get(playerNumber).playerData.hand.get(card);
-					gameSetup.oneTurn();
-					gui.removePanel(panel);
-					gui.updateImage();
+					// gameSetup.oneTurn();
+					// gui.removePanel(panel);
+					// gui.updateImage();
 				}
 
 			});

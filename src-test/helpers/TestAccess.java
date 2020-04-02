@@ -9,46 +9,23 @@ import data.GameColor;
 import game.Game;
 import game.city.City;
 import game.city.CubeData;
+import render.RenderCity;
 
 public class TestAccess {
 	public CubeData getCityDisease(City c) {
-		try {
-			Field f = City.class.getDeclaredField("disease");
-			f.setAccessible(true);
-			return (CubeData) f.get(c);
-		} catch (Throwable t) {
-			throw new RuntimeException(t);
-		}
+		return (CubeData) accessField(City.class, c, "disease", CubeData.class);
 	}
 
 	public void resetGame() {
-		try {
-			Field f = Game.class.getDeclaredField("instance");
-			f.setAccessible(true);
-			f.set(null, null);
-		} catch (Throwable t) {
-			throw new RuntimeException(t);
-		}
+		Game.reset();
 	}
 
 	public CubeData getGameCubeData() {
-		try {
-			Field f = Game.class.getDeclaredField("diseaseCubes");
-			f.setAccessible(true);
-			return (CubeData) f.get(Game.getInstance());
-		} catch (Throwable t) {
-			throw new RuntimeException(t);
-		}
+		return (CubeData) accessField(Game.class, Game.getInstance(), "diseaseCubes", CubeData.class);
 	}
 
 	public int getGameOutbreakMark() {
-		try {
-			Field f = Game.class.getDeclaredField("outbreakMark");
-			f.setAccessible(true);
-			return (int) f.get(Game.getInstance());
-		} catch (Throwable t) {
-			throw new RuntimeException(t);
-		}
+		return Game.getInstance().getOutbreakMark();
 	}
 
 	public void setGameOutbreakMark(int mark) {
@@ -70,6 +47,21 @@ public class TestAccess {
 			Method m = City.class.getDeclaredMethod("outbreak", GameColor.class, Set.class);
 			m.setAccessible(true);
 			m.invoke(city, color, inOutBreak);
+		} catch (Throwable t) {
+			throw new RuntimeException(t);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public Set<City> getCityNeighborSet(City c) {
+		return (Set<City>) accessField(City.class, c, "neighbors", Set.class);
+	}
+
+	public <T, R> R accessField(Class<T> clazz, T instance, String field, Class<R> returnType) {
+		try {
+			Field f = clazz.getDeclaredField(field);
+			f.setAccessible(true);
+			return returnType.cast(f.get(instance));
 		} catch (Throwable t) {
 			throw new RuntimeException(t);
 		}

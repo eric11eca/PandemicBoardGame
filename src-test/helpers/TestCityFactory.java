@@ -1,5 +1,7 @@
 package helpers;
 
+import java.util.HashSet;
+
 import data.CityData;
 import data.GameColor;
 import game.city.City;
@@ -22,6 +24,6 @@ public class TestCityFactory {
 	}
 
 	public City makeFakeCity(String name, GameColor color, int population) {
-		return new City(new CityData(name, color, population));
+		return new City(new CityData(name, color, population, false), new HashSet<>());
 	}
 }

@@ -32,12 +32,11 @@ public class ContingencyPlannerListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (board.currentPlayer.playerData.specialEventCard == null) {
-					JOptionPane.showMessageDialog(null,
-							board.messages.getString("Contingency"));
+					JOptionPane.showMessageDialog(null, board.messages.getString("Contingency"));
 				} else {
 					board.currentPlayer.playerData.specialEventCard = cardList.getSelectedItem().toString();
-					gui.removePanel(panel);
-					gui.updateImage();
+					// gui.removePanel(panel);
+					// gui.updateImage();
 				}
 			}
 
@@ -45,7 +44,7 @@ public class ContingencyPlannerListener implements ActionListener {
 
 		panel = new JPanel();
 		panel.add(cardList);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 
 	}
 

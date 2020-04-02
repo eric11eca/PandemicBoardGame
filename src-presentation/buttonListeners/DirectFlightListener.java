@@ -49,13 +49,13 @@ public class DirectFlightListener implements ActionListener {
 		});
 		panel = new JPanel();
 		panel.add(options);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 	}
 
 	protected void confirmCity(JComboBox<String> options) {
 		String chosenCity = (options.getSelectedItem().toString().split(board.messages.getString("lineConnector")))[0];
 		if (chosenCity.equals(board.messages.getString("cancel"))) {
-			gui.removePanel(panel);
+			// gui.removePanel(panel);
 			return;
 		}
 		int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("flyConfirmation"),
@@ -63,9 +63,9 @@ public class DirectFlightListener implements ActionListener {
 		if (choice == 0) {
 			board.cityCardNameDirect = chosenCity;
 			board.actionName = Board.ActionName.DIRECTFLIGHT;
-			gameSetup.oneTurn();
-			gui.removePanel(panel);
-			gui.updateImage();
+			// gameSetup.oneTurn();
+			// gui.removePanel(panel);
+			// gui.updateImage();
 		}
 	}
 }

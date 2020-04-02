@@ -48,7 +48,7 @@ public class TreatDiseaseListener implements ActionListener {
 			});
 			panel = new JPanel();
 			panel.add(options);
-			gui.addPanel(panel, BorderLayout.CENTER);
+			// gui.addPanel(panel, BorderLayout.CENTER);
 		} else {
 			JOptionPane.showMessageDialog(null, board.messages.getString("dispatcherErrorMessage"));
 		}
@@ -58,7 +58,7 @@ public class TreatDiseaseListener implements ActionListener {
 	protected void confirmRemoveDisease(JComboBox<String> options) {
 		String chosenCity = options.getSelectedItem().toString();
 		if (chosenCity.equals(board.messages.getString("cancel"))) {
-			gui.removePanel(panel);
+			// gui.removePanel(panel);
 			return;
 		}
 		int choice = JOptionPane.showConfirmDialog(null, board.messages.getString("treatConfirmation"),
@@ -66,9 +66,9 @@ public class TreatDiseaseListener implements ActionListener {
 		if (choice == 0) {
 			board.diseaseBeingTreated = chosenCity;
 			board.actionName = Board.ActionName.TREATDISEASE;
-			gameSetup.oneTurn();
-			gui.removePanel(panel);
-			gui.updateImage();
+			// gameSetup.oneTurn();
+			// gui.removePanel(panel);
+			// gui.updateImage();
 		} else {
 
 		}

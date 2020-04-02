@@ -1,4 +1,5 @@
 package testPlayerCommonActions;
+
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -8,6 +9,7 @@ import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import game.city.City;
+import helpers.TestAccess;
 import helpers.TestCityFactory;
 import player.Player;
 import player.PlayerData;
@@ -22,23 +24,24 @@ public class TestDrive {
 	City location, neighborCity, notNeighborCity;
 
 	TestCityFactory cityFactory = new TestCityFactory();
+	TestAccess access = new TestAccess();
 
 	@Before
 	public void setup() {
 		board = new Board();
 		playerData = new PlayerData();
-		
+
 		location = cityFactory.makeFakeCity("Chicago");
 
 		neighborCity = cityFactory.makeFakeCity("Atlanta");
 
-		location.neighbors.add(neighborCity);
+		access.getCityNeighborSet(location).add(neighborCity);
 
 		notNeighborCity = cityFactory.makeFakeCity("Shanghai");
 
 		playerData.location = location;
 		playerData.action = 4;
-		
+
 		eventCardAction = new EventCardAction(board);
 		player = new Player(board, playerData);
 	}

@@ -35,6 +35,6 @@ public class CityChooser {
 	}
 
 	private UserResponseAdapter letUserChoose(JComboBox<City> chooser) {
-		return gui.displayOption(dialogTitle, chooser);
+		return null;// gui.displayOption(dialogTitle, chooser);
 	}
 }

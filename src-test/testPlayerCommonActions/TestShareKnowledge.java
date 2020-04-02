@@ -10,13 +10,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-<<<<<<< HEAD
 import game.city.City;
 import helpers.TestCityFactory;
-=======
-import data.CityData;
-import game.City;
->>>>>>> 363c96c06ae2c3172da91a173d6066e085d666a4
 import player.Player;
 import player.PlayerData;
 
@@ -40,6 +35,8 @@ public class TestShareKnowledge {
 
 	EventCardAction eventCardAction;
 
+	TestCityFactory cityFactory = new TestCityFactory();
+
 	@Before
 	public void setup() {
 		board = new Board();
@@ -51,9 +48,8 @@ public class TestShareKnowledge {
 
 		newyork = "NewYork";
 		newyorkCitycard = new PlayerCard(Board.CardType.CITYCARD, newyork);
-		CityData newyork_data = new CityData(newyork, null, 0);
-		City newyorkCity = new City(newyork_data, 0, 0);
-		
+		City newyorkCity = cityFactory.makeFakeCity(newyork);
+
 		playerData1.location = newyorkCity;
 		playerData2.location = newyorkCity;
 		researcherData.location = newyorkCity;
@@ -101,14 +97,13 @@ public class TestShareKnowledge {
 	@Test
 	public void testShareKnowledgePlayer1ReceiveFromAResearcher() {
 		String chicago = "Chicago";
-		CityData chicago_data = new CityData(chicago, null, 0);
-		City chicagoCity = new City(chicago_data, 0, 0);
-		
+		City chicagoCity = cityFactory.makeFakeCity(chicago);
+
 		researcher.playerData.location = chicagoCity;
 		player1.playerData.location = chicagoCity;
 		researcher.receiveCard(newyorkCitycard);
 		player1.shareKnowledge(researcher, newyorkCitycard, false);
-		
+
 		assertTrue(player1.playerData.hand.containsKey(newyork));
 		assertFalse(researcher.playerData.hand.containsKey(newyork));
 	}

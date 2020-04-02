@@ -26,7 +26,7 @@ public class DriveListener implements ActionListener {
 		// TODO move to domain layer
 		/* ====Under Construction=== */
 		HashSet<City> cities = new HashSet<>();
-		cities.addAll(board.currentPlayer.playerData.location.neighbors);
+		// cities.addAll(board.currentPlayer.playerData.location.neighbors);
 		/* ====Under Construction=== */
 
 		CityChooser cityChooser = new CityChooser(cities, gui, board.messages.getString("Drive"));
@@ -36,8 +36,8 @@ public class DriveListener implements ActionListener {
 	private void cityChosen(City chosenCity) {
 		board.driveDestination = chosenCity;
 		board.actionName = Board.ActionName.DRIVE;
-		gameSetup.oneTurn();
-		gui.updateImage();
+		// gameSetup.oneTurn();
+		// gui.updateImage();
 	}
 
 }

@@ -71,7 +71,7 @@ public class InitializeGame {
 	}
 
 	public void choosePlayers(JPanel panelToRemove) {
-		gui.removePanel(panelToRemove);
+		// gui.removePanel(panelToRemove);
 		JPanel pnl = new JPanel();
 		JButton btn2p = new JButton(board.messages.getString("2Players"));
 		JButton btn3p = new JButton(board.messages.getString("3Players"));
@@ -86,13 +86,13 @@ public class InitializeGame {
 		btn3p.addActionListener(action2);
 		btn4p.addActionListener(action3);
 		buttonPanel = new JPanel();
-		gui.addPanel(pnl);
+		// gui.addPanel(pnl);
 	}
 
 	public void SetPlayers(int playernum, JPanel panelToClose) {
 		players = playernum;
 		board.playernumber = playernum;
-		gui.removePanel(panelToClose);
+		// gui.removePanel(panelToClose);
 		Difficulty();
 	}
 
@@ -110,15 +110,15 @@ public class InitializeGame {
 		btn2p.addActionListener(action1);
 		btn3p.addActionListener(action2);
 		btn4p.addActionListener(action3);
-		gui.addPanel(pnl);
+		// gui.addPanel(pnl);
 
 	}
 
 	public void SetDifficulty(int epidemics, JPanel panelToClose) {
 		epidemicNumber = epidemics;
 		board.epidemicCardNum = epidemics;
-		gui.removePanel(panelToClose);
-		createButtons();
+		// gui.removePanel(panelToClose);
+		// createButtons();
 		setup.startGameSetup();
 	}
 
@@ -127,8 +127,8 @@ public class InitializeGame {
 	}
 
 	private void StartGame() {
-		gui.board = board;
-		gui.loadInitialGame();
+		// gui.board = board;
+		// gui.loadInitialGame();
 	}
 
 }

@@ -25,7 +25,8 @@ public class CharterFlightListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (!board.currentPlayer.canCharterFlight()) {
-			gui.displayMessage(board.messages.getString("noValidCard"), board.messages.getString("noCurrentCityCard"));
+			// gui.displayMessage(board.messages.getString("noValidCard"),
+			// board.messages.getString("noCurrentCityCard"));
 			return;
 		}
 
@@ -44,8 +45,8 @@ public class CharterFlightListener implements ActionListener {
 	private void cityChosen(City chosenCity) {
 		board.cityCardNameCharter = chosenCity;
 		board.actionName = Board.ActionName.CHARTERFLIGHT;
-		gameSetup.oneTurn();
-		gui.updateImage();
+		// gameSetup.oneTurn();
+		// gui.updateImage();
 	}
 
 }

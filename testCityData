@@ -1,4 +1,4 @@
-SanFrancisco,BLUE,884363,67,157,Chicago
-Chicago,BLUE,2716000,200,121,SanFransisco,LosAngeles,MexicoCity,Atlanta,Montreal
-Montreal,BLUE,1705000,306,119,NewYork,Chicago
-NewYork,BLUE,8623000,385,130,Montreal,Washington,London,Madrid
+SanFrancisco,BLUE,884363,67,157,,Chicago
+Chicago,BLUE,2716000,200,121,,SanFrancisco,Montreal
+Montreal,BLUE,1705000,306,119,,NewYork,Chicago
+NewYork,BLUE,8623000,385,130,,Montreal

@@ -64,52 +64,51 @@ public class GUI_old {
 
 	}
 
-	private void createButtons() {
-		JButton drive = new JButton(board.messages.getString("drive"));
-		DriveListener driveListener = new DriveListener(board, this, gameSetup);
-		drive.addActionListener(driveListener);
-
-		JButton flight = new JButton(board.messages.getString("directFlight"));
-		DirectFlightListener flightListener = new DirectFlightListener(board, this, gameSetup);
-		flight.addActionListener(flightListener);
-
-		JButton cFlight = new JButton(board.messages.getString("charterFlight"));
-		CharterFlightListener cFlightListener = new CharterFlightListener(board, this, gameSetup);
-		cFlight.addActionListener(cFlightListener);
-
-		JButton sFlight = new JButton(board.messages.getString("shuttleFlight"));
-		ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board, this, gameSetup);
-		sFlight.addActionListener(sFlightListener);
-
-		JButton buildResearchStation = new JButton(board.messages.getString("buildResearchStation"));
-		BuildResearchStationListener buildResearchStationListener = new BuildResearchStationListener(board, this,
-				gameSetup);
-		buildResearchStation.addActionListener(buildResearchStationListener);
-
-		JButton treatDisease = new JButton(board.messages.getString("treatDisease"));
-		TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board, this, gameSetup);
-		treatDisease.addActionListener(treatDiseaseListener);
-
-		JButton shareKnowledge = new JButton(board.messages.getString("shareKnowledge"));
-		ShareKnowledgeListener shareKnowledgeListener = new ShareKnowledgeListener(board, this, gameSetup);
-		shareKnowledge.addActionListener(shareKnowledgeListener);
-
-		JButton discoverCure = new JButton(board.messages.getString("discover"));
-		DiscoverCureListener discoverCureListener = new DiscoverCureListener(board, this, gameSetup);
-		discoverCure.addActionListener(discoverCureListener);
-
-		HashMap<String, JButton> buttons = new HashMap<>();
-		buttons.put("drive", drive);
-		buttons.put("flight", flight);
-		buttons.put("cFlight", cFlight);
-		buttons.put("sFlight", sFlight);
-		buttons.put("buildResearchStation", buildResearchStation);
-		buttons.put("treatDisease", treatDisease);
-		buttons.put("shareKnowledge", shareKnowledge);
-		buttons.put("discoverCure", discoverCure);
-
-		addButtonsToPanel(buttons);
-		setButtonPanel(buttonPanel);
+	private void createButtons() {/*
+									 * JButton drive = new JButton(board.messages.getString("drive")); DriveListener
+									 * driveListener = new DriveListener(board, this, gameSetup);
+									 * drive.addActionListener(driveListener);
+									 * 
+									 * JButton flight = new JButton(board.messages.getString("directFlight"));
+									 * DirectFlightListener flightListener = new DirectFlightListener(board, this,
+									 * gameSetup); flight.addActionListener(flightListener);
+									 * 
+									 * JButton cFlight = new JButton(board.messages.getString("charterFlight"));
+									 * CharterFlightListener cFlightListener = new CharterFlightListener(board,
+									 * this, gameSetup); cFlight.addActionListener(cFlightListener);
+									 * 
+									 * JButton sFlight = new JButton(board.messages.getString("shuttleFlight"));
+									 * ShuttleFlightListener sFlightListener = new ShuttleFlightListener(board,
+									 * this, gameSetup); sFlight.addActionListener(sFlightListener);
+									 * 
+									 * JButton buildResearchStation = new
+									 * JButton(board.messages.getString("buildResearchStation"));
+									 * BuildResearchStationListener buildResearchStationListener = new
+									 * BuildResearchStationListener(board, this, gameSetup);
+									 * buildResearchStation.addActionListener(buildResearchStationListener);
+									 * 
+									 * JButton treatDisease = new JButton(board.messages.getString("treatDisease"));
+									 * TreatDiseaseListener treatDiseaseListener = new TreatDiseaseListener(board,
+									 * this, gameSetup); treatDisease.addActionListener(treatDiseaseListener);
+									 * 
+									 * JButton shareKnowledge = new
+									 * JButton(board.messages.getString("shareKnowledge")); ShareKnowledgeListener
+									 * shareKnowledgeListener = new ShareKnowledgeListener(board, this, gameSetup);
+									 * shareKnowledge.addActionListener(shareKnowledgeListener);
+									 * 
+									 * JButton discoverCure = new JButton(board.messages.getString("discover"));
+									 * DiscoverCureListener discoverCureListener = new DiscoverCureListener(board,
+									 * this, gameSetup); discoverCure.addActionListener(discoverCureListener);
+									 * 
+									 * HashMap<String, JButton> buttons = new HashMap<>(); buttons.put("drive",
+									 * drive); buttons.put("flight", flight); buttons.put("cFlight", cFlight);
+									 * buttons.put("sFlight", sFlight); buttons.put("buildResearchStation",
+									 * buildResearchStation); buttons.put("treatDisease", treatDisease);
+									 * buttons.put("shareKnowledge", shareKnowledge); buttons.put("discoverCure",
+									 * discoverCure);
+									 * 
+									 * addButtonsToPanel(buttons); setButtonPanel(buttonPanel);
+									 */
 	}
 
 	private void addButtonsToPanel(HashMap<String, JButton> buttons) {
@@ -142,7 +141,7 @@ public class GUI_old {
 	}
 
 	private void setPanels() {
-		frame.add(new DrawingBoard(board,?), BorderLayout.PAGE_END);
+		// frame.add(new DrawingBoard(board,?), BorderLayout.PAGE_END);
 		frame.add(mainPanel, BorderLayout.WEST);
 	}
 
@@ -153,7 +152,7 @@ public class GUI_old {
 	public void addPanel(JPanel panel, String east) {
 		frame.add(panel, east);
 		panel.setVisible(true);
-		loadBoardImage();
+		// loadBoardImage();
 	}
 
 	public void removePanel(JPanel panel) {
@@ -162,7 +161,7 @@ public class GUI_old {
 	}
 
 	public void loadInitialGame() {
-		loadBoardImage();
+		// loadBoardImage();
 		updateAndDrawBoardInfo();
 	}
 
@@ -217,7 +216,8 @@ public class GUI_old {
 		panel.add(eventCards);
 
 		JButton eventButton = new JButton(board.messages.getString("playEventCard"));
-		eventButton.addActionListener(new EventCardListener(board, eventCards, this));
+		// eventButton.addActionListener(new EventCardListener(board, eventCards,
+		// this));
 		eventButton.setLocation(300, (x + 1) * 25);
 		eventButton.setSize(150, 20);
 		panel.add(eventButton);
@@ -226,10 +226,11 @@ public class GUI_old {
 		specialSkillButton.setLocation(475, (x + 2) * 25);
 		specialSkillButton.setSize(150, 20);
 		if (board.currentPlayer.playerData.role == Roles.DISPATCHER) {
-			specialSkillButton.addActionListener(new DispatcherListener(board, this));
+			// specialSkillButton.addActionListener(new DispatcherListener(board, this));
 			panel.add(specialSkillButton);
 		} else if (board.currentPlayer.playerData.role == Roles.CONTINGENCYPLANNER) {
-			specialSkillButton.addActionListener(new ContingencyPlannerListener(board, this));
+			// specialSkillButton.addActionListener(new ContingencyPlannerListener(board,
+			// this));
 			panel.add(specialSkillButton);
 		}
 
@@ -269,21 +270,23 @@ public class GUI_old {
 	}
 
 	private void loadBoardImage(Map<City, RenderCity> cityRenderers) {
-		try {
+		// try {
 
-			draw = new DrawingBoard(board, frame, label, cityRenderers);
-			draw.repaint();
-			setPanels(label);
+		// draw = new DrawingBoard(board, frame, label, cityRenderers);
+		// draw.repaint();
+		// setPanels(label);
 
-		} catch (IOException e) {
-			String errorMessage = MessageFormat.format(board.messages.getString("fileNotFound"), e.getMessage());
-			System.out.println(errorMessage);
-		}
+		// } catch (IOException e) {
+		// String errorMessage =
+		// MessageFormat.format(board.messages.getString("fileNotFound"),
+		// e.getMessage());
+		// System.out.println(errorMessage);
+		// }
 
 	}
 
 	public void updateImage() {
-		loadBoardImage();
+		// loadBoardImage();
 		for (JPanel panel : panels) {
 			removePanel(panel);
 		}
@@ -300,8 +303,8 @@ public class GUI_old {
 
 	public void showPlayerHand() {
 //		System.out.println(board.currentPlayerIndex);
-		DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
-		pickCardsToBeDiscard.pickCardsPrompt();
+		// DiscardCard pickCardsToBeDiscard = new DiscardCard(this, board, gameSetup);
+		// pickCardsToBeDiscard.pickCardsPrompt();
 	}
 
 	public void displayMessage(String title, String content) {

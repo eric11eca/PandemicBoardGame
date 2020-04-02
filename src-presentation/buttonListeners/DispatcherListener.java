@@ -28,12 +28,12 @@ public class DispatcherListener implements ActionListener {
 		panel = new JPanel();
 		panel.add(moveToCity);
 		panel.add(moveAsSelf);
-		gui.addPanel(panel, BorderLayout.CENTER);
+		// gui.addPanel(panel, BorderLayout.CENTER);
 
 		moveToCity.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				gui.removePanel(panel);
+				// gui.removePanel(panel);
 				String[] players = new String[board.currentPlayers.size() - 1];
 				int count = 0;
 				for (int i = 0; i < board.currentPlayers.size(); i++) {
@@ -45,13 +45,13 @@ public class DispatcherListener implements ActionListener {
 				JComboBox<String> listOfPlayers = new JComboBox<String>(players);
 				panel = new JPanel();
 				panel.add(listOfPlayers);
-				gui.addPanel(panel, BorderLayout.CENTER);
+				// gui.addPanel(panel, BorderLayout.CENTER);
 
 				listOfPlayers.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						int playerNumber = Integer.parseInt(listOfPlayers.getSelectedItem().toString());
-						gui.removePanel(panel);
+						// gui.removePanel(panel);
 						String[] cities = new String[board.currentPlayers.size() - 1];
 						int count = 0;
 						for (int i = 0; i < board.currentPlayers.size(); i++) {
@@ -63,15 +63,15 @@ public class DispatcherListener implements ActionListener {
 						JComboBox<String> listOfCities = new JComboBox<String>(cities);
 						panel = new JPanel();
 						panel.add(listOfCities);
-						gui.addPanel(panel, BorderLayout.CENTER);
+						// gui.addPanel(panel, BorderLayout.CENTER);
 
 						listOfCities.addActionListener(new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								board.pawnTobeMoved = playerNumber;
 								board.newLocationName = listOfCities.getSelectedItem().toString();
-								gui.removePanel(panel);
-								gui.updateImage();
+								// gui.removePanel(panel);
+								// gui.updateImage();
 							}
 						});
 					}
@@ -82,7 +82,7 @@ public class DispatcherListener implements ActionListener {
 		moveAsSelf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				gui.removePanel(panel);
+				// gui.removePanel(panel);
 				String[] players = new String[board.currentPlayers.size() - 1];
 				int count = 0;
 				for (int i = 0; i < board.currentPlayers.size(); i++) {
@@ -94,15 +94,15 @@ public class DispatcherListener implements ActionListener {
 				JComboBox<String> list = new JComboBox<String>(players);
 				panel = new JPanel();
 				panel.add(list);
-				gui.addPanel(panel, BorderLayout.CENTER);
+				// gui.addPanel(panel, BorderLayout.CENTER);
 
 				list.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						board.pawnTobeMoved = Integer.parseInt(list.getSelectedItem().toString()) - 1;
 						board.dispatcherCase = 1;
-						gui.removePanel(panel);
-						gui.updateImage();
+						// gui.removePanel(panel);
+						// gui.updateImage();
 					}
 				});
 			}
