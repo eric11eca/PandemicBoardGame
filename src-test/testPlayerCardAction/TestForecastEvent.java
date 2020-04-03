@@ -6,18 +6,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.cards.event.ForecastEvent;
+import game.cards.event.EventForecast;
 import player.PlayerData;
 
 public class TestForecastEvent {
 	Board board;
-	ForecastEvent forecast;
+	EventForecast forecast;
 	PlayerData playerData;
 	
 	@Before 
 	public void setup() {
 		board = new Board();
-		forecast = new ForecastEvent(board);
+		forecast = new EventForecast(board);
 		setupBoard();
 	}
 	

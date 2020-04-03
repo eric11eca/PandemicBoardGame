@@ -3,13 +3,13 @@ package game.cards.event;
 import data.Board;
 import game.City;
 
-public class GovernmentGrant implements CardEvent {
+public class EventGovernmentGrant implements CardEvent {
 	/*
 	 * Built a research station anywhere
 	 */
 	private Board board;
 
-	public GovernmentGrant(Board gameBoard) {
+	public EventGovernmentGrant(Board gameBoard) {
 		board = gameBoard;
 	}
 

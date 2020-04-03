@@ -2,13 +2,13 @@ package game.cards.event;
 
 import data.Board;
 
-public class OneQuietNight implements CardEvent {
+public class EventOneQuietNight implements CardEvent {
 	/*
 	 * Skip next infection stage
 	 */
 	private Board board;
 
-	public OneQuietNight(Board gameBoard) {
+	public EventOneQuietNight(Board gameBoard) {
 		board = gameBoard;
 	}
 

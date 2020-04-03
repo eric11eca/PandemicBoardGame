@@ -6,16 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.cards.event.OneQuietNight;
+import game.cards.event.EventOneQuietNight;
 
 public class TestOneQueitNight {
 	Board board;
-	OneQuietNight night;
+	EventOneQuietNight night;
 	
 	@Before
 	public void setup() {
 		board = new Board();
-		night = new OneQuietNight(board);
+		night = new EventOneQuietNight(board);
 	}
 
 	@Test

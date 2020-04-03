@@ -2,13 +2,13 @@ package game.cards.event;
 
 import data.Board;
 
-public class ResilientPopulation implements CardEvent {
+public class EventResilientPopulation implements CardEvent {
 	/*
 	 * Remove 1 card from the infection discard pile
 	 */
 	Board board;
 
-	public ResilientPopulation(Board gameBoard) {
+	public EventResilientPopulation(Board gameBoard) {
 		board = gameBoard;
 	}
 

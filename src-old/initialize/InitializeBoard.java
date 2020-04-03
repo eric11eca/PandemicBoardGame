@@ -13,11 +13,11 @@ import data.CityData;
 import data.GameColor;
 import game.City;
 import game.Game;
-import game.cards.event.Airlift;
-import game.cards.event.ForecastEvent;
-import game.cards.event.GovernmentGrant;
-import game.cards.event.OneQuietNight;
-import game.cards.event.ResilientPopulation;
+import game.cards.event.EventAirlift;
+import game.cards.event.EventForecast;
+import game.cards.event.EventGovernmentGrant;
+import game.cards.event.EventOneQuietNight;
+import game.cards.event.EventResilientPopulation;
 import game.player.PlayerImpl;
 import parse.CityLoader;
 import player.DiscoverCureNormal;
@@ -106,15 +106,15 @@ public class InitializeBoard {
 	}
 
 	public void initializeEventCardAction() {
-		Airlift airlift = new Airlift(board);
+		EventAirlift airlift = new EventAirlift(board);
 		board.eventCards.put(board.messages.getString("Airlift"), airlift);
-		ForecastEvent forcast = new ForecastEvent(board);
+		EventForecast forcast = new EventForecast(board);
 		board.eventCards.put(board.messages.getString("Forecast"), forcast);
-		OneQuietNight oneQuiteNight = new OneQuietNight(board);
+		EventOneQuietNight oneQuiteNight = new EventOneQuietNight(board);
 		board.eventCards.put(board.messages.getString("OneQuietNight"), oneQuiteNight);
-		GovernmentGrant governmentGrant = new GovernmentGrant(board);
+		EventGovernmentGrant governmentGrant = new EventGovernmentGrant(board);
 		board.eventCards.put(board.messages.getString("GovernmentGrant"), governmentGrant);
-		ResilientPopulation resilientPopulation = new ResilientPopulation(board);
+		EventResilientPopulation resilientPopulation = new EventResilientPopulation(board);
 		board.eventCards.put(board.messages.getString("ResilientPopulation"), resilientPopulation);
 		EventCardAction eventCardAction = new EventCardAction(board);
 		board.eventCardAction = eventCardAction;

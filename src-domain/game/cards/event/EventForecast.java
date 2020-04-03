@@ -4,14 +4,14 @@ import java.util.List;
 
 import data.Board;
 
-public class ForecastEvent implements CardEvent {
+public class EventForecast implements CardEvent {
 	/*
 	 * Draw, look at and rearrange the top 6 infection cards, and put them back on
 	 * the top
 	 */
 	private Board board;
 
-	public ForecastEvent(Board gameBoard) {
+	public EventForecast(Board gameBoard) {
 		board = gameBoard;
 	}
 

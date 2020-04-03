@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
-import game.cards.event.ForecastEvent;
+import game.cards.event.EventForecast;
 
 public class TestEventCardAction {
 	EventCardAction eventCardAction;
@@ -27,7 +27,7 @@ public class TestEventCardAction {
 		board.eventCards = EasyMock.createMock(HashMap.class);
 		String forecast = "Forecast";
 		EasyMock.expect(board.eventCards.containsKey(forecast)).andReturn(true);
-		ForecastEvent forecastEvent = EasyMock.createMock(ForecastEvent.class);
+		EventForecast forecastEvent = EasyMock.createMock(EventForecast.class);
 		EasyMock.expect(board.eventCards.get(forecast)).andReturn(forecastEvent);
 		forecastEvent.executeEvent();
 		EasyMock.replay(board.eventCards, forecastEvent);
