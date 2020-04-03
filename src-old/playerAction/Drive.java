@@ -2,7 +2,7 @@ package playerAction;
 
 import data.Board;
 import game.City;
-import player.Player;
+import game.player.Player;
 import player.PlayerData;
 
 public class Drive extends PlayerAction {

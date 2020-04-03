@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cardActions.EventCardAction;
-import cards.ForecastEvent;
 import data.Board;
+import game.cards.event.ForecastEvent;
 
 public class TestEventCardAction {
 	EventCardAction eventCardAction;

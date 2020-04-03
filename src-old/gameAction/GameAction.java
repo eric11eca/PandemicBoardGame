@@ -2,13 +2,13 @@ package gameAction;
 
 import java.util.List;
 
-import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.GameColor;
 import game.City;
+import game.EpidemicCardAction;
 import game.cards.InfectionCardAction;
-import player.Player;
+import game.player.Player;
 
 public class GameAction {
 	Board board;

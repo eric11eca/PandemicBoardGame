@@ -2,7 +2,7 @@ package playerAction;
 
 import data.Board;
 import data.GameColor;
-import player.Player;
+import game.player.Player;
 
 public class TreatDisease extends PlayerAction {
 

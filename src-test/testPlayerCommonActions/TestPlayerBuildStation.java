@@ -7,7 +7,8 @@ import org.easymock.EasyMock;
 import org.junit.Test;
 
 import data.Board;
-import player.Player;
+import game.player.Player;
+import game.player.PlayerImpl;
 import player.PlayerData;
 import player.StationBuilderNormal;
 
@@ -20,7 +21,7 @@ public class TestPlayerBuildStation {
 		playerData.action = 4;
 		playerData.buildStationModel = EasyMock.createMock(StationBuilderNormal.class);
 
-		Player player = new Player(board, playerData);
+		Player player = new PlayerImpl(board, playerData);
 		
 		playerData.buildStationModel.buildStation();
 		

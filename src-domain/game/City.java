@@ -54,17 +54,21 @@ public class City {
 		this.researchStation = false;
 	}
 
-	public void epidemicInfect(GameColor diseaseColor, City quarantineSpecialistLocation) {
-		if (quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighbor(this)) {
+	public void epidemicInfect(City quarantineSpecialistLocation) {
+		if (isQuarantined(quarantineSpecialistLocation))
 			return;
-		}
-		boolean willOutbreak = disease.getDiseaseCubeCount(diseaseColor) > 0;
-		int addCubeCount = 3 - disease.getDiseaseCubeCount(diseaseColor);
-		disease.addDiseaseCube(diseaseColor, addCubeCount);
+
+		boolean willOutbreak = disease.getDiseaseCubeCount(getColor()) > 0;
+		int addCubeCount = 3 - disease.getDiseaseCubeCount(getColor());
+		disease.addDiseaseCube(getColor(), addCubeCount);
 
 		if (willOutbreak) {
-			this.outbreak(diseaseColor, quarantineSpecialistLocation, new HashSet<>(), 0);
+			this.outbreak(getColor(), quarantineSpecialistLocation, new HashSet<>(), 0);
 		}
+	}
+
+	private boolean isQuarantined(City quarantineSpecialistLocation) {
+		return quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighbor(this);
 	}
 
 //return how many outbreaks happened
@@ -74,9 +78,9 @@ public class City {
 
 	private int infectAndGetOutbreakCountHelper(GameColor diseaseColor, City quarantineSpecialistLocation,
 			Set<City> inOutBreak, int outbreakCount) {
-		if (quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighbor(this)) {
+		if (isQuarantined(quarantineSpecialistLocation))
 			return outbreakCount;
-		}
+
 		boolean willOutbreak = disease.getDiseaseCubeCount(diseaseColor) == 3;
 
 		if (willOutbreak) {
@@ -105,6 +109,10 @@ public class City {
 
 	public void eradicateDisease(GameColor color) {
 		disease.removeAllDiseaseCube(color);
+	}
+
+	public boolean hasDisease() {
+		return !disease.getExistingDiseases().isEmpty();
 	}
 
 	public boolean isNeighbor(City other) {

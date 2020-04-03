@@ -10,7 +10,8 @@ import org.junit.Test;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
-import player.Player;
+import game.player.Player;
+import game.player.PlayerImpl;
 import player.PlayerData;
 
 public class TestReceiveCard {
@@ -31,7 +32,7 @@ public class TestReceiveCard {
 			citycards.add(new PlayerCard(Board.CardType.CITYCARD, city));
 		}
 		eventCardAction = new EventCardAction(board);
-		player = new Player(board, playerData);
+		player = new PlayerImpl(board, playerData);
 	}
 
 	@Test

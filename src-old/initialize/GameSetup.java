@@ -11,8 +11,8 @@ import data.CityData;
 import data.GameColor;
 import game.City;
 import game.Game;
+import game.player.Player;
 import gameAction.GameAction;
-import player.Player;
 import render.RenderCity;
 
 public class GameSetup {

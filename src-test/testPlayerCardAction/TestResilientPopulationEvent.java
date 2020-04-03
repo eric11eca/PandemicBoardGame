@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import cards.ResilientPopulation;
 import data.Board;
+import game.cards.event.ResilientPopulation;
 
 public class TestResilientPopulationEvent {
 	Board board;

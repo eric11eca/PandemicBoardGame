@@ -1,8 +1,7 @@
-package cards;
+package game.cards.event;
 
 import data.Board;
-import game.cards.CardEvent;
-import player.Player;
+import game.player.Player;
 
 public class Airlift implements CardEvent {
 	/*

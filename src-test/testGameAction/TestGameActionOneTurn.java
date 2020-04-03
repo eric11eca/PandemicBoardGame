@@ -12,16 +12,16 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.GameColor;
 import game.City;
+import game.EpidemicCardAction;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;
+import game.player.PlayerImpl;
 import gameAction.GameAction;
 import initialize.Messages;
-import player.Player;
 import player.PlayerData;
 import test.util.TestAccess;
 import test.util.TestCityBuilder;
@@ -40,7 +40,7 @@ public class TestGameActionOneTurn {
 		action = new GameAction(board);
 		playerData = new PlayerData();
 
-		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer = EasyMock.createMock(PlayerImpl.class);
 		board.currentPlayer.playerData = playerData;
 		board.currentPlayer.playerData.role = Board.Roles.OPERATIONSEXPERT;
 
@@ -95,7 +95,7 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.validPlayerCards.get(0)).andReturn(chicago);
 		EasyMock.expect(board.validPlayerCards.remove(0)).andReturn(chicago);
 
-		board.currentPlayer = EasyMock.strictMock(Player.class);
+		board.currentPlayer = EasyMock.strictMock(PlayerImpl.class);
 		board.currentPlayer.receiveCard(newyork);
 		board.currentPlayer.receiveCard(chicago);
 		board.currentPlayer.playerData = new PlayerData();
@@ -123,7 +123,7 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.validPlayerCards.get(0)).andReturn(chicago);
 		EasyMock.expect(board.validPlayerCards.remove(0)).andReturn(chicago);
 
-		board.currentPlayer = EasyMock.strictMock(Player.class);
+		board.currentPlayer = EasyMock.strictMock(PlayerImpl.class);
 		board.currentPlayer.receiveCard(newyork);
 		board.currentPlayer.receiveCard(chicago);
 		board.currentPlayer.playerData = new PlayerData();
@@ -152,7 +152,7 @@ public class TestGameActionOneTurn {
 		EasyMock.expect(board.validPlayerCards.get(0)).andReturn(epidemicCard);
 		EasyMock.expect(board.validPlayerCards.remove(0)).andReturn(epidemicCard);
 
-		board.currentPlayer = EasyMock.createMock(Player.class);
+		board.currentPlayer = EasyMock.createMock(PlayerImpl.class);
 		board.currentPlayer.receiveCard(newyork);
 
 		EpidemicCardAction epidemic = EasyMock.createMock(EpidemicCardAction.class);

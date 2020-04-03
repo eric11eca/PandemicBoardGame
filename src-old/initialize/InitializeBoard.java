@@ -7,21 +7,21 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import cardActions.EventCardAction;
-import cards.Airlift;
-import cards.ForecastEvent;
-import cards.GovernmentGrant;
-import cards.OneQuietNight;
 import cards.PlayerCard;
-import cards.ResilientPopulation;
 import data.Board;
 import data.CityData;
 import data.GameColor;
 import game.City;
 import game.Game;
+import game.cards.event.Airlift;
+import game.cards.event.ForecastEvent;
+import game.cards.event.GovernmentGrant;
+import game.cards.event.OneQuietNight;
+import game.cards.event.ResilientPopulation;
+import game.player.PlayerImpl;
 import parse.CityLoader;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;
-import player.Player;
 import player.PlayerData;
 import player.StationBuilderNormal;
 import player.StationBuilderOperationsExpert;
@@ -165,13 +165,13 @@ public class InitializeBoard {
 		medicData.specialSkill = new MedicAction(board, medicData);
 		contingencyPlannerData.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
 
-		Player scientist = new Player(board, scientistData);
-		Player medic = new Player(board, medicData);
-		Player researcher = new Player(board, researcherData);
-		Player dispatcher = new Player(board, dispatcherData);
-		Player contingencyPlanner = new Player(board, contingencyPlannerData);
-		Player operationsExpert = new Player(board, operationsExpertData);
-		Player quarantineSpecialist = new Player(board, quarantineSpecialistData);
+		PlayerImpl scientist = new PlayerImpl(board, scientistData);
+		PlayerImpl medic = new PlayerImpl(board, medicData);
+		PlayerImpl researcher = new PlayerImpl(board, researcherData);
+		PlayerImpl dispatcher = new PlayerImpl(board, dispatcherData);
+		PlayerImpl contingencyPlanner = new PlayerImpl(board, contingencyPlannerData);
+		PlayerImpl operationsExpert = new PlayerImpl(board, operationsExpertData);
+		PlayerImpl quarantineSpecialist = new PlayerImpl(board, quarantineSpecialistData);
 
 		board.playerTable.put(Board.Roles.SCIENTIST, scientist);
 		board.playerTable.put(Board.Roles.MEDIC, medic);

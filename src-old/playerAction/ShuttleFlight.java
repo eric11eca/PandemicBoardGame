@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import player.Player;
+import game.player.Player;
 
 public class ShuttleFlight extends PlayerAction {
 

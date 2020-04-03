@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
-import player.Player;
+import game.player.PlayerImpl;
 import player.PlayerData;
 
 public class TestUseSpecialEventCard {
@@ -24,7 +24,7 @@ public class TestUseSpecialEventCard {
 		EasyMock.expect(board.eventCardAction.executeEventCard(airlift))
 			.andReturn(true);
 		board.idxofPlayerAirlift = 0;
-		Player contingencyPlanner = new Player(board, contingencyPlannerData);
+		PlayerImpl contingencyPlanner = new PlayerImpl(board, contingencyPlannerData);
 		board.currentPlayers.add(contingencyPlanner);
 		
 		EasyMock.replay(board.eventCardAction);

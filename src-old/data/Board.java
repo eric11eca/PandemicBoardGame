@@ -11,11 +11,12 @@ import java.util.Stack;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import game.City;
-import game.cards.CardEvent;
+import game.cards.event.CardEvent;
+import game.player.Player;
+import game.player.PlayerImpl;
 import initialize.Messages;
-import parse.ListOfCityWithColorGenerator;
-import player.Player;
 
+@Deprecated
 public class Board {
 	public Board() {
 	}
@@ -35,9 +36,8 @@ public class Board {
 
 	public Map<String, String> messagesToShow = new HashMap<>();
 
-	public Map<Board.Roles, Player> playerTable = new HashMap<>();
+	public Map<Board.Roles, PlayerImpl> playerTable = new HashMap<>();
 
-	public ListOfCityWithColorGenerator colorConcator = new ListOfCityWithColorGenerator();
 	@Deprecated // Refactor into method parameter
 	public ActionName actionName;
 	public int playernumber = 0;
@@ -93,7 +93,7 @@ public class Board {
 	public Set<String> curedDiseases = new HashSet<>();
 	public Map<String, City> cities = new HashMap<>();// TODO refactor as game data
 	public List<Board.Roles> roles = new ArrayList<>();// TODO refactor as game data
-	public List<Player> currentPlayers = new ArrayList<>();
+	public List<PlayerImpl> currentPlayers = new ArrayList<>();
 	public List<PlayerCard> validPlayerCards = new ArrayList<>();
 	public List<String> validInfectionCards = new ArrayList<>();
 	public List<String> discardInfectionCards = new ArrayList<>();

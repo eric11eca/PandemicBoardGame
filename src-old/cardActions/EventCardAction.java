@@ -1,7 +1,7 @@
 package cardActions;
 
 import data.Board;
-import game.cards.CardEvent;
+import game.cards.event.CardEvent;
 
 public class EventCardAction {
 	Board board;

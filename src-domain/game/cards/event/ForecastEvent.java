@@ -1,9 +1,8 @@
-package cards;
+package game.cards.event;
 
 import java.util.List;
 
 import data.Board;
-import game.cards.CardEvent;
 
 public class ForecastEvent implements CardEvent {
 	/*

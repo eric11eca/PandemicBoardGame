@@ -1,7 +1,6 @@
-package cards;
+package game.cards.event;
 
 import data.Board;
-import game.cards.CardEvent;
 
 public class OneQuietNight implements CardEvent {
 	/*

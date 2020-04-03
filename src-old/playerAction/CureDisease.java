@@ -2,7 +2,7 @@ package playerAction;
 
 import cards.PlayerCard;
 import data.Board;
-import player.Player;
+import game.player.Player;
 
 public class CureDisease extends PlayerAction {
 

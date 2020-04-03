@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import cards.ForecastEvent;
 import data.Board;
+import game.cards.event.ForecastEvent;
 import player.PlayerData;
 
 public class TestForecastEvent {

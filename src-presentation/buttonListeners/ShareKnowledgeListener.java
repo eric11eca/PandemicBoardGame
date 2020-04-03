@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
+import game.player.PlayerImpl;
 import gui.GameGUI;
 import initialize.GameSetup;
-import player.Player;
 
 public class ShareKnowledgeListener implements ActionListener {
 	Board board;
@@ -33,7 +33,7 @@ public class ShareKnowledgeListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (board.dispatcherCase == -1) {
 			String currentCity = board.currentPlayer.playerData.location.getName();
-			ArrayList<Player> players = new ArrayList<>();
+			ArrayList<PlayerImpl> players = new ArrayList<>();
 			int count = 0;
 			for (int i = 0; i < board.currentPlayers.size(); i++) {
 				if (board.currentPlayers.get(i).playerData.location.getName().equals(currentCity)) {

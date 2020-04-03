@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import cards.OneQuietNight;
 import data.Board;
+import game.cards.event.OneQuietNight;
 
 public class TestOneQueitNight {
 	Board board;

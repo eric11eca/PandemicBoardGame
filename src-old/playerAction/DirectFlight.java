@@ -2,7 +2,7 @@ package playerAction;
 
 import data.Board;
 import game.City;
-import player.Player;
+import game.player.Player;
 
 public class DirectFlight extends PlayerAction{
 	public DirectFlight(Board board, Player player) {

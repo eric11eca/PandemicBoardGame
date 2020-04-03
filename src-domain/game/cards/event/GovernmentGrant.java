@@ -1,8 +1,7 @@
-package cards;
+package game.cards.event;
 
 import data.Board;
 import game.City;
-import game.cards.CardEvent;
 
 public class GovernmentGrant implements CardEvent {
 	/*
