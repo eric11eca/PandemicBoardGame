@@ -3,7 +3,7 @@ package game.cards;
 import java.util.Optional;
 
 import game.City;
-import game.cards.event.CardEvent;
+import game.event.Event;
 import game.player.PlayerImpl;
 
 public interface Card {
@@ -11,5 +11,5 @@ public interface Card {
 
 	Optional<City> getCity();
 
-	Optional<CardEvent> getEvent();
+	Optional<Event> getEvent();
 }

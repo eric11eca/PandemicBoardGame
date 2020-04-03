@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.cards.event.EventOneQuietNight;
+import game.event.EventOneQuietNight;
 
 public class TestOneQueitNight {
 	Board board;

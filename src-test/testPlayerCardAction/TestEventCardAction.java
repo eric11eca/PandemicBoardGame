@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import cardActions.EventCardAction;
 import data.Board;
-import game.cards.event.EventForecast;
+import game.event.EventForecast;
 
 public class TestEventCardAction {
 	EventCardAction eventCardAction;

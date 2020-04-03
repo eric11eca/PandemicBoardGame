@@ -1,36 +1,39 @@
 package game.player;
 
 import java.util.List;
+import java.util.function.Consumer;
 
-import cards.PlayerCard;
-import data.GameColor;
 import game.City;
 import game.cards.Card;
-import game.cards.CardCity;
-import game.cards.event.CardEvent;
 
 public interface PlayerController {
 
-	void drive(CardCity card);
+	void drive();
 
-	void directFlight(CardCity card);
+	void directFlight();
 
-	void charterFlight(CardCity card);
+	void charterFlight();
 
-	void shuttleFlight(CardCity card);
+	void shuttleFlight();
 
-	void buildResearchStation(CardCity card);
+	void buildResearchStation();
 
-	void treatDisease(GameColor diseaseColor);
+	void treatDisease();
 
-	void giveKnowledge(Player otherPlayer, CardCity card);
+	void giveKnowledge();
 
-	void takeKnowledge(Player otherPlayer, CardCity card);
+	void takeKnowledge();
 
-	void discoverCure(List<CardCity> cards);
+	void discoverCure();
 
-	void useEventCard(Card card);
+	void useEventCard();
 
 	void useSpecialSkill();
+
+	void selectPlayerFrom(List<Player> players, Consumer<Player> callback);
+
+	void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback);
+
+	void selectCity(Consumer<City> callback);
 
 }

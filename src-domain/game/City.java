@@ -68,7 +68,7 @@ public class City {
 	}
 
 	private boolean isQuarantined(City quarantineSpecialistLocation) {
-		return quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighbor(this);
+		return quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighboring(this);
 	}
 
 //return how many outbreaks happened
@@ -115,7 +115,7 @@ public class City {
 		return !disease.getExistingDiseases().isEmpty();
 	}
 
-	public boolean isNeighbor(City other) {
+	public boolean isNeighboring(City other) {
 		return neighbors.contains(other);
 	}
 

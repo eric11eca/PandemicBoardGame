@@ -1,11 +1,11 @@
-package game.cards.event;
+package game.event;
 
 import java.util.Optional;
 
 import game.cards.CardCity;
 import game.cards.Deck;
 
-public abstract class EventResilientPopulation implements CardEvent {
+public abstract class EventResilientPopulation implements Event {
 	/*
 	 * Remove 1 card from the infection discard pile
 	 */

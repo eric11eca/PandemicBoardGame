@@ -3,8 +3,7 @@ package game.cards;
 import java.util.Optional;
 
 import game.City;
-import game.cards.event.CardEvent;
-import game.player.PlayerImpl;
+import game.event.Event;
 
 public class CardCity implements Card {
 	private City city;
@@ -15,8 +14,7 @@ public class CardCity implements Card {
 
 	@Override
 	public void addToHand(Deck<Card> hand) {
-		// TODO Auto-generated method stub
-
+		hand.putOnTop(this);
 	}
 
 	@Override
@@ -25,7 +23,7 @@ public class CardCity implements Card {
 	}
 
 	@Override
-	public Optional<CardEvent> getEvent() {
+	public Optional<Event> getEvent() {
 		return Optional.empty();
 	}
 

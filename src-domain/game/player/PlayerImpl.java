@@ -157,13 +157,10 @@ public abstract class PlayerImpl implements Player {
 //		receiver.receiveCard(citycard);
 //	}
 	/* Basic Actions */
-	@Override
-	public List<Card> getDriveCards() {
-		return hand.getFilteredSubDeck(this::canDriveUsingCard);
-	}
 
-	private boolean canDriveUsingCard(Card card) {
-		return card.getCity().filter(location::isNeighbor).isPresent();
+	@Override
+	public boolean canDriveTo(City destination) {
+		return location.isNeighboring(destination);
 	}
 
 	@Override
@@ -172,7 +169,7 @@ public abstract class PlayerImpl implements Player {
 	}
 
 	private boolean canDirectFlightUsingCard(Card card) {
-		return card.getCity().isPresent();
+		return card.getCity().filter(c -> !c.equals(location)).isPresent();
 	}
 
 	@Override

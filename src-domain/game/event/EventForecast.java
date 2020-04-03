@@ -1,4 +1,4 @@
-package game.cards.event;
+package game.event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import data.Board;
 import game.cards.CardCity;
 import game.cards.Deck;
 
-public abstract class EventForecast implements CardEvent {
+public abstract class EventForecast implements Event {
 	// TODO inject
 	private static final int FORECAST_CARD_NUMBER = 0;
 	/*

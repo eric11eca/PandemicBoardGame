@@ -11,7 +11,7 @@ import java.util.Stack;
 import cardActions.EventCardAction;
 import cards.PlayerCard;
 import game.City;
-import game.cards.event.CardEvent;
+import game.event.Event;
 import game.player.Player;
 import game.player.PlayerImpl;
 import initialize.Messages;
@@ -69,7 +69,7 @@ public class Board {
 	public Player playerToShare;
 	@Deprecated // Refactor as parameter
 	public PlayerCard cityToShare;
-	public Map<String, CardEvent> eventCards = new HashMap<>();
+	public Map<String, Event> eventCards = new HashMap<>();
 	@Deprecated // Refactor as parameter
 	public boolean isGiving;
 	@Deprecated // Refactor as parameter

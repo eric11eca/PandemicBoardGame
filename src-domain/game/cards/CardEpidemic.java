@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import game.City;
 import game.Epidemic;
-import game.cards.event.CardEvent;
+import game.event.Event;
 import game.player.PlayerImpl;
 
 public class CardEpidemic implements Card {
@@ -21,7 +21,7 @@ public class CardEpidemic implements Card {
 	}
 
 	@Override
-	public Optional<CardEvent> getEvent() {
+	public Optional<Event> getEvent() {
 		return Optional.empty();
 	}
 

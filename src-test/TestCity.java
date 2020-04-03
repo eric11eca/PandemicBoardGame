@@ -41,12 +41,12 @@ public class TestCity {
 		city2Neighbor.add(centerCity);
 		city3Neighbor.add(centerCity);
 
-		assertTrue(centerCity.isNeighbor(city1));
-		assertTrue(centerCity.isNeighbor(city2));
-		assertTrue(centerCity.isNeighbor(city3));
-		assertTrue(city1.isNeighbor(centerCity));
-		assertTrue(city2.isNeighbor(centerCity));
-		assertTrue(city3.isNeighbor(centerCity));
+		assertTrue(centerCity.isNeighboring(city1));
+		assertTrue(centerCity.isNeighboring(city2));
+		assertTrue(centerCity.isNeighboring(city3));
+		assertTrue(city1.isNeighboring(centerCity));
+		assertTrue(city2.isNeighboring(centerCity));
+		assertTrue(city3.isNeighboring(centerCity));
 	}
 
 	@Test

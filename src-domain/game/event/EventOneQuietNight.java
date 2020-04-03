@@ -1,8 +1,8 @@
-package game.cards.event;
+package game.event;
 
 import data.Board;
 
-public class EventOneQuietNight implements CardEvent {
+public class EventOneQuietNight implements Event {
 	/*
 	 * Skip next infection stage
 	 */

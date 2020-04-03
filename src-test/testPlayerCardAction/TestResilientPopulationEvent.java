@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.Board;
-import game.cards.event.EventResilientPopulation;
+import game.event.EventResilientPopulation;
 
 public class TestResilientPopulationEvent {
 	Board board;

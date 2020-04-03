@@ -16,7 +16,7 @@ public interface Player {
 	void moveTo(City destination);
 
 	/* Basic Actions */
-	List<Card> getDriveCards();
+	boolean canDriveTo(City destination);
 
 	List<Card> getDirectFlightCards();
 

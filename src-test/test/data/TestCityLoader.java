@@ -70,8 +70,8 @@ public class TestCityLoader {
 		Entry<City, RenderCity> next = iterator.next();
 		City expectChicago = next.getKey();
 		assertEquals(expectChicago, chicago);
-		assertTrue(expectChicago.isNeighbor(SF));
-		assertTrue(expectChicago.isNeighbor(montreal));
+		assertTrue(expectChicago.isNeighboring(SF));
+		assertTrue(expectChicago.isNeighboring(montreal));
 		RenderCity renderChicago = next.getValue();
 		assertEquals(200, access.accessField(RenderCity.class, renderChicago, "x", Integer.class).intValue());
 		assertEquals(121, access.accessField(RenderCity.class, renderChicago, "y", Integer.class).intValue());
@@ -80,8 +80,8 @@ public class TestCityLoader {
 		next = iterator.next();
 		City expectMontreal = next.getKey();
 		assertEquals(expectMontreal, montreal);
-		assertTrue(expectMontreal.isNeighbor(NY));
-		assertTrue(expectMontreal.isNeighbor(chicago));
+		assertTrue(expectMontreal.isNeighboring(NY));
+		assertTrue(expectMontreal.isNeighboring(chicago));
 		RenderCity renderMontreal = next.getValue();
 		assertEquals(306, access.accessField(RenderCity.class, renderMontreal, "x", Integer.class).intValue());
 		assertEquals(119, access.accessField(RenderCity.class, renderMontreal, "y", Integer.class).intValue());
@@ -90,7 +90,7 @@ public class TestCityLoader {
 		next = iterator.next();
 		City expectNY = next.getKey();
 		assertEquals(expectNY, NY);
-		assertTrue(expectNY.isNeighbor(montreal));
+		assertTrue(expectNY.isNeighboring(montreal));
 		RenderCity renderNY = next.getValue();
 		assertEquals(385, access.accessField(RenderCity.class, renderNY, "x", Integer.class).intValue());
 		assertEquals(130, access.accessField(RenderCity.class, renderNY, "y", Integer.class).intValue());
@@ -99,7 +99,7 @@ public class TestCityLoader {
 		next = iterator.next();
 		City expectSF = next.getKey();
 		assertEquals(expectSF, SF);
-		assertTrue(expectSF.isNeighbor(chicago));
+		assertTrue(expectSF.isNeighboring(chicago));
 		RenderCity renderSF = next.getValue();
 		assertEquals(67, access.accessField(RenderCity.class, renderSF, "x", Integer.class).intValue());
 		assertEquals(157, access.accessField(RenderCity.class, renderSF, "y", Integer.class).intValue());

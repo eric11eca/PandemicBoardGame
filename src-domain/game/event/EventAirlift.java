@@ -1,11 +1,11 @@
-package game.cards.event;
+package game.event;
 
 import java.util.Optional;
 
 import game.City;
 import game.player.Player;
 
-public abstract class EventAirlift implements CardEvent {
+public abstract class EventAirlift implements Event {
 	/*
 	 * Move any pawn to any city. Get permission before moving other player's pawn.
 	 */

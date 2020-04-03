@@ -1,10 +1,10 @@
-package game.cards.event;
+package game.event;
 
 import java.util.Optional;
 
 import game.City;
 
-public abstract class EventGovernmentGrant implements CardEvent {
+public abstract class EventGovernmentGrant implements Event {
 	/*
 	 * Built a research station anywhere
 	 */
