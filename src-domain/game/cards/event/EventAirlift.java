@@ -11,10 +11,10 @@ public abstract class EventAirlift implements CardEvent {
 	 */
 	@Override
 	public void executeEvent() {
-		selectPlayer().ifPresent(p -> selectCity().ifPresent(c -> p.moveTo(c)));
+		selectPlayer().ifPresent(p -> selectCity(p).ifPresent(c -> p.moveTo(c)));
 	}
 
 	protected abstract Optional<Player> selectPlayer();
 
-	protected abstract Optional<City> selectCity();
+	protected abstract Optional<City> selectCity(Player playerToMove);
 }

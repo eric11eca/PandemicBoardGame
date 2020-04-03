@@ -1,20 +1,20 @@
 package game.cards.event;
 
-import data.Board;
+import java.util.Optional;
 
-public class EventResilientPopulation implements CardEvent {
+import game.cards.CardCity;
+import game.cards.Deck;
+
+public abstract class EventResilientPopulation implements CardEvent {
 	/*
 	 * Remove 1 card from the infection discard pile
 	 */
-	Board board;
-
-	public EventResilientPopulation(Board gameBoard) {
-		board = gameBoard;
-	}
+	private Deck<CardCity> infectionDiscard;
 
 	@Override
 	public void executeEvent() {
-		String cardToBeRemoved = board.cardRemovedByResilient;
-		board.discardInfectionCards.remove(cardToBeRemoved);
+		selectCard(infectionDiscard).ifPresent(infectionDiscard::removeCard);
 	}
+
+	protected abstract Optional<CardCity> selectCard(Deck<CardCity> infectionDiscard);
 }

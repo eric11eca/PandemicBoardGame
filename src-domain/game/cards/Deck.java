@@ -69,4 +69,8 @@ public class Deck<C extends Card> {
 		return list.removeLast();
 	}
 
+	public C takeTopCard() {
+		return list.removeFirst();
+	}
+
 }
