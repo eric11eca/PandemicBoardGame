@@ -2,7 +2,7 @@ package player;
 
 import data.Board;
 import data.GameColor;
-import game.city.City;
+import game.City;
 
 public class TreatNormal implements Treat {
 	private Board board;

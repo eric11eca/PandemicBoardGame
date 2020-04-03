@@ -7,7 +7,7 @@ import java.util.Set;
 import cards.PlayerCard;
 import data.Board;
 import data.GameColor;
-import game.city.City;
+import game.City;
 import playerAction.PlayerAction;
 
 public class Player {

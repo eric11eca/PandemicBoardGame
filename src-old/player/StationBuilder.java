@@ -1,7 +1,7 @@
 package player;
 
 import data.Board;
-import game.city.City;
+import game.City;
 
 public class StationBuilder {
 	PlayerData playerData;

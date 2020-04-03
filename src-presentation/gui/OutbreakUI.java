@@ -11,11 +11,17 @@ import game.Game;
 
 @SuppressWarnings("serial")
 public class OutbreakUI extends JComponent {
+	private Game game;
+
+	public OutbreakUI(Game game) {
+		super();
+		this.game = game;
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int outbreakLevel = Game.getInstance().getOutbreakMark();
+		int outbreakLevel = game.getOutbreakLevel();
 		Graphics2D g2d = (Graphics2D) g.create();
 		paintText(g2d);
 		for (int i = 0; i <= 8; i++) {

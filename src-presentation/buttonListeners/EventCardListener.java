@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import cards.PlayerCard;
 import data.Board;
-import game.city.City;
+import game.City;
 import gui.GameGUI;
 
 public class EventCardListener implements ActionListener {

@@ -9,37 +9,49 @@ import java.util.Set;
 import org.junit.Test;
 
 import data.GameColor;
-import game.city.City;
-import game.city.CubeData;
-import helpers.TestAccess;
-import helpers.TestCityFactory;
+import game.City;
+import game.disease.CubeData;
+import test.util.TestAccess;
+import test.util.TestCityBuilder;
 
 public class TestCity {
-	TestCityFactory cityFactory = new TestCityFactory();
-	TestAccess access = new TestAccess();
 
 	@Test
 	public void testNeighbors() {
-		City city = cityFactory.makeFakeCity();
+		TestCityBuilder centerCityBuilder = new TestCityBuilder();
+		Set<City> centerNeighbor = centerCityBuilder.neighborSet();
+		City centerCity = centerCityBuilder.build();
 
-		City c1 = cityFactory.makeFakeCity("Atalanta");
-		City c2 = cityFactory.makeFakeCity("NewYork");
-		City c3 = cityFactory.makeFakeCity("Boston");
+		TestCityBuilder city1Builder = new TestCityBuilder();
+		Set<City> city1Neighbor = city1Builder.neighborSet();
+		City city1 = city1Builder.build();
 
-		access.getCityNeighborSet(city).add(c1);
-		access.getCityNeighborSet(city).add(c2);
-		access.getCityNeighborSet(city).add(c3);
+		TestCityBuilder city2Builder = new TestCityBuilder();
+		Set<City> city2Neighbor = city2Builder.neighborSet();
+		City city2 = city2Builder.build();
 
-		Set<String> neighborNames = new HashSet<>();
-		access.getCityNeighborSet(city).stream().map(c -> c.getName()).forEach(neighborNames::add);
-		assertTrue(neighborNames.contains("Atalanta"));
-		assertTrue(neighborNames.contains("NewYork"));
-		assertTrue(neighborNames.contains("Boston"));
+		TestCityBuilder city3Builder = new TestCityBuilder();
+		Set<City> city3Neighbor = city3Builder.neighborSet();
+		City city3 = city3Builder.build();
+
+		centerNeighbor.add(city1);
+		centerNeighbor.add(city2);
+		centerNeighbor.add(city3);
+		city1Neighbor.add(centerCity);
+		city2Neighbor.add(centerCity);
+		city3Neighbor.add(centerCity);
+
+		assertTrue(centerCity.isNeighbor(city1));
+		assertTrue(centerCity.isNeighbor(city2));
+		assertTrue(centerCity.isNeighbor(city3));
+		assertTrue(city1.isNeighbor(centerCity));
+		assertTrue(city2.isNeighbor(centerCity));
+		assertTrue(city3.isNeighbor(centerCity));
 	}
 
 	@Test
 	public void testResearchStations() {
-		City city = cityFactory.makeFakeCity();
+		City city = new TestCityBuilder().build();
 		city.buildResearchStation();
 		assertTrue(city.hasResearchStation());
 		city.removeResearchStation();
@@ -47,21 +59,8 @@ public class TestCity {
 	}
 
 	@Test
-	public void testDiseaseCubes() {
-		CubeData cityDisease = access.getCityDisease(cityFactory.makeFakeCity());
-		cityDisease.addDiseaseCube(GameColor.YELLOW);
-		cityDisease.addDiseaseCube(GameColor.YELLOW);
-		cityDisease.addDiseaseCube(GameColor.RED);
-		Set<GameColor> diseasesColors = cityDisease.getExistingDiseases();
-		assertTrue(diseasesColors.contains(GameColor.YELLOW));
-		assertEquals(1, cityDisease.getDiseaseCubeCount(GameColor.RED));
-		assertTrue(diseasesColors.contains(GameColor.RED));
-		assertEquals(2, cityDisease.getDiseaseCubeCount(GameColor.YELLOW));
-	}
-
-	@Test
 	public void testColor() {
-		City city = cityFactory.makeFakeCity("City", GameColor.RED);
+		City city = new TestCityBuilder().color(GameColor.RED).build();
 		assertEquals(GameColor.RED, city.getColor());
 	}
 }

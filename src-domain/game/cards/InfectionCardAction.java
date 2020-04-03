@@ -4,8 +4,8 @@ import java.text.MessageFormat;
 
 import data.Board;
 import data.GameColor;
+import game.City;
 import game.Game;
-import game.city.City;
 
 public class InfectionCardAction {
 	private Board board;

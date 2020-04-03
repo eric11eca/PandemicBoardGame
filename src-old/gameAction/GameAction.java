@@ -6,8 +6,8 @@ import cardActions.EpidemicCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.GameColor;
+import game.City;
 import game.cards.InfectionCardAction;
-import game.city.City;
 import player.Player;
 
 public class GameAction {

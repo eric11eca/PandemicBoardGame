@@ -4,17 +4,27 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Set;
 
 import javax.swing.JComponent;
 
 import data.GameColor;
 import game.Game;
+import game.disease.GameCubePool;
 import render.Render;
 import render.RenderColor;
 
 @SuppressWarnings("serial")
 public class DiseaseUI extends JComponent {
 	private final int CUBE_SIZE = 40;
+	private Set<GameColor> curedDisease;
+	private GameCubePool gameCubePool;
+
+	public DiseaseUI(Set<GameColor> curedDisease, GameCubePool gameCubePool) {
+		super();
+		this.curedDisease = curedDisease;
+		this.gameCubePool = gameCubePool;
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -36,8 +46,8 @@ public class DiseaseUI extends JComponent {
 
 	private void paintDisease(Graphics2D g2d, GameColor color, int x, int y) {
 
-		boolean cured = Game.getInstance().isDiseaseCured(color);
-		boolean eradicated = Game.getInstance().isDiseaseEradicated(color);
+		boolean cured = curedDisease.contains(color);
+		boolean eradicated = gameCubePool.isDiseaseEradicated(color);
 		if (cured || eradicated) {
 			RenderColor renderColor = new RenderColor(g2d);
 			renderColor.setRenderColor(color);

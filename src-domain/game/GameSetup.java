@@ -2,8 +2,6 @@ package game;
 
 import java.util.Set;
 
-import game.city.City;
-
 public class GameSetup {
 	private int playerCount;
 	private int epidemic;
@@ -17,16 +15,17 @@ public class GameSetup {
 	}
 
 	public void setup() {
-		Game.reset();
-		Game game = Game.getInstance();
-
-		game.initializeCities(cities);
-		game.initializeDiseaseCubes();
-		game.initializeDecksWithoutEpidemic();
-
-		findStartingCity();
-		startCity.buildResearchStation();
-		Game.getInstance().setInitialized();
+		// TODO move to initialization facade.
+//		Game.reset();
+//		Game game = Game.getInstance();
+//
+//		game.initializeCities(cities);
+//		game.initializeDiseaseCubes();
+//		game.initializeDecksWithoutEpidemic();
+//
+//		findStartingCity();
+//		startCity.buildResearchStation();
+//		Game.getInstance().setInitialized();
 	}
 
 	private void findStartingCity() {

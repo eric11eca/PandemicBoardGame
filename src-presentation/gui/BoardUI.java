@@ -12,20 +12,18 @@ import java.util.Map;
 import javax.swing.JComponent;
 
 import data.Board;
+import game.City;
 import game.Game;
-import game.city.City;
 import image.ImageLoader;
 import player.Player;
 import render.Render;
 import render.RenderCity;
 
 @SuppressWarnings("serial")
-public class DrawingBoard extends JComponent {
+public class BoardUI extends JComponent {
 	private Map<City, RenderCity> cityRenderers;
-	// private Board board;
 
-	public DrawingBoard(Map<City, RenderCity> cityRenderers) {
-		// this.board = board;
+	public BoardUI(Map<City, RenderCity> cityRenderers) {
 		this.cityRenderers = cityRenderers;
 	}
 
@@ -46,7 +44,7 @@ public class DrawingBoard extends JComponent {
 		// drawInfect(g2d, 7 - board.infectionRateTracker.size());
 		// }
 
-		drawOutBreaks(g2d, Game.getInstance().getOutbreakMark());
+		// drawOutBreaks(g2d, Game.getInstance().getOutbreakMark());
 
 		cityRenderers.values().forEach(r -> r.drawCity(render));
 

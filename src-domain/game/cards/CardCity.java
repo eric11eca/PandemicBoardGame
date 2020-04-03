@@ -1,6 +1,6 @@
 package game.cards;
 
-import game.city.City;
+import game.City;
 
 public class CardCity implements Card {
 	private City city;

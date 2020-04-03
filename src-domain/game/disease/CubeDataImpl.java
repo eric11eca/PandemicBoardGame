@@ -1,4 +1,4 @@
-package game.city;
+package game.disease;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -7,31 +7,31 @@ import java.util.Set;
 
 import data.GameColor;
 
-public class CubeData {
+public class CubeDataImpl implements CubeData {
 	private Map<GameColor, Integer> diseaseCubes;
 
-	public CubeData() {
+	public CubeDataImpl() {
 		this.diseaseCubes = new EnumMap<GameColor, Integer>(GameColor.class);
 	}
 
+	@Override
 	public int getDiseaseCubeCount(GameColor color) {
 		return diseaseCubes.getOrDefault(color, 0);
 	}
 
+	@Override
 	public boolean hasDiseaseCube(GameColor color) {
 		return getDiseaseCubeCount(color) > 0;
 	}
 
-	public void addDiseaseCube(GameColor color) {
-		addDiseaseCube(color, 1);
-	}
-
+	@Override
 	public void addDiseaseCube(GameColor color, int count) {
 		int i = diseaseCubes.getOrDefault(color, 0);
 		i += count;
 		diseaseCubes.put(color, i);
 	}
 
+	@Override
 	public void setDiseaseCubeCount(GameColor color, int count) {
 		if (count > 0)
 			diseaseCubes.put(color, count);
@@ -39,14 +39,12 @@ public class CubeData {
 			diseaseCubes.remove(color);
 	}
 
-	public void removeDiseaseCube(GameColor color) {
-		removeDiseaseCube(color, 1);
-	}
-
+	@Override
 	public void removeAllDiseaseCube(GameColor color) {
 		removeDiseaseCube(color, diseaseCubes.getOrDefault(color, 0));
 	}
 
+	@Override
 	public void removeDiseaseCube(GameColor color, int count) {
 		int i = diseaseCubes.getOrDefault(color, 0);
 		i -= count;
@@ -59,6 +57,7 @@ public class CubeData {
 		}
 	}
 
+	@Override
 	public Set<GameColor> getExistingDiseases() {
 		EnumSet<GameColor> set = EnumSet.noneOf(GameColor.class);
 		diseaseCubes.forEach((color, count) -> {

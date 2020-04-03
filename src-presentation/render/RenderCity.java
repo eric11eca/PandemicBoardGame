@@ -1,7 +1,7 @@
 package render;
 
 import data.GameColor;
-import game.city.City;
+import game.City;
 
 public class RenderCity {
 	private int x;

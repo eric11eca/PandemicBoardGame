@@ -10,8 +10,8 @@ import java.util.Stack;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
+import game.City;
 import game.cards.CardEvent;
-import game.city.City;
 import initialize.Messages;
 import parse.ListOfCityWithColorGenerator;
 import player.Player;

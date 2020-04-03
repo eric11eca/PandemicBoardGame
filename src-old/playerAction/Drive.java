@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import game.city.City;
+import game.City;
 import player.Player;
 import player.PlayerData;
 

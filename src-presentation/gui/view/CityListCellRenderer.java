@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import game.city.City;
+import game.City;
 
 public class CityListCellRenderer implements ListCellRenderer<City> {
 

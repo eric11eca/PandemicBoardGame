@@ -2,14 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import game.Game;
-import game.city.City;
-import render.RenderCity;
 
 public class GameGUI {
 	private JFrame frame;
@@ -23,16 +18,19 @@ public class GameGUI {
 	private EventUI eventUI;
 	private DeckUI deckUI;
 	private ActionUI actionUI;
-	private DrawingBoard boardUI;
+	private BoardUI boardUI;
 
-	private Map<City, RenderCity> cityRenderers;
+	public GameGUI(LogoUI logoUI, OutbreakUI outbreakUI, DiseaseUI diseaseUI, EventUI eventUI, DeckUI deckUI,
+			ActionUI actionUI, BoardUI boardUI) {
+		super();
+		this.logoUI = logoUI;
+		this.outbreakUI = outbreakUI;
+		this.diseaseUI = diseaseUI;
+		this.eventUI = eventUI;
+		this.deckUI = deckUI;
+		this.actionUI = actionUI;
+		this.boardUI = boardUI;
 
-	public GameGUI(Map<City, RenderCity> cityRenderers) {
-		if (!Game.getInstance().isInitialized()) {
-			throw new RuntimeException("Must Initialize Game First");
-		}
-
-		this.cityRenderers = cityRenderers;
 		loadFrame();
 		loadTopPanel();
 		loadMiddlePanel();
@@ -40,7 +38,6 @@ public class GameGUI {
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-
 	}
 
 	public void showGUI() {
@@ -59,11 +56,8 @@ public class GameGUI {
 		panelTop.setPreferredSize(new Dimension(1000, 120));
 		panelTop.setLayout(new BorderLayout());
 
-		logoUI = new LogoUI();
 		logoUI.setPreferredSize(new Dimension(200, 120));
-		outbreakUI = new OutbreakUI();
 		outbreakUI.setPreferredSize(new Dimension(500, 50));
-		diseaseUI = new DiseaseUI();
 		JPanel mid = new JPanel();
 		mid.setLayout(new BorderLayout());
 		mid.add(outbreakUI, BorderLayout.NORTH);
@@ -84,9 +78,8 @@ public class GameGUI {
 		panelBottom.setPreferredSize(new Dimension(1000, 120));
 		panelBottom.setLayout(new BorderLayout());
 
-		deckUI = new DeckUI();
 		deckUI.setPreferredSize(new Dimension(330, 120));
-		actionUI = new ActionUI();
+
 		panelBottom.add(deckUI, BorderLayout.WEST);
 		panelBottom.add(actionUI, BorderLayout.CENTER);
 		frame.add(panelBottom, BorderLayout.SOUTH);
@@ -98,7 +91,6 @@ public class GameGUI {
 		panelMiddle.setPreferredSize(new Dimension(1000, 700));
 		panelMiddle.setLayout(new BorderLayout());
 
-		boardUI = new DrawingBoard(cityRenderers);
 		panelMiddle.add(boardUI);
 		frame.add(panelMiddle, BorderLayout.CENTER);
 

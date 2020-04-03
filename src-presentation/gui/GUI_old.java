@@ -35,8 +35,8 @@ import buttonListeners.TreatDiseaseListener;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.Roles;
+import game.City;
 import data.GameColor;
-import game.city.City;
 import initialize.GameSetup;
 import render.RenderCity;
 
@@ -49,7 +49,7 @@ public class GUI_old {
 	private JFrame frame;
 	JPanel buttonPanel;
 	private GameSetup gameSetup;
-	private DrawingBoard draw;
+	private BoardUI draw;
 	private JLabel label = new JLabel();
 	private Map<String, String> diseaseColors;
 
