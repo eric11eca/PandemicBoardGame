@@ -9,7 +9,7 @@ import game.cards.Card;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionDiscoverCure extends PlayerAction {
+public class ActionDiscoverCure extends Action {
 
 	private int cardNeeded;
 	private Set<GameColor> curedDiseases;

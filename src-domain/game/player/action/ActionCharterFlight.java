@@ -9,7 +9,7 @@ import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionCharterFlight extends PlayerAction {
+public class ActionCharterFlight extends Action {
 	private CitySet cities;
 
 	public ActionCharterFlight(CitySet cities, Player player, PlayerInteraction interaction) {

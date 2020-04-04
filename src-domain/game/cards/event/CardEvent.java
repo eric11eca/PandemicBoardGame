@@ -1,5 +1,6 @@
 package game.cards.event;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import game.cards.Card;
@@ -23,6 +24,22 @@ public class CardEvent implements Card {
 	@Override
 	public Optional<Event> getEvent() {
 		return Optional.of(event);
+	}
+
+	@Override
+	public void discard(Deck<Card> discardPile) {
+		discardPile.putOnTop(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj != null && obj.getClass() == getClass()
+				&& Objects.equals(((CardEvent) obj).event.getClass(), event.getClass());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(event.getClass());
 	}
 
 }

@@ -1,10 +1,9 @@
 package game.player;
 
 import java.util.List;
+import java.util.function.Predicate;
 
-import data.GameColor;
 import game.cards.Card;
-import game.cards.Deck;
 import game.city.City;
 
 public abstract class AbstractPlayerDecorator implements Player {
@@ -15,59 +14,39 @@ public abstract class AbstractPlayerDecorator implements Player {
 		this.delegate = delegate;
 	}
 
+	@Override
 	public void receiveCard(List<Card> cards) {
 		delegate.receiveCard(cards);
 	}
 
-	public void removeCard(Card toDiscard) {
-		delegate.removeCard(toDiscard);
+	@Override
+	public void removeCard(Card toRemove) {
+		delegate.removeCard(toRemove);
 	}
 
-	public void moveTo(City destination) {
+	@Override
+	public void discardCard(Card toDiscard) {
+		delegate.discardCard(toDiscard);
+	}
+
+	@Override
+	public void setLocation(City destination) {
 		delegate.setLocation(destination);
 	}
 
-	public List<Card> getDriveCards() {
-		return delegate.getDriveCards();
+	@Override
+	public City getLocation() {
+		return delegate.getLocation();
 	}
 
-	public List<Card> getDirectFlightCards() {
-		return delegate.getDirectFlightCards();
+	@Override
+	public List<Card> getFilteredHand(Predicate<? super Card> filter) {
+		return delegate.getFilteredHand(filter);
 	}
 
-	public List<Card> getCharterFlightCards() {
-		return delegate.getCharterFlightCards();
+	@Override
+	public List<Card> getSharableKnowledgeCards(Player receiver) {
+		return delegate.getSharableKnowledgeCards(receiver);
 	}
 
-	public List<Card> getShuttleFlightCards() {
-		return delegate.getShuttleFlightCards();
-	}
-
-	public List<Card> getBuildResearchStationCards() {
-		return delegate.getBuildResearchStationCards();
-	}
-
-	public boolean canTreatDisease() {
-		return delegate.canTreatDisease();
-	}
-
-	public List<Card> getGiveKnowledgeCards() {
-		return delegate.getGiveKnowledgeCards();
-	}
-
-	public List<Card> getDiscoverCureCards(GameColor color) {
-		return delegate.getDiscoverCureCards(color);
-	}
-
-	public List<Card> getEventCards() {
-		return delegate.getEventCards();
-	}
-
-	public boolean canUseSpecialSkill() {
-		return delegate.canUseSpecialSkill();
-	}
-
-	public void discardOneCard(Deck<Card> hand) {
-		delegate.discardOneCard(hand);
-	}
 }

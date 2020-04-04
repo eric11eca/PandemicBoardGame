@@ -9,17 +9,17 @@ import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardActions.EventCardAction;
 import data.Board;
 import game.event.EventForecast;
+import game.player.action.ActionEventCard;
 
 public class TestEventCardAction {
-	EventCardAction eventCardAction;
+	ActionEventCard eventCardAction;
 	Board board;
 	@Before
 	public void setup() {
 		board = new Board();
-		eventCardAction = new EventCardAction(board);
+		eventCardAction = new ActionEventCard(board);
 	}
 	
 	@Test

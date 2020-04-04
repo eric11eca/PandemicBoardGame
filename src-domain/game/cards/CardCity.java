@@ -38,4 +38,9 @@ public class CardCity implements Card {
 		return Objects.hash(city);
 	}
 
+	@Override
+	public void discard(Deck<Card> discardPile) {
+		discardPile.putOnTop(this);
+	}
+
 }

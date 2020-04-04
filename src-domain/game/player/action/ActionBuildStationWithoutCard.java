@@ -3,7 +3,7 @@ package game.player.action;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionBuildStationWithoutCard extends PlayerAction {
+public class ActionBuildStationWithoutCard extends Action {
 
 	public ActionBuildStationWithoutCard(Player player, PlayerInteraction interaction) {
 		super(player, interaction);

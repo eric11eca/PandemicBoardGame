@@ -1,7 +1,10 @@
 package game.player;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import data.GameColor;
 import data.GameProperty;
@@ -23,7 +26,7 @@ public abstract class PlayerImpl implements PlayerController, Player {
 	}
 
 	@Override
-	public final void receiveCard(List<Card> cards) {
+	public void receiveCard(List<Card> cards) {
 		cards.forEach(card -> card.addToHand(hand));
 		if (hand.size() > HAND_LIMIT) {
 			discardHelper();
@@ -39,13 +42,13 @@ public abstract class PlayerImpl implements PlayerController, Player {
 	}
 
 	@Override
-	public final void removeCard(Card toRemove) {
+	public void removeCard(Card toRemove) {
 		if (!hand.removeCard(toRemove))
 			throw new RuntimeException("Discarding a card this player does not own!");
 	}
 
 	@Override
-	public final void discardCard(Card toDiscard) {
+	public void discardCard(Card toDiscard) {
 		removeCard(toDiscard);
 		toDiscard.discard(playerDiscard);
 	}
@@ -150,46 +153,21 @@ public abstract class PlayerImpl implements PlayerController, Player {
 
 	/* Other Actions */
 
-	public List<Card> getGiveKnowledgeCards() {
-		return hand.getFilteredSubDeck(this::canGiveKnowledgeUsingCard);
-	}
-
-	private boolean canGiveKnowledgeUsingCard(Card card) {
-		return isCardCurrentLocation(card);
-	}
-
 	/* Event Cards */
 	public List<Card> getEventCards() {
 		return hand.getFilteredSubDeck(card -> card.getEvent().isPresent());
 	}
 
 	@Override
-	public void giveKnowledge() {
-		// TODO Auto-generated method stub
-
+	public List<Card> getFilteredHand(Predicate<? super Card> filter) {
+		return hand.getFilteredSubDeck(filter);
 	}
 
 	@Override
-	public void takeKnowledge() {
-		// TODO Auto-generated method stub
-
+	public List<Card> getSharableKnowledgeCards(Player receiver) {
+		if (!receiver.getLocation().equals(getLocation()))
+			return Collections.emptyList();
+		return hand.getFilteredSubDeck(card -> card.getCity().filter(location::equals).isPresent());
 	}
 
-	@Override
-	public void discoverCure() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void useEventCard() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void useSpecialSkill() {
-		// TODO Auto-generated method stub
-
-	}
 }

@@ -6,7 +6,7 @@ import cards.PlayerCard;
 import data.Board;
 import data.GameColor;
 import game.EpidemicCardAction;
-import game.cards.InfectionCardAction;
+import game.InfectionCardAction;
 import game.city.City;
 import game.player.Player;
 

@@ -5,17 +5,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.action.ActionEventCard;
 import player.PlayerData;
 
 public class TestDiscardCard {
 	Board board;
 	Player player;
-	EventCardAction eventCardAction;
+	ActionEventCard eventCardAction;
 	PlayerData playerData;
 	
 	@Before
@@ -26,7 +26,7 @@ public class TestDiscardCard {
 		for (String city : cities) {
 			playerData.hand.put(city, new PlayerCard(Board.CardType.CITYCARD, city));
 		}
-		eventCardAction = new EventCardAction(board);
+		eventCardAction = new ActionEventCard(board);
 		player = new PlayerImpl(board, playerData);
 	}
 

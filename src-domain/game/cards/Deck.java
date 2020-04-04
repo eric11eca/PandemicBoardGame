@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Deck<C extends Card> {
 	private LinkedList<C> list;
@@ -56,10 +56,10 @@ public class Deck<C extends Card> {
 		list.forEach(action);
 	}
 
-	public List<C> getFilteredSubDeck(Function<? super C, Boolean> filter) {
+	public List<C> getFilteredSubDeck(Predicate<? super C> filter) {
 		List<C> list = new LinkedList<>();
 		list.forEach(c -> {
-			if (filter.apply(c))
+			if (filter.test(c))
 				list.add(c);
 		});
 		return list;

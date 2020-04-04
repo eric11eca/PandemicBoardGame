@@ -7,7 +7,7 @@ import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionBuildStation extends PlayerAction {
+public class ActionBuildStation extends Action {
 
 	public ActionBuildStation(Player player, PlayerInteraction interaction) {
 		super(player, interaction);

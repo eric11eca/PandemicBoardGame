@@ -30,4 +30,6 @@ public interface Player {
 
 	List<Card> getFilteredHand(Predicate<? super Card> filter);
 
+	List<Card> getSharableKnowledgeCards(Player receiver);
+
 }

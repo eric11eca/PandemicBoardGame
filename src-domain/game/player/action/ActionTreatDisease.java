@@ -6,7 +6,7 @@ import data.GameColor;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionTreatDisease extends PlayerAction {
+public class ActionTreatDisease extends Action {
 
 	private Set<GameColor> curedDiseases;
 

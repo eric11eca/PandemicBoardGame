@@ -5,7 +5,6 @@ import java.util.Optional;
 import game.Epidemic;
 import game.city.City;
 import game.event.Event;
-import game.player.PlayerImpl;
 
 public class CardEpidemic implements Card {
 	private Epidemic epidemic;
@@ -23,6 +22,11 @@ public class CardEpidemic implements Card {
 	@Override
 	public Optional<Event> getEvent() {
 		return Optional.empty();
+	}
+
+	@Override
+	public void discard(Deck<Card> discardPile) {
+		discardPile.putOnTop(this);
 	}
 
 }

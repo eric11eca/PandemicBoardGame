@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import data.Board;
 import data.CityData;
@@ -21,6 +20,8 @@ import game.event.EventResilientPopulation;
 import game.player.PlayerImpl;
 import game.player.action.StationBuilderNormal;
 import game.player.action.ActionTreatDiseaseMedic;
+import game.player.action.ActionSkillOperationExpert;
+import game.player.action.ActionEventCard;
 import game.player.action.TreatNormal;
 import game.player.action.ActionBuildStationWithoutCard;
 import parse.CityLoader;
@@ -29,7 +30,6 @@ import player.DiscoverCureScientist;
 import player.PlayerData;
 import playerAction.ContingencyPlannerAction;
 import playerAction.MedicAction;
-import playerAction.OperationsExpertAction;
 import render.RenderCity;
 
 public class InitializeBoard {
@@ -116,7 +116,7 @@ public class InitializeBoard {
 		board.eventCards.put(board.messages.getString("GovernmentGrant"), governmentGrant);
 		EventResilientPopulation resilientPopulation = new EventResilientPopulation(board);
 		board.eventCards.put(board.messages.getString("ResilientPopulation"), resilientPopulation);
-		EventCardAction eventCardAction = new EventCardAction(board);
+		ActionEventCard eventCardAction = new ActionEventCard(board);
 		board.eventCardAction = eventCardAction;
 	}
 
@@ -161,7 +161,7 @@ public class InitializeBoard {
 		contingencyPlannerData.treatAction = new TreatNormal(board);
 		quarantineSpecialistData.treatAction = new TreatNormal(board);
 
-		operationsExpertData.specialSkill = new OperationsExpertAction(board, operationsExpertData);
+		operationsExpertData.specialSkill = new ActionSkillOperationExpert(board, operationsExpertData);
 		medicData.specialSkill = new MedicAction(board, medicData);
 		contingencyPlannerData.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
 

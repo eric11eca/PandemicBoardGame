@@ -72,7 +72,8 @@ public class City {
 	}
 
 	private boolean isQuarantined(City quarantineSpecialistLocation) {
-		return quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighboring(this);
+		return quarantineSpecialistLocation != null
+				&& (quarantineSpecialistLocation.equals(this) || quarantineSpecialistLocation.isNeighboring(this));
 	}
 
 //return how many outbreaks happened

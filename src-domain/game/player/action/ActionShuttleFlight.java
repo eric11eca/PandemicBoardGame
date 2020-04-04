@@ -7,7 +7,7 @@ import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionShuttleFlight extends PlayerAction {
+public class ActionShuttleFlight extends Action {
 
 	private CitySet cities;
 

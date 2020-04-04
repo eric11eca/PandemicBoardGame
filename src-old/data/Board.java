@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import cardActions.EventCardAction;
 import cards.PlayerCard;
 import game.city.City;
 import game.event.Event;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.action.ActionEventCard;
 import initialize.Messages;
 
 @Deprecated
@@ -49,7 +49,7 @@ public class Board {
 	// public Map<String, Integer> remainDiseaseCube = new HashMap<>();
 	// public Set<String> eradicatedColor = new HashSet<>();
 	@Deprecated // Refactor as parameter
-	public EventCardAction eventCardAction;
+	public ActionEventCard eventCardAction;
 
 	@Deprecated // Refactor as parameter
 	public String eventCardName;

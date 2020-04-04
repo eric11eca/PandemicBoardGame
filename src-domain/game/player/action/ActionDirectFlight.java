@@ -7,7 +7,7 @@ import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionDirectFlight extends PlayerAction {
+public class ActionDirectFlight extends Action {
 	public ActionDirectFlight(Player player, PlayerInteraction interaction) {
 		super(player, interaction);
 	}

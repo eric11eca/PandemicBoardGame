@@ -1,10 +1,9 @@
-package game.cards;
+package game;
 
 import java.text.MessageFormat;
 
 import data.Board;
 import data.GameColor;
-import game.Game;
 import game.city.City;
 
 public class InfectionCardAction {

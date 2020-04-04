@@ -7,7 +7,7 @@ import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionDrive extends PlayerAction {
+public class ActionDrive extends Action {
 	private CitySet cities;
 
 	public ActionDrive(CitySet cities, Player player, PlayerInteraction interaction) {

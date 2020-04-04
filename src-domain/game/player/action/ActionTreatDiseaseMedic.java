@@ -4,7 +4,7 @@ import data.GameColor;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionTreatDiseaseMedic extends PlayerAction {
+public class ActionTreatDiseaseMedic extends Action {
 	public ActionTreatDiseaseMedic(Player player, PlayerInteraction interaction) {
 		super(player, interaction);
 	}

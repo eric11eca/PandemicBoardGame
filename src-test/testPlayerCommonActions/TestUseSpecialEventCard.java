@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import org.easymock.EasyMock;
 import org.junit.Test;
 
-import cardActions.EventCardAction;
 import data.Board;
 import game.player.PlayerImpl;
+import game.player.action.ActionEventCard;
 import player.PlayerData;
 
 public class TestUseSpecialEventCard {
@@ -20,7 +20,7 @@ public class TestUseSpecialEventCard {
 		PlayerData contingencyPlannerData = new PlayerData();
 		
 		contingencyPlannerData.specialEventCard = airlift;
-		board.eventCardAction = EasyMock.createMock(EventCardAction.class);
+		board.eventCardAction = EasyMock.createMock(ActionEventCard.class);
 		EasyMock.expect(board.eventCardAction.executeEventCard(airlift))
 			.andReturn(true);
 		board.idxofPlayerAirlift = 0;
