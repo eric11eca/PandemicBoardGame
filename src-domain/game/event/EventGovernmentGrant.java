@@ -1,18 +1,23 @@
 package game.event;
 
-import java.util.Optional;
+import game.city.CitySet;
+import game.player.PlayerInteraction;
 
-import game.city.City;
-
-public abstract class EventGovernmentGrant implements Event {
+public class EventGovernmentGrant implements Event {
 	/*
 	 * Built a research station anywhere
 	 */
+	private CitySet cities;
 
-	@Override
-	public void executeEvent() {
-		selectCity().ifPresent(c -> c.buildResearchStation());
+	public EventGovernmentGrant(CitySet cities) {
+		super();
+		this.cities = cities;
 	}
 
-	protected abstract Optional<City> selectCity();
+	@Override
+	public void executeEvent(PlayerInteraction interaction) {
+		interaction.selectCityFrom(cities.getCitiesSatisfying(c -> !c.hasResearchStation()),
+				c -> c.buildResearchStation());
+	}
+
 }

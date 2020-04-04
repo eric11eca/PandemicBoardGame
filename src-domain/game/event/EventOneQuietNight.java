@@ -1,6 +1,7 @@
 package game.event;
 
 import game.TurnController;
+import game.player.PlayerInteraction;
 
 public class EventOneQuietNight implements Event {
 	/*
@@ -14,7 +15,7 @@ public class EventOneQuietNight implements Event {
 	}
 
 	@Override
-	public void executeEvent() {
+	public void executeEvent(PlayerInteraction interaction) {
 		turnController.skipNextInfectionStage();
 	}
 

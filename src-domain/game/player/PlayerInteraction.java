@@ -13,13 +13,15 @@ public interface PlayerInteraction {
 
 	void selectPlayerFrom(List<Player> players, Consumer<Player> callback);
 
-	default void selectOneCardFrom(List<Card> cards, Consumer<Card> callback) {
+	default <T extends Card> void selectOneCardFrom(List<T> cards, Consumer<T> callback) {
 		selectCardsFrom(1, cards, list -> callback.accept(list.get(0)));
 	}
 
-	void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback);
+	<T extends Card> void selectCardsFrom(int number, List<T> cards, Consumer<List<T>> callback);
 
 	void selectCityFrom(Set<City> cities, Consumer<City> callback);
 
-	void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback);
+	<T extends Card> void selectCardsToDiscard(int number, List<T> cards, Consumer<List<T>> callback);
+
+	<T extends Card> void arrangeCards(List<T> cards, Consumer<List<T>> callback);
 }

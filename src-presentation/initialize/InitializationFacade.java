@@ -4,14 +4,15 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
 
-import game.GameState;
 import game.GameColor;
+import game.GameState;
 import game.cards.Card;
 import game.cards.CardCity;
 import game.cards.Deck;
 import game.city.City;
 import game.disease.CityCubeData;
 import game.disease.CubeData;
+import game.disease.CureSet;
 import game.disease.GameCubePool;
 import gui.ActionUI;
 import gui.BoardUI;
@@ -35,14 +36,14 @@ public class InitializationFacade {
 	private Deck<Card> playerDeck;
 	private Deck<Card> playerDiscard;
 	private Set<GameColor> curedDiseases;
-	private LogoUI logoUI;
-	private OutbreakUI outbreakUI;
-	private DiseaseUI diseaseUI;
-	private EventUI eventUI;
-	private DeckUI deckUI;
-	private ActionUI actionUI;
-	private BoardUI boardUI;
-	private GameGUI gui;
+//	private LogoUI logoUI;
+//	private OutbreakUI outbreakUI;
+//	private DiseaseUI diseaseUI;
+//	private EventUI eventUI;
+//	private DeckUI deckUI;
+//	private ActionUI actionUI;
+//	private BoardUI boardUI;
+//	private GameGUI gui;
 
 	public InitializationFacade() {
 		game = new GameState();
@@ -59,14 +60,7 @@ public class InitializationFacade {
 		infectionDiscard = new Deck<>();
 		playerDeck = new Deck<>();
 		playerDiscard = new Deck<>();
-		curedDiseases = EnumSet.noneOf(GameColor.class);
-		logoUI = new LogoUI();
-		outbreakUI = new OutbreakUI(game);
-		diseaseUI = new DiseaseUI(curedDiseases, gameCubePool);
-		eventUI = new EventUI();
-		deckUI = new DeckUI(infectionDeck, infectionDiscard, playerDeck, playerDiscard);
-		actionUI = new ActionUI();
-		boardUI = new BoardUI(renderCities);
-		gui = new GameGUI(logoUI, outbreakUI, diseaseUI, eventUI, deckUI, actionUI, boardUI);
+		curedDiseases = new CureSet(game, EnumSet.noneOf(GameColor.class));
+
 	}
 }

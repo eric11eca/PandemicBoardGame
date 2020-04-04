@@ -1,5 +1,7 @@
 package game.event;
 
+import game.player.PlayerInteraction;
+
 public interface Event {
-	void executeEvent();
+	void executeEvent(PlayerInteraction interaction);
 }

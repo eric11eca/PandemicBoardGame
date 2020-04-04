@@ -46,7 +46,7 @@ public class ActionEventCard extends Action {
 
 	protected void performEventCardAction(Player p, Card card) {
 		Event event = card.getEvent().orElseThrow(RuntimeException::new);
-		event.executeEvent();
+		event.executeEvent(interaction);
 		p.discardCard(card);
 	}
 

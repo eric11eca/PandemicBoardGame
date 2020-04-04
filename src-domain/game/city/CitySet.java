@@ -12,4 +12,8 @@ public class CitySet {
 		cities.stream().filter(predicate).forEach(set::add);
 		return set;
 	}
+
+	public Set<City> getAllCities() {
+		return getCitiesSatisfying(c -> true);
+	}
 }

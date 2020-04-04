@@ -53,6 +53,7 @@ public class GameCubePool implements CubeData {
 	@Override
 	public void removeAllDiseaseCube(GameColor color) {
 		delegate.removeAllDiseaseCube(color);
+		checkWin();
 	}
 
 	@Override
@@ -62,6 +63,15 @@ public class GameCubePool implements CubeData {
 			return;
 		}
 		delegate.removeDiseaseCube(color, count);
+		checkWin();
+	}
+
+	private void checkWin() {
+		for (GameColor c : GameColor.values()) {
+			if (!this.isDiseaseEradicated(c))
+				return;
+		}
+		game.triggerWin();
 	}
 
 	@Override
