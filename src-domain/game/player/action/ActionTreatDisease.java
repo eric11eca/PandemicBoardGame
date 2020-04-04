@@ -17,19 +17,19 @@ public class ActionTreatDisease extends Action {
 
 	@Override
 	public void perform() {
-		interaction.selectColorFrom(player.getLocation().getExistingDiseases(), this::performTreatDisease);
+		interaction.selectColorFrom(playerCurrentLocation().getExistingDiseases(), this::performTreatDisease);
 	}
 
 	@Override
 	public boolean canPerform() {
-		return player.getLocation().hasDisease();
+		return playerCurrentLocation().hasDisease();
 	}
 
 	protected void performTreatDisease(GameColor diseaseColor) {
 		if (curedDiseases.contains(diseaseColor))
-			player.getLocation().eradicateDisease(diseaseColor);
+			playerCurrentLocation().eradicateDisease(diseaseColor);
 		else
-			player.getLocation().treatDisease(diseaseColor);
+			playerCurrentLocation().treatDisease(diseaseColor);
 	}
 
 }

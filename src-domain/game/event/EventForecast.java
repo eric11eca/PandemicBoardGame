@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import data.Board;
 import game.cards.CardCity;
 import game.cards.Deck;
 

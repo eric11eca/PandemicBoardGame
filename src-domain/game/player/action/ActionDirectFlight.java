@@ -23,18 +23,18 @@ public class ActionDirectFlight extends Action {
 	}
 
 	protected List<Card> getDirectFlightCards() {
-		return player.getFilteredHand(this::canDirectFlightUsingCard);
+		return player().getFilteredHand(this::canDirectFlightUsingCard);
 	}
 
 	protected boolean canDirectFlightUsingCard(Card card) {
-		return card.getCity().filter(c -> !c.equals(player.getLocation())).isPresent();
+		return card.getCity().filter(c -> !c.equals(playerCurrentLocation())).isPresent();
 	}
 
 	protected void performDirectFlightAction(Card usingCard) {
 		City city = usingCard.getCity().orElseThrow(RuntimeException::new);
-		if (city.equals(player.getLocation()))
+		if (city.equals(playerCurrentLocation()))
 			throw new RuntimeException("Flying to same city");
-		player.setLocation(city);
-		player.discardCard(usingCard);
+		player().setLocation(city);
+		player().discardCard(usingCard);
 	}
 }

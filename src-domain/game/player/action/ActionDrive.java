@@ -17,7 +17,7 @@ public class ActionDrive extends Action {
 
 	@Override
 	public void perform() {
-		Set<City> neighbors = cities.getCitiesSatisfying(player.getLocation()::isNeighboring);
+		Set<City> neighbors = cities.getCitiesSatisfying(playerCurrentLocation()::isNeighboring);
 		interaction.selectCityFrom(neighbors, this::performDriveAction);
 	}
 
@@ -27,6 +27,6 @@ public class ActionDrive extends Action {
 	}
 
 	protected void performDriveAction(City destination) {
-		player.setLocation(destination);
+		player().setLocation(destination);
 	}
 }

@@ -30,17 +30,17 @@ public class ActionBuildStation extends Action {
 
 	@Override
 	public boolean canPerform() {
-		boolean stationNotBuiltYet = !player.getLocation().hasResearchStation();
+		boolean stationNotBuiltYet = !playerCurrentLocation().hasResearchStation();
 		boolean hasCardToBuild = !getBuildResearchStationCards().isEmpty();
 		return stationNotBuiltYet && hasCardToBuild;
 	}
 
 	protected List<Card> getBuildResearchStationCards() {
-		return player.getFilteredHand(this::canBuildResearchStationUsingCard);
+		return player().getFilteredHand(this::canBuildResearchStationUsingCard);
 	}
 
 	protected boolean canBuildResearchStationUsingCard(Card card) {
-		boolean cardIsCurrentCity = card.getCity().filter(player.getLocation()::equals).isPresent();
+		boolean cardIsCurrentCity = card.getCity().filter(playerCurrentLocation()::equals).isPresent();
 		return cardIsCurrentCity;
 	}
 
@@ -72,12 +72,12 @@ public class ActionBuildStation extends Action {
 		if (!needCard && card == null)
 			return;
 		City city = card.getCity().orElseThrow(RuntimeException::new);
-		if (!city.equals(player.getLocation()))
+		if (!city.equals(playerCurrentLocation()))
 			throw new RuntimeException("City card does not match current location");
-		player.discardCard(card);
+		player().discardCard(card);
 	}
 
 	protected void performBuildStationAction() {
-		player.getLocation().buildResearchStation();
+		playerCurrentLocation().buildResearchStation();
 	}
 }

@@ -24,7 +24,7 @@ public class ActionSkillOperationExpert extends Action {
 	@Override
 	public void perform() {
 		interaction.selectOneCardFrom(this.getCityCards(), card -> {
-			interaction.selectCityFrom(citySet.getCitiesSatisfying(c -> !c.equals(player.getLocation())), city -> {
+			interaction.selectCityFrom(citySet.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation())), city -> {
 				this.performSpecialSkill(card, city);
 			});
 		});
@@ -32,24 +32,24 @@ public class ActionSkillOperationExpert extends Action {
 
 	@Override
 	public boolean canPerform() {
-		boolean isAtResearchStation = player.getLocation().hasResearchStation();
+		boolean isAtResearchStation = playerCurrentLocation().hasResearchStation();
 		boolean hasCityCard = !getCityCards().isEmpty();
 		return isAtResearchStation && hasCityCard;
 	}
 
 	protected List<Card> getCityCards() {
-		return player.getFilteredHand(card -> card.getCity().isPresent());
+		return player().getFilteredHand(card -> card.getCity().isPresent());
 	}
 
 	protected void performSpecialSkill(Card toDiscard, City toMove) {
-		if (!player.getLocation().hasResearchStation())
+		if (!playerCurrentLocation().hasResearchStation())
 			throw new RuntimeException("Operation Expert must move from research station");
 		if (!toDiscard.getCity().isPresent())
 			throw new RuntimeException("Operation Expert must discard city card");
-		if (toMove.equals(player.getLocation()))
+		if (toMove.equals(playerCurrentLocation()))
 			throw new RuntimeException("Must not move to the same city");
-		player.setLocation(toMove);
-		player.discardCard(toDiscard);
+		player().setLocation(toMove);
+		player().discardCard(toDiscard);
 	}
 
 }

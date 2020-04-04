@@ -23,19 +23,19 @@ public class ActionShuttleFlight extends Action {
 
 	@Override
 	public boolean canPerform() {
-		boolean currentCityHasStation = player.getLocation().hasResearchStation();
+		boolean currentCityHasStation = playerCurrentLocation().hasResearchStation();
 		boolean otherStationCityExist = !getCitiesWithResearchStationExceptCurrent().isEmpty();
 		return currentCityHasStation && otherStationCityExist;
 	}
 
 	protected Set<City> getCitiesWithResearchStationExceptCurrent() {
-		return cities.getCitiesSatisfying(c -> c.hasResearchStation() && !c.equals(player.getLocation()));
+		return cities.getCitiesSatisfying(c -> c.hasResearchStation() && !c.equals(playerCurrentLocation()));
 	}
 
 	protected void performShuttleFlightAction(City destination) {
-		if (!player.getLocation().hasResearchStation() || !destination.hasResearchStation())
+		if (!playerCurrentLocation().hasResearchStation() || !destination.hasResearchStation())
 			throw new RuntimeException("Not both cities have stations");
-		player.setLocation(destination);
+		player().setLocation(destination);
 	}
 
 }

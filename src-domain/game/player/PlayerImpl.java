@@ -11,12 +11,14 @@ import game.city.City;
 
 public abstract class PlayerImpl implements Player {
 
+	private final int id;
 	private Deck<Card> hand;
 	private Deck<Card> playerDiscard;
 	private City location;
 	private PlayerInteraction interaction;
 
-	public PlayerImpl() {
+	public PlayerImpl(int id) {
+		this.id = id;
 		this.hand = new Deck<>();
 		this.location = null;
 	}
@@ -59,99 +61,9 @@ public abstract class PlayerImpl implements Player {
 		return this.location;
 	}
 
-//	@Override
-//	public void discardCardAndMoveTo(City destination) {
-//		discardCard();
-//		moveTo(destination);
-//	}
-//
-//	@Override
-//	public void charterFlight(City destination) {
-//		board.cardToBeDiscard.add(playerData.location.getName());
-//		discardCardAndMoveTo(destination);
-//		consumeAction();
-//	}
-//
-//	@Override
-//	public void shuttleFlight(City destination) {
-//		if (playerData.location.hasResearchStation()) {
-//			if (destination.hasResearchStation()) {
-//				moveTo(destination);
-//				consumeAction();
-//			}
-//		}
-//	}
-//
-//	@Override
-//	public void treat(GameColor diseaseColor) {
-//		playerData.treatAction.treat(playerData.location, diseaseColor);
-//		// eradicate(diseaseColor);
-//		consumeAction();
-//	}
-
-//	public void eradicate(String diseaseColor) {
-//		if (board.remainDiseaseCube.get(diseaseColor) == 24) {
-//			board.eradicatedColor.add(diseaseColor);
-//		}
-//	}
-
-//	@Override
-//	public void discoverCure(List<PlayerCard> cardsToCureDisease) {
-//		boolean isResearchStation = playerData.location.hasResearchStation();
-//		if (isResearchStation) {
-//			if (playerData.discoverCureModel.discover(cardsToCureDisease)) {
-//				for (PlayerCard playercard : cardsToCureDisease) {
-//					board.cardToBeDiscard.add(playercard.cardName);
-//				}
-//				consumeAction();
-//			}
-//			if (board.curedDiseases.size() == 4) {
-//				throw new RuntimeException("PlayerWinException");
-//			}
-//
-//			// eradicate(cardsToCureDisease.get(0).color);
-//			discardCard();
-//
-//		} else {
-//			throw new RuntimeException("NoStationException");
-//		}
-//	}
-//
-//	@Override
-//	public void buildStation() {
-//		playerData.buildStationModel.buildStation();
-//		consumeAction();
-//	}
-//
-//	@Override
-//	public void shareKnowledge(Player playerToShare, PlayerCard cityToShare, boolean isGiving) {
-//		if (cityToShare.cardType != Board.CardType.CITYCARD) {
-//			throw new RuntimeException("CantUseEventCardException");
-//		}
-//		if (isGiving) {
-//			giveCard(this, playerToShare, cityToShare);
-//		} else {
-//			giveCard(playerToShare, this, cityToShare);
-//		}
-//		consumeAction();
-//	}
-//
-//	private void giveCard(Player giver, Player receiver, PlayerCard citycard) {
-//		if (giver.playerData.role != Board.Roles.RESEARCHER
-//				&& !citycard.cardName.equals(giver.playerData.location.getName())) {
-//			throw new RuntimeException("CanNotShareKnowledgeException");
-//		}
-//		board.cardToBeDiscard.add(citycard.cardName);
-//		giver.discardCard();
-//		receiver.receiveCard(citycard);
-//	}
-	/* Basic Actions */
-
-	/* Other Actions */
-
-	/* Event Cards */
-	public List<Card> getEventCards() {
-		return hand.getFilteredSubDeck(card -> card.getEvent().isPresent());
+	@Override
+	public final int getID() {
+		return id;
 	}
 
 	@Override

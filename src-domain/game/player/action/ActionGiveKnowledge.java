@@ -19,7 +19,7 @@ public class ActionGiveKnowledge extends Action {
 	@Override
 	public void perform() {
 		interaction.selectPlayerFrom(getOtherSharablePlayers(), taker -> {
-			interaction.selectOneCardFrom(player.getSharableKnowledgeCards(taker), shared -> {
+			interaction.selectOneCardFrom(player().getSharableKnowledgeCards(taker), shared -> {
 				this.performGiveKnowledgeAction(taker, shared);
 			});
 		});
@@ -33,7 +33,7 @@ public class ActionGiveKnowledge extends Action {
 	protected List<Player> getOtherSharablePlayers() {
 		List<Player> validPlayers = new ArrayList<>();
 		for (Player p : players) {
-			if (p != player && !player.getSharableKnowledgeCards(p).isEmpty()) {
+			if (p != player() && !player().getSharableKnowledgeCards(p).isEmpty()) {
 				validPlayers.add(p);
 			}
 		}
@@ -41,7 +41,7 @@ public class ActionGiveKnowledge extends Action {
 	}
 
 	protected void performGiveKnowledgeAction(Player taker, Card shared) {
-		player.removeCard(shared);
+		player().removeCard(shared);
 		taker.receiveCard(shared);
 	}
 

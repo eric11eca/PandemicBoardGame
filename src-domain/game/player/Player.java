@@ -32,4 +32,6 @@ public interface Player {
 
 	List<Card> getSharableKnowledgeCards(Player receiver);
 
+	int getID();
+
 }

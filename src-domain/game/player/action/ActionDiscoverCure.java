@@ -35,7 +35,7 @@ public class ActionDiscoverCure extends Action {
 	}
 
 	protected List<Card> getDiscoverCureCards(GameColor color) {
-		return player.getFilteredHand(card -> canDiscoverCureUsingCard(color, card));
+		return player().getFilteredHand(card -> canDiscoverCureUsingCard(color, card));
 	}
 
 	protected boolean canDiscoverCureUsingCard(GameColor color, Card card) {
@@ -44,7 +44,7 @@ public class ActionDiscoverCure extends Action {
 
 	protected void performDiscoverCureAction(GameColor color, List<Card> usingCards) {
 		legalityCheck(color, usingCards);
-		player.discardCards(usingCards);
+		player().discardCards(usingCards);
 		curedDiseases.add(color);
 	}
 
