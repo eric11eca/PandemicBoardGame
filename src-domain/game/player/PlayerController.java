@@ -28,4 +28,8 @@ public class PlayerController {
 	public void givePlayerCards(List<Card> cards) {
 		player.receiveCard(cards);
 	}
+
+	public int getHighestPopulationInHand() {
+		return player.getHighestPopulationInHand();
+	}
 }

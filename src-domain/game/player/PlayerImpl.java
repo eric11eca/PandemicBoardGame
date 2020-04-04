@@ -28,6 +28,15 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
+	public int getHighestPopulationInHand() {
+		int max = 0;
+		for (Card card : hand.getFilteredSubDeck(c -> c.getCity().isPresent())) {
+			max = Math.max(max, card.getCity().get().getPopulation());
+		}
+		return max;
+	}
+
+	@Override
 	public void receiveCard(List<Card> cards) {
 		cards.forEach(card -> card.addToHand(hand));
 		if (hand.size() > getHandLimit()) {

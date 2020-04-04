@@ -9,6 +9,10 @@ import game.event.Event;
 public class CardEpidemic implements Card {
 	private Epidemic epidemic;
 
+	public CardEpidemic(Epidemic epidemic) {
+		this.epidemic = epidemic;
+	}
+
 	@Override
 	public void addToHand(Deck<Card> hand) {
 		epidemic.triggerEpidemic();
@@ -27,6 +31,16 @@ public class CardEpidemic implements Card {
 	@Override
 	public <T extends Card> void discard(Deck<T> discardPile, Class<T> type) {
 		discardPile.putOnTop(type.cast(this));
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof CardEpidemic;
+	}
+
+	@Override
+	public int hashCode() {
+		return "epidemic".hashCode();
 	}
 
 }

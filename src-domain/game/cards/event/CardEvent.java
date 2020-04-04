@@ -11,6 +11,11 @@ import game.event.Event;
 public class CardEvent implements Card {
 	private Event event;
 
+	public CardEvent(Event event) {
+		super();
+		this.event = event;
+	}
+
 	@Override
 	public void addToHand(Deck<Card> hand) {
 		hand.putOnTop(this);

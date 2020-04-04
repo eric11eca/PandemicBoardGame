@@ -12,20 +12,22 @@ public class TurnController {
 	private Deck<Card> playerDeck;
 	private Infection infection;
 	private GameState game;
+	private PlayerController[] playerControllers;
 
-	private PlayerController playerController;
+	private int current;
 	private boolean skipInfection;
 	private int remainingActions;
 
-	public TurnController(Deck<Card> playerDeck, Infection infection, GameState game) {
+	public TurnController(Deck<Card> playerDeck, Infection infection, GameState game,
+			PlayerController[] playerControllers) {
 		super();
 		this.playerDeck = playerDeck;
 		this.infection = infection;
 		this.game = game;
+		this.playerControllers = playerControllers;
 	}
 
-	public void startTurn(PlayerController playerController) {
-		this.playerController = playerController;
+	public void startTurn() {
 		final int ACTION_PER_TURN = GameProperty.getInstance().getInt("ACTION_PER_TURN");
 		remainingActions = ACTION_PER_TURN;
 	}
@@ -35,9 +37,13 @@ public class TurnController {
 	}
 
 	public void performAction(ActionType actionType) {
-		if (!playerController.canPerform(actionType))
+		if (!playerControllers[current].canPerform(actionType))
 			throw new RuntimeException("Cannot perform this action");
-		playerController.perform(actionType);
+		playerControllers[current].perform(actionType);
+	}
+	
+	public boolean canPerformAction(ActionType actionType) {
+		return playerControllers[current].canPerform(actionType);
 	}
 
 	public void skipNextInfectionStage() {
@@ -47,7 +53,7 @@ public class TurnController {
 	public void endTurn() {
 		drawPlayerCards();
 		infection();
-		playerController = null;
+		current = (current + 1) % playerControllers.length;
 	}
 
 	private void drawPlayerCards() {
@@ -60,12 +66,14 @@ public class TurnController {
 			}
 			cards.add(playerDeck.takeTopCard());
 		}
-		playerController.givePlayerCards(cards);
+		playerControllers[current].givePlayerCards(cards);
 	}
 
 	private void infection() {
-		if (skipInfection)
+		if (skipInfection) {
+			skipInfection = false;
 			return;
+		}
 		for (int i = 0; i < game.getInfectionRate(); i++) {
 			infection.infectOnce();
 		}

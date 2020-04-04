@@ -1,6 +1,8 @@
 package initialize;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,7 @@ import game.player.special.Medic;
 import game.player.special.QuarantineChecker;
 import game.player.special.Researcher;
 
-public class PlayerInitializer {
+public class PlayerFactory {
 	public enum Role {
 		SCIENTIST, MEDIC, CONTINGENCY_PLANNER, DISPATCHER, OPERATIONS_EXPERT, QUARANTINE_SPECIALIST, RESEARCHER;
 	}
@@ -55,7 +57,7 @@ public class PlayerInitializer {
 	private Set<GameColor> curedDiseases;
 	private List<Player> players;
 
-	public PlayerInitializer(City startingCity, PlayerInteraction interaction, Deck<Card> playerDiscard, CitySet citySet,
+	public PlayerFactory(City startingCity, PlayerInteraction interaction, Deck<Card> playerDiscard, CitySet citySet,
 			Set<GameColor> curedDiseases, List<Player> players) {
 		super();
 		this.startingCity = startingCity;
@@ -85,7 +87,18 @@ public class PlayerInitializer {
 		return quarantineChecker;
 	}
 
-	public PlayerController[] initializePlayers(Role[] roles) {
+	public PlayerController[] createPlayersWithRandomRoles(int playerCount) {
+		List<Role> roles = new ArrayList<>();
+		roles.addAll(Arrays.asList(Role.values()));
+		Collections.shuffle(roles);
+		Role[] inGameRoles = new Role[playerCount];
+		for (int i = 0; i < playerCount; i++) {
+			inGameRoles[i] = roles.get(i);
+		}
+		return initializePlayers(inGameRoles);
+	}
+
+	private PlayerController[] initializePlayers(Role[] roles) {
 		PlayerController[] controllers = new PlayerController[roles.length];
 		int dispatcherIndex = -1;
 		for (int i = 0; i < roles.length; i++) {

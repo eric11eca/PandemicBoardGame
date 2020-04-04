@@ -71,7 +71,7 @@ public class City {
 	}
 
 	private int epidemicInfectAndGetOutbreakCount(Predicate<City> isQuarantined) {
-		if (isQuarantined(isQuarantined))
+		if (isQuarantined.test(this))
 			return 0;
 
 		boolean willOutbreak = disease.getDiseaseCubeCount(getColor()) > 0;
@@ -85,18 +85,14 @@ public class City {
 		}
 	}
 
-	private boolean isQuarantined(Predicate<City> isQuarantined) {
-		return isQuarantined.test(this);
-	}
-
-//return how many outbreaks happened
+	//return how many outbreaks happened
 	private int infectAndGetOutbreakCount(GameColor diseaseColor, Predicate<City> isQuarantined) {
 		return infectAndGetOutbreakCountHelper(diseaseColor, isQuarantined, new HashSet<>(), 0);
 	}
 
 	private int infectAndGetOutbreakCountHelper(GameColor diseaseColor, Predicate<City> isQuarantined,
 			Set<City> inOutBreak, int outbreakCount) {
-		if (isQuarantined(isQuarantined))
+		if (isQuarantined.test(this))
 			return outbreakCount;
 
 		boolean willOutbreak = disease.getDiseaseCubeCount(diseaseColor) == 3;

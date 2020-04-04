@@ -30,6 +30,11 @@ public abstract class AbstractPlayerDecorator implements Player {
 	}
 
 	@Override
+	public int getHighestPopulationInHand() {
+		return delegate.getHighestPopulationInHand();
+	}
+
+	@Override
 	public void receiveCard(List<Card> cards) {
 		delegate.receiveCard(cards);
 	}
