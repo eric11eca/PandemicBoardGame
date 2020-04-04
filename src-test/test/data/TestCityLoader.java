@@ -13,10 +13,10 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
+import data.CityLoader;
 import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
-import parse.CityLoader;
 import render.RenderCity;
 import test.util.TestAccess;
 import test.util.TestCityBuilder;

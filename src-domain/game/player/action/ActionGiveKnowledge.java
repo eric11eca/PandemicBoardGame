@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.cards.Card;
-import game.cards.CardCity;
 import game.player.Player;
 import game.player.PlayerInteraction;
 

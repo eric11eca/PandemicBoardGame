@@ -1,7 +1,6 @@
 package game;
 
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import game.cards.CardCity;
 import game.cards.Deck;

@@ -1,4 +1,4 @@
-package parse;
+package data;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,8 +9,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import data.CityData;
-import data.GameProperty;
 import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;

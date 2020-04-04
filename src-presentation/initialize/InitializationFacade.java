@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import data.CityLoader;
 import game.Epidemic;
 import game.GameColor;
 import game.GameState;
@@ -27,7 +28,6 @@ import game.disease.GameCubePool;
 import game.player.Player;
 import game.player.PlayerController;
 import game.player.PlayerInteraction;
-import parse.CityLoader;
 import render.RenderCity;
 
 public class InitializationFacade {

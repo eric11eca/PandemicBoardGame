@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import game.city.City;
 import game.event.Event;
-import game.player.PlayerImpl;
 
 public interface Card {
 	void addToHand(Deck<Card> hand);

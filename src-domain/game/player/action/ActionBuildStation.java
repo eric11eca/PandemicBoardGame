@@ -2,10 +2,8 @@ package game.player.action;
 
 import java.util.List;
 import java.util.Set;
-import java.util.function.Supplier;
 
-import org.junit.experimental.max.MaxCore;
-
+import data.GameProperty;
 import game.cards.Card;
 import game.city.City;
 import game.city.CitySet;
@@ -13,7 +11,6 @@ import game.player.Player;
 import game.player.PlayerInteraction;
 
 public class ActionBuildStation extends Action {
-	private static final int MAX_STATION_COUNT = 6;
 	private boolean needCard;
 	private CitySet citySet;
 
@@ -45,6 +42,7 @@ public class ActionBuildStation extends Action {
 	}
 
 	protected void afterSelectingCard(Card selectedCard) {
+		final int MAX_STATION_COUNT = GameProperty.getInstance().getInt("MAX_STATION_COUNT");
 		if (getStationCount() > MAX_STATION_COUNT) {
 			interaction.selectCityFrom(getCitiesWithStation(), city -> {
 				city.removeResearchStation();

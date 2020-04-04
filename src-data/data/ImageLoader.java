@@ -1,4 +1,4 @@
-package image;
+package data;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-
-import data.GameProperty;
 
 public class ImageLoader {
 	private static ImageLoader imageLoader;

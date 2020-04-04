@@ -12,10 +12,10 @@ import java.util.Map;
 import javax.swing.JComponent;
 
 import data.Board;
+import data.ImageLoader;
 import game.GameState;
 import game.city.City;
 import game.player.PlayerImpl;
-import image.ImageLoader;
 import render.Render;
 import render.RenderCity;
 
