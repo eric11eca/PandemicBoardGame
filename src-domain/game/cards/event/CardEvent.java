@@ -2,9 +2,9 @@ package game.cards.event;
 
 import java.util.Optional;
 
-import game.City;
 import game.cards.Card;
 import game.cards.Deck;
+import game.city.City;
 import game.event.Event;
 
 public class CardEvent implements Card {

@@ -12,7 +12,7 @@ import java.util.Set;
 import data.CityData;
 import data.GameColor;
 import data.GameProperty;
-import game.City;
+import game.city.City;
 import game.disease.CubeData;
 import render.RenderCity;
 

@@ -2,6 +2,8 @@ package game;
 
 import java.util.Set;
 
+import game.city.City;
+
 public class GameSetup {
 	private int playerCount;
 	private int epidemic;

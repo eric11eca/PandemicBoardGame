@@ -14,7 +14,7 @@ import java.util.TreeMap;
 import org.junit.Test;
 
 import data.GameColor;
-import game.City;
+import game.city.City;
 import game.disease.CubeData;
 import parse.CityLoader;
 import render.RenderCity;

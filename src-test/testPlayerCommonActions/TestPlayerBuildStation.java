@@ -9,8 +9,8 @@ import org.junit.Test;
 import data.Board;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.action.StationBuilderNormal;
 import player.PlayerData;
-import player.StationBuilderNormal;
 
 public class TestPlayerBuildStation {
 	@Test

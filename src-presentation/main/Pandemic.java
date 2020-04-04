@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import game.City;
 import game.GameSetup;
+import game.city.City;
 import gui.GameGUI;
 import parse.CityLoader;
 import render.RenderCity;

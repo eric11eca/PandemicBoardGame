@@ -5,9 +5,9 @@ import java.util.List;
 import cards.PlayerCard;
 import data.Board;
 import data.GameColor;
-import game.City;
 import game.EpidemicCardAction;
 import game.cards.InfectionCardAction;
+import game.city.City;
 import game.player.Player;
 
 public class GameAction {

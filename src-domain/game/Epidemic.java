@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import game.cards.CardCity;
 import game.cards.Deck;
+import game.city.City;
 import game.disease.GameCubePool;
 
 public class Epidemic {

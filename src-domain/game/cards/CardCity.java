@@ -1,8 +1,9 @@
 package game.cards;
 
+import java.util.Objects;
 import java.util.Optional;
 
-import game.City;
+import game.city.City;
 import game.event.Event;
 
 public class CardCity implements Card {
@@ -25,6 +26,16 @@ public class CardCity implements Card {
 	@Override
 	public Optional<Event> getEvent() {
 		return Optional.empty();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj != null && obj.getClass() == getClass() && Objects.equals(((CardCity) obj).city, city);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(city);
 	}
 
 }

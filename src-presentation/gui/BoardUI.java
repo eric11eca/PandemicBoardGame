@@ -12,8 +12,8 @@ import java.util.Map;
 import javax.swing.JComponent;
 
 import data.Board;
-import game.City;
 import game.Game;
+import game.city.City;
 import game.player.PlayerImpl;
 import image.ImageLoader;
 import render.Render;

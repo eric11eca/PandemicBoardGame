@@ -73,4 +73,8 @@ public class Deck<C extends Card> {
 		return list.removeFirst();
 	}
 
+	public List<C> toList() {
+		return getFilteredSubDeck(c -> true);
+	}
+
 }

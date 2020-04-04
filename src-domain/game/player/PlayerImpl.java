@@ -1,17 +1,21 @@
 package game.player;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import data.GameColor;
 import data.GameProperty;
-import game.City;
 import game.cards.Card;
+import game.cards.CardCity;
 import game.cards.Deck;
+import game.city.City;
 
-public abstract class PlayerImpl implements Player {
+public abstract class PlayerImpl implements PlayerController, Player {
 	private static final int HAND_LIMIT = GameProperty.getInstance().getInt("HAND_LIMIT");
 	private Deck<Card> hand;
+	private Deck<Card> playerDiscard;
 	private City location;
+	private PlayerInteraction interaction;
 
 	public PlayerImpl() {
 		this.hand = new Deck<>();
@@ -19,55 +23,41 @@ public abstract class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void receiveCard(List<Card> cards) {
+	public final void receiveCard(List<Card> cards) {
 		cards.forEach(card -> card.addToHand(hand));
-		while (hand.size() > HAND_LIMIT) {
-			this.discardOneCard(hand);
+		if (hand.size() > HAND_LIMIT) {
+			discardHelper();
 		}
 	}
 
+	private void discardHelper() {
+		interaction.selectCardsToDiscard(hand.size() - HAND_LIMIT, hand.toList(), toDiscard -> {
+			this.discardCards(toDiscard);
+			if (hand.size() > HAND_LIMIT)
+				discardHelper();
+		});
+	}
+
 	@Override
-	public void removeCard(Card toDiscard) {
-		if (!hand.removeCard(toDiscard))
+	public final void removeCard(Card toRemove) {
+		if (!hand.removeCard(toRemove))
 			throw new RuntimeException("Discarding a card this player does not own!");
 	}
 
-//	@Override
-//	public void drive(City destination) {
-//		if (board.dispatcherCase == 1) {
-//			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
-//			if (pawnData.location.isNeighbor(destination)) {
-//				moveTo(destination);
-//				consumeAction();
-//			}
-//		} else if (playerData.location.isNeighbor(destination)) {
-//			moveTo(destination);
-//			consumeAction();
-//		}
-//	}
-
-//	@Override
-//	public void directFlight(PlayerCard cityCard) {
-//		if (cityCard.cardType == Board.CardType.CITYCARD) {
-//			board.cardToBeDiscard.add(cityCard.cardName);
-//			discardCard();
-//			consumeAction();
-//			City destination = board.cities.get(cityCard.cardName);
-//			moveTo(destination);
-//		}
-//	}
+	@Override
+	public final void discardCard(Card toDiscard) {
+		removeCard(toDiscard);
+		toDiscard.discard(playerDiscard);
+	}
 
 	@Override
-	public void moveTo(City destination) {
+	public void setLocation(City destination) {
 		this.location = destination;
-//		if (board.dispatcherCase == 1) {
-//			PlayerData pawnData = board.currentPlayers.get(board.pawnTobeMoved).playerData;
-//			pawnData.location = destination;
-//			// destination.currentRoles.add(pawnData.role);
-//		} else {
-//			playerData.location = destination;
-//			// destination.currentRoles.add(this.playerData.role);
-//		}
+	}
+
+	@Override
+	public final City getLocation() {
+		return this.location;
 	}
 
 //	@Override
@@ -158,54 +148,8 @@ public abstract class PlayerImpl implements Player {
 //	}
 	/* Basic Actions */
 
-	@Override
-	public boolean canDriveTo(City destination) {
-		return location.isNeighboring(destination);
-	}
-
-	@Override
-	public List<Card> getDirectFlightCards() {
-		return hand.getFilteredSubDeck(this::canDirectFlightUsingCard);
-	}
-
-	private boolean canDirectFlightUsingCard(Card card) {
-		return card.getCity().filter(c -> !c.equals(location)).isPresent();
-	}
-
-	@Override
-	public List<Card> getCharterFlightCards() {
-		return hand.getFilteredSubDeck(this::canCharterFlightUsingCard);
-	}
-
-	private boolean canCharterFlightUsingCard(Card card) {
-		return isCardCurrentLocation(card);
-	}
-
-	@Override
-	public List<Card> getShuttleFlightCards() {
-		return hand.getFilteredSubDeck(this::canShuttleFlightUsingCard);
-	}
-
-	private boolean canShuttleFlightUsingCard(Card card) {
-		return location.hasResearchStation() && card.getCity().filter(city -> city.hasResearchStation()).isPresent();
-	}
-
 	/* Other Actions */
-	@Override
-	public List<Card> getBuildResearchStationCards() {
-		return hand.getFilteredSubDeck(this::canBuildResearchStationUsingCard);
-	}
 
-	private boolean canBuildResearchStationUsingCard(Card card) {
-		return !location.hasResearchStation() && isCardCurrentLocation(card);
-	}
-
-	@Override
-	public boolean canTreatDisease() {
-		return location.hasDisease();
-	}
-
-	@Override
 	public List<Card> getGiveKnowledgeCards() {
 		return hand.getFilteredSubDeck(this::canGiveKnowledgeUsingCard);
 	}
@@ -214,22 +158,38 @@ public abstract class PlayerImpl implements Player {
 		return isCardCurrentLocation(card);
 	}
 
-	@Override
-	public List<Card> getDiscoverCureCards(GameColor color) {
-		return hand.getFilteredSubDeck(card -> canDiscoverCureUsingCard(color, card));
-	}
-
-	private boolean canDiscoverCureUsingCard(GameColor color, Card card) {
-		return card.getCity().filter(c -> c.getColor().equals(color)).isPresent();
-	}
-
-	private boolean isCardCurrentLocation(Card card) {
-		return card.getCity().filter(location::equals).isPresent();
-	}
-
 	/* Event Cards */
-	@Override
 	public List<Card> getEventCards() {
 		return hand.getFilteredSubDeck(card -> card.getEvent().isPresent());
+	}
+
+	@Override
+	public void giveKnowledge() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void takeKnowledge() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void discoverCure() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void useEventCard() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void useSpecialSkill() {
+		// TODO Auto-generated method stub
+
 	}
 }

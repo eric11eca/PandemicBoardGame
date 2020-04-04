@@ -11,22 +11,22 @@ import cards.PlayerCard;
 import data.Board;
 import data.CityData;
 import data.GameColor;
-import game.City;
 import game.Game;
+import game.city.City;
 import game.event.EventAirlift;
 import game.event.EventForecast;
 import game.event.EventGovernmentGrant;
 import game.event.EventOneQuietNight;
 import game.event.EventResilientPopulation;
 import game.player.PlayerImpl;
+import game.player.action.StationBuilderNormal;
+import game.player.action.ActionTreatDiseaseMedic;
+import game.player.action.TreatNormal;
+import game.player.action.ActionBuildStationWithoutCard;
 import parse.CityLoader;
 import player.DiscoverCureNormal;
 import player.DiscoverCureScientist;
 import player.PlayerData;
-import player.StationBuilderNormal;
-import player.StationBuilderOperationsExpert;
-import player.TreatMedic;
-import player.TreatNormal;
 import playerAction.ContingencyPlannerAction;
 import playerAction.MedicAction;
 import playerAction.OperationsExpertAction;
@@ -143,7 +143,7 @@ public class InitializeBoard {
 		dispatcherData.buildStationModel = new StationBuilderNormal(dispatcherData, board);
 		contingencyPlannerData.buildStationModel = new StationBuilderNormal(contingencyPlannerData, board);
 		quarantineSpecialistData.buildStationModel = new StationBuilderNormal(quarantineSpecialistData, board);
-		operationsExpertData.buildStationModel = new StationBuilderOperationsExpert(operationsExpertData, board);
+		operationsExpertData.buildStationModel = new ActionBuildStationWithoutCard(operationsExpertData, board);
 
 		scientistData.discoverCureModel = new DiscoverCureScientist(board.curedDiseases);
 		medicData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
@@ -154,7 +154,7 @@ public class InitializeBoard {
 		quarantineSpecialistData.discoverCureModel = new DiscoverCureNormal(board.curedDiseases);
 
 		scientistData.treatAction = new TreatNormal(board);
-		medicData.treatAction = new TreatMedic();
+		medicData.treatAction = new ActionTreatDiseaseMedic();
 		researcherData.treatAction = new TreatNormal(board);
 		dispatcherData.treatAction = new TreatNormal(board);
 		operationsExpertData.treatAction = new TreatNormal(board);

@@ -1,4 +1,4 @@
-package game;
+package game.city;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,6 +32,10 @@ public class City {
 
 	public int getDiseaseCubeCount(GameColor color) {
 		return disease.getDiseaseCubeCount(color);
+	}
+
+	public Set<GameColor> getExistingDiseases() {
+		return disease.getExistingDiseases();
 	}
 
 	public GameColor getColor() {

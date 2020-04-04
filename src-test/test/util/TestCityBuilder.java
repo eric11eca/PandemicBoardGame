@@ -6,7 +6,7 @@ import java.util.Set;
 
 import data.CityData;
 import data.GameColor;
-import game.City;
+import game.city.City;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;
 

@@ -9,7 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import data.GameColor;
-import game.City;
+import game.city.City;
 import game.disease.CubeData;
 import test.util.TestAccess;
 import test.util.TestCityBuilder;

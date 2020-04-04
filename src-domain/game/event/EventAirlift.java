@@ -2,7 +2,7 @@ package game.event;
 
 import java.util.Optional;
 
-import game.City;
+import game.city.City;
 import game.player.Player;
 
 public abstract class EventAirlift implements Event {
@@ -11,7 +11,7 @@ public abstract class EventAirlift implements Event {
 	 */
 	@Override
 	public void executeEvent() {
-		selectPlayer().ifPresent(p -> selectCity(p).ifPresent(c -> p.moveTo(c)));
+		selectPlayer().ifPresent(p -> selectCity(p).ifPresent(c -> p.setLocation(c)));
 	}
 
 	protected abstract Optional<Player> selectPlayer();

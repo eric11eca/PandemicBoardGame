@@ -2,8 +2,8 @@ package game.cards;
 
 import java.util.Optional;
 
-import game.City;
 import game.Epidemic;
+import game.city.City;
 import game.event.Event;
 import game.player.PlayerImpl;
 

@@ -10,7 +10,7 @@ import java.util.Stack;
 
 import cardActions.EventCardAction;
 import cards.PlayerCard;
-import game.City;
+import game.city.City;
 import game.event.Event;
 import game.player.Player;
 import game.player.PlayerImpl;

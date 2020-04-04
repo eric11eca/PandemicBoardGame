@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 import data.GameColor;
-import game.City;
 import game.Game;
 import game.cards.Card;
 import game.cards.CardCity;
 import game.cards.Deck;
+import game.city.City;
 import game.disease.CityCubeData;
 import game.disease.CubeData;
 import game.disease.GameCubePool;

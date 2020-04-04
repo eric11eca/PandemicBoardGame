@@ -3,9 +3,9 @@ package game.player;
 import java.util.List;
 
 import data.GameColor;
-import game.City;
 import game.cards.Card;
 import game.cards.Deck;
+import game.city.City;
 
 public abstract class AbstractPlayerDecorator implements Player {
 	protected Player delegate;
@@ -24,7 +24,7 @@ public abstract class AbstractPlayerDecorator implements Player {
 	}
 
 	public void moveTo(City destination) {
-		delegate.moveTo(destination);
+		delegate.setLocation(destination);
 	}
 
 	public List<Card> getDriveCards() {

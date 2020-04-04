@@ -2,7 +2,7 @@ package game.event;
 
 import java.util.Optional;
 
-import game.City;
+import game.city.City;
 
 public abstract class EventGovernmentGrant implements Event {
 	/*

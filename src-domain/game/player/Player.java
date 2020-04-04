@@ -1,43 +1,33 @@
 package game.player;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
-import data.GameColor;
-import game.City;
 import game.cards.Card;
-import game.cards.Deck;
+import game.city.City;
 
 public interface Player {
+	default void receiveCard(Card card) {
+		receiveCard(Arrays.asList(card));
+	}
 
 	void receiveCard(List<Card> cards);
 
-	void removeCard(Card toDiscard);
+	// void removeCards(List<Card> toRemove);
 
-	void moveTo(City destination);
+	void removeCard(Card toRemove);
 
-	/* Basic Actions */
-	boolean canDriveTo(City destination);
+	void discardCard(Card toDiscard);
 
-	List<Card> getDirectFlightCards();
+	default void discardCards(List<Card> toDiscard) {
+		toDiscard.forEach(this::discardCard);
+	}
 
-	List<Card> getCharterFlightCards();
+	void setLocation(City destination);
 
-	List<Card> getShuttleFlightCards();
+	City getLocation();
 
-	/* Other Actions */
-	List<Card> getBuildResearchStationCards();
-
-	boolean canTreatDisease();
-
-	List<Card> getGiveKnowledgeCards();
-
-	List<Card> getDiscoverCureCards(GameColor color);
-
-	/* Event Cards */
-	List<Card> getEventCards();
-
-	boolean canUseSpecialSkill();
-
-	void discardOneCard(Deck<Card> hand);
+	List<Card> getFilteredHand(Predicate<? super Card> filter);
 
 }
