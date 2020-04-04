@@ -1,20 +1,21 @@
 package game.event;
 
-import data.Board;
+import game.TurnController;
 
 public class EventOneQuietNight implements Event {
 	/*
 	 * Skip next infection stage
 	 */
-	private Board board;
+	private TurnController turnController;
 
-	public EventOneQuietNight(Board gameBoard) {
-		board = gameBoard;
+	public EventOneQuietNight(TurnController turnController) {
+		super();
+		this.turnController = turnController;
 	}
 
 	@Override
 	public void executeEvent() {
-		board.inQueitNight = true;
+		turnController.skipNextInfectionStage();
 	}
 
 }

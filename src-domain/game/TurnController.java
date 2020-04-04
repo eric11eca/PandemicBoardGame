@@ -14,6 +14,7 @@ public class TurnController {
 	private GameState game;
 
 	private PlayerController playerController;
+	private boolean skipInfection;
 	private int remainingActions;
 
 	public TurnController(Deck<Card> playerDeck, Infection infection, GameState game) {
@@ -39,6 +40,10 @@ public class TurnController {
 		playerController.perform(actionType);
 	}
 
+	public void skipNextInfectionStage() {
+		skipInfection = true;
+	}
+
 	public void endTurn() {
 		drawPlayerCards();
 		infection();
@@ -54,6 +59,8 @@ public class TurnController {
 	}
 
 	private void infection() {
+		if (skipInfection)
+			return;
 		for (int i = 0; i < game.getInfectionRate(); i++) {
 			infection.infectOnce();
 		}

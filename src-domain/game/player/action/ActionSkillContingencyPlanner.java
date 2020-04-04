@@ -5,15 +5,18 @@ import java.util.List;
 import game.cards.Card;
 import game.cards.Deck;
 import game.cards.event.CardEventReused;
-import game.player.Player;
 import game.player.PlayerInteraction;
+import game.player.special.ContingencyPlanner;
 
 public class ActionSkillContingencyPlanner extends Action {
 
 	private Deck<Card> playerDiscardPile;
+	private ContingencyPlanner contingencyPlanner;
 
-	public ActionSkillContingencyPlanner(Player player, PlayerInteraction interaction, Deck<Card> playerDiscardPile) {
+	public ActionSkillContingencyPlanner(ContingencyPlanner player, PlayerInteraction interaction,
+			Deck<Card> playerDiscardPile) {
 		super(player, interaction);
+		this.contingencyPlanner = player;
 		this.playerDiscardPile = playerDiscardPile;
 	}
 
@@ -32,7 +35,7 @@ public class ActionSkillContingencyPlanner extends Action {
 	}
 
 	protected void performSpecialSkill(Card reuseEventCard) {
-		player.receiveCard(new CardEventReused(reuseEventCard));
+		contingencyPlanner.keepEventCardOnRole(new CardEventReused(reuseEventCard));
 	}
 
 }
