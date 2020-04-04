@@ -225,10 +225,10 @@ public class GUI_old {
 		JButton specialSkillButton = new JButton(board.messages.getString("useSpecialSkill"));
 		specialSkillButton.setLocation(475, (x + 2) * 25);
 		specialSkillButton.setSize(150, 20);
-		if (board.currentPlayer.playerData.role == Roles.DISPATCHER) {
+		if (board.currentPlayer.playerData.role == Role.DISPATCHER) {
 			// specialSkillButton.addActionListener(new DispatcherListener(board, this));
 			panel.add(specialSkillButton);
-		} else if (board.currentPlayer.playerData.role == Roles.CONTINGENCYPLANNER) {
+		} else if (board.currentPlayer.playerData.role == Role.CONTINGENCYPLANNER) {
 			// specialSkillButton.addActionListener(new ContingencyPlannerListener(board,
 			// this));
 			panel.add(specialSkillButton);

@@ -9,18 +9,22 @@ import game.cards.Card;
 import game.cards.Deck;
 import game.city.City;
 
-public abstract class PlayerImpl implements Player {
+public class PlayerImpl implements Player {
 
 	private final int id;
+
 	private Deck<Card> hand;
 	private Deck<Card> playerDiscard;
 	private City location;
 	private PlayerInteraction interaction;
 
-	public PlayerImpl(int id) {
+	public PlayerImpl(int id, City startingLocation, Deck<Card> playerDiscard, PlayerInteraction interaction) {
+		super();
 		this.id = id;
 		this.hand = new Deck<>();
-		this.location = null;
+		this.playerDiscard = playerDiscard;
+		this.location = startingLocation;
+		this.interaction = interaction;
 	}
 
 	@Override

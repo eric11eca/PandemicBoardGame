@@ -84,7 +84,7 @@ public class ShareKnowledgeListener implements ActionListener {
 	protected void chooseCard() {
 		if (action) {
 			String[] options;
-			if (board.currentPlayer.playerData.role == Board.Roles.RESEARCHER) {
+			if (board.currentPlayer.playerData.role == Board.Role.RESEARCHER) {
 				System.out.println("Researcher");
 				options = new String[board.currentPlayer.playerData.hand.size()];
 				int count = 0;
@@ -128,7 +128,7 @@ public class ShareKnowledgeListener implements ActionListener {
 			});
 		} else {
 			String[] options;
-			if (board.currentPlayers.get(playerNumber).playerData.role == Board.Roles.RESEARCHER) {
+			if (board.currentPlayers.get(playerNumber).playerData.role == Board.Role.RESEARCHER) {
 				System.out.println("Researcher 1");
 				options = new String[board.currentPlayers.get(playerNumber).playerData.hand.size()];
 				int count = 0;

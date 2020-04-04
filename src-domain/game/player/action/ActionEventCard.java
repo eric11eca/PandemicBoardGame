@@ -12,8 +12,8 @@ public class ActionEventCard extends Action {
 
 	private List<Player> players;
 
-	public ActionEventCard(Player player, PlayerInteraction interaction, List<Player> players) {
-		super(player, interaction);
+	public ActionEventCard(PlayerInteraction interaction, List<Player> players) {
+		super(null, interaction);
 		this.players = players;
 	}
 

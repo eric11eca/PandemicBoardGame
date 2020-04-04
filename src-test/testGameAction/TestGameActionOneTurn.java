@@ -42,7 +42,7 @@ public class TestGameActionOneTurn {
 
 		board.currentPlayer = EasyMock.createMock(PlayerImpl.class);
 		board.currentPlayer.playerData = playerData;
-		board.currentPlayer.playerData.role = Board.Roles.OPERATIONSEXPERT;
+		board.currentPlayer.playerData.role = Board.Role.OPERATIONSEXPERT;
 
 	}
 

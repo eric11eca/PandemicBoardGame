@@ -20,7 +20,7 @@ public class InitializePlayerData {
 		Collections.shuffle(board.roles);
 
 		for (int i = 0; i < board.playernumber; i++) {
-			Board.Roles role = board.roles.get(i);
+			Role.Roles role = board.roles.get(i);
 			PlayerImpl player = board.playerTable.get(role);
 			board.currentPlayers.add(player);
 		}

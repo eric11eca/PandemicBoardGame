@@ -8,10 +8,10 @@ import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
 
-public class ActionSkillOperationExpert extends Action {
+public class ActionSkillOperationsExpert extends Action {
 	private CitySet citySet;
 
-	public ActionSkillOperationExpert(Player player, PlayerInteraction interaction, CitySet citySet) {
+	public ActionSkillOperationsExpert(Player player, PlayerInteraction interaction, CitySet citySet) {
 		super(player, interaction);
 		this.citySet = citySet;
 	}

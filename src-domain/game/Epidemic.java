@@ -1,5 +1,6 @@
 package game;
 
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import game.cards.CardCity;
@@ -11,16 +12,16 @@ public class Epidemic {
 	private Deck<CardCity> infectionCards;
 	private Deck<CardCity> infectionDiscard;
 	private GameState game;
-	private Supplier<City> quarantineSpecialistLocation;
+	private Predicate<City> quarantineChecker;
 	private GameCubePool gameCubePool;
 
 	public Epidemic(Deck<CardCity> infectionCards, Deck<CardCity> infectionDiscard, GameState game,
-			Supplier<City> quarantineSpecialistLocation, GameCubePool gameCubePool) {
+			Predicate<City> quarantineChecker, GameCubePool gameCubePool) {
 		super();
 		this.infectionCards = infectionCards;
 		this.infectionDiscard = infectionDiscard;
 		this.game = game;
-		this.quarantineSpecialistLocation = quarantineSpecialistLocation;
+		this.quarantineChecker = quarantineChecker;
 		this.gameCubePool = gameCubePool;
 	}
 
@@ -34,7 +35,7 @@ public class Epidemic {
 		City city = determineCity();
 
 		if (!gameCubePool.isDiseaseEradicated(city.getColor())) {
-			city.epidemicInfect(game, quarantineSpecialistLocation.get());
+			city.epidemicInfect(game, quarantineChecker);
 		}
 
 		infectionDiscard.putOnTop(new CardCity(city));

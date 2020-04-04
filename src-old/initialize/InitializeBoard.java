@@ -20,7 +20,7 @@ import game.event.EventResilientPopulation;
 import game.player.PlayerImpl;
 import game.player.action.StationBuilderNormal;
 import game.player.action.ActionTreatDiseaseMedic;
-import game.player.action.ActionSkillOperationExpert;
+import game.player.action.ActionSkillOperationsExpert;
 import game.player.action.ActionEventCard;
 import game.player.action.TreatNormal;
 import game.player.action.ActionBuildStationWithoutCard;
@@ -45,13 +45,13 @@ public class InitializeBoard {
 	}
 
 	public void initializePlayerRoles() {
-		board.roles.add(Board.Roles.SCIENTIST);
-		board.roles.add(Board.Roles.MEDIC);
-		board.roles.add(Board.Roles.RESEARCHER);
-		board.roles.add(Board.Roles.DISPATCHER);
-		board.roles.add(Board.Roles.CONTINGENCYPLANNER);
-		board.roles.add(Board.Roles.OPERATIONSEXPERT);
-		board.roles.add(Board.Roles.QUARANTINESPECIALIST);
+		board.roles.add(Board.Role.SCIENTIST);
+		board.roles.add(Board.Role.MEDIC);
+		board.roles.add(Board.Role.RESEARCHER);
+		board.roles.add(Board.Role.DISPATCHER);
+		board.roles.add(Board.Role.CONTINGENCYPLANNER);
+		board.roles.add(Board.Role.OPERATIONSEXPERT);
+		board.roles.add(Board.Role.QUARANTINESPECIALIST);
 	}
 
 	public void initializeSpecialEndGameDemo() {
@@ -129,13 +129,13 @@ public class InitializeBoard {
 		PlayerData operationsExpertData = new PlayerData();
 		PlayerData quarantineSpecialistData = new PlayerData();
 
-		scientistData.role = Board.Roles.SCIENTIST;
-		medicData.role = Board.Roles.MEDIC;
-		researcherData.role = Board.Roles.RESEARCHER;
-		dispatcherData.role = Board.Roles.DISPATCHER;
-		contingencyPlannerData.role = Board.Roles.CONTINGENCYPLANNER;
-		operationsExpertData.role = Board.Roles.OPERATIONSEXPERT;
-		quarantineSpecialistData.role = Board.Roles.QUARANTINESPECIALIST;
+		scientistData.role = Board.Role.SCIENTIST;
+		medicData.role = Board.Role.MEDIC;
+		researcherData.role = Board.Role.RESEARCHER;
+		dispatcherData.role = Board.Role.DISPATCHER;
+		contingencyPlannerData.role = Board.Role.CONTINGENCYPLANNER;
+		operationsExpertData.role = Board.Role.OPERATIONSEXPERT;
+		quarantineSpecialistData.role = Board.Role.QUARANTINESPECIALIST;
 
 		scientistData.buildStationModel = new StationBuilderNormal(scientistData, board);
 		medicData.buildStationModel = new StationBuilderNormal(medicData, board);
@@ -161,7 +161,7 @@ public class InitializeBoard {
 		contingencyPlannerData.treatAction = new TreatNormal(board);
 		quarantineSpecialistData.treatAction = new TreatNormal(board);
 
-		operationsExpertData.specialSkill = new ActionSkillOperationExpert(board, operationsExpertData);
+		operationsExpertData.specialSkill = new ActionSkillOperationsExpert(board, operationsExpertData);
 		medicData.specialSkill = new MedicAction(board, medicData);
 		contingencyPlannerData.specialSkill = new ContingencyPlannerAction(board, contingencyPlannerData);
 
@@ -173,13 +173,13 @@ public class InitializeBoard {
 		PlayerImpl operationsExpert = new PlayerImpl(board, operationsExpertData);
 		PlayerImpl quarantineSpecialist = new PlayerImpl(board, quarantineSpecialistData);
 
-		board.playerTable.put(Board.Roles.SCIENTIST, scientist);
-		board.playerTable.put(Board.Roles.MEDIC, medic);
-		board.playerTable.put(Board.Roles.RESEARCHER, researcher);
-		board.playerTable.put(Board.Roles.DISPATCHER, dispatcher);
-		board.playerTable.put(Board.Roles.CONTINGENCYPLANNER, contingencyPlanner);
-		board.playerTable.put(Board.Roles.OPERATIONSEXPERT, operationsExpert);
-		board.playerTable.put(Board.Roles.QUARANTINESPECIALIST, quarantineSpecialist);
+		board.playerTable.put(Board.Role.SCIENTIST, scientist);
+		board.playerTable.put(Board.Role.MEDIC, medic);
+		board.playerTable.put(Board.Role.RESEARCHER, researcher);
+		board.playerTable.put(Board.Role.DISPATCHER, dispatcher);
+		board.playerTable.put(Board.Role.CONTINGENCYPLANNER, contingencyPlanner);
+		board.playerTable.put(Board.Role.OPERATIONSEXPERT, operationsExpert);
+		board.playerTable.put(Board.Role.QUARANTINESPECIALIST, quarantineSpecialist);
 	}
 
 	public void initializeInfectionRateTrack() {

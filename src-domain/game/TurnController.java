@@ -53,8 +53,13 @@ public class TurnController {
 	private void drawPlayerCards() {
 		List<Card> cards = new ArrayList<>();
 		final int DRAW_CARDS_PER_TURN = GameProperty.getInstance().getInt("DRAW_CARDS_PER_TURN");
-		for (int i = 0; i < DRAW_CARDS_PER_TURN; i++)
+		for (int i = 0; i < DRAW_CARDS_PER_TURN; i++) {
+			if (playerDeck.isEmpty()) {
+				game.triggerLose();
+				break;
+			}
 			cards.add(playerDeck.takeTopCard());
+		}
 		playerController.givePlayerCards(cards);
 	}
 
