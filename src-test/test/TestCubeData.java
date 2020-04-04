@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import data.GameColor;
+import game.GameColor;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;
 

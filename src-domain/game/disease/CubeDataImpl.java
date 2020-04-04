@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
-import data.GameColor;
+import game.GameColor;
 
 public class CubeDataImpl implements CubeData {
 	private Map<GameColor, Integer> diseaseCubes;

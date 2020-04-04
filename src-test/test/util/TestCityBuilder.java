@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import data.CityData;
-import data.GameColor;
+import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;

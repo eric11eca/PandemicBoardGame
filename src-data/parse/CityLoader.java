@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import data.CityData;
-import data.GameColor;
 import data.GameProperty;
+import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import render.RenderCity;

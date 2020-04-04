@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import data.GameColor;
+import game.GameColor;
 import game.cards.Card;
 import game.city.City;
 

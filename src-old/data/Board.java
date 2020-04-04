@@ -14,7 +14,7 @@ import game.event.Event;
 import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.ActionEventCard;
-import initialize.Messages;
+import lang.I18n;
 
 @Deprecated
 public class Board {
@@ -107,6 +107,6 @@ public class Board {
 	public int dispatcherCase = -1;
 
 	@Deprecated // Refactor into data
-	public Messages messages;
+	public I18n messages;
 
 }

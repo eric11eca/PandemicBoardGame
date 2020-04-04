@@ -4,8 +4,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
 
-import data.GameColor;
-import game.Game;
+import game.GameState;
+import game.GameColor;
 import game.cards.Card;
 import game.cards.CardCity;
 import game.cards.Deck;
@@ -25,7 +25,7 @@ import parse.CityLoader;
 import render.RenderCity;
 
 public class InitializationFacade {
-	private Game game;
+	private GameState game;
 	private GameCubePool gameCubePool;
 	private HashMap<String, City> cities;
 	private HashMap<City, RenderCity> renderCities;
@@ -45,7 +45,7 @@ public class InitializationFacade {
 	private GameGUI gui;
 
 	public InitializationFacade() {
-		game = new Game();
+		game = new GameState();
 		gameCubePool = new GameCubePool(game);
 		cities = new HashMap<>();
 		renderCities = new HashMap<>();

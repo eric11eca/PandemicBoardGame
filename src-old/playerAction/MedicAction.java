@@ -1,7 +1,7 @@
 package playerAction;
 
 import data.Board;
-import data.GameColor;
+import game.GameColor;
 import player.PlayerData;
 
 public class MedicAction implements SpecialSkill {

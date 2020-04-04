@@ -25,8 +25,8 @@ public class CardEpidemic implements Card {
 	}
 
 	@Override
-	public void discard(Deck<Card> discardPile) {
-		discardPile.putOnTop(this);
+	public <T extends Card> void discard(Deck<T> discardPile, Class<T> type) {
+		discardPile.putOnTop(type.cast(this));
 	}
 
 }

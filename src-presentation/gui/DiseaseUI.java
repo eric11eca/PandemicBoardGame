@@ -8,8 +8,8 @@ import java.util.Set;
 
 import javax.swing.JComponent;
 
-import data.GameColor;
-import game.Game;
+import game.GameState;
+import game.GameColor;
 import game.disease.GameCubePool;
 import render.Render;
 import render.RenderColor;

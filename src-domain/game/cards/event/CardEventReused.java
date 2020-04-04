@@ -22,11 +22,6 @@ public class CardEventReused implements Card {
 	}
 
 	@Override
-	public void discard(Deck<Card> discardPile) {
-		// Do not add to discard pile
-	}
-
-	@Override
 	public Optional<City> getCity() {
 		return delegate.getCity();
 	}
@@ -45,6 +40,11 @@ public class CardEventReused implements Card {
 	@Override
 	public int hashCode() {
 		return delegate.hashCode();
+	}
+
+	@Override
+	public <T extends Card> void discard(Deck<T> discardPile, Class<T> type) {
+		// Do not add to discard pile
 	}
 
 }

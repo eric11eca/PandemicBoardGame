@@ -1,20 +1,16 @@
 package game.player;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import data.GameColor;
 import data.GameProperty;
 import game.cards.Card;
-import game.cards.CardCity;
 import game.cards.Deck;
 import game.city.City;
 
-public abstract class PlayerImpl implements PlayerController, Player {
-	private static final int HAND_LIMIT = GameProperty.getInstance().getInt("HAND_LIMIT");
+public abstract class PlayerImpl implements Player {
+
 	private Deck<Card> hand;
 	private Deck<Card> playerDiscard;
 	private City location;
@@ -28,15 +24,15 @@ public abstract class PlayerImpl implements PlayerController, Player {
 	@Override
 	public void receiveCard(List<Card> cards) {
 		cards.forEach(card -> card.addToHand(hand));
-		if (hand.size() > HAND_LIMIT) {
+		if (hand.size() > getHandLimit()) {
 			discardHelper();
 		}
 	}
 
 	private void discardHelper() {
-		interaction.selectCardsToDiscard(hand.size() - HAND_LIMIT, hand.toList(), toDiscard -> {
+		interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList(), toDiscard -> {
 			this.discardCards(toDiscard);
-			if (hand.size() > HAND_LIMIT)
+			if (hand.size() > getHandLimit())
 				discardHelper();
 		});
 	}
@@ -50,7 +46,7 @@ public abstract class PlayerImpl implements PlayerController, Player {
 	@Override
 	public void discardCard(Card toDiscard) {
 		removeCard(toDiscard);
-		toDiscard.discard(playerDiscard);
+		toDiscard.discard(playerDiscard, Card.class);
 	}
 
 	@Override
@@ -168,6 +164,10 @@ public abstract class PlayerImpl implements PlayerController, Player {
 		if (!receiver.getLocation().equals(getLocation()))
 			return Collections.emptyList();
 		return hand.getFilteredSubDeck(card -> card.getCity().filter(location::equals).isPresent());
+	}
+
+	private int getHandLimit() {
+		return GameProperty.getInstance().getInt("HAND_LIMIT");
 	}
 
 }

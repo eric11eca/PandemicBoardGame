@@ -8,11 +8,12 @@ import javax.swing.JOptionPane;
 import cards.PlayerCard;
 import data.Board;
 import data.CityData;
-import data.GameColor;
-import game.Game;
+import game.GameState;
+import game.GameColor;
 import game.city.City;
 import game.player.Player;
 import gameAction.GameAction;
+import lang.I18n;
 import render.RenderCity;
 
 public class GameSetup {
@@ -36,8 +37,8 @@ public class GameSetup {
 	}
 
 	public void startGameSetup() {
-		Game.reset();
-		Game game = Game.getInstance();
+		GameState.reset();
+		GameState game = GameState.getInstance();
 
 		if (board.playernumber == 2) {
 			board.initialhandcard = 4;
@@ -132,13 +133,13 @@ public class GameSetup {
 
 		if (language != null) {
 			if (region != null) {
-				board.messages = new Messages(new Locale(language, region));
+				board.messages = new I18n(new Locale(language, region));
 			} else {
-				board.messages = new Messages(new Locale(language));
+				board.messages = new I18n(new Locale(language));
 			}
 
 		} else {
-			board.messages = new Messages(defaultLocale);
+			board.messages = new I18n(defaultLocale);
 		}
 	}
 

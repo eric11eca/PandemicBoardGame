@@ -3,6 +3,8 @@ package data;
 import java.util.Objects;
 import java.util.Set;
 
+import game.GameColor;
+
 public class CityData {
 	private String cityName;
 	private GameColor color;

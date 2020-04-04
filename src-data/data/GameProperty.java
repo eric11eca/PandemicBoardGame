@@ -19,6 +19,15 @@ public class GameProperty {
 		return Integer.parseInt(get(name));
 	}
 
+	public int[] getIntArray(String name) {
+		String[] rawRates = get(name).split(",");
+		int[] rates = new int[rawRates.length];
+		for (int i = 0; i < rates.length; i++) {
+			rates[i] = Integer.parseInt(rawRates[i]);
+		}
+		return rates;
+	}
+
 	public String get(String name) {
 		return properties.getProperty(name);
 	}

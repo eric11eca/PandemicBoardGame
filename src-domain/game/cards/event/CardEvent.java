@@ -27,11 +27,6 @@ public class CardEvent implements Card {
 	}
 
 	@Override
-	public void discard(Deck<Card> discardPile) {
-		discardPile.putOnTop(this);
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		return obj != null && obj.getClass() == getClass()
 				&& Objects.equals(((CardEvent) obj).event.getClass(), event.getClass());
@@ -40,6 +35,11 @@ public class CardEvent implements Card {
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(event.getClass());
+	}
+
+	@Override
+	public <T extends Card> void discard(Deck<T> discardPile, Class<T> type) {
+		discardPile.putOnTop(type.cast(this));
 	}
 
 }

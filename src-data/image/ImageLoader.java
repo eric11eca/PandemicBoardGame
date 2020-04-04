@@ -9,8 +9,9 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import data.GameProperty;
+
 public class ImageLoader {
-	private static final String PATH = "images/";
 	private static ImageLoader imageLoader;
 
 	private Map<String, BufferedImage> imageMap;
@@ -39,6 +40,7 @@ public class ImageLoader {
 
 	private BufferedImage loadImageFromFile(String fileName) {
 		try {
+			final String PATH = GameProperty.getInstance().get("IMAGE_PATH");
 			File imageFile = new File(PATH + fileName);
 			BufferedImage image = ImageIO.read(imageFile);
 			imageMap.put(fileName, image);

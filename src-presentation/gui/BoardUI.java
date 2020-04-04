@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.swing.JComponent;
 
 import data.Board;
-import game.Game;
+import game.GameState;
 import game.city.City;
 import game.player.PlayerImpl;
 import image.ImageLoader;

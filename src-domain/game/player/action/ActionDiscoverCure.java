@@ -4,7 +4,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import data.GameColor;
+import game.GameColor;
 import game.cards.Card;
 import game.player.Player;
 import game.player.PlayerInteraction;

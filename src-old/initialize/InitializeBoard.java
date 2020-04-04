@@ -9,8 +9,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import cards.PlayerCard;
 import data.Board;
 import data.CityData;
-import data.GameColor;
-import game.Game;
+import game.GameState;
+import game.GameColor;
 import game.city.City;
 import game.event.EventAirlift;
 import game.event.EventForecast;
@@ -193,7 +193,7 @@ public class InitializeBoard {
 	}
 
 	public void initializeRemainDiseaseCube() {
-		Game.getInstance().initializeDiseaseCubes();
+		GameState.getInstance().initializeDiseaseCubes();
 	}
 
 	public void initializeDiseaseCube() {
@@ -214,7 +214,7 @@ public class InitializeBoard {
 	}
 
 	private void placeDiseaseCube(City city, int count) {
-		Game.getInstance().takeCubeFromPool(city.getColor(), count);
+		GameState.getInstance().takeCubeFromPool(city.getColor(), count);
 		city.initializeDisease(count);
 //		String color = city.getColor().compatibility_ColorString;
 //		int numOfCubes = board.remainDiseaseCube.get(color);

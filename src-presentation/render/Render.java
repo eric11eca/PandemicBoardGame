@@ -3,7 +3,7 @@ package render;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import data.GameColor;
+import game.GameColor;
 
 public class Render {
 	private Graphics2D g;

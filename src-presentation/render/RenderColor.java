@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.EnumMap;
 import java.util.Map;
 
-import data.GameColor;
+import game.GameColor;
 
 public class RenderColor {
 	private Graphics2D g;

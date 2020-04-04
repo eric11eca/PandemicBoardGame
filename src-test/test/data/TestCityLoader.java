@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
-import data.GameColor;
+import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import parse.CityLoader;

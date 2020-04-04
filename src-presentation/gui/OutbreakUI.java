@@ -7,13 +7,13 @@ import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
 
-import game.Game;
+import game.GameState;
 
 @SuppressWarnings("serial")
 public class OutbreakUI extends JComponent {
-	private Game game;
+	private GameState game;
 
-	public OutbreakUI(Game game) {
+	public OutbreakUI(GameState game) {
 		super();
 		this.game = game;
 	}

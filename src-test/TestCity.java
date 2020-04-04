@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import data.GameColor;
+import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import test.util.TestAccess;

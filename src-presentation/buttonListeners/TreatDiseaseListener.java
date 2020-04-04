@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.Board;
-import data.GameColor;
+import game.GameColor;
 import gui.GameGUI;
 import initialize.GameSetup;
 

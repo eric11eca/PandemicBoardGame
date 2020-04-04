@@ -1,20 +1,18 @@
 package game;
 
-import parse.InfectionRateLoader;
+import data.GameProperty;
 
-public class Game {
+public class GameState {
 
 	private boolean lost;
 	private boolean won;
 	private int outbreakLevel;
 	private int infectionIndex;
-	private int[] infectionRates;
 
-	public Game() {
+	public GameState() {
 		lost = false;
 		won = false;
 		outbreakLevel = 0;
-		infectionRates = new InfectionRateLoader().getInfectionRates();
 		infectionIndex = 0;
 	}
 
@@ -46,6 +44,7 @@ public class Game {
 	}
 
 	public int getInfectionRate() {
+		int[] infectionRates = GameProperty.getInstance().getIntArray("INFECTION_RATES");
 		return infectionRates[infectionIndex];
 	}
 

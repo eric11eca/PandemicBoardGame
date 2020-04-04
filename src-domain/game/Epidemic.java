@@ -10,11 +10,11 @@ import game.disease.GameCubePool;
 public class Epidemic {
 	private Deck<CardCity> infectionCards;
 	private Deck<CardCity> infectionDiscard;
-	private Game game;
+	private GameState game;
 	private Supplier<City> quarantineSpecialistLocation;
 	private GameCubePool gameCubePool;
 
-	public Epidemic(Deck<CardCity> infectionCards, Deck<CardCity> infectionDiscard, Game game,
+	public Epidemic(Deck<CardCity> infectionCards, Deck<CardCity> infectionDiscard, GameState game,
 			Supplier<City> quarantineSpecialistLocation, GameCubePool gameCubePool) {
 		super();
 		this.infectionCards = infectionCards;
@@ -32,8 +32,11 @@ public class Epidemic {
 
 	private void epidemicInfect() {
 		City city = determineCity();
-		if (!gameCubePool.isDiseaseEradicated(city.getColor()))
-			city.epidemicInfect(quarantineSpecialistLocation.get());
+
+		if (!gameCubePool.isDiseaseEradicated(city.getColor())) {
+			city.epidemicInfect(game, quarantineSpecialistLocation.get());
+		}
+
 		infectionDiscard.putOnTop(new CardCity(city));
 	}
 

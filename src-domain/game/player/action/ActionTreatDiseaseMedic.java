@@ -1,6 +1,6 @@
 package game.player.action;
 
-import data.GameColor;
+import game.GameColor;
 import game.player.Player;
 import game.player.PlayerInteraction;
 

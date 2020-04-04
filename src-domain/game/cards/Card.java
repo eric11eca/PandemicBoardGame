@@ -9,7 +9,7 @@ import game.player.PlayerImpl;
 public interface Card {
 	void addToHand(Deck<Card> hand);
 
-	void discard(Deck<Card> discardPile);
+	<T extends Card> void discard(Deck<T> discardPile, Class<T> type);
 
 	Optional<City> getCity();
 

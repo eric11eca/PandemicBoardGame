@@ -2,7 +2,7 @@ package game.player.action;
 
 import java.util.Set;
 
-import data.GameColor;
+import game.GameColor;
 import game.player.Player;
 import game.player.PlayerInteraction;
 

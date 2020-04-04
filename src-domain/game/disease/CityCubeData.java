@@ -2,7 +2,7 @@ package game.disease;
 
 import java.util.Set;
 
-import data.GameColor;
+import game.GameColor;
 
 public class CityCubeData implements CubeData {
 	private CubeData delegate;

@@ -35,8 +35,8 @@ import buttonListeners.TreatDiseaseListener;
 import cards.PlayerCard;
 import data.Board;
 import data.Board.Roles;
+import game.GameColor;
 import game.city.City;
-import data.GameColor;
 import initialize.GameSetup;
 import render.RenderCity;
 

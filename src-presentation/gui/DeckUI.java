@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
 
-import game.Game;
+import game.GameState;
 import game.cards.Card;
 import game.cards.CardCity;
 import game.cards.Deck;

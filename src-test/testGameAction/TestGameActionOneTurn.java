@@ -14,14 +14,14 @@ import org.junit.Test;
 
 import cards.PlayerCard;
 import data.Board;
-import data.GameColor;
 import game.EpidemicCardAction;
+import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;
 import game.player.PlayerImpl;
 import gameAction.GameAction;
-import initialize.Messages;
+import lang.I18n;
 import player.PlayerData;
 import test.util.TestAccess;
 import test.util.TestCityBuilder;
@@ -213,7 +213,7 @@ public class TestGameActionOneTurn {
 	public void testAirliftEventCard() {
 		String eventCardName = "Airlift";
 		board.currentPlayer.useEventCard(eventCardName);
-		board.messages = EasyMock.createMock(Messages.class);
+		board.messages = EasyMock.createMock(I18n.class);
 		// TODO partially broken
 		// EasyMock.expect(board.messages.getString("Airlift")).andReturn("Airlift");
 		// EasyMock.replay(board.currentPlayer, board.messages);

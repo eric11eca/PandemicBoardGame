@@ -5,8 +5,8 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-import data.GameColor;
-import game.Game;
+import game.GameState;
+import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;

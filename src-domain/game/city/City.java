@@ -5,7 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import data.CityData;
-import data.GameColor;
+import game.GameState;
+import game.GameColor;
 import game.disease.CubeData;
 
 public class City {
@@ -58,16 +59,28 @@ public class City {
 		this.researchStation = false;
 	}
 
-	public void epidemicInfect(City quarantineSpecialistLocation) {
+	public void epidemicInfect(GameState game, City quarantineSpecialistLocation) {
+		int outbreakCount = epidemicInfectAndGetOutbreakCount(quarantineSpecialistLocation);
+		game.increaseOutbreakLevel(outbreakCount);
+	}
+
+	public void infect(GameState game, City quarantineSpecialistLocation) {
+		int outbreakCount = infectAndGetOutbreakCount(getColor(), quarantineSpecialistLocation);
+		game.increaseOutbreakLevel(outbreakCount);
+	}
+
+	private int epidemicInfectAndGetOutbreakCount(City quarantineSpecialistLocation) {
 		if (isQuarantined(quarantineSpecialistLocation))
-			return;
+			return 0;
 
 		boolean willOutbreak = disease.getDiseaseCubeCount(getColor()) > 0;
 		int addCubeCount = 3 - disease.getDiseaseCubeCount(getColor());
 		disease.addDiseaseCube(getColor(), addCubeCount);
 
 		if (willOutbreak) {
-			this.outbreak(getColor(), quarantineSpecialistLocation, new HashSet<>(), 0);
+			return this.outbreak(getColor(), quarantineSpecialistLocation, new HashSet<>(), 0);
+		} else {
+			return 0;
 		}
 	}
 
@@ -77,7 +90,7 @@ public class City {
 	}
 
 //return how many outbreaks happened
-	public int infectAndGetOutbreakCount(GameColor diseaseColor, City quarantineSpecialistLocation) {
+	private int infectAndGetOutbreakCount(GameColor diseaseColor, City quarantineSpecialistLocation) {
 		return infectAndGetOutbreakCountHelper(diseaseColor, quarantineSpecialistLocation, new HashSet<>(), 0);
 	}
 
