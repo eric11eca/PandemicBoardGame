@@ -4,6 +4,10 @@ import java.util.Objects;
 
 import game.GameColor;
 
+/**
+ * Stores static information about city
+ *
+ */
 public class CityData {
 	private String cityName;
 	private GameColor color;

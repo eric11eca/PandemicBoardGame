@@ -8,6 +8,10 @@ import game.cards.Card;
 import game.cards.Deck;
 import game.player.PlayerController;
 
+/**
+ * A upper level component that implements turns and delegate actions to the
+ * player controllers
+ */
 public class TurnController {
 	private Deck<Card> playerDeck;
 	private Infection infection;
@@ -37,11 +41,15 @@ public class TurnController {
 	}
 
 	public void performAction(ActionType actionType) {
+		if (!canContinueAction())
+			throw new RuntimeException("The player has used up all actions");
 		if (!playerControllers[current].canPerform(actionType))
 			throw new RuntimeException("Cannot perform this action");
-		playerControllers[current].perform(actionType);
+		playerControllers[current].perform(actionType, () -> {
+			remainingActions--;
+		});
 	}
-	
+
 	public boolean canPerformAction(ActionType actionType) {
 		return playerControllers[current].canPerform(actionType);
 	}

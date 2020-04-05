@@ -16,10 +16,10 @@ public class ActionGiveKnowledge extends Action {
 	}
 
 	@Override
-	public void perform() {
+	public void perform(Runnable completionCallback) {
 		interaction.selectPlayerFrom(getOtherSharablePlayers(), taker -> {
 			interaction.selectOneCardFrom(player().getSharableKnowledgeCards(taker), shared -> {
-				this.performGiveKnowledgeAction(taker, shared);
+				this.performGiveKnowledgeAction(taker, shared, completionCallback);
 			});
 		});
 	}
@@ -39,9 +39,10 @@ public class ActionGiveKnowledge extends Action {
 		return validPlayers;
 	}
 
-	protected void performGiveKnowledgeAction(Player taker, Card shared) {
+	protected void performGiveKnowledgeAction(Player taker, Card shared, Runnable completionCallback) {
 		player().removeCard(shared);
 		taker.receiveCard(shared);
+		completionCallback.run();
 	}
 
 }

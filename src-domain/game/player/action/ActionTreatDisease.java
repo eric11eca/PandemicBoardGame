@@ -16,8 +16,10 @@ public class ActionTreatDisease extends Action {
 	}
 
 	@Override
-	public void perform() {
-		interaction.selectColorFrom(playerCurrentLocation().getExistingDiseases(), this::performTreatDisease);
+	public void perform(Runnable completionCallback) {
+		interaction.selectColorFrom(playerCurrentLocation().getExistingDiseases(), color -> {
+			performTreatDisease(color, completionCallback);
+		});
 	}
 
 	@Override
@@ -25,11 +27,12 @@ public class ActionTreatDisease extends Action {
 		return playerCurrentLocation().hasDisease();
 	}
 
-	protected void performTreatDisease(GameColor diseaseColor) {
+	protected void performTreatDisease(GameColor diseaseColor, Runnable completionCallback) {
 		if (curedDiseases.contains(diseaseColor))
 			playerCurrentLocation().eradicateDisease(diseaseColor);
 		else
 			playerCurrentLocation().treatDisease(diseaseColor);
+		completionCallback.run();
 	}
 
 }

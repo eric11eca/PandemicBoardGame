@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 import game.city.City;
 import game.player.Player;
 
+/**
+ * Implements the Quarantine Specialist skill. See {@link City}
+ */
 public class QuarantineChecker implements Predicate<City> {
 	private Player quarantineSpecialist;
 

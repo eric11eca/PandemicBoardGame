@@ -7,6 +7,9 @@ import game.cards.Card;
 import game.player.AbstractPlayerDecorator;
 import game.player.Player;
 
+/**
+ * A decorator that adds the Research behavior to a Player
+ */
 public class Researcher extends AbstractPlayerDecorator {
 
 	public Researcher(Player delegate) {

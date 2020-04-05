@@ -7,6 +7,10 @@ import game.ActionType;
 import game.cards.Card;
 import game.player.action.Action;
 
+/**
+ * The PlayerController encapsulates a role and a player. The role is
+ * represented by a set of actions. See {@link Action}
+ */
 public class PlayerController {
 	private Player player;
 	private Map<ActionType, Action> actionMap;
@@ -17,8 +21,8 @@ public class PlayerController {
 		this.actionMap = actionMap;
 	}
 
-	public void perform(ActionType actionType) {
-		actionMap.get(actionType).perform();
+	public void perform(ActionType actionType, Runnable completionCallback) {
+		actionMap.get(actionType).perform(completionCallback);
 	}
 
 	public boolean canPerform(ActionType actionType) {

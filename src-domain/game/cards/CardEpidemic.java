@@ -6,6 +6,10 @@ import game.Epidemic;
 import game.city.City;
 import game.event.Event;
 
+/**
+ * An epidemic card, which triggers epidemic when draw instead of going to the
+ * player's hand. See {@link Epidemic}
+ */
 public class CardEpidemic implements Card {
 	private Epidemic epidemic;
 

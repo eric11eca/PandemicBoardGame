@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+/**
+ * Implementation of a deck of cards
+ *
+ * @param <C> the deck type
+ */
 public class Deck<C extends Card> {
 	private LinkedList<C> list;
 

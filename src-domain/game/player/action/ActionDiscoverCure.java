@@ -22,10 +22,11 @@ public class ActionDiscoverCure extends Action {
 	}
 
 	@Override
-	public void perform() {
+	public void perform(Runnable completionCallback) {
 		interaction.selectColorFrom(getCanCureColors(), color -> {
-			interaction.selectCardsFrom(cardNeeded, getDiscoverCureCards(color),
-					cards -> performDiscoverCureAction(color, cards));
+			interaction.selectCardsFrom(cardNeeded, getDiscoverCureCards(color), cards -> {
+				performDiscoverCureAction(color, cards, completionCallback);
+			});
 		});
 	}
 
@@ -42,10 +43,11 @@ public class ActionDiscoverCure extends Action {
 		return card.getCity().filter(c -> c.getColor().equals(color)).isPresent();
 	}
 
-	protected void performDiscoverCureAction(GameColor color, List<Card> usingCards) {
+	protected void performDiscoverCureAction(GameColor color, List<Card> usingCards, Runnable completionCallback) {
 		legalityCheck(color, usingCards);
 		player().discardCards(usingCards);
 		curedDiseases.add(color);
+		completionCallback.run();
 	}
 
 	private void legalityCheck(GameColor color, List<Card> usingCards) {

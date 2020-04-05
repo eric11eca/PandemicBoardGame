@@ -14,15 +14,30 @@ import game.city.City;
 import game.disease.CubeData;
 import render.RenderCity;
 
+/**
+ * Loads city data from files.
+ *
+ */
 public abstract class CityLoader {
 	private Map<String, City> allCities;
 	private Map<City, RenderCity> cityToRenderCity;
 
+	/**
+	 * Sole Constructor
+	 * 
+	 * @param allCities        A map to put the loaded cities
+	 * @param cityToRenderCity A map to put the loaded RenderCity
+	 */
 	public CityLoader(Map<String, City> allCities, Map<City, RenderCity> cityToRenderCity) {
 		this.allCities = allCities;
 		this.cityToRenderCity = cityToRenderCity;
 	}
 
+	/**
+	 * Load the cities
+	 * 
+	 * @throws IOException
+	 */
 	public void loadCities() throws IOException {
 		HashMap<City, Set<String>> cityToNeighbors = new HashMap<>();
 		HashMap<City, Set<City>> cityToNeighborSet = new HashMap<>();
@@ -96,6 +111,11 @@ public abstract class CityLoader {
 		});
 	}
 
+	/**
+	 * A factory method for create CubeData for the cities. See {@link CubeData}
+	 * 
+	 * @return
+	 */
 	protected abstract CubeData createCubeData();
 
 }

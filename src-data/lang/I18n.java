@@ -14,6 +14,13 @@ public class I18n {
 		resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 	}
 
+	/**
+	 * Localize a message
+	 * 
+	 * @param key
+	 * @param args
+	 * @return
+	 */
 	public String format(String key, Object... args) {
 		try {
 			String format = resourceBundle.getString(key);

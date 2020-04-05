@@ -13,8 +13,10 @@ public class ActionDirectFlight extends Action {
 	}
 
 	@Override
-	public void perform() {
-		interaction.selectOneCardFrom(getDirectFlightCards(), this::performDirectFlightAction);
+	public void perform(Runnable completionCallback) {
+		interaction.selectOneCardFrom(getDirectFlightCards(), card -> {
+			performDirectFlightAction(card, completionCallback);
+		});
 	}
 
 	@Override
@@ -30,11 +32,12 @@ public class ActionDirectFlight extends Action {
 		return card.getCity().filter(c -> !c.equals(playerCurrentLocation())).isPresent();
 	}
 
-	protected void performDirectFlightAction(Card usingCard) {
+	protected void performDirectFlightAction(Card usingCard, Runnable completionCallback) {
 		City city = usingCard.getCity().orElseThrow(RuntimeException::new);
 		if (city.equals(playerCurrentLocation()))
 			throw new RuntimeException("Flying to same city");
 		player().setLocation(city);
 		player().discardCard(usingCard);
+		completionCallback.run();
 	}
 }

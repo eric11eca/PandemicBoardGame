@@ -18,10 +18,12 @@ public class ActionCharterFlight extends Action {
 	}
 
 	@Override
-	public void perform() {
+	public void perform(Runnable completionCallback) {
 		interaction.selectOneCardFrom(getCharterFlightCards(), card -> {
 			Set<City> allExceptCurrent = cities.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation()));
-			interaction.selectCityFrom(allExceptCurrent, city -> this.performCharterFlightAction(card, city));
+			interaction.selectCityFrom(allExceptCurrent, city -> {
+				this.performCharterFlightAction(card, city, completionCallback);
+			});
 		});
 	}
 
@@ -38,12 +40,13 @@ public class ActionCharterFlight extends Action {
 		return card.getCity().filter(playerCurrentLocation()::equals).isPresent();
 	}
 
-	protected void performCharterFlightAction(Card usingCard, City flyTo) {
+	protected void performCharterFlightAction(Card usingCard, City flyTo, Runnable completionCallback) {
 		City city = usingCard.getCity().orElseThrow(RuntimeException::new);
 		if (!city.equals(playerCurrentLocation()))
 			throw new RuntimeException("Invalid Card to charter flight");
 		player().setLocation(flyTo);
 		player().discardCard(usingCard);
+		completionCallback.run();
 	}
 
 }

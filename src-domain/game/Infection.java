@@ -7,6 +7,10 @@ import game.cards.Deck;
 import game.city.City;
 import game.disease.GameCubePool;
 
+/**
+ * Implementation of the infection mechanics, which happens at the end of each
+ * turn
+ */
 public class Infection {
 
 	private Deck<CardCity> infectionDeck;

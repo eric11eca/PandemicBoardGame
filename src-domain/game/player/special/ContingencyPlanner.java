@@ -8,6 +8,9 @@ import game.cards.event.CardEventReused;
 import game.player.AbstractPlayerDecorator;
 import game.player.Player;
 
+/**
+ * A decorator that adds the Contingency Planner behavior to Player
+ */
 public class ContingencyPlanner extends AbstractPlayerDecorator {
 	private CardEventReused eventReused;
 

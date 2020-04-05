@@ -17,8 +17,10 @@ public class ActionShuttleFlight extends Action {
 	}
 
 	@Override
-	public void perform() {
-		interaction.selectCityFrom(getCitiesWithResearchStationExceptCurrent(), this::performShuttleFlightAction);
+	public void perform(Runnable completionCallback) {
+		interaction.selectCityFrom(getCitiesWithResearchStationExceptCurrent(), city -> {
+			performShuttleFlightAction(city, completionCallback);
+		});
 	}
 
 	@Override
@@ -32,10 +34,11 @@ public class ActionShuttleFlight extends Action {
 		return cities.getCitiesSatisfying(c -> c.hasResearchStation() && !c.equals(playerCurrentLocation()));
 	}
 
-	protected void performShuttleFlightAction(City destination) {
+	protected void performShuttleFlightAction(City destination, Runnable completionCallback) {
 		if (!playerCurrentLocation().hasResearchStation() || !destination.hasResearchStation())
 			throw new RuntimeException("Not both cities have stations");
 		player().setLocation(destination);
+		completionCallback.run();
 	}
 
 }

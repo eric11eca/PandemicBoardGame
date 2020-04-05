@@ -7,6 +7,9 @@ import game.cards.Deck;
 import game.city.City;
 import game.disease.GameCubePool;
 
+/**
+ * Implementation of the Epidemic mechanics
+ */
 public class Epidemic {
 	private Deck<CardCity> infectionCards;
 	private Deck<CardCity> infectionDiscard;

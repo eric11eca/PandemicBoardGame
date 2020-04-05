@@ -18,10 +18,10 @@ public class ActionSkillDispatcher extends Action {
 	}
 
 	@Override
-	public void perform() {
+	public void perform(Runnable completionCallback) {
 		interaction.selectPlayerFrom(getMovablePlayers(), toMove -> {
 			interaction.selectCityFrom(getMovableCities(toMove), toMoveTo -> {
-				this.performSpecialSkill(toMove, toMoveTo);
+				this.performSpecialSkill(toMove, toMoveTo, completionCallback);
 			});
 		});
 	}
@@ -50,12 +50,13 @@ public class ActionSkillDispatcher extends Action {
 		return playerLocations;
 	}
 
-	protected void performSpecialSkill(Player toMove, City toMoveTo) {
+	protected void performSpecialSkill(Player toMove, City toMoveTo, Runnable completionCallback) {
 		if (toMove.getLocation().equals(toMoveTo))
 			throw new RuntimeException("Cannot move to the same city");
 		if (!getMovableCities(toMove).contains(toMoveTo))
 			throw new RuntimeException("Illegal Movement");
 		toMove.setLocation(toMoveTo);
+		completionCallback.run();
 	}
 
 }

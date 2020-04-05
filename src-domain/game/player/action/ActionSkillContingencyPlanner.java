@@ -21,21 +21,22 @@ public class ActionSkillContingencyPlanner extends Action {
 	}
 
 	@Override
-	public void perform() {
-		interaction.selectOneCardFrom(getDiscardedEventCards(), this::performSpecialSkill);
+	public void perform(Runnable completionCallback) {
+		interaction.selectOneCardFrom(getDiscardedEventCards(), card -> performSpecialSkill(card, completionCallback));
 	}
 
 	@Override
 	public boolean canPerform() {
-		return !getDiscardedEventCards().isEmpty();
+		return !getDiscardedEventCards().isEmpty() && !contingencyPlanner.hasEventCardOnRole();
 	}
 
 	protected List<Card> getDiscardedEventCards() {
 		return playerDiscardPile.getFilteredSubDeck(card -> card.getEvent().isPresent());
 	}
 
-	protected void performSpecialSkill(Card reuseEventCard) {
+	protected void performSpecialSkill(Card reuseEventCard, Runnable completionCallback) {
 		contingencyPlanner.keepEventCardOnRole(new CardEventReused(reuseEventCard));
+		completionCallback.run();
 	}
 
 }

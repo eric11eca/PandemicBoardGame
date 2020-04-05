@@ -4,6 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+/**
+ * A utility class encapsulating the set of cities in the game.
+ * 
+ * @author zhaoy12
+ *
+ */
 public class CitySet {
 	private Set<City> cities;
 

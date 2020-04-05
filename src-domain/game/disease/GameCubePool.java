@@ -6,6 +6,9 @@ import data.GameProperty;
 import game.GameColor;
 import game.GameState;
 
+/**
+ * A decorator of CubeData that triggers lost when there isn't enough cube
+ */
 public class GameCubePool implements CubeData {
 
 	private GameState game;

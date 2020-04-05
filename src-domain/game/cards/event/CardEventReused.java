@@ -8,6 +8,11 @@ import game.cards.Deck;
 import game.city.City;
 import game.event.Event;
 
+/**
+ * A decorator that removes the event card played from the game, instead of
+ * adding it to the discard pile. Used for contingency planner
+ *
+ */
 public class CardEventReused implements Card {
 	private Card delegate;
 

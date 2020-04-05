@@ -6,13 +6,11 @@ import game.cards.Deck;
 import game.city.City;
 
 public class InitializerInfection {
-	private GameState game;
 	private Deck<CardCity> infectionDeck;
 	private Deck<CardCity> infectionDiscard;
 
-	public InitializerInfection(GameState game, Deck<CardCity> infectionDeck, Deck<CardCity> infectionDiscard) {
+	public InitializerInfection(Deck<CardCity> infectionDeck, Deck<CardCity> infectionDiscard) {
 		super();
-		this.game = game;
 		this.infectionDeck = infectionDeck;
 		this.infectionDiscard = infectionDiscard;
 	}
@@ -27,8 +25,7 @@ public class InitializerInfection {
 
 	private void initialInfect(int cubes) {
 		City city = infectionDeck.takeTopCard().getCity().get();
-		for (int i = 0; i < cubes; i++)
-			city.infect(game, c -> false);
+		city.initializeDisease(cubes);
 		infectionDiscard.putOnTop(new CardCity(city));
 	}
 }

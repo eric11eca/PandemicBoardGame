@@ -8,6 +8,10 @@ import game.cards.Deck;
 import game.city.City;
 import game.event.Event;
 
+/**
+ * Event Card. See {@link Event}
+ *
+ */
 public class CardEvent implements Card {
 	private Event event;
 

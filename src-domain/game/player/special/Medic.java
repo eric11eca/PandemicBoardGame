@@ -7,6 +7,9 @@ import game.city.City;
 import game.player.AbstractPlayerDecorator;
 import game.player.Player;
 
+/**
+ * A decorator that adds the Medic behavior to a Player
+ */
 public class Medic extends AbstractPlayerDecorator {
 	private Set<GameColor> curedDiseases;
 

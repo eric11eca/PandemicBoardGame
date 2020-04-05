@@ -4,27 +4,16 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import game.cards.Card;
-import game.city.City;
 import game.player.AbstractPlayerDecorator;
 import game.player.Player;
 
+/**
+ * A semi-decorator that represents a player controlled by the dispatcher. The
+ * methods related to the player's hand is delegated to the dispatcher, while
+ * other actions are delegated to the dispatched player
+ */
 public class DispatchedPlayer extends AbstractPlayerDecorator {
 	private Player dispatcher;
-
-	@Override
-	public boolean equals(Object obj) {
-		return dispatcher.equals(obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return dispatcher.hashCode();
-	}
-
-	@Override
-	public String toString() {
-		return dispatcher.toString();
-	}
 
 	@Override
 	public void receiveCard(List<Card> cards) {
@@ -39,21 +28,6 @@ public class DispatchedPlayer extends AbstractPlayerDecorator {
 	@Override
 	public void discardCard(Card toDiscard) {
 		dispatcher.discardCard(toDiscard);
-	}
-
-	@Override
-	public void setLocation(City destination) {
-		super.setLocation(destination);
-	}
-
-	@Override
-	public int getID() {
-		return super.getID();
-	}
-
-	@Override
-	public City getLocation() {
-		return super.getLocation();
 	}
 
 	@Override

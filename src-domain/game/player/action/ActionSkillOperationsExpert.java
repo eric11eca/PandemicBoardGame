@@ -22,10 +22,10 @@ public class ActionSkillOperationsExpert extends Action {
 	}
 
 	@Override
-	public void perform() {
+	public void perform(Runnable completionCallback) {
 		interaction.selectOneCardFrom(this.getCityCards(), card -> {
 			interaction.selectCityFrom(citySet.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation())), city -> {
-				this.performSpecialSkill(card, city);
+				this.performSpecialSkill(card, city, completionCallback);
 			});
 		});
 	}
@@ -41,7 +41,7 @@ public class ActionSkillOperationsExpert extends Action {
 		return player().getFilteredHand(card -> card.getCity().isPresent());
 	}
 
-	protected void performSpecialSkill(Card toDiscard, City toMove) {
+	protected void performSpecialSkill(Card toDiscard, City toMove, Runnable completionCallback) {
 		if (!playerCurrentLocation().hasResearchStation())
 			throw new RuntimeException("Operation Expert must move from research station");
 		if (!toDiscard.getCity().isPresent())
@@ -50,6 +50,7 @@ public class ActionSkillOperationsExpert extends Action {
 			throw new RuntimeException("Must not move to the same city");
 		player().setLocation(toMove);
 		player().discardCard(toDiscard);
+		completionCallback.run();
 	}
 
 }

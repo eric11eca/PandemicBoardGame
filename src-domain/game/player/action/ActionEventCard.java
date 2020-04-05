@@ -18,10 +18,10 @@ public class ActionEventCard extends Action {
 	}
 
 	@Override
-	public void perform() {
+	public void perform(Runnable completionCallback) {
 		interaction.selectPlayerFrom(playersWithEventCards(), p -> {
 			interaction.selectOneCardFrom(getEventCardsFromPlayer(p), card -> {
-				this.performEventCardAction(p, card);
+				this.performEventCardAction(p, card, completionCallback);
 			});
 		});
 	}
@@ -44,10 +44,11 @@ public class ActionEventCard extends Action {
 		return p.getFilteredHand(card -> card.getEvent().isPresent());
 	}
 
-	protected void performEventCardAction(Player p, Card card) {
+	protected void performEventCardAction(Player p, Card card, Runnable completionCallback) {
 		Event event = card.getEvent().orElseThrow(RuntimeException::new);
 		event.executeEvent(interaction);
 		p.discardCard(card);
+		completionCallback.run();
 	}
 
 }

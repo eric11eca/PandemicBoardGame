@@ -100,7 +100,7 @@ public class InitializationFacade {
 		new InitializerDecksWithoutEpidemic(citySet, infectionDeck, infectionDiscard, playerDeck, players,
 				turnController).initialize();
 		new InitializerPlayerHand(playerControllers, playerDeck).initialize();
-		new InitializerInfection(game, infectionDeck, infectionDiscard).initialize();
+		new InitializerInfection(infectionDeck, infectionDiscard).initialize();
 		new InitializerEpidemic(epidemicCount, playerDeck, epidemic).initialize();
 		determinePlayOrder();
 	}

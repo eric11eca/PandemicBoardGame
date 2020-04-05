@@ -10,6 +10,9 @@ import game.GameState;
 import game.GameColor;
 import game.disease.CubeData;
 
+/**
+ * A city
+ */
 public class City {
 
 	private CityData data;
@@ -24,6 +27,11 @@ public class City {
 		this.neighbors = neighbors;
 	}
 
+	/**
+	 * Initialize the disease cubes during setup
+	 * 
+	 * @param count how many cubes to put on
+	 */
 	public void initializeDisease(int count) {
 		disease.setDiseaseCubeCount(getColor(), count);
 	}
@@ -60,16 +68,31 @@ public class City {
 		this.researchStation = false;
 	}
 
+	/**
+	 * Performs epidemic infection on this city. Outbreaks will be automatically
+	 * triggered and recorded by the {@link GameState}.
+	 * 
+	 * @param game          the GameState object
+	 * @param isQuarantined The quarantine tester.
+	 */
 	public void epidemicInfect(GameState game, Predicate<City> isQuarantined) {
 		int outbreakCount = epidemicInfectAndGetOutbreakCount(isQuarantined);
 		game.increaseOutbreakLevel(outbreakCount);
 	}
 
+	/**
+	 * Performs nromal infection on this city. Outbreaks will be automatically
+	 * triggered and recorded by the {@link GameState}.
+	 * 
+	 * @param game          the GameState object
+	 * @param isQuarantined The quarantine tester.
+	 */
 	public void infect(GameState game, Predicate<City> isQuarantined) {
 		int outbreakCount = infectAndGetOutbreakCount(getColor(), isQuarantined);
 		game.increaseOutbreakLevel(outbreakCount);
 	}
 
+	// return how many outbreaks happened
 	private int epidemicInfectAndGetOutbreakCount(Predicate<City> isQuarantined) {
 		if (isQuarantined.test(this))
 			return 0;
@@ -85,7 +108,7 @@ public class City {
 		}
 	}
 
-	//return how many outbreaks happened
+	// return how many outbreaks happened
 	private int infectAndGetOutbreakCount(GameColor diseaseColor, Predicate<City> isQuarantined) {
 		return infectAndGetOutbreakCountHelper(diseaseColor, isQuarantined, new HashSet<>(), 0);
 	}
@@ -117,22 +140,44 @@ public class City {
 		return outbreakCount;
 	}
 
+	/**
+	 * Remove 1 disease cube of the specified color
+	 * 
+	 * @param color
+	 */
 	public void treatDisease(GameColor color) {
 		disease.removeDiseaseCube(color);
 	}
 
+	/**
+	 * Remove all disease cubes of the specified color
+	 * 
+	 * @param color
+	 */
 	public void eradicateDisease(GameColor color) {
 		disease.removeAllDiseaseCube(color);
 	}
 
+	/**
+	 * @return true if there is any disease cubes on this city
+	 */
 	public boolean hasDisease() {
 		return !disease.getExistingDiseases().isEmpty();
 	}
 
+	/**
+	 * Test if two cities are neighbors
+	 * 
+	 * @param other another city
+	 * @return true if the other city is a neighbor of this city
+	 */
 	public boolean isNeighboring(City other) {
 		return neighbors.contains(other);
 	}
 
+	/**
+	 * @return true if this city is where players should start
+	 */
 	public boolean isStartingCity() {
 		return data.isStart();
 	}

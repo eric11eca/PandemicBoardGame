@@ -21,8 +21,9 @@ public class ActionBuildStation extends Action {
 	}
 
 	@Override
-	public void perform() {
-		interaction.selectOneCardFrom(getBuildResearchStationCards(), this::afterSelectingCard);
+	public void perform(Runnable completionCallback) {
+		interaction.selectOneCardFrom(getBuildResearchStationCards(),
+				card -> this.afterSelectingCard(card, completionCallback));
 	}
 
 	@Override
@@ -41,15 +42,15 @@ public class ActionBuildStation extends Action {
 		return cardIsCurrentCity;
 	}
 
-	protected void afterSelectingCard(Card selectedCard) {
+	protected void afterSelectingCard(Card selectedCard, Runnable completionCallback) {
 		final int MAX_STATION_COUNT = GameProperty.getInstance().getInt("MAX_STATION_COUNT");
 		if (getStationCount() > MAX_STATION_COUNT) {
 			interaction.selectCityFrom(getCitiesWithStation(), city -> {
 				city.removeResearchStation();
-				this.performBuildStationActionWithCard(selectedCard);
+				this.performBuildStationActionWithCard(selectedCard, completionCallback);
 			});
 		} else {
-			this.performBuildStationActionWithCard(selectedCard);
+			this.performBuildStationActionWithCard(selectedCard, completionCallback);
 		}
 	}
 
@@ -61,9 +62,9 @@ public class ActionBuildStation extends Action {
 		return citySet.getCitiesSatisfying(c -> c.hasResearchStation());
 	}
 
-	protected void performBuildStationActionWithCard(Card card) {
+	protected void performBuildStationActionWithCard(Card card, Runnable completionCallback) {
 		legalityCheckAndDiscard(card);
-		this.performBuildStationAction();
+		this.performBuildStationAction(completionCallback);
 	}
 
 	private void legalityCheckAndDiscard(Card card) {
@@ -75,7 +76,8 @@ public class ActionBuildStation extends Action {
 		player().discardCard(card);
 	}
 
-	protected void performBuildStationAction() {
+	protected void performBuildStationAction(Runnable completionCallback) {
 		playerCurrentLocation().buildResearchStation();
+		completionCallback.run();
 	}
 }

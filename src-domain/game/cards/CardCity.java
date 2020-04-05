@@ -6,6 +6,10 @@ import java.util.Optional;
 import game.city.City;
 import game.event.Event;
 
+/**
+ * Card with a city. See {@link City}
+ *
+ */
 public class CardCity implements Card {
 	private City city;
 

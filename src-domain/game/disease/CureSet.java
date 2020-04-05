@@ -7,6 +7,9 @@ import java.util.Set;
 import game.GameColor;
 import game.GameState;
 
+/**
+ * Set of cured diseases. A decorator that triggers the win condition
+ */
 public class CureSet implements Set<GameColor> {
 	private GameState game;
 	private Set<GameColor> underlying;

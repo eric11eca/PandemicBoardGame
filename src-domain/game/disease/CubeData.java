@@ -4,8 +4,12 @@ import java.util.Set;
 
 import game.GameColor;
 
+/**
+ * The abstract of cube data, which is a data structure that represent the
+ * physical disease cubes in the game.
+ */
 public interface CubeData {
-
+	// All methods are self-explanatory
 	int getDiseaseCubeCount(GameColor color);
 
 	boolean hasDiseaseCube(GameColor color);
