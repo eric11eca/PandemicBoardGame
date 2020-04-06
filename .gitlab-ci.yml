@@ -4,13 +4,21 @@ before_script:
   - export TEST_LIB_PATH="lib-test"
   - export TEST_BIN_PATH="bin-test"
   - export TEST_SRC_PATH="src-test"
-  - rm -rf $TEST_LIB_PATH
-  - mkdir $TEST_LIB_PATH
-  - sh ./download_dependency.sh $TEST_LIB_PATH
   
 stages:
+  - dependency
   - compile
   - test
+  
+dependency:
+  stage: dependency
+  script:
+    - rm -rf $TEST_LIB_PATH
+    - mkdir $TEST_LIB_PATH
+    - sh ./download_dependency.sh $TEST_LIB_PATH
+  artifacts:
+    paths:
+    - $TEST_LIB_PATH
 
 compile:
   stage: compile
