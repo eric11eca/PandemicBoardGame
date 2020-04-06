@@ -36,5 +36,11 @@ compile:
 test:
   stage: test
   script: 
-    - java -cp ".:./lib-test/*:bin-test/" org.junit.runner.JUnitCore $(find src-test/ -name "Test*.java" | sed 's/\//./g' | sed 's/.java$//g' | sed 's/^src-test.//g')
+    - java 
+            -cp ".:./lib-test/*:bin-test/" 
+            org.junit.runner.JUnitCore 
+            $(find src-test/ -name "Test*.java" 
+            | sed 's/\//./g' 
+            | sed 's/.java$//g' 
+            | sed 's/^src-test.//g')
     
