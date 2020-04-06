@@ -16,6 +16,9 @@ build:
     - rm -rf $TEST_LIB_PATH
     - mkdir $TEST_LIB_PATH
     - sh ./download_dependency.sh $TEST_LIB_PATH
+    - ls
+    - echo $TEST_CLASS_PATH
+    - ls $TEST_LIB_PATH
     - javac -cp $TEST_CLASS_PATH -d $TEST_BIN_PATH/ $(find $TEST_SRC_PATH/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java")
  
   
