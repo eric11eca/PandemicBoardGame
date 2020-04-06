@@ -19,10 +19,15 @@ dependency:
 compile:
   stage: compile
   script: 
-    - ls lib-test
     - rm -rf bin-test
     - mkdir bin-test
-    - javac -cp ".:lib-test/*" -d bin-test/ $(find src-test/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java") 
+    - javac>
+             -cp ".:lib-test/*" 
+             -d bin-test/ 
+             $(find src-test/ -name "*.java") 
+             $(find src-presentation/ -name "*.java") 
+             $(find src-domain/ -name "*.java") 
+             $(find src-data/ -name "*.java") 
   artifacts:
     paths:
     - bin-test/
