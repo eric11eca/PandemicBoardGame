@@ -7,8 +7,9 @@
 	<classpathentry kind="src" path="src-data"/>
 	<classpathentry kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/easymock-3.5.1.jar"/>
-	<classpathentry kind="lib" path="lib/objenesis-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/easymock-4.2.jar"/>
+	<classpathentry kind="lib" path="lib/objenesis-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.13.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-2.2.jar "/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

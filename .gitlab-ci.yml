@@ -1,20 +1,27 @@
 image: java:latest
 
 before_script:
-  - export TEST_BIN="bin-test"
-  - export TEST_CLASS_PATH="lib/easymock-3.5.1.jar;lib/objenesis-2.6.jar;lib/org.hamcrest.core_1.3.0.v20180420-1519.jar;lib/org.junit_4.13.0.v20200204-1500.jar;$TEST_BIN;."
-  - export TEST_SRC="src-test"
-  - export FIND_AND_REPLACE="s/^$TEST_SRC.//g"
-  - export TESTS=$(find $TEST_SRC/ -name "Test*.java" | sed 's/\//./g' | sed 's/.java$//g' | sed $FIND_AND_REPLACE)
+  - export TEST_LIB_PATH="lib-test"
+  - export TEST_BIN_PATH="bin-test"
+  - export TEST_SRC_PATH="src-test"
+  - export TEST_CLASS_PATH="$TEST_LIB_PATH/easymock-4.2.jar;$TEST_LIB_PATH/objenesis-3.1.jar;$TEST_LIB_PATH/junit-4.13.jar;$TEST_LIB_PATH/hamcrest-2.2.jar;$TEST_BIN_PATH;."
+  - export FIND_AND_REPLACE="s/^$TEST_SRC_PATH.//g"
+  - export TESTS=$(find $TEST_SRC_PATH/ -name "Test*.java" | sed 's/\//./g' | sed 's/.java$//g' | sed $FIND_AND_REPLACE)
 
 build:
   stage: build
   script: 
-    - rm -rf $TEST_BIN
-    - mkdir $TEST_BIN
-    - javac -cp $TEST_CLASS_PATH -d $TEST_BIN/ $(find $TEST_SRC/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java")
+    - rm -rf $TEST_BIN_PATH
+    - mkdir $TEST_BIN_PATH
+    - rm -rf $TEST_LIB_PATH
+    - mkdir $TEST_LIB_PATH
+    - sh ./download_dependency.sh $TEST_LIB_PATH
+    - javac -cp $TEST_CLASS_PATH -d $TEST_BIN_PATH/ $(find $TEST_SRC_PATH/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java")
  
   
 test:
   stage: test
-  script: java -cp $TEST_CLASS_PATH org.junit.runner.JUnitCore $TESTS
+  script: 
+    - java -cp $TEST_CLASS_PATH org.junit.runner.JUnitCore $TESTS
+    - rm -rf $TEST_BIN_PATH
+    - rm -rf $TEST_LIB_PATH
