@@ -4,8 +4,6 @@ before_script:
   - export TEST_LIB_PATH="lib-test"
   - export TEST_BIN_PATH="bin-test"
   - export TEST_SRC_PATH="src-test"
-  - rm -rf $TEST_BIN_PATH
-  - mkdir $TEST_BIN_PATH
   - rm -rf $TEST_LIB_PATH
   - mkdir $TEST_LIB_PATH
   - sh ./download_dependency.sh $TEST_LIB_PATH
@@ -17,12 +15,14 @@ stages:
 compile:
   stage: compile
   script: 
-    - javac -cp ".:$TEST_LIB_PATH/*" -d $TEST_BIN_PATH/ $(find $TEST_SRC_PATH/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java") 
+    - rm -rf $TEST_BIN_PATH
+    - mkdir $TEST_BIN_PATH
+    - javac -cp ".;$TEST_LIB_PATH/*" -d $TEST_BIN_PATH/ $(find $TEST_SRC_PATH/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java") 
   
 test:
   stage: test
   script: 
     - export FIND_AND_REPLACE="s/^$TEST_SRC_PATH.//g"
     - export TESTS=$(find $TEST_SRC_PATH/ -name "Test*.java" | sed 's/\//./g' | sed 's/.java$//g' | sed $FIND_AND_REPLACE)
-    - java -cp ".:./$TEST_LIB_PATH/*:$TEST_BIN_PATH" org.junit.runner.JUnitCore $TESTS
+    - java -cp ".;./$TEST_LIB_PATH/*;$TEST_BIN_PATH/" org.junit.runner.JUnitCore $TESTS
     
