@@ -1,21 +1,15 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.Map;
 
 import javax.swing.JComponent;
 
-import data.Board;
 import data.ImageLoader;
-import game.GameState;
 import game.city.City;
-import game.player.PlayerImpl;
 import render.Render;
 import render.RenderCity;
 

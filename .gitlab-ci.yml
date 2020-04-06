@@ -1,0 +1,20 @@
+image: java:latest
+
+before-script:
+  - export TEST_BIN="bin-test"
+  - export TEST_CLASS_PATH="lib/easymock-3.5.1.jar;lib/objenesis-2.6.jar;lib/org.hamcrest.core_1.3.0.v20180420-1519.jar;lib/org.junit_4.13.0.v20200204-1500.jar;$TEST_BIN;."
+  - export TEST_SRC="src-test"
+  - export FIND_AND_REPLACE="s/^$TEST_SRC.//g"
+  - export TESTS=$(find $TEST_SRC/ -name "Test*.java" | sed 's/\//./g' | sed 's/.java$//g' | sed $FIND_AND_REPLACE)
+
+build:
+  stage: build
+  script: 
+    - rm -rf $TEST_BIN
+    - mkdir $TEST_BIN
+    - javac -cp $TEST_CLASS_PATH -d $TEST_BIN/ $(find $TEST_SRC/ -name "*.java") $(find src-presentation/ -name "*.java") $(find src-domain/ -name "*.java") $(find src-data/ -name "*.java")
+ 
+  
+test:
+  stage: test
+  script: java -cp $TEST_CLASS_PATH org.junit.runner.JUnitCore $TESTS

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src-old"/>
-	<classpathentry kind="src" path="src-test"/>
+	<classpathentry kind="src" path="src-test-old"/>
 	<classpathentry kind="src" path="src-presentation"/>
 	<classpathentry kind="src" path="src-domain"/>
 	<classpathentry kind="src" path="src-data"/>
+	<classpathentry kind="src" path="src-test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="easymock-3.5.1.jar"/>
-	<classpathentry kind="lib" path="objenesis-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/easymock-3.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/objenesis-2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
