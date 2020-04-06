@@ -1,7 +1,6 @@
 package initialize;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -46,8 +45,10 @@ import game.player.special.QuarantineChecker;
 import game.player.special.Researcher;
 
 public class PlayerFactory {
-	public enum Role {
-		SCIENTIST, MEDIC, CONTINGENCY_PLANNER, DISPATCHER, OPERATIONS_EXPERT, QUARANTINE_SPECIALIST, RESEARCHER;
+	interface PlayerControllerInitializer extends Supplier<PlayerController> {
+	}
+
+	interface PlayerControllerInitializerFactory extends Supplier<PlayerControllerInitializer> {
 	}
 
 	private City startingCity;
@@ -70,12 +71,12 @@ public class PlayerFactory {
 	}
 
 	private int id;
-	private boolean dispatcherCreated;
+	private boolean controllerInstantiated;
 	private Predicate<City> quarantineChecker;
 
 	private void init() {
 		id = 0;
-		dispatcherCreated = false;
+		controllerInstantiated = false;
 		quarantineChecker = c -> false;
 	}
 
@@ -88,88 +89,84 @@ public class PlayerFactory {
 	}
 
 	public PlayerController[] createPlayersWithRandomRoles(int playerCount) {
-		List<Role> roles = new ArrayList<>();
-		roles.addAll(Arrays.asList(Role.values()));
-		Collections.shuffle(roles);
-		Role[] inGameRoles = new Role[playerCount];
-		for (int i = 0; i < playerCount; i++) {
-			inGameRoles[i] = roles.get(i);
-		}
-		return initializePlayers(inGameRoles);
+		List<PlayerControllerInitializerFactory> factoryMethods = getFactoriesForAllRolesInRandomOrder();
+		List<PlayerControllerInitializer> inGameRoles = createPlayerControllerInitializerWithCount(playerCount,
+				factoryMethods);
+		return instantiatePlayerControllers(inGameRoles);
 	}
 
-	private PlayerController[] initializePlayers(Role[] roles) {
-		PlayerController[] controllers = new PlayerController[roles.length];
-		int dispatcherIndex = -1;
-		for (int i = 0; i < roles.length; i++) {
-			if (roles[i] == Role.DISPATCHER) {
-				dispatcherIndex = i;
-				continue;
-			}
-			controllers[i] = createByRole(roles[i]);
+	private List<PlayerControllerInitializer> createPlayerControllerInitializerWithCount(int playerCount,
+			List<PlayerControllerInitializerFactory> factoryMethods) {
+		List<PlayerControllerInitializer> inGameRoles = new ArrayList<>();
+		for (int i = 0; i < playerCount; i++) {
+			inGameRoles.add(factoryMethods.get(i).get());
 		}
-		if (dispatcherIndex != -1) {
-			controllers[dispatcherIndex] = createDispatcher();
+		return inGameRoles;
+	}
+
+	private List<PlayerControllerInitializerFactory> getFactoriesForAllRolesInRandomOrder() {
+		List<PlayerControllerInitializerFactory> factoryMethods = new ArrayList<>();
+		factoryMethods.add(this::createScientistFactory);
+		factoryMethods.add(this::createMedicFactory);
+		factoryMethods.add(this::createContingencyPlannerFactory);
+		factoryMethods.add(this::createDispatcherFactory);
+		factoryMethods.add(this::createOperationsExpertFactory);
+		factoryMethods.add(this::createQuarantineSpecialistFactory);
+		factoryMethods.add(this::createResearcherFactory);
+		Collections.shuffle(factoryMethods);
+		return factoryMethods;
+	}
+
+	private PlayerController[] instantiatePlayerControllers(List<PlayerControllerInitializer> initializers) {
+		PlayerController[] controllers = new PlayerController[initializers.size()];
+		int i = 0;
+		for (Supplier<PlayerController> factory : initializers) {
+			controllers[i] = factory.get();
 		}
 		return controllers;
 	}
 
-	private PlayerController createByRole(Role role) {
-		//@formatter:off
-		switch(role) {
-		case CONTINGENCY_PLANNER:   return createContingencyPlanner();
-		case DISPATCHER:            return createDispatcher();
-		case MEDIC:                 return createMedic();
-		case OPERATIONS_EXPERT:     return createOperationsExpert();
-		case QUARANTINE_SPECIALIST: return createQuarantineSpecialist();
-		case RESEARCHER:            return createResearcher();
-		case SCIENTIST:             return createScientist();
-		default:                    throw new RuntimeException("Unknown Role");
-		}
-		//@formatter:on
-	}
-
-	private PlayerController createScientist() {
+	private PlayerControllerInitializer createScientistFactory() {
 		return createPlayerHelper(this::createPlayer, this::addSpecialSkillScientist);
 	}
 
-	private PlayerController createMedic() {
+	private PlayerControllerInitializer createMedicFactory() {
 		return createPlayerHelper(this::createPlayerMedic, this::addSpecialSkillMedic);
 	}
 
-	private PlayerController createContingencyPlanner() {
+	private PlayerControllerInitializer createContingencyPlannerFactory() {
 		return createPlayerHelper(this::createPlayerContingencyPlanner, this::addSpecialSkillContingencyPlanner);
 	}
 
-	private PlayerController createDispatcher() {
+	private PlayerControllerInitializer createDispatcherFactory() {
 		return createPlayerHelper(this::createPlayer, this::addSpecialSkillDispatcher);
 	}
 
-	private PlayerController createOperationsExpert() {
+	private PlayerControllerInitializer createOperationsExpertFactory() {
 		return createPlayerHelper(this::createPlayer, this::addSpecialSkillOperationsExpert);
 	}
 
-	private PlayerController createQuarantineSpecialist() {
+	private PlayerControllerInitializer createQuarantineSpecialistFactory() {
 		return createPlayerHelper(this::createPlayer, this::addSpecialSkillQuarantineSpecialist);
 	}
 
-	private PlayerController createResearcher() {
+	private PlayerControllerInitializer createResearcherFactory() {
 		return createPlayerHelper(this::createPlayerResearcher, (p, a) -> {
 		});
 	}
 
-	private PlayerController createPlayerHelper(Supplier<Player> playerMethod,
+	private PlayerControllerInitializer createPlayerHelper(Supplier<Player> playerMethod,
 			BiConsumer<Player, Map<ActionType, Action>> specialActionMethod) {
-		ensureDispatcherNotCreatedYet();
-		Player player = playerMethod.get();
-		Map<ActionType, Action> actionMap = createActionMapTemplate(player);
-		specialActionMethod.accept(player, actionMap);
-		return createPlayerControllerAndAddPlayerToList(player, actionMap);
-	}
+		assert !controllerInstantiated;
+		final Player player = playerMethod.get();
+		final Map<ActionType, Action> actionMap = createActionMapTemplate(player);
+		players.add(player);
 
-	private void ensureDispatcherNotCreatedYet() {
-		if (dispatcherCreated)
-			throw new RuntimeException("Dispatcher must be created last.");
+		return () -> {
+			specialActionMethod.accept(player, actionMap);
+			controllerInstantiated = true;
+			return new PlayerController(player, actionMap);
+		};
 	}
 
 	private void addSpecialSkillScientist(Player player, Map<ActionType, Action> actionMap) {
@@ -220,17 +217,8 @@ public class PlayerFactory {
 		this.quarantineChecker = new QuarantineChecker(player);
 	}
 
-	private PlayerController createPlayerControllerAndAddPlayerToList(Player player,
-			Map<ActionType, Action> actionMap) {
-		PlayerController controller = new PlayerController(player, actionMap);
-		// Note:Dispatcher must be made last;
-		players.add(player);
-		return controller;
-	}
-
 	private Map<ActionType, Action> createActionMapTemplate(Player player) {
 		Map<ActionType, Action> actionMap = new EnumMap<>(ActionType.class);
-		// Replace with other actions for special roles
 		actionMap.put(ActionType.DRIVE, new ActionDrive(citySet, player, interaction));
 		actionMap.put(ActionType.DIRECT_FLIGHT, new ActionDirectFlight(player, interaction));
 		actionMap.put(ActionType.CHARTER_FLIGHT, new ActionCharterFlight(citySet, player, interaction));
