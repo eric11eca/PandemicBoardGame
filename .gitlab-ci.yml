@@ -21,7 +21,7 @@ compile:
   script: 
     - rm -rf bin-test
     - mkdir bin-test
-    - javac>
+    - javac
              -cp ".:lib-test/*" 
              -d bin-test/ 
              $(find src-test/ -name "*.java") 
