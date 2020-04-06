@@ -33,9 +33,8 @@ public class ActionDirectFlight extends Action {
 	}
 
 	protected void performDirectFlightAction(Card usingCard, Runnable completionCallback) {
-		City city = usingCard.getCity().orElseThrow(RuntimeException::new);
-		if (city.equals(playerCurrentLocation()))
-			throw new RuntimeException("Flying to same city");
+		City city = usingCard.getCity().get();
+		assert !city.equals(playerCurrentLocation());
 		player().setLocation(city);
 		player().discardCard(usingCard);
 		completionCallback.run();

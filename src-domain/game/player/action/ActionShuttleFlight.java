@@ -35,8 +35,7 @@ public class ActionShuttleFlight extends Action {
 	}
 
 	protected void performShuttleFlightAction(City destination, Runnable completionCallback) {
-		if (!playerCurrentLocation().hasResearchStation() || !destination.hasResearchStation())
-			throw new RuntimeException("Not both cities have stations");
+		assert playerCurrentLocation().hasResearchStation() && destination.hasResearchStation();
 		player().setLocation(destination);
 		completionCallback.run();
 	}

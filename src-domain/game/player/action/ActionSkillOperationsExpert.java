@@ -42,12 +42,9 @@ public class ActionSkillOperationsExpert extends Action {
 	}
 
 	protected void performSpecialSkill(Card toDiscard, City toMove, Runnable completionCallback) {
-		if (!playerCurrentLocation().hasResearchStation())
-			throw new RuntimeException("Operation Expert must move from research station");
-		if (!toDiscard.getCity().isPresent())
-			throw new RuntimeException("Operation Expert must discard city card");
-		if (toMove.equals(playerCurrentLocation()))
-			throw new RuntimeException("Must not move to the same city");
+		assert playerCurrentLocation().hasResearchStation();
+		assert toDiscard.getCity().isPresent();
+		assert !toMove.equals(playerCurrentLocation());
 		player().setLocation(toMove);
 		player().discardCard(toDiscard);
 		completionCallback.run();

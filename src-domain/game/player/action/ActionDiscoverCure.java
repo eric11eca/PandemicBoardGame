@@ -51,11 +51,9 @@ public class ActionDiscoverCure extends Action {
 	}
 
 	private void legalityCheck(GameColor color, List<Card> usingCards) {
-		if (usingCards.size() != cardNeeded)
-			throw new RuntimeException();
+		assert usingCards.size() == cardNeeded;
 		usingCards.forEach(card -> {
-			if (card.getCity().orElseThrow(RuntimeException::new).getColor() != color)
-				throw new RuntimeException();
+			assert card.getCity().get().getColor() == color;
 		});
 	}
 

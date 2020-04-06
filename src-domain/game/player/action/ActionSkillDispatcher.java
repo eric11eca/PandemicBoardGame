@@ -51,10 +51,8 @@ public class ActionSkillDispatcher extends Action {
 	}
 
 	protected void performSpecialSkill(Player toMove, City toMoveTo, Runnable completionCallback) {
-		if (toMove.getLocation().equals(toMoveTo))
-			throw new RuntimeException("Cannot move to the same city");
-		if (!getMovableCities(toMove).contains(toMoveTo))
-			throw new RuntimeException("Illegal Movement");
+		assert !toMove.getLocation().equals(toMoveTo);
+		assert getMovableCities(toMove).contains(toMoveTo);
 		toMove.setLocation(toMoveTo);
 		completionCallback.run();
 	}

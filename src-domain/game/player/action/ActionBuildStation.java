@@ -71,8 +71,7 @@ public class ActionBuildStation extends Action {
 		if (!needCard && card == null)
 			return;
 		City city = card.getCity().orElseThrow(RuntimeException::new);
-		if (!city.equals(playerCurrentLocation()))
-			throw new RuntimeException("City card does not match current location");
+		assert city.equals(playerCurrentLocation());
 		player().discardCard(card);
 	}
 
