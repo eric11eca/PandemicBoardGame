@@ -28,6 +28,15 @@ public class ImageLoader {
 		nullImage.getGraphics().fillRect(0, 0, 64, 64);
 	}
 
+	/**
+	 * Get a image under the image directory, specified by IMAGE_PATH game property.
+	 * See {@link GameProperty}. The image loaded will be cached, so it is
+	 * recommended that the user does not cache additional images. If the image
+	 * cannot be loaded, a default image is returned.
+	 * 
+	 * @param fileName
+	 * @return
+	 */
 	public BufferedImage getImage(String fileName) {
 		BufferedImage image = getCachedImage(fileName);
 		if (image == null) {

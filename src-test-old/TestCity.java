@@ -3,34 +3,31 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
 import game.GameColor;
 import game.city.City;
-import game.disease.CubeData;
-import test.util.TestAccess;
-import test.util.TestCityBuilder;
+import test.MockCityBuilder;
 
 public class TestCity {
 
 	@Test
 	public void testNeighbors() {
-		TestCityBuilder centerCityBuilder = new TestCityBuilder();
+		MockCityBuilder centerCityBuilder = new MockCityBuilder();
 		Set<City> centerNeighbor = centerCityBuilder.neighborSet();
 		City centerCity = centerCityBuilder.build();
 
-		TestCityBuilder city1Builder = new TestCityBuilder();
+		MockCityBuilder city1Builder = new MockCityBuilder();
 		Set<City> city1Neighbor = city1Builder.neighborSet();
 		City city1 = city1Builder.build();
 
-		TestCityBuilder city2Builder = new TestCityBuilder();
+		MockCityBuilder city2Builder = new MockCityBuilder();
 		Set<City> city2Neighbor = city2Builder.neighborSet();
 		City city2 = city2Builder.build();
 
-		TestCityBuilder city3Builder = new TestCityBuilder();
+		MockCityBuilder city3Builder = new MockCityBuilder();
 		Set<City> city3Neighbor = city3Builder.neighborSet();
 		City city3 = city3Builder.build();
 
@@ -51,7 +48,7 @@ public class TestCity {
 
 	@Test
 	public void testResearchStations() {
-		City city = new TestCityBuilder().build();
+		City city = new MockCityBuilder().build();
 		city.buildResearchStation();
 		assertTrue(city.hasResearchStation());
 		city.removeResearchStation();
@@ -60,7 +57,7 @@ public class TestCity {
 
 	@Test
 	public void testColor() {
-		City city = new TestCityBuilder().color(GameColor.RED).build();
+		City city = new MockCityBuilder().color(GameColor.RED).build();
 		assertEquals(GameColor.RED, city.getColor());
 	}
 }

@@ -1,18 +1,14 @@
-package test.util;
+package test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-import game.GameState;
 import game.GameColor;
 import game.city.City;
-import game.disease.CubeData;
-import game.disease.CubeDataImpl;
-import render.RenderCity;
 
-public class TestAccess {
+public class ReflectionAccess {
 	public void outbreak(City city, GameColor color) {
 		outbreak(city, color, new HashSet<>());
 	}
