@@ -37,10 +37,10 @@ test:
   stage: test
   script: 
     - export TESTS=
-                     $(find src-test/ -name "Test*.java" 
+                     "$(find src-test/ -name "Test*.java" 
                      | sed 's/\//./g' 
                      | sed 's/.java$//g' 
-                     | sed 's/^src-test.//g')
+                     | sed 's/^src-test.//g')"
     - echo "Found ${#TESTS[*]} tests:"
     - for t in $TESTS
     - do
