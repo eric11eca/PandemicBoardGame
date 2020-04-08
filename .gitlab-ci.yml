@@ -41,7 +41,7 @@ test:
                      | sed 's/\//./g' 
                      | sed 's/.java$//g' 
                      | sed 's/^src-test.//g')
-    - echo "Found ${#TESTS[*]} tests:
+    - echo "Found ${#TESTS[*]} tests:"
     - for t in $TESTS
     - do
     - echo t
