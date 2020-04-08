@@ -36,8 +36,7 @@ compile:
 test:
   stage: test
   script: 
-    - export TESTS=
-                     "$(find src-test/ -name "Test*.java" 
+    - export TESTS="$(find src-test/ -name "Test*.java" 
                      | sed 's/\//./g' 
                      | sed 's/.java$//g' 
                      | sed 's/^src-test.//g')"
