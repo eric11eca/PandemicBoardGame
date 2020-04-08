@@ -45,5 +45,5 @@ test:
     - java 
             -cp ".:./lib-test/*:bin-test/" 
             org.junit.runner.JUnitCore 
-            
+            $TESTS
     
