@@ -1,0 +1,36 @@
+@startuml
+TITLE Old Class Diagram for GUI
+PACKAGE Presentation{
+	CLASS GUI
+	CLASS DrawingBoard
+
+}
+
+PACKAGE Domain{
+	CLASS Player{
+	--Drawing Logic--
+	}
+	CLASS City{
+	--Drawing Logic--
+	}
+	CLASS Board{
+	--Data--
+	}
+}
+CLASS GUI{
+}
+CLASS DrawingBoard{
+	+draw()
+	-loadBackgroundImage()
+	-drawPlayers()
+	-drawCities()
+	-drawDiseases()
+	--Other Drawing Methods--
+}
+
+GUI --> DrawingBoard
+GUI --> JFrame
+DrawingBoard ..> Player
+DrawingBoard ..> City
+DrawingBoard ..> Board
+@enduml
