@@ -3,15 +3,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
 import game.GameColor;
 import game.city.City;
-import game.disease.CubeData;
-import test.util.TestAccess;
 import test.util.TestCityBuilder;
 
 public class TestCity {

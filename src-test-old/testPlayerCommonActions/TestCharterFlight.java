@@ -1,45 +1,53 @@
-//package testPlayerCommonActions;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
-//
-//import org.junit.Test;
-//
-//import cards.PlayerCard;
-//import data.Board;
-//import game.city.City;
-//import player.Player;
-//import player.PlayerData;
-//import test.util.TestCityBuilder;
-//
-//public class TestCharterFlight {
-//	TestCityBuilder cityFactory = new TestCityBuilder();
-//
-//	@Test
-//	public void testCharterFlight() {
-//		Board board = new Board();
-//		String chicago = "Chicago";
-//		City chicagoCity = cityFactory.makeFakeCity(chicago);
-//		String newyork = "NewYork";
-//		City newyorkCity = cityFactory.makeFakeCity(newyork);
-//		board.cities.put(newyork, newyorkCity);
-//		
-//		PlayerData playerData = new PlayerData();		
-//		PlayerCard chicagoCityCard = new PlayerCard(Board.CardType.CITYCARD, chicago);
-//		playerData.location = chicagoCity;
-//		playerData.action = 4;
-//		playerData.hand.put(chicagoCityCard.cardName, chicagoCityCard);
-//		String location = playerData.location.getName();
-//		
-//		Player medic = new Player(board, playerData);
-//		assertTrue(playerData.hand.containsKey(location));
-//		medic.charterFlight(newyorkCity);	
-//		assertFalse(playerData.hand.containsKey(location));
-//	
-//		assertEquals(newyork, playerData.location.getName());
-//		assertEquals(0, playerData.hand.size());
-//		assertEquals(3, playerData.action);
-//	}
-//
-//}
+package testPlayerCommonActions;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+import game.cards.Card;
+import game.cards.CardCity;
+import game.cards.Deck;
+import game.city.City;
+import game.city.CitySet;
+import game.player.Player;
+import game.player.PlayerImpl;
+import game.player.action.Action;
+import game.player.action.ActionCharterFlight;
+import test.util.TestCityBuilder;
+
+public class TestCharterFlight {
+	TestCityBuilder cityFactory = new TestCityBuilder();
+	
+	@Test
+	public void testCharterFlight() {
+		String chicago = "Chicago";
+		cityFactory = cityFactory.name(chicago);
+		City chicagoCity = cityFactory.build();
+		
+		String newyork = "NewYork";
+		cityFactory = cityFactory.name(newyork);
+		City newyorkCity = cityFactory.build();		
+				
+		Card chicagoCityCard = new CardCity(chicagoCity);
+		
+		Player medic = new PlayerImpl(0, chicagoCity, new Deck<>(), null);
+		Set<City> citySet = new HashSet<>();
+		citySet.add(chicagoCity);
+		citySet.add(newyorkCity);
+		medic.receiveCard(chicagoCityCard);
+		
+		Action charterFlight = new ActionCharterFlight(new CitySet(citySet), medic, null);
+		charterFlight.perform(null);
+		
+		assertFalse(medic.handContains(chicagoCityCard));
+		assertEquals(newyork, medic.getLocation().getName());
+		assertTrue(medic.discardedContains(chicagoCityCard));
+		//assertEquals(3, medic.action);
+	}
+
+}

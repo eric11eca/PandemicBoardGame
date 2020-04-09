@@ -95,4 +95,19 @@ public class PlayerImpl implements Player {
 		return GameProperty.getInstance().getInt("HAND_LIMIT");
 	}
 
+	@Override
+	public int getCardNumberInHand() {
+		return hand.size();
+	}
+
+	@Override
+	public boolean handContains(Card card) {
+		return hand.contains(card);
+	}
+
+	@Override
+	public boolean discardedContains(Card card) {
+		return playerDiscard.contains(card);
+	}
+
 }

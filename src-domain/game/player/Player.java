@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import game.cards.Card;
+import game.cards.Deck;
 import game.city.City;
 
 /**
@@ -77,5 +78,10 @@ public interface Player {
 	int getID();
 
 	int getHighestPopulationInHand();
+	
+	int getCardNumberInHand();
+	
+	boolean handContains(Card card);
+	boolean discardedContains(Card card);
 
 }
