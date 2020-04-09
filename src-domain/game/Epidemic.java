@@ -45,7 +45,7 @@ public class Epidemic {
 
 	private City determineCity() {
 		CardCity card = infectionCards.takeBottomCard();
-		return card.getCity().orElseThrow(() -> new RuntimeException("Infection card has no city"));
+		return card.getCity().get();
 	}
 
 	private void epidemicIntensify() {
