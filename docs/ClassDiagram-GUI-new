@@ -1,3 +1,55 @@
 @startuml
 TITLE New Class Diagram for GUI
+PACKAGE Presentation{
+	CLASS GUI
+	CLASS UIBoard
+	CLASS RenderPlayer
+	CLASS RenderCity
+	CLASS Init
+}
+
+CLASS RenderPlayer{
+	-player
+	+render(Graphics2D)
+}
+
+CLASS RenderCity{
+	-city
+	-x : int
+	-y : int
+	+render(Graphics2D)
+}
+
+PACKAGE Domain{
+	CLASS Player{
+	}
+	CLASS City{
+	}
+}
+CLASS GUI{
+}
+CLASS UIBoard extends JPanel{
+	#paintComponent(g:Graphics)
+	-drawPlayers()
+	-drawCities()
+	--Other Drawing Methods--
+}
+
+PACKAGE "Data Source"{
+CLASS CityLoader
+}
+
+GUI --> UIBoard
+GUI --> JFrame
+UIBoard ..> RenderPlayer
+UIBoard ..> RenderCity
+RenderPlayer --> Player
+RenderCity --> City
+CityLoader ..> City
+CityLoader ..> RenderCity
+
+Init ..> RenderPlayer
+Init ..> GUI
+Init ..> UIBoard
+Init ..> CityLoader
 @enduml
