@@ -1,9 +1,9 @@
 package test.data;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,17 +18,17 @@ import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
 import render.RenderCity;
-import test.util.TestAccess;
-import test.util.TestCityBuilder;
-import test.util.TestGameProperty;
+import test.MockCityBuilder;
+import test.MockGameProperty;
+import test.ReflectionAccess;
 
 public class TestCityLoader {
 
-	TestAccess access = new TestAccess();
+	ReflectionAccess access = new ReflectionAccess();
 
 	@Test(expected = IOException.class)
 	public void testParseFileNotFound() throws IOException {
-		TestGameProperty property = new TestGameProperty();
+		MockGameProperty property = new MockGameProperty();
 		property.put("DATA_PATH", "testdata/");
 		property.put("CITY_DATA", "dne");
 		property.inject();
@@ -44,7 +44,7 @@ public class TestCityLoader {
 
 	@Test
 	public void testNormalParse() throws IOException {
-		TestGameProperty property = new TestGameProperty();
+		MockGameProperty property = new MockGameProperty();
 		property.put("DATA_PATH", "testdata/");
 		property.put("CITY_DATA", "test_citydata.dat");
 		property.inject();
@@ -60,10 +60,10 @@ public class TestCityLoader {
 		TreeMap<City, RenderCity> sorted = new TreeMap<>((c1, c2) -> c1.getName().compareTo(c2.getName()));
 		cities.forEach(sorted::put);
 
-		City SF = new TestCityBuilder().name("SanFrancisco").color(GameColor.BLUE).population(884363).build();
-		City chicago = new TestCityBuilder().name("Chicago").color(GameColor.BLUE).population(2716000).build();
-		City montreal = new TestCityBuilder().name("Montreal").color(GameColor.BLUE).population(1705000).build();
-		City NY = new TestCityBuilder().name("NewYork").color(GameColor.BLUE).population(8623000).build();
+		City SF = new MockCityBuilder().name("SanFrancisco").color(GameColor.BLUE).population(884363).build();
+		City chicago = new MockCityBuilder().name("Chicago").color(GameColor.BLUE).population(2716000).build();
+		City montreal = new MockCityBuilder().name("Montreal").color(GameColor.BLUE).population(1705000).build();
+		City NY = new MockCityBuilder().name("NewYork").color(GameColor.BLUE).population(8623000).build();
 
 		Iterator<Entry<City, RenderCity>> iterator = sorted.entrySet().iterator();
 		assertTrue(iterator.hasNext());

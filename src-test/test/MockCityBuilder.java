@@ -1,6 +1,5 @@
-package test.util;
+package test;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +9,7 @@ import game.city.City;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;
 
-public class TestCityBuilder {
+public class MockCityBuilder {
 	private String name;
 	private GameColor color;
 	private int population;
@@ -18,7 +17,7 @@ public class TestCityBuilder {
 	private Set<City> neighbors;
 	private boolean start;
 
-	public TestCityBuilder() {
+	public MockCityBuilder() {
 		name = "Test City";
 		color = GameColor.BLACK;
 		population = 12345;
@@ -27,22 +26,22 @@ public class TestCityBuilder {
 		start = false;
 	}
 
-	public TestCityBuilder name(String name) {
+	public MockCityBuilder name(String name) {
 		this.name = name;
 		return this;
 	}
 
-	public TestCityBuilder color(GameColor color) {
+	public MockCityBuilder color(GameColor color) {
 		this.color = color;
 		return this;
 	}
 
-	public TestCityBuilder population(int population) {
+	public MockCityBuilder population(int population) {
 		this.population = population;
 		return this;
 	}
 
-	public TestCityBuilder cubeData(CubeData disease) {
+	public MockCityBuilder cubeData(CubeData disease) {
 		this.disease = disease;
 		return this;
 	}
@@ -51,7 +50,7 @@ public class TestCityBuilder {
 		return neighbors;
 	}
 
-	public TestCityBuilder setStart() {
+	public MockCityBuilder setStart() {
 		start = true;
 		return this;
 	}

@@ -1,6 +1,9 @@
-package test.util;
+package test;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -9,15 +12,16 @@ import java.util.Map;
 
 import data.GameProperty;
 
-public class TestGameProperty {
+public class MockGameProperty {
 	Map<String, String> map;
 
-	public TestGameProperty() {
+	public MockGameProperty() {
 		map = new HashMap<>();
 	}
 
-	public void put(String key, String value) {
+	public MockGameProperty put(String key, String value) {
 		map.put(key, value);
+		return this;
 	}
 
 	public void inject() {
@@ -25,6 +29,16 @@ public class TestGameProperty {
 		InputStream propertyInputStream = getInputStreamFromString(propertyString);
 		GameProperty instance = createInstance(propertyInputStream);
 		injectProperty(instance);
+	}
+
+	public void injectFile(File file) throws FileNotFoundException {
+		GameProperty instance = createInstance(new FileInputStream(file));
+		injectProperty(instance);
+	}
+
+	public void resetAndEject() {
+		map.clear();
+		injectProperty(null);
 	}
 
 	private String getPropertyString(Map<String, String> properties) {

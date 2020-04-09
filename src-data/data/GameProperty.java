@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.Properties;
 
 public class GameProperty {
@@ -15,10 +16,22 @@ public class GameProperty {
 		properties.load(stream);
 	}
 
+	/**
+	 * Get the game property as an int. See {@code get(String)}
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public int getInt(String name) {
 		return Integer.parseInt(get(name));
 	}
 
+	/**
+	 * Get the game property as an int array. See {@code get(String)}
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public int[] getIntArray(String name) {
 		String[] rawRates = get(name).split(",");
 		int[] rates = new int[rawRates.length];
@@ -28,8 +41,15 @@ public class GameProperty {
 		return rates;
 	}
 
+	/**
+	 * Get the game property with the specified name.
+	 * 
+	 * @param name name of the property
+	 * @return value of the property as string
+	 * @throws NullPointerException if the property doesn't exist
+	 */
 	public String get(String name) {
-		return properties.getProperty(name);
+		return Objects.requireNonNull(properties.getProperty(name));
 	}
 
 	private static GameProperty instance;

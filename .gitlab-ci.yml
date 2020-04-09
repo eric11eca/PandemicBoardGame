@@ -36,11 +36,14 @@ compile:
 test:
   stage: test
   script: 
+    - export TESTS="$(find src-test/ -name "Test*.java" 
+                     | sed 's/\//./g' 
+                     | sed 's/.java$//g' 
+                     | sed 's/^src-test.//g')"
+    - echo "Found $(echo $TESTS | wc -w) test(s):"
+    - for t in $TESTS; do echo "    >$t"; done
     - java 
             -cp ".:./lib-test/*:bin-test/" 
             org.junit.runner.JUnitCore 
-            $(find src-test/ -name "Test*.java" 
-            | sed 's/\//./g' 
-            | sed 's/.java$//g' 
-            | sed 's/^src-test.//g')
+            $TESTS
     
