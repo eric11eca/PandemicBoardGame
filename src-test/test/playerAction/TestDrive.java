@@ -1,4 +1,4 @@
-package testPlayerCommonActions;
+package test.playerAction;
 
 import static org.junit.Assert.assertEquals;
 

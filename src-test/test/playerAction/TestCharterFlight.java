@@ -1,4 +1,4 @@
-package testPlayerCommonActions;
+package test.playerAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -60,9 +60,7 @@ public class TestCharterFlight {
 		
 		EasyMock.replay(charterFlight, interaction);
 		charterFlight.perform(null);
-		assertFalse(medic.handContains(chicagoCityCard));
 		assertEquals(newyork, medic.getLocation().getName());
-		assertTrue(medic.discardedContains(chicagoCityCard));
 		EasyMock.verify(charterFlight, interaction);
 	}
 	

@@ -1,4 +1,4 @@
-package testPlayerCommonActions;
+package test.playerAction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -75,10 +75,9 @@ public class TestDirectFlight {
 		
 		assertEquals("Chicago", player.getLocation().getName());
 		directFlight.perform(null);
-		assertEquals(player.getCardNumberInHand(), 2);
-		assertFalse(player.handContains(chicagoCityCard));
+		
 		assertEquals("New York", player.getLocation().getName());
-		assertTrue(player.discardedContains(chicagoCityCard));
+	
 		
 	}
 	
