@@ -1,7 +1,11 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.swing.JOptionPane;
 
 import data.GameProperty;
 import game.cards.Card;
@@ -21,6 +25,7 @@ public class TurnController {
 	private int current;
 	private boolean skipInfection;
 	private int remainingActions;
+	private Set<ActionType> actionDone;
 
 	public TurnController(Deck<Card> playerDeck, Infection infection, GameState game,
 			PlayerController[] playerControllers) {
@@ -29,11 +34,13 @@ public class TurnController {
 		this.infection = infection;
 		this.game = game;
 		this.playerControllers = playerControllers;
+		actionDone = EnumSet.noneOf(ActionType.class);
 	}
 
 	public void startTurn() {
 		final int ACTION_PER_TURN = GameProperty.getInstance().getInt("ACTION_PER_TURN");
 		remainingActions = ACTION_PER_TURN;
+		actionDone.clear();
 	}
 
 	public boolean canContinueAction() {
@@ -41,17 +48,26 @@ public class TurnController {
 	}
 
 	public void performAction(ActionType actionType) {
-		if (!canContinueAction())
-			throw new RuntimeException("The player has used up all actions");
-		if (!playerControllers[current].canPerform(actionType))
-			throw new RuntimeException("Cannot perform this action");
+		assert canContinueAction();
+		assert canPerformAction(actionType);
 		playerControllers[current].perform(actionType, () -> {
-			remainingActions--;
+			actionDone(actionType);
 		});
 	}
 
+	private void actionDone(ActionType actionType) {
+		if (actionType != ActionType.EVENT)
+			remainingActions--;
+		actionDone.add(actionType);
+		if (game.isLost()) {
+			JOptionPane.showMessageDialog(null, "You lost");
+		} else if (game.isWon()) {
+			JOptionPane.showMessageDialog(null, "You win");
+		}
+	}
+
 	public boolean canPerformAction(ActionType actionType) {
-		return playerControllers[current].canPerform(actionType);
+		return playerControllers[current].canPerform(actionType, actionDone.contains(actionType));
 	}
 
 	public void skipNextInfectionStage() {

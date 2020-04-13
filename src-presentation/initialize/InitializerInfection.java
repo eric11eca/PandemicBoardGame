@@ -1,6 +1,5 @@
 package initialize;
 
-import game.GameState;
 import game.cards.CardCity;
 import game.cards.Deck;
 import game.city.City;

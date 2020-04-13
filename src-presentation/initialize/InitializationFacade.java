@@ -84,8 +84,7 @@ public class InitializationFacade {
 		players = new LinkedList<>();
 		citySet = new CitySet(new HashSet<>(cities.values()));
 		Set<City> set = citySet.getCitiesSatisfying(c -> c.isStartingCity());
-		if (set.size() != 1)
-			throw new RuntimeException("Invalid number of starting city: " + set.size());
+		assert set.size() == 1;
 		startingCity = set.iterator().next();
 		playerFactory = new PlayerFactory(startingCity, interaction, playerDiscard, citySet, curedDiseases, players);
 		playerControllers = playerFactory.createPlayersWithRandomRoles(playerCount);

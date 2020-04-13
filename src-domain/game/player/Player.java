@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import game.cards.Card;
-import game.cards.Deck;
 import game.city.City;
 
 /**

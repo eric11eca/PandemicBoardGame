@@ -1,4 +1,4 @@
-package gui;
+package gui.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -10,10 +10,10 @@ import javax.swing.JComponent;
 import game.GameState;
 
 @SuppressWarnings("serial")
-public class OutbreakUI extends JComponent {
+public class UIOutbreak extends JComponent {
 	private GameState game;
 
-	public OutbreakUI(GameState game) {
+	public UIOutbreak(GameState game) {
 		super();
 		this.game = game;
 	}

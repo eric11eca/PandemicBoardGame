@@ -1,4 +1,4 @@
-package gui;
+package gui.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -15,12 +15,12 @@ import render.Render;
 import render.RenderColor;
 
 @SuppressWarnings("serial")
-public class DiseaseUI extends JComponent {
+public class UIDisease extends JComponent {
 	private final int CUBE_SIZE = 40;
 	private Set<GameColor> curedDisease;
 	private GameCubePool gameCubePool;
 
-	public DiseaseUI(Set<GameColor> curedDisease, GameCubePool gameCubePool) {
+	public UIDisease(Set<GameColor> curedDisease, GameCubePool gameCubePool) {
 		super();
 		this.curedDisease = curedDisease;
 		this.gameCubePool = gameCubePool;

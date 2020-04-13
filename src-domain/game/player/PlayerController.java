@@ -5,6 +5,7 @@ import java.util.Map;
 
 import game.ActionType;
 import game.cards.Card;
+import game.city.City;
 import game.player.action.Action;
 
 /**
@@ -25,8 +26,9 @@ public class PlayerController {
 		actionMap.get(actionType).perform(completionCallback);
 	}
 
-	public boolean canPerform(ActionType actionType) {
-		return actionMap.containsKey(actionType) && actionMap.get(actionType).canPerform();
+	public boolean canPerform(ActionType actionType, boolean alreadyPerformed) {
+		return actionMap.containsKey(actionType) && actionMap.get(actionType).canPerform()
+				&& !(alreadyPerformed && actionMap.get(actionType).isOncePerTurn());
 	}
 
 	public void givePlayerCards(List<Card> cards) {
@@ -35,5 +37,13 @@ public class PlayerController {
 
 	public int getHighestPopulationInHand() {
 		return player.getHighestPopulationInHand();
+	}
+
+	public City getPlayerCity() {
+		return player.getLocation();
+	}
+
+	public int getPlayerHandSize() {
+		return player.getFilteredHand(c -> true).size();
 	}
 }
