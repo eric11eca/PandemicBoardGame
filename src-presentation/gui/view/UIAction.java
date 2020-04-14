@@ -39,6 +39,7 @@ public class UIAction extends JPanel {
 
 	private JButton createButton(ActionType actionType) {
 		JButton button = new JButton();
+		button.setText(actionType.toString());
 		button.addActionListener(e -> performAction(actionType));
 		return button;
 	}

@@ -26,7 +26,7 @@ public class UIInfectionRate extends JComponent {
 		Graphics2D g2d = (Graphics2D) g.create();
 		paintText(g2d);
 		final int[] RATES = GameProperty.getInstance().getIntArray("INFECTION_RATES");
-		for (int i = 0; i <= RATES.length; i++) {
+		for (int i = 0; i < RATES.length; i++) {
 			this.paintInfection(g2d, i, RATES, i <= infectIndex);
 		}
 		g2d.dispose();

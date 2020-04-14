@@ -120,7 +120,7 @@ public class PlayerFactory {
 		PlayerController[] controllers = new PlayerController[initializers.size()];
 		int i = 0;
 		for (Supplier<PlayerController> factory : initializers) {
-			controllers[i] = factory.get();
+			controllers[i++] = factory.get();
 		}
 		return controllers;
 	}

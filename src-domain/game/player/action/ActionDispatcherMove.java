@@ -1,6 +1,7 @@
 package game.player.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ public class ActionDispatcherMove extends Action {
 
 	public ActionDispatcherMove(Map<Player, Action> dispatchedActions, PlayerInteraction interaction) {
 		super(null, interaction);
+		dispatchedActions = new HashMap<>();
 	}
 
 	@Override

@@ -16,8 +16,6 @@ import game.GameColor;
 import game.GameState;
 import game.Infection;
 import game.TurnController;
-import game.cards.Card;
-import game.cards.CardCity;
 import game.cards.Deck;
 import game.city.City;
 import game.city.CitySet;
@@ -28,6 +26,8 @@ import game.disease.GameCubePool;
 import game.player.Player;
 import game.player.PlayerController;
 import game.player.PlayerInteraction;
+import gui.GUIInteraction;
+import gui.GameGUI;
 import render.RenderCity;
 
 public class InitializationFacade {
@@ -75,6 +75,7 @@ public class InitializationFacade {
 				return new CityCubeData(gameCubePool);
 			}
 		};
+		interaction = new GUIInteraction();
 		cityLoader.loadCities();
 		infectionDeck = new Deck();
 		infectionDiscard = new Deck();
@@ -92,6 +93,7 @@ public class InitializationFacade {
 		infection = new Infection(infectionDeck, infectionDiscard, quarantineChecker, game, gameCubePool);
 		epidemic = new Epidemic(infectionDeck, infectionDiscard, game, quarantineChecker, gameCubePool);
 		turnController = new TurnController(playerDeck, infection, game, playerControllers);
+		initialize();
 	}
 
 	public void initialize() {
@@ -108,6 +110,16 @@ public class InitializationFacade {
 		Arrays.sort(playerControllers, (p1, p2) -> {
 			return p2.getHighestPopulationInHand() - p1.getHighestPopulationInHand();
 		});
+	}
+
+	public GameGUI createGUI() {
+		GameGUI gui = new GameGUI();
+		gui.initActionPanel(turnController);
+		gui.initBoardPanel(renderCities);
+		gui.initDeckPanel(playerDeck, playerDiscard, infectionDeck, infectionDiscard);
+		gui.initPlayerPanel(playerControllers);
+		gui.initStatusPanel(game, curedDiseases, gameCubePool);
+		return gui;
 	}
 
 }

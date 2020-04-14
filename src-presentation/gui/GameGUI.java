@@ -46,22 +46,27 @@ public class GameGUI {
 	private JPanel middlePanel;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
-	private static final Integer LAYER_UI = new Integer(1);
+	private static final Integer LAYER_UI = new Integer(0);
 	private static final Integer LAYER_MESSAGE = new Integer(2);
 
 	public GameGUI() {
 		mainPane = new JLayeredPane();
+		mainPane.setLayout(new BorderLayout());
 		middlePanel = new JPanel(new BorderLayout());
 		topPanel = new JPanel(new BorderLayout());
 		bottomPanel = new JPanel(new BorderLayout());
 		JPanel uiPanel = new JPanel(new BorderLayout());
+		topPanel.setPreferredSize(new Dimension(800, 100));
+		bottomPanel.setPreferredSize(new Dimension(800, 100));
 		uiPanel.add(topPanel, BorderLayout.NORTH);
 		uiPanel.add(bottomPanel, BorderLayout.SOUTH);
 		uiPanel.add(middlePanel, BorderLayout.CENTER);
-		mainPane.add(uiPanel, LAYER_UI);
+		mainPane.add(uiPanel);
+		middlePanel.setBackground(Color.RED);
 
+		mainPane.setPreferredSize(new Dimension(800, 600));
 		loadFrame();
-		frame.add(mainPane);
+		frame.add(mainPane, BorderLayout.CENTER);
 
 	}
 
@@ -95,6 +100,7 @@ public class GameGUI {
 
 	public void initStatusPanel(GameState game, Set<GameColor> curedDiseaseSet, GameCubePool gameCubePool) {
 		JPanel statusPanel = new JPanel();
+		statusPanel.setPreferredSize(new Dimension(400, 100));
 		statusPanel.setLayout(new BorderLayout());
 		statusPanel.add(new UIOutbreak(game::getOutbreakLevel), BorderLayout.NORTH);
 		statusPanel.add(new UIDisease(curedDiseaseSet::contains, gameCubePool::isDiseaseEradicated),
