@@ -16,17 +16,15 @@ public interface Card {
 	 * 
 	 * @param hand a player's hand
 	 */
-	void addToHand(Deck<Card> hand);
+	void addToHand(Deck hand);
 
 	/**
 	 * Discard this card to the discard pile. It is up to the implementation whether
 	 * the card is actually added to the discard pile
 	 * 
-	 * @param <T>         Type of the discard pile
 	 * @param discardPile the discard pile to discard to
-	 * @param type        Type of the discard pile
 	 */
-	<T extends Card> void discard(Deck<T> discardPile, Class<T> type);
+	void discard(Deck discardPile);
 
 	/**
 	 * Get the city associated with this card. For player city cards and infection

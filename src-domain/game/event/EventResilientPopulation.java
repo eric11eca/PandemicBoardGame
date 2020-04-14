@@ -1,6 +1,5 @@
 package game.event;
 
-import game.cards.CardCity;
 import game.cards.Deck;
 import game.player.PlayerInteraction;
 
@@ -8,9 +7,9 @@ public class EventResilientPopulation implements Event {
 	/*
 	 * Remove 1 card from the infection discard pile
 	 */
-	private Deck<CardCity> infectionDiscard;
+	private Deck infectionDiscard;
 
-	public EventResilientPopulation(Deck<CardCity> infectionDiscard) {
+	public EventResilientPopulation(Deck infectionDiscard) {
 		super();
 		this.infectionDiscard = infectionDiscard;
 	}

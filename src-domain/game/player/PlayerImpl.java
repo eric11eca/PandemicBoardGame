@@ -13,15 +13,15 @@ public class PlayerImpl implements Player {
 
 	private final int id;
 
-	private Deck<Card> hand;
-	private Deck<Card> playerDiscard;
+	private Deck hand;
+	private Deck playerDiscard;
 	private City location;
 	private PlayerInteraction interaction;
 
-	public PlayerImpl(int id, City startingLocation, Deck<Card> playerDiscard, PlayerInteraction interaction) {
+	public PlayerImpl(int id, City startingLocation, Deck playerDiscard, PlayerInteraction interaction) {
 		super();
 		this.id = id;
-		this.hand = new Deck<>();
+		this.hand = new Deck();
 		this.playerDiscard = playerDiscard;
 		this.location = startingLocation;
 		this.interaction = interaction;
@@ -61,7 +61,7 @@ public class PlayerImpl implements Player {
 	@Override
 	public void discardCard(Card toDiscard) {
 		removeCard(toDiscard);
-		toDiscard.discard(playerDiscard, Card.class);
+		toDiscard.discard(playerDiscard);
 	}
 
 	@Override

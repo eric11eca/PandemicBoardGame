@@ -36,10 +36,10 @@ public class InitializationFacade {
 	private HashMap<String, City> cities;
 	private HashMap<City, RenderCity> renderCities;
 	private CityLoader cityLoader;
-	private Deck<CardCity> infectionDeck;
-	private Deck<CardCity> infectionDiscard;
-	private Deck<Card> playerDeck;
-	private Deck<Card> playerDiscard;
+	private Deck infectionDeck;
+	private Deck infectionDiscard;
+	private Deck playerDeck;
+	private Deck playerDiscard;
 	private Set<GameColor> curedDiseases;
 	private List<Player> players;
 	private CitySet citySet;
@@ -76,10 +76,10 @@ public class InitializationFacade {
 			}
 		};
 		cityLoader.loadCities();
-		infectionDeck = new Deck<>();
-		infectionDiscard = new Deck<>();
-		playerDeck = new Deck<>();
-		playerDiscard = new Deck<>();
+		infectionDeck = new Deck();
+		infectionDiscard = new Deck();
+		playerDeck = new Deck();
+		playerDiscard = new Deck();
 		curedDiseases = new CureSet(game, EnumSet.noneOf(GameColor.class));
 		players = new LinkedList<>();
 		citySet = new CitySet(new HashSet<>(cities.values()));

@@ -1,4 +1,4 @@
-package gui;
+package gui.view;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -14,10 +14,10 @@ import render.Render;
 import render.RenderCity;
 
 @SuppressWarnings("serial")
-public class BoardUI extends JComponent {
+public class UIBoard extends JComponent {
 	private Map<City, RenderCity> cityRenderers;
 
-	public BoardUI(Map<City, RenderCity> cityRenderers) {
+	public UIBoard(Map<City, RenderCity> cityRenderers) {
 		this.cityRenderers = cityRenderers;
 	}
 

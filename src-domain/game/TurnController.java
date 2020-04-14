@@ -17,7 +17,7 @@ import game.player.PlayerController;
  * player controllers
  */
 public class TurnController {
-	private Deck<Card> playerDeck;
+	private Deck playerDeck;
 	private Infection infection;
 	private GameState game;
 	private PlayerController[] playerControllers;
@@ -27,8 +27,7 @@ public class TurnController {
 	private int remainingActions;
 	private Set<ActionType> actionDone;
 
-	public TurnController(Deck<Card> playerDeck, Infection infection, GameState game,
-			PlayerController[] playerControllers) {
+	public TurnController(Deck playerDeck, Infection infection, GameState game, PlayerController[] playerControllers) {
 		super();
 		this.playerDeck = playerDeck;
 		this.infection = infection;

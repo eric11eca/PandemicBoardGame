@@ -4,26 +4,23 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.swing.JComponent;
 
-import game.GameState;
 import game.GameColor;
-import game.disease.GameCubePool;
-import render.Render;
 import render.RenderColor;
 
 @SuppressWarnings("serial")
 public class UIDisease extends JComponent {
 	private final int CUBE_SIZE = 40;
-	private Set<GameColor> curedDisease;
-	private GameCubePool gameCubePool;
+	private Function<GameColor, Boolean> isDiseaseCured;
+	private Function<GameColor, Boolean> isDiseaseEradicated;
 
-	public UIDisease(Set<GameColor> curedDisease, GameCubePool gameCubePool) {
-		super();
-		this.curedDisease = curedDisease;
-		this.gameCubePool = gameCubePool;
+	public UIDisease(Function<GameColor, Boolean> isDiseaseCured, Function<GameColor, Boolean> isDiseaseEradicated) {
+		this.isDiseaseCured = isDiseaseCured;
+		this.isDiseaseEradicated = isDiseaseEradicated;
 	}
 
 	@Override
@@ -46,8 +43,8 @@ public class UIDisease extends JComponent {
 
 	private void paintDisease(Graphics2D g2d, GameColor color, int x, int y) {
 
-		boolean cured = curedDisease.contains(color);
-		boolean eradicated = gameCubePool.isDiseaseEradicated(color);
+		boolean cured = isDiseaseCured.apply(color);
+		boolean eradicated = isDiseaseEradicated.apply(color);
 		if (cured || eradicated) {
 			RenderColor renderColor = new RenderColor(g2d);
 			renderColor.setRenderColor(color);

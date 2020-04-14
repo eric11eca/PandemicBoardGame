@@ -2,7 +2,7 @@ package game;
 
 import java.util.function.Predicate;
 
-import game.cards.CardCity;
+import game.cards.Card;
 import game.cards.Deck;
 import game.city.City;
 import game.disease.GameCubePool;
@@ -13,14 +13,14 @@ import game.disease.GameCubePool;
  */
 public class Infection {
 
-	private Deck<CardCity> infectionDeck;
-	private Deck<CardCity> infectionDiscard;
+	private Deck infectionDeck;
+	private Deck infectionDiscard;
 	private Predicate<City> quarantineChecker;
 	private GameState game;
 	private GameCubePool gameCubePool;
 
-	public Infection(Deck<CardCity> infectionDeck, Deck<CardCity> infectionDiscard, Predicate<City> quarantineChecker,
-			GameState game, GameCubePool gameCubePool) {
+	public Infection(Deck infectionDeck, Deck infectionDiscard, Predicate<City> quarantineChecker, GameState game,
+			GameCubePool gameCubePool) {
 		super();
 		this.infectionDeck = infectionDeck;
 		this.infectionDiscard = infectionDiscard;
@@ -34,14 +34,14 @@ public class Infection {
 			game.triggerLose();
 			return;
 		}
-		CardCity card = infectionDeck.takeTopCard();
+		Card card = infectionDeck.takeTopCard();
 
 		City city = card.getCity().orElseThrow(RuntimeException::new);
 		if (!gameCubePool.isDiseaseEradicated(city.getColor())) {
 			city.infect(game, quarantineChecker);
 		}
 
-		card.discard(infectionDiscard, CardCity.class);
+		card.discard(infectionDiscard);
 
 	}
 

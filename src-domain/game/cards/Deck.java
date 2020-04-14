@@ -12,8 +12,8 @@ import java.util.function.Predicate;
  *
  * @param <C> the deck type
  */
-public class Deck<C extends Card> {
-	private LinkedList<C> list;
+public class Deck {
+	private LinkedList<Card> list;
 
 	public Deck() {
 		list = new LinkedList<>();
@@ -23,17 +23,17 @@ public class Deck<C extends Card> {
 		Collections.shuffle(list);
 	}
 
-	public void putOnTop(C card) {
+	public void putOnTop(Card card) {
 		list.addFirst(card);
 	}
 
-	public void putAllOnTop(Collection<? extends C> cards) {
-		for (C card : cards) {
+	public void putAllOnTop(Collection<? extends Card> cards) {
+		for (Card card : cards) {
 			this.putOnTop(card);
 		}
 	}
 
-	public void putOnBottom(C card) {
+	public void putOnBottom(Card card) {
 		list.addLast(card);
 	}
 
@@ -41,7 +41,7 @@ public class Deck<C extends Card> {
 		return list.size();
 	}
 
-	public boolean removeCard(C toRemove) {
+	public boolean removeCard(Card toRemove) {
 		return list.remove(toRemove);
 	}
 
@@ -53,16 +53,16 @@ public class Deck<C extends Card> {
 		list.clear();
 	}
 
-	public boolean contains(C card) {
+	public boolean contains(Card card) {
 		return list.contains(card);
 	}
 
-	public void forEach(Consumer<? super C> action) {
+	public void forEach(Consumer<? super Card> action) {
 		list.forEach(action);
 	}
 
-	public List<C> getFilteredSubDeck(Predicate<? super C> filter) {
-		List<C> list = new LinkedList<>();
+	public List<Card> getFilteredSubDeck(Predicate<? super Card> filter) {
+		List<Card> list = new LinkedList<>();
 		list.forEach(c -> {
 			if (filter.test(c))
 				list.add(c);
@@ -70,15 +70,15 @@ public class Deck<C extends Card> {
 		return list;
 	}
 
-	public C takeBottomCard() {
+	public Card takeBottomCard() {
 		return list.removeLast();
 	}
 
-	public C takeTopCard() {
+	public Card takeTopCard() {
 		return list.removeFirst();
 	}
 
-	public List<C> toList() {
+	public List<Card> toList() {
 		return getFilteredSubDeck(c -> true);
 	}
 

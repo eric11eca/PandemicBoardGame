@@ -51,7 +51,7 @@ public class TestDrive {
 			assertFalse(citiesToSelectFrom.contains(notNeighborCity));
 			callback.accept(neighborCity);
 		});
-		player = new PlayerImpl(0, location, new Deck<>(), interaction);
+		player = new PlayerImpl(0, location, new Deck(), interaction);
 	}
 
 	@Test

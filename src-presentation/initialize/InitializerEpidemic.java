@@ -1,16 +1,15 @@
 package initialize;
 
 import game.Epidemic;
-import game.cards.Card;
 import game.cards.CardEpidemic;
 import game.cards.Deck;
 
 public class InitializerEpidemic {
 	private int epidemicCount;
-	private Deck<Card> playerDeck;
+	private Deck playerDeck;
 	private Epidemic epidemic;
 
-	public InitializerEpidemic(int epidemicCount, Deck<Card> playerDeck, Epidemic epidemic) {
+	public InitializerEpidemic(int epidemicCount, Deck playerDeck, Epidemic epidemic) {
 		super();
 		this.epidemicCount = epidemicCount;
 		this.playerDeck = playerDeck;

@@ -48,6 +48,10 @@ public class GameState {
 		return infectionRates[infectionIndex];
 	}
 
+	public int getInfectionRateIndex() {
+		return infectionIndex;
+	}
+
 	public void increaseInfectionRate() {
 		infectionIndex++;
 	}

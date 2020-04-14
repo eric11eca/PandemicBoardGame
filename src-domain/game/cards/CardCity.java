@@ -18,7 +18,7 @@ public class CardCity implements Card {
 	}
 
 	@Override
-	public void addToHand(Deck<Card> hand) {
+	public void addToHand(Deck hand) {
 		hand.putOnTop(this);
 	}
 
@@ -43,8 +43,8 @@ public class CardCity implements Card {
 	}
 
 	@Override
-	public <T extends Card> void discard(Deck<T> discardPile, Class<T> type) {
-		discardPile.putOnTop(type.cast(this));
+	public void discard(Deck discardPile) {
+		discardPile.putOnTop(this);
 	}
 
 }

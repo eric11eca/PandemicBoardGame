@@ -3,7 +3,6 @@ package initialize;
 import java.util.List;
 
 import game.TurnController;
-import game.cards.Card;
 import game.cards.CardCity;
 import game.cards.Deck;
 import game.cards.event.CardEvent;
@@ -18,15 +17,14 @@ import game.player.Player;
 
 public class InitializerDecksWithoutEpidemic {
 	private CitySet cities;
-	private Deck<CardCity> infectionDeck;
-	private Deck<CardCity> infectionDiscard;
-	private Deck<Card> playerDeck;
+	private Deck infectionDeck;
+	private Deck infectionDiscard;
+	private Deck playerDeck;
 	private List<Player> players;
 	private TurnController turnController;
 
-	public InitializerDecksWithoutEpidemic(CitySet cities, Deck<CardCity> infectionDeck,
-			Deck<CardCity> infectionDiscard, Deck<Card> playerDeck, List<Player> players,
-			TurnController turnController) {
+	public InitializerDecksWithoutEpidemic(CitySet cities, Deck infectionDeck, Deck infectionDiscard, Deck playerDeck,
+			List<Player> players, TurnController turnController) {
 		super();
 		this.cities = cities;
 		this.infectionDeck = infectionDeck;

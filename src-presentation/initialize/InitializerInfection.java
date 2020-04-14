@@ -5,10 +5,10 @@ import game.cards.Deck;
 import game.city.City;
 
 public class InitializerInfection {
-	private Deck<CardCity> infectionDeck;
-	private Deck<CardCity> infectionDiscard;
+	private Deck infectionDeck;
+	private Deck infectionDiscard;
 
-	public InitializerInfection(Deck<CardCity> infectionDeck, Deck<CardCity> infectionDiscard) {
+	public InitializerInfection(Deck infectionDeck, Deck infectionDiscard) {
 		super();
 		this.infectionDeck = infectionDeck;
 		this.infectionDiscard = infectionDiscard;

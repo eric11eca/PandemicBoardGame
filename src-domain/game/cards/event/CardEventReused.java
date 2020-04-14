@@ -22,7 +22,7 @@ public class CardEventReused implements Card {
 	}
 
 	@Override
-	public void addToHand(Deck<Card> hand) {
+	public void addToHand(Deck hand) {
 		delegate.addToHand(hand);
 	}
 
@@ -48,7 +48,7 @@ public class CardEventReused implements Card {
 	}
 
 	@Override
-	public <T extends Card> void discard(Deck<T> discardPile, Class<T> type) {
+	public void discard(Deck discardPile) {
 		// Do not add to discard pile
 	}
 

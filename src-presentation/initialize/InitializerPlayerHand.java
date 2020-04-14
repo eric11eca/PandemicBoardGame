@@ -10,9 +10,9 @@ import game.player.PlayerController;
 public class InitializerPlayerHand {
 	private PlayerController[] playerControllers;
 
-	private Deck<Card> playerDeck;
+	private Deck playerDeck;
 
-	public InitializerPlayerHand(PlayerController[] playerControllers, Deck<Card> playerDeck) {
+	public InitializerPlayerHand(PlayerController[] playerControllers, Deck playerDeck) {
 		super();
 		this.playerControllers = playerControllers;
 		this.playerDeck = playerDeck;

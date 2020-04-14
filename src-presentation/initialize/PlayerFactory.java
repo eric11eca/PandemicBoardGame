@@ -14,7 +14,6 @@ import java.util.function.Supplier;
 import data.GameProperty;
 import game.ActionType;
 import game.GameColor;
-import game.cards.Card;
 import game.cards.Deck;
 import game.city.City;
 import game.city.CitySet;
@@ -53,12 +52,12 @@ public class PlayerFactory {
 
 	private City startingCity;
 	private PlayerInteraction interaction;
-	private Deck<Card> playerDiscard;
+	private Deck playerDiscard;
 	private CitySet citySet;
 	private Set<GameColor> curedDiseases;
 	private List<Player> players;
 
-	public PlayerFactory(City startingCity, PlayerInteraction interaction, Deck<Card> playerDiscard, CitySet citySet,
+	public PlayerFactory(City startingCity, PlayerInteraction interaction, Deck playerDiscard, CitySet citySet,
 			Set<GameColor> curedDiseases, List<Player> players) {
 		super();
 		this.startingCity = startingCity;

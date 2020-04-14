@@ -10,11 +10,11 @@ import game.player.special.ContingencyPlanner;
 
 public class ActionSkillContingencyPlanner extends Action {
 
-	private Deck<Card> playerDiscardPile;
+	private Deck playerDiscardPile;
 	private ContingencyPlanner contingencyPlanner;
 
 	public ActionSkillContingencyPlanner(ContingencyPlanner player, PlayerInteraction interaction,
-			Deck<Card> playerDiscardPile) {
+			Deck playerDiscardPile) {
 		super(player, interaction);
 		this.contingencyPlanner = player;
 		this.playerDiscardPile = playerDiscardPile;
