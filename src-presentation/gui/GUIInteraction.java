@@ -23,7 +23,7 @@ public class GUIInteraction implements PlayerInteraction {
 	}
 
 	@Override
-	public <T extends Card> void selectCardsFrom(int number, List<T> cards, Consumer<List<T>> callback) {
+	public void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
 
 	}
 
@@ -34,13 +34,13 @@ public class GUIInteraction implements PlayerInteraction {
 	}
 
 	@Override
-	public <T extends Card> void selectCardsToDiscard(int number, List<T> cards, Consumer<List<T>> callback) {
+	public void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public <T extends Card> void arrangeCards(List<T> cards, Consumer<List<T>> callback) {
+	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) {
 		// TODO Auto-generated method stub
 
 	}

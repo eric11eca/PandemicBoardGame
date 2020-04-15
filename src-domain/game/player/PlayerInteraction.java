@@ -34,11 +34,10 @@ public interface PlayerInteraction {
 	/**
 	 * Asynchronously select a card from a list of cards
 	 * 
-	 * @param <T>      type of the card
 	 * @param cards    list of cards to select from
 	 * @param callback callback function with selected card
 	 */
-	default <T extends Card> void selectOneCardFrom(List<T> cards, Consumer<T> callback) {
+	default void selectOneCardFrom(List<Card> cards, Consumer<Card> callback) {
 		selectCardsFrom(1, cards, list -> callback.accept(list.get(0)));
 	}
 
@@ -46,12 +45,11 @@ public interface PlayerInteraction {
 	 * Asynchronously select many cards from a list of cards. The callback will only
 	 * be called if a valid selection with the correct number of cards is made.
 	 * 
-	 * @param <T>      type of cards
 	 * @param number   the number of cards to choose
 	 * @param cards    cards to choose from
 	 * @param callback callback function with selected cards
 	 */
-	<T extends Card> void selectCardsFrom(int number, List<T> cards, Consumer<List<T>> callback);
+	void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback);
 
 	/**
 	 * Asynchronously select a city from the set of cities
@@ -66,20 +64,18 @@ public interface PlayerInteraction {
 	 * may seem similar to {@code selectCardsFrom}, but this method allows selection
 	 * less than or equal to the number specified (not over)
 	 * 
-	 * @param <T>      type of card
 	 * @param number   maximum number of cards to select
 	 * @param cards    cards to select from
 	 * @param callback callback function with the selected cards to discard
 	 */
-	<T extends Card> void selectCardsToDiscard(int number, List<T> cards, Consumer<List<T>> callback);
+	void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback);
 
 	/**
 	 * Asynchronously arrange many cards. The callback function must provide a new
 	 * data structure that will not affect the provided list of cards when modified
 	 * 
-	 * @param <T>      type of card
 	 * @param cards    cards to arrange
 	 * @param callback callback function with the arranged list of cards
 	 */
-	<T extends Card> void arrangeCards(List<T> cards, Consumer<List<T>> callback);
+	void arrangeCards(List<Card> cards, Consumer<List<Card>> callback);
 }

@@ -65,11 +65,11 @@ public class MockInteraction implements PlayerInteraction {
 	public interface MethodSelectColorFrom extends BiConsumer<Set<GameColor>, Consumer<GameColor>> {	}
 	public interface MethodSelectPlayerFrom extends BiConsumer<List<Player>, Consumer<Player>> {	}
 	public interface MethodSelectCardsFrom {
-		<T extends Card> void selectCardsFrom(int number, List<T> cards, Consumer<List<T>> callback);
+		void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback);
 	}
 	public interface MethodSelectCityFrom extends BiConsumer<Set<City>,Consumer<City>>{}
 	public interface MethodArrangeCards{
-		<T extends Card> void arrangeCards(List<T> cards, Consumer<List<T>> callback);
+		void arrangeCards(List<Card> cards, Consumer<List<Card>> callback);
 	}
 	@Override
 	public void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback) 
@@ -78,16 +78,16 @@ public class MockInteraction implements PlayerInteraction {
 	public void selectPlayerFrom(List<Player> players, Consumer<Player> callback) 
 	{selectPlayerFromImpl.accept(players, callback);}
 	@Override
-	public <T extends Card> void selectCardsFrom(int number, List<T> cards, Consumer<List<T>> callback)
+	public void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback)
 	{selectCardsFromImpl.selectCardsFrom(number, cards, callback);}
 	@Override
 	public void selectCityFrom(Set<City> cities, Consumer<City> callback) 
 	{selectCityFromImpl.accept(cities, callback);}
 	@Override
-	public <T extends Card> void selectCardsToDiscard(int number, List<T> cards, Consumer<List<T>> callback) 
+	public void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) 
 	{selectCardsToDiscardImpl.selectCardsFrom(number, cards, callback);}
 	@Override
-	public <T extends Card> void arrangeCards(List<T> cards, Consumer<List<T>> callback) 
+	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) 
 	{arrangeCardsImpl.arrangeCards(cards, callback);}
 	//@formatter:on
 	private <T, R> void errBiConsumer(T t, R r) {
