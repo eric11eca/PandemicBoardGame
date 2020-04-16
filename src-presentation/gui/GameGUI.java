@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,8 +71,8 @@ public class GameGUI {
 
 	}
 
-	public void initBoardPanel(Map<City, RenderCity> cityRenderers) {
-		UIBoard board = new UIBoard(cityRenderers);
+	public void initBoardPanel(Map<City, RenderCity> cityRenderers, PlayerController[] playerControllers) {
+		UIBoard board = new UIBoard(cityRenderers, playerControllers);
 		middlePanel.add(board);
 	}
 
@@ -85,12 +86,13 @@ public class GameGUI {
 		deckPanel.add(playerDiscardUI);
 		deckPanel.add(infectDeckUI);
 		deckPanel.add(infectDiscardUI);
-		deckPanel.setPreferredSize(new Dimension(800, 100));
+		// deckPanel.setPreferredSize(new Dimension(800, 100));
 		bottomPanel.add(deckPanel, BorderLayout.EAST);
 	}
 
 	public void initPlayerPanel(PlayerController[] players) {
 		JPanel playerPanel = new JPanel();
+		playerPanel.setLayout(new GridLayout(1, players.length));
 		for (int i = 0; i < players.length; i++) {
 			UIPlayer ui = new UIPlayer(i + 1, players[i]::getPlayerCity, players[i]::getPlayerHandSize);
 			playerPanel.add(ui);
@@ -100,12 +102,12 @@ public class GameGUI {
 
 	public void initStatusPanel(GameState game, Set<GameColor> curedDiseaseSet, GameCubePool gameCubePool) {
 		JPanel statusPanel = new JPanel();
-		statusPanel.setPreferredSize(new Dimension(400, 100));
+		// statusPanel.setPreferredSize(new Dimension(200, 100));
 		statusPanel.setLayout(new BorderLayout());
 		statusPanel.add(new UIOutbreak(game::getOutbreakLevel), BorderLayout.NORTH);
 		statusPanel.add(new UIDisease(curedDiseaseSet::contains, gameCubePool::isDiseaseEradicated),
 				BorderLayout.CENTER);
-		statusPanel.add(new UIInfectionRate(game::getInfectionRateIndex));
+		statusPanel.add(new UIInfectionRate(game::getInfectionRateIndex), BorderLayout.SOUTH);
 		topPanel.add(statusPanel, BorderLayout.EAST);
 	}
 
@@ -125,6 +127,10 @@ public class GameGUI {
 		frame.setTitle("PANDEMIC");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
+	}
+
+	public void repaint() {
+		frame.repaint();
 	}
 
 }

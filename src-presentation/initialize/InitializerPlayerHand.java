@@ -26,6 +26,7 @@ public class InitializerPlayerHand {
 				initialHand.add(playerDeck.takeTopCard());
 			}
 			controller.givePlayerCards(initialHand);
+
 		}
 	}
 }

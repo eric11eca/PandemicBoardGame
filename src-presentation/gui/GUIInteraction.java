@@ -29,7 +29,7 @@ public class GUIInteraction implements PlayerInteraction {
 
 	@Override
 	public void selectCityFrom(Set<City> cities, Consumer<City> callback) {
-		// TODO Auto-generated method stub
+		callback.accept(cities.iterator().next());
 
 	}
 

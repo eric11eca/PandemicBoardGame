@@ -1,24 +1,29 @@
 package gui.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.text.MessageFormat;
 import java.util.Map;
 
 import javax.swing.JComponent;
 
 import data.ImageLoader;
 import game.city.City;
+import game.player.PlayerController;
 import render.Render;
 import render.RenderCity;
 
 @SuppressWarnings("serial")
 public class UIBoard extends JComponent {
 	private Map<City, RenderCity> cityRenderers;
+	private PlayerController[] playerControllers;
 
-	public UIBoard(Map<City, RenderCity> cityRenderers) {
+	public UIBoard(Map<City, RenderCity> cityRenderers, PlayerController[] controllers) {
 		this.cityRenderers = cityRenderers;
+		playerControllers = controllers;
 	}
 
 	@Override
@@ -50,12 +55,11 @@ public class UIBoard extends JComponent {
 //		g2d.drawString(uncureMark, 425 + (68 * 2), 770);
 //		g2d.drawString(uncureMark, 425 + (68 * 3), 770);
 
-		// int currentPlayerNum = 0;
-		// for (Player player : board.currentPlayers) {
-		// currentPlayerNum++;
-		// drawPlayer(g2d, player.playerData.location,
-		// Integer.toString(currentPlayerNum));
-		// }
+		int currentPlayerNum = 0;
+		for (PlayerController player : playerControllers) {
+			currentPlayerNum++;
+			drawPlayer(g2d, player.getPlayerCity(), currentPlayerNum);
+		}
 
 		// drawCards(g2d, board.validPlayerCards.size());
 	}
@@ -81,11 +85,13 @@ public class UIBoard extends JComponent {
 	}
 
 	// TODO move to RenderPlayer
-//	private void drawPlayer(Graphics2D g2d, City city, String k) {
-//		g2d.setColor(Color.YELLOW);
-//		String playerLabel = MessageFormat.format("P {0}", k);
-//		g2d.setFont(new Font(playerLabel, Font.BOLD, 12));
-//		g2d.drawString(playerLabel, city.x - 50 + (20 * Integer.parseUnsignedInt(k)), city.y - 30);
-//	}
+	private void drawPlayer(Graphics2D g2d, City city, int k) {
+		g2d.setColor(Color.YELLOW);
+		String playerLabel = MessageFormat.format("P {0}", k);
+		g2d.setFont(new Font(playerLabel, Font.BOLD, 12));
+		RenderCity r = cityRenderers.get(city);
+		r.drawPlayer(g2d, k);
+
+	}
 
 }

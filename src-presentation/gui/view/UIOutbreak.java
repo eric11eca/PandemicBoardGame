@@ -2,13 +2,12 @@ package gui.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.function.Supplier;
 
 import javax.swing.JComponent;
-
-import game.GameState;
 
 @SuppressWarnings("serial")
 public class UIOutbreak extends JComponent {
@@ -16,6 +15,7 @@ public class UIOutbreak extends JComponent {
 
 	public UIOutbreak(Supplier<Integer> outbreakLevel) {
 		this.outbreakLevel = outbreakLevel;
+		this.setPreferredSize(new Dimension(300, 30));
 	}
 
 	@Override
@@ -31,12 +31,12 @@ public class UIOutbreak extends JComponent {
 	}
 
 	private void paintText(Graphics2D g2d) {
-		g2d.drawString("Outbreak", 10, 50);// TODO i18n support
+		g2d.drawString("Outbreak", 10, g2d.getFontMetrics().getAscent());// TODO i18n support
 	}
 
 	private void paintOutbreakLevel(Graphics2D g2d, int level, boolean reached) {
-		final int CUBE_SIZE = 40;
-		final int X_OFFSET = 80;
+		final int CUBE_SIZE = 20;
+		final int X_OFFSET = 100;
 		final int Y_OFFSET = 10;
 		int x = X_OFFSET + level * CUBE_SIZE;
 		g2d.setColor(reached ? Color.RED : Color.LIGHT_GRAY);

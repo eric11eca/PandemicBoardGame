@@ -2,6 +2,7 @@ package gui.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.function.Supplier;
@@ -17,6 +18,7 @@ public class UIInfectionRate extends JComponent {
 
 	public UIInfectionRate(Supplier<Integer> infectionIndex) {
 		this.infectionIndex = infectionIndex;
+		this.setPreferredSize(new Dimension(300, 30));
 	}
 
 	@Override
@@ -33,12 +35,12 @@ public class UIInfectionRate extends JComponent {
 	}
 
 	private void paintText(Graphics2D g2d) {
-		g2d.drawString("Infection Rate", 10, 50);// TODO i18n support
+		g2d.drawString("Infection Rate", 10, g2d.getFontMetrics().getAscent());// TODO i18n support
 	}
 
 	private void paintInfection(Graphics2D g2d, int level, int[] rates, boolean reached) {
-		final int CUBE_SIZE = 40;
-		final int X_OFFSET = 80;
+		final int CUBE_SIZE = 20;
+		final int X_OFFSET = 100;
 		final int Y_OFFSET = 10;
 
 		int x = X_OFFSET + level * CUBE_SIZE;

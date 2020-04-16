@@ -34,7 +34,7 @@ public class UIAction extends JPanel {
 		endTurnButton = new JButton();
 		endTurnButton.addActionListener(e -> endTurn());
 		add(endTurnButton);
-
+		updateButtons();
 	}
 
 	private JButton createButton(ActionType actionType) {
@@ -46,10 +46,24 @@ public class UIAction extends JPanel {
 
 	public void performAction(ActionType action) {
 		turnController.performAction(action);
+		updateButtons();
 	}
 
 	public void endTurn() {
 		turnController.endTurn();
 		turnController.startTurn();
+		updateButtons();
+	}
+
+	public void updateButtons() {
+		if (actionButtons != null)
+			actionButtons.forEach((actionType, button) -> {
+				button.setEnabled(turnController.canContinueAction() && turnController.canPerformAction(actionType));
+			});
+	}
+
+	@Override
+	public void repaint() {
+		updateButtons();
 	}
 }

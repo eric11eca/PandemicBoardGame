@@ -70,7 +70,7 @@ public class ActionBuildStation extends Action {
 	private void legalityCheckAndDiscard(Card card) {
 		if (!needCard && card == null)
 			return;
-		City city = card.getCity().orElseThrow(RuntimeException::new);
+		City city = card.getCity().get();
 		assert city.equals(playerCurrentLocation());
 		player().discardCard(card);
 	}

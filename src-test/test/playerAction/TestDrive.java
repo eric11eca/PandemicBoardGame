@@ -5,11 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import game.cards.Card;
 import game.cards.Deck;
 import game.city.City;
 import game.city.CitySet;
@@ -60,8 +63,10 @@ public class TestDrive {
 		citySet.add(neighborCity);
 
 		Action action = new ActionDrive(new CitySet(citySet), player, interaction);
+		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
 		assertTrue(cbExecuted);
 		assertEquals(player.getLocation(), neighborCity);
 	}
+
 }

@@ -2,6 +2,7 @@ package gui.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.function.Function;
@@ -14,13 +15,14 @@ import render.RenderColor;
 
 @SuppressWarnings("serial")
 public class UIDisease extends JComponent {
-	private final int CUBE_SIZE = 40;
+	private final int CUBE_SIZE = 20;
 	private Function<GameColor, Boolean> isDiseaseCured;
 	private Function<GameColor, Boolean> isDiseaseEradicated;
 
 	public UIDisease(Function<GameColor, Boolean> isDiseaseCured, Function<GameColor, Boolean> isDiseaseEradicated) {
 		this.isDiseaseCured = isDiseaseCured;
 		this.isDiseaseEradicated = isDiseaseEradicated;
+		this.setPreferredSize(new Dimension(400, 30));
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class UIDisease extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
 		paintText(g2d);
-		int x = 80;
+		int x = 100;
 		int y = 10;
 		for (GameColor color : GameColor.values()) {
 			this.paintDisease(g2d, color, x, y);
@@ -38,7 +40,7 @@ public class UIDisease extends JComponent {
 	}
 
 	private void paintText(Graphics2D g2d) {
-		g2d.drawString("Disease", 10, 50);// TODO i18n support
+		g2d.drawString("Disease", 10, g2d.getFontMetrics().getAscent());// TODO i18n support
 	}
 
 	private void paintDisease(Graphics2D g2d, GameColor color, int x, int y) {

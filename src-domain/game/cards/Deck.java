@@ -62,12 +62,12 @@ public class Deck {
 	}
 
 	public List<Card> getFilteredSubDeck(Predicate<? super Card> filter) {
-		List<Card> list = new LinkedList<>();
-		list.forEach(c -> {
+		List<Card> filtered = new LinkedList<>();
+		this.list.forEach(c -> {
 			if (filter.test(c))
-				list.add(c);
+				filtered.add(c);
 		});
-		return list;
+		return filtered;
 	}
 
 	public Card takeBottomCard() {

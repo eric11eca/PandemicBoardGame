@@ -2,6 +2,7 @@ package main;
 
 import java.io.IOException;
 
+import gui.GameGUI;
 import initialize.InitializationFacade;
 
 public class Main {
@@ -10,7 +11,10 @@ public class Main {
 		final int playerCount = 2;
 		final int epidemic = 4;
 		InitializationFacade init = new InitializationFacade(playerCount, epidemic);
-		init.createGUI().showGUI();
+		GameGUI gui = init.createGUI();
+		init.startGame();
+		gui.showGUI();
+
 	}
 
 }

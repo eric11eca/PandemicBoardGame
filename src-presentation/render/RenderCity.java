@@ -1,5 +1,7 @@
 package render;
 
+import java.awt.Graphics2D;
+
 import game.GameColor;
 import game.city.City;
 
@@ -23,6 +25,10 @@ public class RenderCity {
 
 	private void drawResearchStation(Render render) {
 		render.drawResearchStation(x, y);
+	}
+
+	public void drawPlayer(Graphics2D g2d, int p) {
+		g2d.drawString(String.valueOf(p), x - 50 + (20 * p), y - 30);
 	}
 
 	private void drawCubes(Render render) {

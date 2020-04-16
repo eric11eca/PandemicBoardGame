@@ -20,7 +20,7 @@ public class UIDeck extends JComponent {
 		this.color = color;
 		this.deckSize = deckSize;
 		this.setToolTipText(name);
-		setPreferredSize(new Dimension(200, 100));
+		setPreferredSize(new Dimension(100, 80));
 	}
 
 	@Override

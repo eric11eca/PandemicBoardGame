@@ -112,10 +112,14 @@ public class InitializationFacade {
 		});
 	}
 
+	public void startGame() {
+		turnController.startTurn();
+	}
+
 	public GameGUI createGUI() {
 		GameGUI gui = new GameGUI();
 		gui.initActionPanel(turnController);
-		gui.initBoardPanel(renderCities);
+		gui.initBoardPanel(renderCities, playerControllers);
 		gui.initDeckPanel(playerDeck, playerDiscard, infectionDeck, infectionDiscard);
 		gui.initPlayerPanel(playerControllers);
 		gui.initStatusPanel(game, curedDiseases, gameCubePool);
