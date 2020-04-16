@@ -30,14 +30,12 @@ public class TestDrive {
 
 	@Before
 	public void setup() {
-		// correct
 		MockCityBuilder neighborBuilder = new MockCityBuilder().name("Atlanta");
 		neighborCity = neighborBuilder.build();
 
 		MockCityBuilder locationBuilder = new MockCityBuilder().name("Chicago");
 		location = locationBuilder.build();
 
-		// you can add neighbots after city is built
 		neighborBuilder.neighborSet().add(location);
 		locationBuilder.neighborSet().add(neighborCity);
 
