@@ -31,7 +31,7 @@ public class ContingencyPlanner extends AbstractPlayerDecorator {
 	@Override
 	public List<Card> getFilteredHand(Predicate<? super Card> filter) {
 		List<Card> hand = super.getFilteredHand(filter);
-		if (filter.test(eventReused))
+		if (eventReused != null && filter.test(eventReused))
 			hand.add(eventReused);
 		return hand;
 	}

@@ -28,7 +28,10 @@ import game.player.PlayerController;
 import game.player.PlayerInteraction;
 import gui.GUIInteraction;
 import gui.GameGUI;
+import render.Render;
 import render.RenderCity;
+import render.RenderInitialization;
+import render.RenderPlayer;
 
 public class InitializationFacade {
 	private GameState game;
@@ -46,21 +49,16 @@ public class InitializationFacade {
 	private City startingCity;
 	private PlayerController[] playerControllers;
 	private TurnController turnController;
-	private PlayerFactory playerFactory;
+
 	private PlayerInteraction interaction;
 	private Predicate<City> quarantineChecker;
 	private Infection infection;
 	private Epidemic epidemic;
 	private int playerCount;
 	private int epidemicCount;
-//	private LogoUI logoUI;
-//	private OutbreakUI outbreakUI;
-//	private DiseaseUI diseaseUI;
-//	private EventUI eventUI;
-//	private DeckUI deckUI;
-//	private ActionUI actionUI;
-//	private BoardUI boardUI;
-//	private GameGUI gui;
+
+	private PlayerInitialization playerInitialization;
+	private RenderInitialization renderInitialization;
 
 	public InitializationFacade(int playerCount, int epidemicCount) throws IOException {
 		this.playerCount = playerCount;
@@ -69,10 +67,16 @@ public class InitializationFacade {
 		gameCubePool = new GameCubePool(game);
 		cities = new HashMap<>();
 		renderCities = new HashMap<>();
+		renderInitialization = new RenderInitialization(renderCities);
 		cityLoader = new CityLoader(cities, renderCities) {
 			@Override
 			protected CubeData createCubeData() {
 				return new CityCubeData(gameCubePool);
+			}
+
+			@Override
+			protected RenderCity createRenderCity(int x, int y, City city) {
+				return renderInitialization.createRenderCity(x, y, city);
 			}
 		};
 		interaction = new GUIInteraction();
@@ -87,9 +91,10 @@ public class InitializationFacade {
 		Set<City> set = citySet.getCitiesSatisfying(c -> c.isStartingCity());
 		assert set.size() == 1;
 		startingCity = set.iterator().next();
-		playerFactory = new PlayerFactory(startingCity, interaction, playerDiscard, citySet, curedDiseases, players);
-		playerControllers = playerFactory.createPlayersWithRandomRoles(playerCount);
-		quarantineChecker = playerFactory.getQuanrantineChecker();
+		playerInitialization = new PlayerInitialization(startingCity, interaction, playerDiscard, citySet,
+				curedDiseases, players);
+		playerControllers = playerInitialization.createPlayersWithRandomRoles(playerCount);
+		quarantineChecker = playerInitialization.getQuanrantineChecker();
 		infection = new Infection(infectionDeck, infectionDiscard, quarantineChecker, game, gameCubePool);
 		epidemic = new Epidemic(infectionDeck, infectionDiscard, game, quarantineChecker, gameCubePool);
 		turnController = new TurnController(playerDeck, infection, game, playerControllers);
@@ -118,10 +123,12 @@ public class InitializationFacade {
 
 	public GameGUI createGUI() {
 		GameGUI gui = new GameGUI();
+		Render render = renderInitialization.getRender();
+		RenderPlayer[] renderPlayers = renderInitialization.createPlayerRenderers(playerControllers);
 		gui.initActionPanel(turnController);
-		gui.initBoardPanel(renderCities, playerControllers);
+		gui.initBoardPanel(render, renderPlayers);
 		gui.initDeckPanel(playerDeck, playerDiscard, infectionDeck, infectionDiscard);
-		gui.initPlayerPanel(playerControllers);
+		gui.initPlayerPanel(renderPlayers);
 		gui.initStatusPanel(game, curedDiseases, gameCubePool);
 		return gui;
 	}

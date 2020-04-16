@@ -13,7 +13,7 @@ import data.GameProperty;
 import game.GameState;
 
 @SuppressWarnings("serial")
-public class UIInfectionRate extends JComponent {
+public class UIInfectionRate extends JComponent implements UI {
 	private Supplier<Integer> infectionIndex;
 
 	public UIInfectionRate(Supplier<Integer> infectionIndex) {
@@ -51,6 +51,11 @@ public class UIInfectionRate extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(2));
 		g2d.drawRect(x, Y_OFFSET, CUBE_SIZE, CUBE_SIZE);
+	}
+
+	@Override
+	public void update() {
+		repaint();
 	}
 
 }

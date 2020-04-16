@@ -25,6 +25,7 @@ public class TurnController {
 	private int current;
 	private boolean skipInfection;
 	private int remainingActions;
+
 	private Set<ActionType> actionDone;
 
 	public TurnController(Deck playerDeck, Infection infection, GameState game, PlayerController[] playerControllers) {
@@ -101,4 +102,9 @@ public class TurnController {
 			infection.infectOnce();
 		}
 	}
+
+	public int getRemainingActions() {
+		return remainingActions;
+	}
+
 }

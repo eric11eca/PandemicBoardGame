@@ -2,6 +2,8 @@ package main;
 
 import java.io.IOException;
 
+import javax.swing.SwingUtilities;
+
 import gui.GameGUI;
 import initialize.InitializationFacade;
 
@@ -11,9 +13,13 @@ public class Main {
 		final int playerCount = 2;
 		final int epidemic = 4;
 		InitializationFacade init = new InitializationFacade(playerCount, epidemic);
-		GameGUI gui = init.createGUI();
 		init.startGame();
-		gui.showGUI();
+
+		SwingUtilities.invokeLater(() -> {
+			GameGUI gui = init.createGUI();
+			gui.showGUI();
+			SwingUtilities.invokeLater(gui::update);
+		});
 
 	}
 

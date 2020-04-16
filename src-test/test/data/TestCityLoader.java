@@ -45,6 +45,11 @@ public class TestCityLoader {
 			protected CubeData createCubeData() {
 				return null;
 			}
+
+			@Override
+			protected RenderCity createRenderCity(int x, int y, City city) {
+				return null;
+			}
 		};
 
 		parser.loadCities();
@@ -61,6 +66,11 @@ public class TestCityLoader {
 			@Override
 			protected CubeData createCubeData() {
 				return null;
+			}
+
+			@Override
+			protected RenderCity createRenderCity(int x, int y, City city) {
+				return new RenderCity(null, x, y, city);
 			}
 		};
 		parser.loadCities();

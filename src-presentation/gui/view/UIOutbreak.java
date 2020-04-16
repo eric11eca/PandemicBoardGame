@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
-public class UIOutbreak extends JComponent {
+public class UIOutbreak extends JComponent implements UI {
 	private Supplier<Integer> outbreakLevel;
 
 	public UIOutbreak(Supplier<Integer> outbreakLevel) {
@@ -46,6 +46,11 @@ public class UIOutbreak extends JComponent {
 		g2d.setColor(Color.BLACK);
 		g2d.setStroke(new BasicStroke(2));
 		g2d.drawRect(x, Y_OFFSET, CUBE_SIZE, CUBE_SIZE);
+	}
+
+	@Override
+	public void update() {
+		repaint();
 	}
 
 }

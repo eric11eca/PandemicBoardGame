@@ -9,21 +9,24 @@ import java.text.MessageFormat;
 import java.util.Map;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import data.ImageLoader;
 import game.city.City;
 import game.player.PlayerController;
 import render.Render;
 import render.RenderCity;
+import render.RenderPlayer;
 
 @SuppressWarnings("serial")
-public class UIBoard extends JComponent {
-	private Map<City, RenderCity> cityRenderers;
-	private PlayerController[] playerControllers;
+public class UIBoard extends JPanel implements UI {
+	private Render render;
+	private RenderPlayer[] renderPlayers;
 
-	public UIBoard(Map<City, RenderCity> cityRenderers, PlayerController[] controllers) {
-		this.cityRenderers = cityRenderers;
-		playerControllers = controllers;
+	public UIBoard(Render render, RenderPlayer[] renderPlayers) {
+		this.render = render;
+		this.renderPlayers = renderPlayers;
+		this.setBackground(new Color(51, 103, 153));
 	}
 
 	@Override
@@ -35,63 +38,30 @@ public class UIBoard extends JComponent {
 	}
 
 	private void drawBoard(Graphics2D g2d) {
-		Render render = new Render(g2d);
-		Image background = ImageLoader.getInstance().getImage("Main Picture.png");
+
+		Image background = ImageLoader.getInstance().getImage("map.png");
+
+		float scaleX = (float) getWidth() / background.getWidth(null);
+		float scaleY = (float) getHeight() / background.getHeight(null);
+		float scale = Math.min(scaleX, scaleY);
+		float offX = (scaleX - scale) * background.getWidth(null) / 2;
+		float offY = (scaleY - scale) * background.getHeight(null) / 2;
+		g2d.translate(offX, 0);
+		g2d.scale(scale, scale);
+
 		g2d.drawImage(background, 0, 0, null);
 
-		// if (!board.infectionRateTracker.isEmpty()) {
-		// drawInfect(g2d, 7 - board.infectionRateTracker.size());
-		// }
+		render.renderCitiesOnBoard(g2d, background.getWidth(null));
 
-		// drawOutBreaks(g2d, Game.getInstance().getOutbreakMark());
-
-		cityRenderers.values().forEach(r -> r.drawCity(render));
-
-//		String uncureMark = board.messages.getString("UNCURED");
-//		g2d.setColor(Color.RED);
-//		g2d.setFont(new Font(uncureMark, 12, 12));
-//		g2d.drawString(uncureMark, 425, 770);
-//		g2d.drawString(uncureMark, 425 + 68, 770);
-//		g2d.drawString(uncureMark, 425 + (68 * 2), 770);
-//		g2d.drawString(uncureMark, 425 + (68 * 3), 770);
-
-		int currentPlayerNum = 0;
-		for (PlayerController player : playerControllers) {
-			currentPlayerNum++;
-			drawPlayer(g2d, player.getPlayerCity(), currentPlayerNum);
+		for (RenderPlayer renderPlayer : renderPlayers) {
+			renderPlayer.renderPlayerOnBoard(g2d);
 		}
 
-		// drawCards(g2d, board.validPlayerCards.size());
 	}
 
-	// TODO move
-	private void drawInfect(Graphics2D g2d, int i) {
-		g2d.setFont(new Font("X", Font.BOLD, 30));
-		g2d.drawString("X", 900 + (i * 50), 55);
-	}
-
-	// TODO move
-	private void drawCards(Graphics2D g2d, int i) {
-		// String cardCount =
-		// MessageFormat.format(board.messages.getString("cardsLeft"), i);
-		// g2d.setFont(new Font(cardCount, Font.BOLD, 14));
-		// g2d.drawString(cardCount, 875, 700);
-	}
-
-	// TODO move
-	private void drawOutBreaks(Graphics2D g2d, int i) {
-		g2d.setFont(new Font("X", Font.BOLD, 30));
-		g2d.drawString("X", 50 + ((i % 2) * 50), 395 + (i * 42));
-	}
-
-	// TODO move to RenderPlayer
-	private void drawPlayer(Graphics2D g2d, City city, int k) {
-		g2d.setColor(Color.YELLOW);
-		String playerLabel = MessageFormat.format("P {0}", k);
-		g2d.setFont(new Font(playerLabel, Font.BOLD, 12));
-		RenderCity r = cityRenderers.get(city);
-		r.drawPlayer(g2d, k);
-
+	@Override
+	public void update() {
+		repaint();
 	}
 
 }

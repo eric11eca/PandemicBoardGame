@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import game.GameColor;
@@ -78,7 +79,7 @@ public abstract class CityLoader {
 
 		City city = createCity(cityName, color, population, start, cityToNeighborSet);
 		cityToNeighbors.put(city, neighbors);
-		RenderCity renderCity = new RenderCity(x, y, city);
+		RenderCity renderCity = createRenderCity(x, y, city);
 		cityToRenderCity.put(city, renderCity);
 	}
 
@@ -106,7 +107,10 @@ public abstract class CityLoader {
 		cityToNeighbors.forEach((city, neighbors) -> {
 			Set<City> neighborSet = cityToNeighborSet.get(city);
 			for (String n : neighbors) {
-				neighborSet.add(allCities.get(n));
+				if (allCities.get(n) == null) {
+					System.out.println(n);
+				}
+				neighborSet.add(Objects.requireNonNull(allCities.get(n)));
 			}
 		});
 	}
@@ -117,5 +121,7 @@ public abstract class CityLoader {
 	 * @return
 	 */
 	protected abstract CubeData createCubeData();
+
+	protected abstract RenderCity createRenderCity(int x, int y, City city);
 
 }

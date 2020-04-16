@@ -13,7 +13,7 @@ public class ActionDispatcherMove extends Action {
 
 	public ActionDispatcherMove(Map<Player, Action> dispatchedActions, PlayerInteraction interaction) {
 		super(null, interaction);
-		dispatchedActions = new HashMap<>();
+		this.dispatchedActions = dispatchedActions;
 	}
 
 	@Override

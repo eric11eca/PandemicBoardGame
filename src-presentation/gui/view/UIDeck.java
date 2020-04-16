@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 import javax.swing.JComponent;
 
 @SuppressWarnings("serial")
-public class UIDeck extends JComponent {
+public class UIDeck extends JComponent implements UI {
 	private String name;
 	private Color color;
 	private Supplier<Integer> deckSize;
@@ -34,5 +34,10 @@ public class UIDeck extends JComponent {
 		g2d.drawString(String.valueOf(deckSize.get()), 0,
 				g2d.getFontMetrics().getAscent() + g2d.getFontMetrics().getHeight());
 		g2d.dispose();
+	}
+
+	@Override
+	public void update() {
+		repaint();
 	}
 }

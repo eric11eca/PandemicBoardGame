@@ -1,48 +1,48 @@
-SanFrancisco,BLUE,884363,67,157,Chicago,LosAngeles,Tokyo,Manila
-Chicago,BLUE,2716000,200,121,,SanFrancisco,LosAngeles,MexicoCity,Atlanta,Montreal
-Atlanta,BLUE,486290,240,196,start,Chicago,Washington,Miami
-NewYork,BLUE,8623000,385,130,,Montreal,Washington,London,Madrid
-Montreal,BLUE,1705000,306,119,,NewYork,Chicago,Washington
-Washington,BLUE,7536000,349,192,,Miami,Atlanta,Montreal,NewYork
-Madrid,BLUE,3166000,563,169,,NewYork,London,Paris,SaoPaulo,Algiers
-London,BLUE,8136000,577,68,,NewYork,Essen,Paris,Madrid
-Paris,BLUE,2141000,654,119,,London,Madrid,Milan,Essen,Algiers
-Milan,BLUE,1352000,723,100,,Essen,Paris,Istanbul
-Essen,BLUE,582624,679,50,,London,Milan,St.Petersburg,Paris
-St.Petersburg,BLUE,263255,794,31,,Moscow,Essen,Istanbul
-Moscow,BLACK,11920000,851,100,,St.Petersburg,Istanbul,Tehran
-Istanbul,BLACK,15070000,766,159,,Milan,Algiers,Moscow,St.Petersburg,Cairo,Baghdad
-Algiers,BLACK,42008054,676,226,,Madrid,Paris,Istanbul,Cairo
-Cairo,BLACK,19500000,755,247,,Algiers,Istanbul,Baghdad,Riyadh,Khartoum
-Baghdad,BLACK,7216000,842,213,,Istanbul,Cairo,Riyadh,Karachi,Tehran
-Tehran,BLACK,8694000,920,149,,Moscow,Baghdad,Karachi,Delhi
-Karachi,BLACK,14910000,939,245,,Baghdad,Riyadh,Mumbai,Delhi,Tehran
-Mumbai,BLACK,18410000,949,323,,Karachi,Chennai,Delhi
-Riyadh,BLACK,5188000,853,306,,Cairo,Baghdad,Karachi
-Delhi,BLACK,18980000,1016,218,,Tehran,Karachi,Mumbai,Chennai,Kolkata
-Chennai,BLACK,15800,1031,377,,Mumbai,Delhi,Kolkata,Bangkok,Jakarta
-Kolkata,BLACK,4497000,1088,242,,Delhi,Chennai,Bangkok,Hongkong
-LosAngeles,YELLOW,4000000,88,261,,SanFrancisco,Chicago,MexicoCity,Sydney
-MexicoCity,YELLOW,8851000,183,295,,LosAngeles,Chicago,Miami,Bogota,Lima
-Miami,YELLOW,463347,305,279,,Bogota,MexicoCity,Atlanta,Washington
-Bogota,YELLOW,8081000,295,383,,Miami,MexicoCity,Lima,SaoPaulo,BuenosAires
-Lima,YELLOW,9751717,257,494,,MexicoCity,Bogota,Santiago
-SaoPaulo,YELLOW,14710000,443,510,,Bogota,BuenosAires,Lagos,Madrid
-Santiago,YELLOW,5614000,272,610,,Lima
-Lagos,YELLOW,21000000,643,367,,SaoPaulo,Khartoum,Kinshasa
-Kinshasa,YELLOW,9464000,707,438,,Lagos,Johannesburg,Khartoum
-Khartoum,YELLOW,1974647,774,347,,Cairo,Lagos,Kinshasa,Johannesburg
-Johannesburg,YELLOW,957441,766,542,,Kinshasa,Khartoum
-BuenosAires,YELLOW,2890000,382,589,,SaoPaulo,Bogota
-Beijing,RED,21540000,1147,125,,Shanghai,Seoul
-Seoul,RED,9776000,1237,123,,Beijing,Shanghai,Tokyo
-Shanghai,RED,26320000,1152,198,,Beijing,Seoul,Tokyo,Hongkong,Taipei
-Hongkong,RED,7392000,1162,283,,Shanghai,Taipei,Kolkata,Bangkok,HoChiMinhCity,Manila
-HoChiMinhCity,RED,8637000,1167,402,,Bangkok,Jakarta,Manila,Hongkong
-Taipei,RED,2674000,1243,268,,Shanghai,Hongkong,Osaka,Manila
-Tokyo,RED,9273000,1313,161,,Seoul,SanFrancisco,Shanghai,Osaka
-Osaka,RED,2691000,1320,239,,Taipei,Tokyo
-Manila,RED,1780000,1265,395,,Taipei,Hongkong,HoChiMinhCity,SanFrancisco,Sydney
-Jakarta,RED,9608000,1101,465,,Chennai,Bangkok,HoChiMinhCity,Sydney
-Sydney,RED,4452000,1327,605,,Manila,Jakarta,LosAngeles
-Bangkok,RED,8281000,1102,327,,Kolkata,Chennai,Jakarta,HoChiMinhCity,Hongkong
+San Francisco,BLUE,884363,101,257,,Chicago,Los Angeles,Tokyo,Manila
+Chicago,BLUE,2716000,341,206,,San Francisco,Los Angeles,Mexico City,Atlanta,Montreal
+Atlanta,BLUE,486290,400,348,start,Chicago,Washington,Miami
+New York,BLUE,8623000,675,229,,Montreal,Washington,London,Madrid
+Montreal,BLUE,1705000,537,159,,New York,Chicago,Washington
+Washington,BLUE,7536000,624,334,,Miami,Atlanta,Montreal,New York
+Madrid,BLUE,3166000,1039,316,,New York,London,Paris,Sao Paulo,Algiers
+London,BLUE,8136000,1052,157,,New York,Essen,Paris,Madrid
+Paris,BLUE,2141000,1183,249,,London,Madrid,Milan,Essen,Algiers
+Milan,BLUE,1352000,1270,189,,Essen,Paris,Istanbul
+Essen,BLUE,582624,1237,85,,London,Milan,St. Petersburg,Paris
+St. Petersburg,BLUE,263255,1417,44,,Moscow,Essen,Istanbul
+Moscow,BLACK,11920000,1553,179,,St. Petersburg,Istanbul,Tehran
+Istanbul,BLACK,15070000,1411,308,,Milan,Algiers,Moscow,St. Petersburg,Cairo,Baghdad
+Algiers,BLACK,42008054,1236,396,,Madrid,Paris,Istanbul,Cairo
+Cairo,BLACK,19500000,1372,436,,Algiers,Istanbul,Baghdad,Riyadh,Khartoum
+Baghdad,BLACK,7216000,1529,390,,Istanbul,Cairo,Riyadh,Karachi,Tehran
+Tehran,BLACK,8694000,1670,264,,Moscow,Baghdad,Karachi,Delhi
+Karachi,BLACK,14910000,1748,442,,Baghdad,Riyadh,Mumbai,Delhi,Tehran
+Mumbai,BLACK,18410000,1731,582,,Karachi,Chennai,Delhi
+Riyadh,BLACK,5188000,1582,558,,Cairo,Baghdad,Karachi
+Delhi,BLACK,18980000,1892,354,,Tehran,Karachi,Mumbai,Chennai,Kolkata
+Chennai,BLACK,15800,1906,598,,Mumbai,Delhi,Kolkata,Bangkok,Jakarta
+Kolkata,BLACK,4497000,1968,466,,Delhi,Chennai,Bangkok,Hongkong
+Los Angeles,YELLOW,4000000,137,386,,San Francisco,Chicago,Mexico City,Sydney
+Mexico City,YELLOW,8851000,309,543,,Los Angeles,Chicago,Miami,Bogota,Lima
+Miami,YELLOW,463347,451,461,,Bogota,Mexico City,Atlanta,Washington
+Bogota,YELLOW,8081000,488,674,,Miami,Mexico City,Lima,Sao Paulo,Buenos Aires
+Lima,YELLOW,9751717,501,842,,Mexico City,Bogota,Santiago
+Sao Paulo,YELLOW,14710000,753,854,,Bogota,Buenos Aires,Lagos,Madrid
+Santiago,YELLOW,5614000,551,1065,,Lima
+Lagos,YELLOW,21000000,1144,642,,Sao Paulo,Khartoum,Kinshasa
+Kinshasa,YELLOW,9464000,1275,714,,Lagos,Johannesburg,Khartoum
+Khartoum,YELLOW,1974647,1454,613,,Cairo,Lagos,Kinshasa,Johannesburg
+Johannesburg,YELLOW,957441,1404,978,,Kinshasa,Khartoum
+Buenos Aires,YELLOW,2890000,667,1000,,Sao Paulo,Bogota
+Beijing,RED,21540000,2059,258,,Shanghai,Seoul
+Seoul,RED,9776000,2282,155,,Beijing,Shanghai,Tokyo
+Shanghai,RED,26320000,2057,389,,Beijing,Seoul,Tokyo,Hongkong,Taipei
+Hongkong,RED,7392000,2181,476,,Shanghai,Taipei,Kolkata,Bangkok,Ho Chi Minh City,Manila
+Ho Chi Minh City,RED,8637000,2126,654,,Bangkok,Jakarta,Manila,Hongkong
+Taipei,RED,2674000,2296,463,,Shanghai,Hongkong,Osaka,Manila
+Tokyo,RED,9273000,2452,278,,Seoul,San Francisco,Shanghai,Osaka
+Osaka,RED,2691000,2358,363,,Taipei,Tokyo
+Manila,RED,1780000,2408,688,,Taipei,Hongkong,Ho Chi Minh City,San Francisco,Sydney
+Jakarta,RED,9608000,2125,848,,Chennai,Bangkok,Ho Chi Minh City,Sydney
+Sydney,RED,4452000,2469,1054,,Manila,Jakarta,Los Angeles
+Bangkok,RED,8281000,2063,553,,Kolkata,Chennai,Jakarta,Ho Chi Minh City,Hongkong

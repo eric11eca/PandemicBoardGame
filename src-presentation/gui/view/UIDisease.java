@@ -14,7 +14,7 @@ import game.GameColor;
 import render.RenderColor;
 
 @SuppressWarnings("serial")
-public class UIDisease extends JComponent {
+public class UIDisease extends JComponent implements UI {
 	private final int CUBE_SIZE = 20;
 	private Function<GameColor, Boolean> isDiseaseCured;
 	private Function<GameColor, Boolean> isDiseaseEradicated;
@@ -48,8 +48,8 @@ public class UIDisease extends JComponent {
 		boolean cured = isDiseaseCured.apply(color);
 		boolean eradicated = isDiseaseEradicated.apply(color);
 		if (cured || eradicated) {
-			RenderColor renderColor = new RenderColor(g2d);
-			renderColor.setRenderColor(color);
+			RenderColor renderColor = new RenderColor();
+			renderColor.setRenderColor(g2d, color);
 		} else {
 			g2d.setColor(Color.DARK_GRAY);
 		}
@@ -60,6 +60,11 @@ public class UIDisease extends JComponent {
 			g2d.drawLine(x, y, x + CUBE_SIZE, y + CUBE_SIZE);
 			g2d.drawLine(x, y + CUBE_SIZE, x + CUBE_SIZE, y);
 		}
+	}
+
+	@Override
+	public void update() {
+		repaint();
 	}
 
 }

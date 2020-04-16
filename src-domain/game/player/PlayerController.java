@@ -15,11 +15,13 @@ import game.player.action.Action;
 public class PlayerController {
 	private Player player;
 	private Map<ActionType, Action> actionMap;
+	private PlayerRole role;
 
-	public PlayerController(Player player, Map<ActionType, Action> actionMap) {
+	public PlayerController(Player player, Map<ActionType, Action> actionMap, PlayerRole role) {
 		super();
 		this.player = player;
 		this.actionMap = actionMap;
+		this.role = role;
 	}
 
 	public void perform(ActionType actionType, Runnable completionCallback) {
@@ -46,4 +48,9 @@ public class PlayerController {
 	public int getPlayerHandSize() {
 		return player.getFilteredHand(c -> true).size();
 	}
+
+	public PlayerRole getRole() {
+		return role;
+	}
+
 }
