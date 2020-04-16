@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,10 +31,9 @@ public class TestBuildStation {
 	City newyorkCity;
 
 	MockCityBuilder cityFactory = new MockCityBuilder();
-	MockGameProperty uut = new MockGameProperty();
 	boolean cbExecuted;
 	MockInteraction interaction;
-	
+
 	Card newyorkCard;
 	List<Card> cardList;
 	Deck discard;
@@ -42,27 +42,25 @@ public class TestBuildStation {
 	public void setup() {
 		MockCityBuilder newyorkBuilder = new MockCityBuilder().name("NewYork");
 		newyorkCity = newyorkBuilder.build();
-		
+
 		newyorkCard = new CardCity(newyorkCity);
 		cardList = new ArrayList<>();
 		cardList.add(newyorkCard);
-		
-		uut.resetAndEject();
 
 		cbExecuted = false;
-		interaction = new MockInteraction();		
+		interaction = new MockInteraction();
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
-		
+
 		discard = new Deck();
 		player = new PlayerImpl(0, newyorkCity, discard, interaction);
 		player.receiveCard(newyorkCard);
 	}
 
 	@Test
-	public void testBuildResearchStation() {		
+	public void testBuildResearchStation() {
 		Set<City> citySet = new HashSet<>();
 		citySet.add(newyorkCity);
-		
+
 		assertFalse(newyorkCity.hasResearchStation());
 		Action action = new ActionBuildStation(player, interaction, true, new CitySet(citySet));
 		action.perform(() -> cbExecuted = true);
@@ -70,9 +68,9 @@ public class TestBuildStation {
 		assertTrue(newyorkCity.hasResearchStation());
 		assertTrue(discard.contains(newyorkCard));
 	}
-	
+
 	private void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
-		cards.contains(newyorkCard);
-		callback.accept(cardList);
+		assertTrue(cards.contains(newyorkCard));
+		callback.accept(Arrays.asList(newyorkCard));
 	}
 }

@@ -18,7 +18,7 @@ public class TestMockGameProperty {
 
 	@Before
 	@After
-	public void setupTests() {
+	public void resetProperty() {
 		uut.resetAndEject();
 	}
 

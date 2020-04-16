@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import data.CityLoader;
@@ -25,10 +27,16 @@ import test.ReflectionAccess;
 public class TestCityLoader {
 
 	ReflectionAccess access = new ReflectionAccess();
+	MockGameProperty property = new MockGameProperty();
+
+	@Before
+	@After
+	public void resetProperty() {
+		property.resetAndEject();
+	}
 
 	@Test(expected = IOException.class)
 	public void testParseFileNotFound() throws IOException {
-		MockGameProperty property = new MockGameProperty();
 		property.put("DATA_PATH", "testdata/");
 		property.put("CITY_DATA", "dne");
 		property.inject();
@@ -44,7 +52,6 @@ public class TestCityLoader {
 
 	@Test
 	public void testNormalParse() throws IOException {
-		MockGameProperty property = new MockGameProperty();
 		property.put("DATA_PATH", "testdata/");
 		property.put("CITY_DATA", "test_citydata.dat");
 		property.inject();

@@ -30,10 +30,10 @@ public class TestDirectFlightAction {
 	MockCityBuilder cityFactory = new MockCityBuilder();
 	boolean cbExecuted;
 	MockInteraction interaction;
-	
+
 	Card chicagoCard;
 	List<Card> cardList;
-	
+
 	Deck discard;
 
 	@Before
@@ -46,15 +46,15 @@ public class TestDirectFlightAction {
 
 		newyorkBuilder.neighborSet().add(chicagoCity);
 		chicagoBuilder.neighborSet().add(newyorkCity);
-		
+
 		chicagoCard = new CardCity(chicagoCity);
 		cardList = new ArrayList<>();
 		cardList.add(chicagoCard);
 
 		cbExecuted = false;
-		interaction = new MockInteraction();	
+		interaction = new MockInteraction();
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
-		
+
 		discard = new Deck();
 		player = new PlayerImpl(0, newyorkCity, discard, interaction);
 		player.receiveCard(chicagoCard);
@@ -64,13 +64,13 @@ public class TestDirectFlightAction {
 	public void testSuccessDirectFlight() {
 		Set<City> citySet = new HashSet<>();
 		citySet.add(chicagoCity);
-		assertEquals("NewYork", player.getLocation().getName());
-		
+		assertEquals(newyorkCity, player.getLocation());
+
 		Action action = new ActionDirectFlight(player, interaction);
 		action.perform(() -> cbExecuted = true);
 
 		assertTrue(cbExecuted);
-		assertEquals("Chicago", player.getLocation().getName());
+		assertEquals(chicagoCity, player.getLocation());
 		assertTrue(discard.contains(chicagoCard));
 	}
 

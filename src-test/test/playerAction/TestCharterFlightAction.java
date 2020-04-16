@@ -31,10 +31,10 @@ public class TestCharterFlightAction {
 	MockCityBuilder cityFactory = new MockCityBuilder();
 	boolean cbExecuted;
 	MockInteraction interaction;
-	
+
 	Card newyorkCard;
 	List<Card> cardList;
-	
+
 	Deck discard;
 
 	@Before
@@ -47,19 +47,19 @@ public class TestCharterFlightAction {
 
 		newyorkBuilder.neighborSet().add(chicagoCity);
 		chicagoBuilder.neighborSet().add(newyorkCity);
-		
+
 		newyorkCard = new CardCity(newyorkCity);
 		cardList = new ArrayList<>();
 		cardList.add(newyorkCard);
 
 		cbExecuted = false;
-		interaction = new MockInteraction();	
+		interaction = new MockInteraction();
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
 		interaction.implementSelectCityFrom((citiesToSelectFrom, callback) -> {
 			assertTrue(citiesToSelectFrom.contains(chicagoCity));
 			callback.accept(chicagoCity);
 		});
-		
+
 		discard = new Deck();
 		player = new PlayerImpl(0, newyorkCity, discard, interaction);
 		player.receiveCard(newyorkCard);
@@ -69,13 +69,13 @@ public class TestCharterFlightAction {
 	public void testSuccessCharterFlight() {
 		Set<City> citySet = new HashSet<>();
 		citySet.add(chicagoCity);
-		assertEquals("NewYork", player.getLocation().getName());
-		
+		assertEquals(newyorkCity, player.getLocation());
+
 		Action action = new ActionCharterFlight(new CitySet(citySet), player, interaction);
 		action.perform(() -> cbExecuted = true);
 
 		assertTrue(cbExecuted);
-		assertEquals("Chicago", player.getLocation().getName());
+		assertEquals(chicagoCity, player.getLocation());
 		assertTrue(discard.contains(newyorkCard));
 	}
 
