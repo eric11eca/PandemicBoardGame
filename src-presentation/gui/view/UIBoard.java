@@ -21,11 +21,12 @@ import render.RenderPlayer;
 @SuppressWarnings("serial")
 public class UIBoard extends JPanel implements UI {
 	private Render render;
-	private RenderPlayer[] renderPlayers;
+	private JComponent popup;
+	// private RenderPlayer[] renderPlayers;
 
-	public UIBoard(Render render, RenderPlayer[] renderPlayers) {
+	public UIBoard(Render render) {
 		this.render = render;
-		this.renderPlayers = renderPlayers;
+		// this.renderPlayers = renderPlayers;
 		this.setBackground(new Color(51, 103, 153));
 	}
 
@@ -39,7 +40,7 @@ public class UIBoard extends JPanel implements UI {
 
 	private void drawBoard(Graphics2D g2d) {
 
-		Image background = ImageLoader.getInstance().getImage("map.png");
+		Image background = ImageLoader.getInstance().getImage("map2.png");
 
 		float scaleX = (float) getWidth() / background.getWidth(null);
 		float scaleY = (float) getHeight() / background.getHeight(null);
@@ -52,10 +53,7 @@ public class UIBoard extends JPanel implements UI {
 		g2d.drawImage(background, 0, 0, null);
 
 		render.renderCitiesOnBoard(g2d, background.getWidth(null));
-
-		for (RenderPlayer renderPlayer : renderPlayers) {
-			renderPlayer.renderPlayerOnBoard(g2d);
-		}
+		render.renderPlayersOnBoard(g2d);
 
 	}
 

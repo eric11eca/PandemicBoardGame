@@ -79,7 +79,7 @@ public abstract class CityLoader {
 
 		City city = createCity(cityName, color, population, start, cityToNeighborSet);
 		cityToNeighbors.put(city, neighbors);
-		RenderCity renderCity = createRenderCity(x, y, city);
+		RenderCity renderCity = new RenderCity(x, y, city);
 		cityToRenderCity.put(city, renderCity);
 	}
 
@@ -121,7 +121,5 @@ public abstract class CityLoader {
 	 * @return
 	 */
 	protected abstract CubeData createCubeData();
-
-	protected abstract RenderCity createRenderCity(int x, int y, City city);
 
 }

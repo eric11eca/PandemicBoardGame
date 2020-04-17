@@ -107,4 +107,8 @@ public class TurnController {
 		return remainingActions;
 	}
 
+	public boolean isPlayerActive(PlayerController controller) {
+		return playerControllers[current] == controller;
+	}
+
 }

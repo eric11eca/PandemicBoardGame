@@ -30,7 +30,6 @@ import gui.GUIInteraction;
 import gui.GameGUI;
 import render.Render;
 import render.RenderCity;
-import render.RenderInitialization;
 import render.RenderPlayer;
 
 public class InitializationFacade {
@@ -58,7 +57,6 @@ public class InitializationFacade {
 	private int epidemicCount;
 
 	private PlayerInitialization playerInitialization;
-	private RenderInitialization renderInitialization;
 
 	public InitializationFacade(int playerCount, int epidemicCount) throws IOException {
 		this.playerCount = playerCount;
@@ -67,17 +65,13 @@ public class InitializationFacade {
 		gameCubePool = new GameCubePool(game);
 		cities = new HashMap<>();
 		renderCities = new HashMap<>();
-		renderInitialization = new RenderInitialization(renderCities);
+
 		cityLoader = new CityLoader(cities, renderCities) {
 			@Override
 			protected CubeData createCubeData() {
 				return new CityCubeData(gameCubePool);
 			}
 
-			@Override
-			protected RenderCity createRenderCity(int x, int y, City city) {
-				return renderInitialization.createRenderCity(x, y, city);
-			}
 		};
 		interaction = new GUIInteraction();
 		cityLoader.loadCities();
@@ -123,14 +117,22 @@ public class InitializationFacade {
 
 	public GameGUI createGUI() {
 		GameGUI gui = new GameGUI();
-		Render render = renderInitialization.getRender();
-		RenderPlayer[] renderPlayers = renderInitialization.createPlayerRenderers(playerControllers);
+		RenderPlayer[] renderPlayers = createPlayerRenderers();
+		Render render = new Render(renderCities, renderPlayers);
 		gui.initActionPanel(turnController);
-		gui.initBoardPanel(render, renderPlayers);
+		gui.initBoardPanel(render);
 		gui.initDeckPanel(playerDeck, playerDiscard, infectionDeck, infectionDiscard);
-		gui.initPlayerPanel(renderPlayers);
-		gui.initStatusPanel(game, curedDiseases, gameCubePool);
+		gui.initPlayerPanel(render, playerControllers, turnController);
+		gui.initStatusPanel(game, curedDiseases, gameCubePool, render);
 		return gui;
+	}
+
+	public RenderPlayer[] createPlayerRenderers() {
+		RenderPlayer[] playerRenderers = new RenderPlayer[playerControllers.length];
+		for (int i = 0; i < playerControllers.length; i++) {
+			playerRenderers[i] = new RenderPlayer(i, playerControllers[i], turnController);
+		}
+		return playerRenderers;
 	}
 
 }

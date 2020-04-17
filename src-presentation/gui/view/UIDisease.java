@@ -6,20 +6,22 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import javax.swing.JComponent;
 
 import game.GameColor;
-import render.RenderColor;
+import render.Render;
 
 @SuppressWarnings("serial")
 public class UIDisease extends JComponent implements UI {
 	private final int CUBE_SIZE = 20;
 	private Function<GameColor, Boolean> isDiseaseCured;
 	private Function<GameColor, Boolean> isDiseaseEradicated;
+	private Render render;
 
-	public UIDisease(Function<GameColor, Boolean> isDiseaseCured, Function<GameColor, Boolean> isDiseaseEradicated) {
+	public UIDisease(Render render, Function<GameColor, Boolean> isDiseaseCured,
+			Function<GameColor, Boolean> isDiseaseEradicated) {
+		this.render = render;
 		this.isDiseaseCured = isDiseaseCured;
 		this.isDiseaseEradicated = isDiseaseEradicated;
 		this.setPreferredSize(new Dimension(400, 30));
@@ -48,8 +50,7 @@ public class UIDisease extends JComponent implements UI {
 		boolean cured = isDiseaseCured.apply(color);
 		boolean eradicated = isDiseaseEradicated.apply(color);
 		if (cured || eradicated) {
-			RenderColor renderColor = new RenderColor();
-			renderColor.setRenderColor(g2d, color);
+			g2d.setColor(render.getRenderColor(color));
 		} else {
 			g2d.setColor(Color.DARK_GRAY);
 		}

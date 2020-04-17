@@ -46,10 +46,6 @@ public class TestCityLoader {
 				return null;
 			}
 
-			@Override
-			protected RenderCity createRenderCity(int x, int y, City city) {
-				return null;
-			}
 		};
 
 		parser.loadCities();
@@ -68,10 +64,6 @@ public class TestCityLoader {
 				return null;
 			}
 
-			@Override
-			protected RenderCity createRenderCity(int x, int y, City city) {
-				return new RenderCity(null, x, y, city);
-			}
 		};
 		parser.loadCities();
 		TreeMap<City, RenderCity> sorted = new TreeMap<>((c1, c2) -> c1.getName().compareTo(c2.getName()));

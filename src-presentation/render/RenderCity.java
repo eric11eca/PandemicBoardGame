@@ -10,16 +10,14 @@ import game.player.PlayerRole;
 
 public class RenderCity {
 	private static final int CITY_RADIUS = 30;
-	private Render render;
 	private int x;
 	private int y;
 	private City city;
 
-	public RenderCity(Render render, int x, int y, City city) {
+	public RenderCity(int x, int y, City city) {
 		this.x = x;
 		this.y = y;
 		this.city = city;
-		this.render = render;
 	}
 
 	public void renderNeighborLine(Graphics2D g, RenderCity neighbor, int boardWidth) {
@@ -42,8 +40,8 @@ public class RenderCity {
 
 	}
 
-	public void renderCityOnBoard(Graphics2D g) {
-		new RenderColor().setRenderColor(g, city.getColor());
+	public void renderCityOnBoard(Graphics2D g, Render render) {
+		g.setColor(render.getRenderColor(city.getColor()));
 		g.fillOval(x, y, CITY_RADIUS * 2, CITY_RADIUS * 2);
 
 		g.setFont(g.getFont().deriveFont(30f));
@@ -54,25 +52,38 @@ public class RenderCity {
 			g.setColor(Color.BLACK);
 		}
 		g.drawString(city.getName(), x, y + CITY_RADIUS * 2 + g.getFontMetrics().getAscent());
-		drawCubes(g);
+		drawCubes(g, render);
 	}
 
-	public void renderPlayer(Graphics2D g2d, int id, PlayerRole role) {
-		new RenderColor().setPlayerColor(g2d, role);
+	public void renderPlayer(Graphics2D g2d, int id, RenderPlayer renderPlayer, Render render) {
 		final int PLAYER_PER_ROLE = 2;
 		int xx = id % PLAYER_PER_ROLE;
 		int yy = id / PLAYER_PER_ROLE;
-		g2d.fillOval(x + xx * CITY_RADIUS, y + yy * CITY_RADIUS, CITY_RADIUS, CITY_RADIUS);
+		renderPlayer.renderPlayerAt(g2d, x + xx * CITY_RADIUS, y + yy * CITY_RADIUS, CITY_RADIUS, render);
 	}
 
-	private void drawCubes(Graphics2D g) {
+	private void drawCubes(Graphics2D g, Render render) {
 		int i = 0;
 		for (GameColor color : GameColor.values()) {
 			for (int j = 0; j < city.getDiseaseCubeCount(color); j++) {
-				render.drawDiseaseCube(g, x + CITY_RADIUS * 2, y, i, color);
+
+				drawDiseaseCube(g, i, render, color);
 				i++;
 			}
 		}
 
+	}
+
+	public void drawDiseaseCube(Graphics2D g, int i, Render render, GameColor color) {
+		final int OUT_SIZE = 22;
+		final int INNER_SIZE = 16;
+		final int CUBE_PER_LINE = 6;
+		int xx = i % CUBE_PER_LINE;
+		int yy = i / CUBE_PER_LINE;
+		g.setColor(Color.WHITE);
+		g.fillRect(xx * OUT_SIZE + x + CITY_RADIUS * 2, yy * OUT_SIZE + y, OUT_SIZE, OUT_SIZE);
+		g.setColor(render.getRenderColor(color));
+		int offset = (OUT_SIZE - INNER_SIZE) / 2;
+		g.fillRect(xx * OUT_SIZE + offset + x + CITY_RADIUS * 2, yy * OUT_SIZE + offset + y, INNER_SIZE, INNER_SIZE);
 	}
 }

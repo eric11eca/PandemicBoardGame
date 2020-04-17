@@ -17,6 +17,7 @@ import game.GameState;
 import game.TurnController;
 import game.cards.Deck;
 import game.disease.GameCubePool;
+import game.player.PlayerController;
 import gui.view.UI;
 import gui.view.UIAction;
 import gui.view.UIBoard;
@@ -26,7 +27,6 @@ import gui.view.UIInfectionRate;
 import gui.view.UIOutbreak;
 import gui.view.UIPlayer;
 import render.Render;
-import render.RenderPlayer;
 
 public class GameGUI {
 	private JFrame frame;
@@ -50,37 +50,35 @@ public class GameGUI {
 //	private UIOutbreak outbreakUI;
 //	private UIPlayer[] playerUIs;
 
-	private JLayeredPane mainPane;
 	private JPanel middlePanel;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
-	private static final Integer LAYER_UI = new Integer(0);
-	private static final Integer LAYER_MESSAGE = new Integer(2);
 
 	public GameGUI() {
-		mainPane = new JLayeredPane();
-		mainPane.setLayout(new BorderLayout());
+		loadFrame();
+
 		middlePanel = new JPanel(new BorderLayout());
 		topPanel = new JPanel(new BorderLayout());
 		bottomPanel = new JPanel(new BorderLayout());
 		JPanel uiPanel = new JPanel(new BorderLayout());
 		topPanel.setPreferredSize(new Dimension(800, 100));
+		middlePanel.setPreferredSize(new Dimension(1000, 400));
 		bottomPanel.setPreferredSize(new Dimension(800, 100));
 		uiPanel.add(topPanel, BorderLayout.NORTH);
 		uiPanel.add(bottomPanel, BorderLayout.SOUTH);
 		uiPanel.add(middlePanel, BorderLayout.CENTER);
-		mainPane.add(uiPanel);
+		frame.add(uiPanel);
 
-		mainPane.setPreferredSize(new Dimension(800, 600));
-		loadFrame();
-		frame.add(mainPane, BorderLayout.CENTER);
+		// mainPane.setPreferredSize(new Dimension(800, 600));
+
+		// frame.add(mainPane, BorderLayout.CENTER);
 
 		uis = new ArrayList<>();
 
 	}
 
-	public void initBoardPanel(Render render, RenderPlayer[] renderPlayers) {
-		UIBoard board = new UIBoard(render, renderPlayers);
+	public void initBoardPanel(Render render) {
+		UIBoard board = new UIBoard(render);
 		uis.add(board);
 		middlePanel.add(board);
 	}
@@ -103,25 +101,26 @@ public class GameGUI {
 		bottomPanel.add(deckPanel, BorderLayout.EAST);
 	}
 
-	public void initPlayerPanel(RenderPlayer[] players) {
+	public void initPlayerPanel(Render render, PlayerController[] playerControllers, TurnController turnController) {
 		JPanel playerPanel = new JPanel();
-		playerPanel.setLayout(new GridLayout(1, players.length));
-		for (int i = 0; i < players.length; i++) {
-			UIPlayer ui = new UIPlayer(players[i]);
+		playerPanel.setLayout(new GridLayout(1, playerControllers.length));
+		for (int i = 0; i < playerControllers.length; i++) {
+			UIPlayer ui = new UIPlayer(this, render, playerControllers[i], turnController);
 			playerPanel.add(ui);
 			uis.add(ui);
 		}
 		topPanel.add(playerPanel, BorderLayout.CENTER);
 	}
 
-	public void initStatusPanel(GameState game, Set<GameColor> curedDiseaseSet, GameCubePool gameCubePool) {
+	public void initStatusPanel(GameState game, Set<GameColor> curedDiseaseSet, GameCubePool gameCubePool,
+			Render render) {
 		JPanel statusPanel = new JPanel();
 		// statusPanel.setPreferredSize(new Dimension(200, 100));
 		statusPanel.setLayout(new BorderLayout());
 		UIOutbreak outbreakUI = new UIOutbreak(game::getOutbreakLevel);
 		statusPanel.add(outbreakUI, BorderLayout.NORTH);
 		uis.add(outbreakUI);
-		UIDisease diseaseUI = new UIDisease(curedDiseaseSet::contains, gameCubePool::isDiseaseEradicated);
+		UIDisease diseaseUI = new UIDisease(render, curedDiseaseSet::contains, gameCubePool::isDiseaseEradicated);
 		statusPanel.add(diseaseUI, BorderLayout.CENTER);
 		uis.add(diseaseUI);
 		UIInfectionRate infectionUI = new UIInfectionRate(game::getInfectionRateIndex);
@@ -151,6 +150,14 @@ public class GameGUI {
 
 	public void update() {
 		uis.forEach(UI::update);
+	}
+
+	public void displayMessage(String message) {
+		MessageUI ui = new MessageUI(message);
+	}
+
+	public void hideMessage() {
+
 	}
 
 }
