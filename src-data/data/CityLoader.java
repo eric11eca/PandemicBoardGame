@@ -107,9 +107,6 @@ public abstract class CityLoader {
 		cityToNeighbors.forEach((city, neighbors) -> {
 			Set<City> neighborSet = cityToNeighborSet.get(city);
 			for (String n : neighbors) {
-				if (allCities.get(n) == null) {
-					System.out.println(n);
-				}
 				neighborSet.add(Objects.requireNonNull(allCities.get(n)));
 			}
 		});

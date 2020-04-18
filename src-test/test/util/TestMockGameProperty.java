@@ -101,6 +101,7 @@ public class TestMockGameProperty {
 		GameProperty.getInstance().get("DOES NOT EXIST");
 	}
 
+	@Test
 	public void testFromFile() throws FileNotFoundException {
 		uut.injectFile(new File("testdata/test.properties"));
 		assertEquals(123, GameProperty.getInstance().getInt("KEY_10"));
