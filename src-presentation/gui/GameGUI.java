@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import game.GameColor;
 import game.GameState;
@@ -18,6 +21,7 @@ import game.TurnController;
 import game.cards.Deck;
 import game.disease.GameCubePool;
 import game.player.PlayerController;
+import gui.interaction.UIMessage;
 import gui.view.UI;
 import gui.view.UIAction;
 import gui.view.UIBoard;
@@ -39,12 +43,13 @@ public class GameGUI {
 //	private UIDisease diseaseUI;
 	// private UIBoard boardUI;
 	private List<UI> uis;
+	private UI popupUI;
 //	private UIDeck playerDeckUI;
 //	private UIDeck playerDiscardUI;
 //	private UIDeck infectDeckUI;
 //	private UIDeck infectDiscardUI;
 //	private UIAction actionUI;
-//	private UIBoard boardUI;
+	private UIBoard boardUI;
 //	private UIDisease diseaseUI;
 //	private UIInfectionRate infectionUI;
 //	private UIOutbreak outbreakUI;
@@ -53,9 +58,11 @@ public class GameGUI {
 	private JPanel middlePanel;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
+	private GameState game;
 
-	public GameGUI() {
+	public GameGUI(GameState game) {
 		loadFrame();
+		this.game = game;
 
 		middlePanel = new JPanel(new BorderLayout());
 		topPanel = new JPanel(new BorderLayout());
@@ -78,9 +85,9 @@ public class GameGUI {
 	}
 
 	public void initBoardPanel(Render render) {
-		UIBoard board = new UIBoard(render);
-		uis.add(board);
-		middlePanel.add(board);
+		boardUI = new UIBoard(render);
+		uis.add(boardUI);
+		middlePanel.add(boardUI);
 	}
 
 	public void initDeckPanel(Deck playerDeck, Deck playerDiscard, Deck infectDeck, Deck infectDiscard) {
@@ -112,8 +119,7 @@ public class GameGUI {
 		topPanel.add(playerPanel, BorderLayout.CENTER);
 	}
 
-	public void initStatusPanel(GameState game, Set<GameColor> curedDiseaseSet, GameCubePool gameCubePool,
-			Render render) {
+	public void initStatusPanel(Set<GameColor> curedDiseaseSet, GameCubePool gameCubePool, Render render) {
 		JPanel statusPanel = new JPanel();
 		// statusPanel.setPreferredSize(new Dimension(200, 100));
 		statusPanel.setLayout(new BorderLayout());
@@ -150,14 +156,24 @@ public class GameGUI {
 
 	public void update() {
 		uis.forEach(UI::update);
+		if (popupUI != null)
+			popupUI.update();
+		if (game.isLost()) {
+			JOptionPane.showMessageDialog(null, "You lost");
+		} else if (game.isWon()) {
+			JOptionPane.showMessageDialog(null, "You win");
+		}
 	}
 
-	public void displayMessage(String message) {
-		MessageUI ui = new MessageUI(message);
+	public void displayPopup(UI message) {
+		popupUI = message;
+		boardUI.displayMessage((JComponent) message);
+		update();
 	}
 
-	public void hideMessage() {
-
+	public void hidePopup() {
+		boardUI.hideMessage();
+		update();
 	}
 
 }

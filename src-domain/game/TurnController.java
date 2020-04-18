@@ -59,11 +59,7 @@ public class TurnController {
 		if (actionType != ActionType.EVENT)
 			remainingActions--;
 		actionDone.add(actionType);
-		if (game.isLost()) {
-			JOptionPane.showMessageDialog(null, "You lost");
-		} else if (game.isWon()) {
-			JOptionPane.showMessageDialog(null, "You win");
-		}
+
 	}
 
 	public boolean canPerformAction(ActionType actionType) {

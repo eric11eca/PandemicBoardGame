@@ -46,7 +46,11 @@ public class PlayerController {
 	}
 
 	public int getPlayerHandSize() {
-		return player.getFilteredHand(c -> true).size();
+		return getPlayerHand().size();
+	}
+
+	public List<Card> getPlayerHand() {
+		return player.getFilteredHand(c -> true);
 	}
 
 	public PlayerRole getRole() {

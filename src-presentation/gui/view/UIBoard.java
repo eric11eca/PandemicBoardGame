@@ -1,22 +1,18 @@
 package gui.view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.text.MessageFormat;
-import java.util.Map;
+import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import data.ImageLoader;
-import game.city.City;
-import game.player.PlayerController;
+import gui.interaction.BoardMouseListener;
 import render.Render;
-import render.RenderCity;
-import render.RenderPlayer;
 
 @SuppressWarnings("serial")
 public class UIBoard extends JPanel implements UI {
@@ -28,6 +24,27 @@ public class UIBoard extends JPanel implements UI {
 		this.render = render;
 		// this.renderPlayers = renderPlayers;
 		this.setBackground(new Color(51, 103, 153));
+		this.addMouseListener(new BoardMouseListener(this));
+	}
+
+	@Override
+	public void doLayout() {
+		super.doLayout();
+		if (popup != null) {
+			popup.setBounds(getPopupArea());
+			popup.validate();
+		}
+
+	}
+
+	public Rectangle getPopupArea() {
+		if (popup == null)
+			return new Rectangle(0, 0, 0, 0);
+		int popupWidth = getWidth() / 4;
+		int popupHeight = getHeight() * 3 / 4;
+		int popupX = (getWidth() - popupWidth) / 2;
+		int popupY = (getHeight() - popupHeight) / 2;
+		return new Rectangle(popupX, popupY, popupWidth, popupHeight);
 	}
 
 	@Override
@@ -59,7 +76,29 @@ public class UIBoard extends JPanel implements UI {
 
 	@Override
 	public void update() {
+		validate();
 		repaint();
+	}
+
+	public void displayMessage(JComponent message) {
+		// System.out.println(message);
+		if (popup != null)
+			this.remove(popup);
+		popup = message;
+		if (popup != null)
+			this.add(popup);
+		update();
+	}
+
+	public void hideMessage() {
+		displayMessage(null);
+	}
+
+	@Override
+	public void repaint() {
+		super.repaint();
+		if (popup != null)
+			popup.repaint();
 	}
 
 }

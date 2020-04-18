@@ -49,7 +49,7 @@ public class InitializationFacade {
 	private PlayerController[] playerControllers;
 	private TurnController turnController;
 
-	private PlayerInteraction interaction;
+	private GUIInteraction interaction;
 	private Predicate<City> quarantineChecker;
 	private Infection infection;
 	private Epidemic epidemic;
@@ -116,14 +116,15 @@ public class InitializationFacade {
 	}
 
 	public GameGUI createGUI() {
-		GameGUI gui = new GameGUI();
+		GameGUI gui = new GameGUI(game);
 		RenderPlayer[] renderPlayers = createPlayerRenderers();
 		Render render = new Render(renderCities, renderPlayers);
 		gui.initActionPanel(turnController);
 		gui.initBoardPanel(render);
 		gui.initDeckPanel(playerDeck, playerDiscard, infectionDeck, infectionDiscard);
 		gui.initPlayerPanel(render, playerControllers, turnController);
-		gui.initStatusPanel(game, curedDiseases, gameCubePool, render);
+		gui.initStatusPanel(curedDiseases, gameCubePool, render);
+		interaction.initialize(gui, render);
 		return gui;
 	}
 

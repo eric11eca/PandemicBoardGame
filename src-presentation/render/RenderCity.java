@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 
 import game.GameColor;
 import game.city.City;
-import game.player.PlayerRole;
 
 public class RenderCity {
 	private static final int CITY_RADIUS = 30;
