@@ -1,4 +1,4 @@
-package test.player.action;
+package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -20,8 +20,8 @@ import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionDrive;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestDrive {
 	Player player;

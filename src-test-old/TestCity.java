@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import game.GameColor;
 import game.city.City;
-import test.MockCityBuilder;
+import mock.MockCityBuilder;
 
 public class TestCity {
 

@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import data.GameProperty;
-import test.MockGameProperty;
+import mock.MockGameProperty;
 
 public class TestMockGameProperty {
 	MockGameProperty uut = new MockGameProperty();

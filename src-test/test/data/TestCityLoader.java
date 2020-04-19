@@ -19,9 +19,9 @@ import data.CityLoader;
 import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
+import mock.MockCityBuilder;
+import mock.MockGameProperty;
 import render.RenderCity;
-import test.MockCityBuilder;
-import test.MockGameProperty;
 import test.ReflectionAccess;
 
 public class TestCityLoader {

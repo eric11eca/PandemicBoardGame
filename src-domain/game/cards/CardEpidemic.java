@@ -34,7 +34,7 @@ public class CardEpidemic implements Card {
 
 	@Override
 	public void discard(Deck discardPile) {
-		discardPile.putOnTop(this);
+		throw new UnsupportedOperationException("Cannot Discard Epidemic Cards");
 	}
 
 	@Override

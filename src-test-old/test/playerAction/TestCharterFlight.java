@@ -19,7 +19,7 @@ import game.player.PlayerImpl;
 import game.player.PlayerInteraction;
 import game.player.action.Action;
 import game.player.action.ActionCharterFlight;
-import test.MockCityBuilder;
+import mock.MockCityBuilder;
 
 public class TestCharterFlight {
 	Player medic;

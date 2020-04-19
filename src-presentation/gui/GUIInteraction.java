@@ -10,6 +10,7 @@ import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
 import gui.interaction.UICardChooser;
+import gui.interaction.UIColorChooser;
 import render.Render;
 
 public class GUIInteraction implements PlayerInteraction {
@@ -21,10 +22,14 @@ public class GUIInteraction implements PlayerInteraction {
 		this.render = render;
 	}
 
-	// TODO implement this
 	@Override
 	public void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback) {
-		// callback.accept(colors.iterator().next());
+		UIColorChooser chooser = new UIColorChooser(colors, color -> {
+			gui.hidePopup();
+			callback.accept(color);
+			gui.update();
+		});
+		gui.displayPopup(chooser);
 	}
 
 	@Override

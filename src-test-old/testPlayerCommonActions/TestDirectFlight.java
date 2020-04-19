@@ -23,7 +23,7 @@ import game.player.PlayerImpl;
 import game.player.PlayerInteraction;
 import game.player.action.Action;
 import game.player.action.ActionDirectFlight;
-import test.MockCityBuilder;
+import mock.MockCityBuilder;
 
 public class TestDirectFlight {
 	Player player;

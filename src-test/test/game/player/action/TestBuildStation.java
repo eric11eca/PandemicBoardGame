@@ -1,4 +1,4 @@
-package test.player.action;
+package test.game.player.action;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,9 +22,9 @@ import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionBuildStation;
-import test.MockCityBuilder;
-import test.MockGameProperty;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockGameProperty;
+import mock.MockInteraction;
 
 public class TestBuildStation {
 	Player player;
