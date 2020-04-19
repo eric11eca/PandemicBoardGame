@@ -30,7 +30,6 @@ import game.player.action.ActionTreatDisease;
 
 public abstract class AbstractPlayerFactory {
 
-	private int id;
 	private City startingCity;
 	protected PlayerInteraction interaction;
 	protected Deck playerDiscard;
@@ -40,10 +39,6 @@ public abstract class AbstractPlayerFactory {
 
 	private Player createdPlayer;
 	private Map<ActionType, Action> actionMap;
-
-	public AbstractPlayerFactory(int id) {
-		this.id = id;
-	}
 
 	public final void initializeFactory(City startingCity, PlayerInteraction interaction, Deck playerDiscard,
 			CitySet citySet, Set<GameColor> curedDiseases, List<Player> players) {
@@ -66,7 +61,7 @@ public abstract class AbstractPlayerFactory {
 	}
 
 	public final PlayerController createPlayerController() {
-		return new PlayerController(createdPlayer, actionMap, getRole());
+		return new PlayerController(createdPlayer, actionMap);
 	}
 
 	protected abstract PlayerRole getRole();
@@ -78,7 +73,7 @@ public abstract class AbstractPlayerFactory {
 	protected abstract void addSpecialSkill(Player player, Map<ActionType, Action> actionMap);
 
 	protected final Player createBasicPlayer() {
-		return new PlayerImpl(id, startingCity, playerDiscard, interaction);
+		return new PlayerImpl(getRole(), startingCity, playerDiscard, interaction);
 	}
 
 	private Map<ActionType, Action> createActionMapTemplate(Player player) {

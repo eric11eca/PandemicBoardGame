@@ -53,6 +53,7 @@ public class UICardChooser extends JPanel implements UI {
 		confirmButton.addActionListener(e -> confirmChoice());
 		buttonPanel.add(confirmButton);
 		add(buttonPanel, BorderLayout.SOUTH);
+		update();
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class UICardChooser extends JPanel implements UI {
 			confirmButton.setEnabled(chosenSize() <= numberToChoose);
 		}
 
-		doLayout();
+		validate();
 		repaint();
 	}
 

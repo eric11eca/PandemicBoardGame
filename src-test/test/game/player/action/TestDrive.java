@@ -18,6 +18,7 @@ import game.city.City;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionDrive;
 import mock.MockCityBuilder;
@@ -52,7 +53,7 @@ public class TestDrive {
 			assertFalse(citiesToSelectFrom.contains(notNeighborCity));
 			callback.accept(neighborCity);
 		});
-		player = new PlayerImpl(0, location, new Deck(), interaction);
+		player = new PlayerImpl(null, location, new Deck(), interaction);
 	}
 
 	@Test

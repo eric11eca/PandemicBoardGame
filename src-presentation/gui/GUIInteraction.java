@@ -1,16 +1,19 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
 import game.GameColor;
 import game.cards.Card;
+import game.cards.CardCity;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
 import gui.interaction.UICardChooser;
 import gui.interaction.UIColorChooser;
+import gui.interaction.UIPlayerChooser;
 import render.Render;
 
 public class GUIInteraction implements PlayerInteraction {
@@ -34,7 +37,12 @@ public class GUIInteraction implements PlayerInteraction {
 
 	@Override
 	public void selectPlayerFrom(List<Player> players, Consumer<Player> callback) {
-		// callback.accept(players.get(0));
+		UIPlayerChooser chooser = new UIPlayerChooser(players, player -> {
+			gui.hidePopup();
+			callback.accept(player);
+			gui.update();
+		});
+		gui.displayPopup(chooser);
 	}
 
 	@Override
@@ -49,7 +57,17 @@ public class GUIInteraction implements PlayerInteraction {
 
 	@Override
 	public void selectCityFrom(Set<City> cities, Consumer<City> callback) {
-		// callback.accept(cities.iterator().next());
+		List<Card> cityCardList = new ArrayList<>();
+		cities.forEach(card -> cityCardList.add(new CardCity(card)));
+		System.out.println(cities);
+		UICardChooser chooser = new UICardChooser("Select A City", 1, cityCardList, render, list -> {
+			assert list.size() == 1;
+			City chosen = list.get(0).getCity().get();
+			gui.hidePopup();
+			callback.accept(chosen);
+			gui.update();
+		}, true);
+		gui.displayPopup(chooser);
 
 	}
 
@@ -65,8 +83,7 @@ public class GUIInteraction implements PlayerInteraction {
 
 	@Override
 	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) {
-		// TODO Auto-generated method stub
-
+//TODO 
 	}
 
 }

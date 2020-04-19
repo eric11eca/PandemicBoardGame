@@ -23,6 +23,7 @@ import game.event.Event;
 import game.event.EventAirlift;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionEventCard;
 import mock.MockCityBuilder;
@@ -55,7 +56,7 @@ public class TestUseEventCard {
 		interaction = new MockInteraction();
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
 
-		player = new PlayerImpl(0, newyorkCity, new Deck(), interaction);
+		player = new PlayerImpl(null, newyorkCity, new Deck(), interaction);
 		player.receiveCard(newyorkCard);
 
 		interaction.implementSelectPlayerFrom((players, callback) -> {

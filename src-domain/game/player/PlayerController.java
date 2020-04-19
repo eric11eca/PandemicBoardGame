@@ -15,13 +15,11 @@ import game.player.action.Action;
 public class PlayerController {
 	private Player player;
 	private Map<ActionType, Action> actionMap;
-	private PlayerRole role;
 
-	public PlayerController(Player player, Map<ActionType, Action> actionMap, PlayerRole role) {
+	public PlayerController(Player player, Map<ActionType, Action> actionMap) {
 		super();
 		this.player = player;
 		this.actionMap = actionMap;
-		this.role = role;
 	}
 
 	public void perform(ActionType actionType, Runnable completionCallback) {
@@ -54,7 +52,7 @@ public class PlayerController {
 	}
 
 	public PlayerRole getRole() {
-		return role;
+		return player.getRole();
 	}
 
 }

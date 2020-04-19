@@ -25,13 +25,11 @@ import initialize.player.ScientistFactory;
 
 public class PlayerInitialization {
 
-	private int nextID;
 	private QuarantineSpecialistFactory quarantineSpecialistFactory;
 	private List<AbstractPlayerFactory> allFactories;
 
 	public PlayerInitialization(City startingCity, PlayerInteraction interaction, Deck playerDiscard, CitySet citySet,
 			Set<GameColor> curedDiseases, List<Player> players) {
-		nextID = 0;
 		createFactoryList();
 		for (AbstractPlayerFactory factory : allFactories) {
 			factory.initializeFactory(startingCity, interaction, playerDiscard, citySet, curedDiseases, players);
@@ -41,18 +39,14 @@ public class PlayerInitialization {
 
 	private void createFactoryList() {
 		allFactories = new ArrayList<>();
-		quarantineSpecialistFactory = new QuarantineSpecialistFactory(nextID());
+		quarantineSpecialistFactory = new QuarantineSpecialistFactory();
 		allFactories.add(quarantineSpecialistFactory);
-		allFactories.add(new ContingencyPlannerFactory(nextID()));
-		allFactories.add(new DispatcherFactory(nextID()));
-		allFactories.add(new MedicFactory(nextID()));
-		allFactories.add(new OperationExpertFactory(nextID()));
-		allFactories.add(new ResearcherFactory(nextID()));
-		allFactories.add(new ScientistFactory(nextID()));
-	}
-
-	private int nextID() {
-		return nextID++;
+		allFactories.add(new ContingencyPlannerFactory());
+		allFactories.add(new DispatcherFactory());
+		allFactories.add(new MedicFactory());
+		allFactories.add(new OperationExpertFactory());
+		allFactories.add(new ResearcherFactory());
+		allFactories.add(new ScientistFactory());
 	}
 
 	public Predicate<City> getQuanrantineChecker() {

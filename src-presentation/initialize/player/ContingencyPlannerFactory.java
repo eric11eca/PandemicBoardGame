@@ -11,10 +11,6 @@ import game.player.special.ContingencyPlanner;
 
 public class ContingencyPlannerFactory extends AbstractPlayerFactory {
 
-	public ContingencyPlannerFactory(int id) {
-		super(id);
-	}
-
 	@Override
 	protected PlayerRole getRole() {
 		return PlayerRole.CONTINGENCY_PLANNER;

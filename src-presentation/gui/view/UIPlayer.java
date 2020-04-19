@@ -40,6 +40,7 @@ public class UIPlayer extends JPanel implements UI {
 		handButton = new JButton();
 		setLayout(new BorderLayout());
 		JPanel labelPanel = new JPanel(new BorderLayout());
+		labelPanel.setOpaque(false);
 		labelPanel.add(colorLabel, BorderLayout.NORTH);
 		labelPanel.add(roleLabel, BorderLayout.CENTER);
 		labelPanel.add(cityLabel, BorderLayout.SOUTH);
@@ -68,7 +69,7 @@ public class UIPlayer extends JPanel implements UI {
 		if (turnController.isPlayerActive(playerController)) {
 			setBackground(Color.WHITE);
 		} else {
-			setBackground(Color.GRAY);
+			setBackground(Color.LIGHT_GRAY);
 		}
 		roleLabel.setText(playerController.getRole().getRoleName());
 		cityLabel.setText("Location: " + playerController.getPlayerCity().getName());

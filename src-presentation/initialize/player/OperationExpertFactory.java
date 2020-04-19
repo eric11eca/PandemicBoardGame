@@ -11,10 +11,6 @@ import game.player.action.ActionSkillOperationsExpert;
 
 public class OperationExpertFactory extends AbstractPlayerFactory {
 
-	public OperationExpertFactory(int id) {
-		super(id);
-	}
-
 	@Override
 	protected PlayerRole getRole() {
 		return PlayerRole.OPERATION_EXPERT;

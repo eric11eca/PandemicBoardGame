@@ -10,6 +10,11 @@ public abstract class AbstractPlayerDecorator implements Player {
 	protected Player delegate;
 
 	@Override
+	public PlayerRole getRole() {
+		return delegate.getRole();
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		return delegate.equals(obj);
 	}
@@ -52,11 +57,6 @@ public abstract class AbstractPlayerDecorator implements Player {
 	@Override
 	public void setLocation(City destination) {
 		delegate.setLocation(destination);
-	}
-
-	@Override
-	public int getID() {
-		return delegate.getID();
 	}
 
 	@Override

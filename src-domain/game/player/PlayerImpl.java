@@ -11,16 +11,16 @@ import game.city.City;
 
 public class PlayerImpl implements Player {
 
-	private final int id;
+	private PlayerRole role;
 
 	private Deck hand;
 	private Deck playerDiscard;
 	private City location;
 	private PlayerInteraction interaction;
 
-	public PlayerImpl(int id, City startingLocation, Deck playerDiscard, PlayerInteraction interaction) {
+	public PlayerImpl(PlayerRole role, City startingLocation, Deck playerDiscard, PlayerInteraction interaction) {
 		super();
-		this.id = id;
+		this.role = role;
 		this.hand = new Deck();
 		this.playerDiscard = playerDiscard;
 		this.location = startingLocation;
@@ -75,8 +75,8 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public final int getID() {
-		return id;
+	public final PlayerRole getRole() {
+		return role;
 	}
 
 	@Override

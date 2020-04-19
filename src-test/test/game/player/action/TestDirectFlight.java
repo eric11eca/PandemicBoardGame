@@ -18,6 +18,7 @@ import game.cards.Deck;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionDirectFlight;
 import mock.MockCityBuilder;
@@ -56,7 +57,7 @@ public class TestDirectFlight {
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
 
 		discard = new Deck();
-		player = new PlayerImpl(0, newyorkCity, discard, interaction);
+		player = new PlayerImpl(null, newyorkCity, discard, interaction);
 		player.receiveCard(chicagoCard);
 	}
 

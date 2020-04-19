@@ -13,8 +13,7 @@ import game.player.special.QuarantineChecker;
 public class QuarantineSpecialistFactory extends AbstractPlayerFactory {
 	private Predicate<City> quarantineChecker;
 
-	public QuarantineSpecialistFactory(int id) {
-		super(id);
+	public QuarantineSpecialistFactory() {
 		quarantineChecker = c -> false;
 	}
 

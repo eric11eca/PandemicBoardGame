@@ -19,10 +19,6 @@ import game.player.special.DispatchedPlayer;
 
 public class DispatcherFactory extends AbstractPlayerFactory {
 
-	public DispatcherFactory(int id) {
-		super(id);
-	}
-
 	@Override
 	protected PlayerRole getRole() {
 		return PlayerRole.DISPATCHER;

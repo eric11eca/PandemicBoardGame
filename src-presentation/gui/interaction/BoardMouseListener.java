@@ -15,7 +15,6 @@ public class BoardMouseListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("what");
 		if (!ui.getPopupArea().contains(e.getPoint()))
 			ui.hideMessage();
 	}

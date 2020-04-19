@@ -11,10 +11,6 @@ import game.player.special.Medic;
 
 public class MedicFactory extends AbstractPlayerFactory {
 
-	public MedicFactory(int id) {
-		super(id);
-	}
-
 	@Override
 	protected PlayerRole getRole() {
 		return PlayerRole.MEDIC;

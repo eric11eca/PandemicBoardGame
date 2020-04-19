@@ -74,7 +74,7 @@ public interface Player {
 	 */
 	List<Card> getSharableKnowledgeCards(Player receiver);
 
-	int getID();
+	PlayerRole getRole();
 
 	int getHighestPopulationInHand();
 //	

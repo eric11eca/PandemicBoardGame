@@ -11,10 +11,6 @@ import game.player.action.ActionDiscoverCure;
 
 public class ScientistFactory extends AbstractPlayerFactory {
 
-	public ScientistFactory(int id) {
-		super(id);
-	}
-
 	@Override
 	protected PlayerRole getRole() {
 		return PlayerRole.SCIENTIST;

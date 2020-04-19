@@ -10,10 +10,6 @@ import game.player.special.Researcher;
 
 public class ResearcherFactory extends AbstractPlayerFactory {
 
-	public ResearcherFactory(int id) {
-		super(id);
-	}
-
 	@Override
 	protected PlayerRole getRole() {
 		return PlayerRole.RESEARCHER;
