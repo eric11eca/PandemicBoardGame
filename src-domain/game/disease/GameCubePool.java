@@ -51,6 +51,7 @@ public class GameCubePool implements CubeData {
 		if (count > getMaxDiseaseCubePerColor())
 			throw new RuntimeException("Disease Cube Overflow: " + count);
 		delegate.setDiseaseCubeCount(color, count);
+		// checkWin();
 	}
 
 	@Override
