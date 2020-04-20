@@ -38,7 +38,7 @@ public class UICardChooser extends JPanel implements UI {
 		add(labelPanel, BorderLayout.NORTH);
 
 		toChoose = new UICard[cards.size()];
-		JPanel cardPanel = new JPanel(new GridLayout(5, 2));
+		JPanel cardPanel = new JPanel(new GridLayout(12, 4));
 		int i = 0;
 		for (Card c : cards) {
 			toChoose[i] = new UICard(c, render);

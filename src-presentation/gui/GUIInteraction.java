@@ -11,6 +11,7 @@ import game.cards.CardCity;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import gui.interaction.UICardArranger;
 import gui.interaction.UICardChooser;
 import gui.interaction.UIColorChooser;
 import gui.interaction.UIPlayerChooser;
@@ -59,7 +60,6 @@ public class GUIInteraction implements PlayerInteraction {
 	public void selectCityFrom(Set<City> cities, Consumer<City> callback) {
 		List<Card> cityCardList = new ArrayList<>();
 		cities.forEach(card -> cityCardList.add(new CardCity(card)));
-		System.out.println(cities);
 		UICardChooser chooser = new UICardChooser("Select A City", 1, cityCardList, render, list -> {
 			assert list.size() == 1;
 			City chosen = list.get(0).getCity().get();
@@ -83,7 +83,13 @@ public class GUIInteraction implements PlayerInteraction {
 
 	@Override
 	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) {
-//TODO 
+		UICardArranger chooser = new UICardArranger("Please arrange. The first card will be on top of the deck", cards,
+				render, list -> {
+					gui.hidePopup();
+					callback.accept(list);
+					gui.update();
+				});
+		gui.displayPopup(chooser);
 	}
 
 }

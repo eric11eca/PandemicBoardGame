@@ -3,11 +3,13 @@ package gui.interaction;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import gui.view.UI;
+
 public class SelectCardListener implements MouseListener {
-	private UICardChooser chooser;
+	private UI chooser;
 	private UICard ui;
 
-	public SelectCardListener(UICardChooser chooser, UICard ui) {
+	public SelectCardListener(UI chooser, UICard ui) {
 		super();
 		this.chooser = chooser;
 		this.ui = ui;

@@ -40,8 +40,8 @@ public class UIBoard extends JPanel implements UI {
 	public Rectangle getPopupArea() {
 		if (popup == null)
 			return new Rectangle(0, 0, 0, 0);
-		int popupWidth = getWidth() / 4;
-		int popupHeight = getHeight() * 3 / 4;
+		int popupWidth = getWidth() / 3;
+		int popupHeight = getHeight();
 		int popupX = (getWidth() - popupWidth) / 2;
 		int popupY = (getHeight() - popupHeight) / 2;
 		return new Rectangle(popupX, popupY, popupWidth, popupHeight);

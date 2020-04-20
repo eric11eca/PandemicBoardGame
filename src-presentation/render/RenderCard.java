@@ -1,9 +1,11 @@
 package render;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import game.cards.Card;
 import game.city.City;
+import game.event.Event;
 
 public class RenderCard {
 	private static final int WIDTH = 250;
@@ -19,6 +21,7 @@ public class RenderCard {
 
 	public void renderCard(Graphics2D g, Card card, Render render) {
 		card.getCity().ifPresent(city -> renderCityCard(g, city, render));
+		card.getEvent().ifPresent(event -> renderEventCard(g, event));
 	}
 
 	public void renderBackground(Graphics2D g) {
@@ -31,5 +34,13 @@ public class RenderCard {
 		int h = g.getFontMetrics().getHeight();
 		g.setFont(g.getFont().deriveFont((float) HEIGHT / 2));
 		g.drawString(city.getName(), CIRCLE_SIZE + 10, (HEIGHT - h) / 2 + g.getFontMetrics().getAscent());
+	}
+
+	private void renderEventCard(Graphics2D g, Event event) {
+		g.setColor(Color.ORANGE);
+		g.fillRect(0, (HEIGHT - CIRCLE_SIZE) / 2, CIRCLE_SIZE, CIRCLE_SIZE);
+		int h = g.getFontMetrics().getHeight();
+		g.setFont(g.getFont().deriveFont((float) HEIGHT / 2));
+		g.drawString(event.getName(), CIRCLE_SIZE + 10, (HEIGHT - h) / 2 + g.getFontMetrics().getAscent());
 	}
 }
