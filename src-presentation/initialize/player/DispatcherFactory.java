@@ -32,7 +32,6 @@ public class DispatcherFactory extends AbstractPlayerFactory {
 		Map<Player, Action> dispatchedShuttleFlightActions = new HashMap<>();
 		List<Player> allPlayers = new ArrayList<>();
 		allPlayers.addAll(players);
-		allPlayers.add(dispatcher);
 		allPlayers.forEach(player -> {
 			Player dispatchedPlayer = new DispatchedPlayer(dispatcher, player);
 			dispatchedDriveActions.put(player, new ActionDrive(citySet, dispatchedPlayer, interaction));

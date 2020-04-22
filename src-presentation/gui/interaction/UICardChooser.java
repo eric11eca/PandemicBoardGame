@@ -1,6 +1,7 @@
 package gui.interaction;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.function.Consumer;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import game.cards.Card;
 import gui.view.UI;
@@ -19,53 +21,68 @@ public class UICardChooser extends JPanel implements UI {
 	private UICard[] toChoose;
 	private int numberToChoose;
 	private Consumer<List<Card>> action;
-	private JLabel titleLabel;
 	private JLabel countLabel;
 	private JButton confirmButton;
 	private boolean forceEqual;
 
-	public UICardChooser(String title, int numberToChoose, List<Card> cards, Render render, Consumer<List<Card>> action,
+	public UICardChooser(int numberToChoose, List<Card> cards, Render render, Consumer<List<Card>> action,
 			boolean forceEqual) {
 		this.action = action;
 		this.forceEqual = forceEqual;
 		this.numberToChoose = numberToChoose;
 		this.setLayout(new BorderLayout());
-		JPanel labelPanel = new JPanel(new BorderLayout());
-		titleLabel = new JLabel(title);
-		countLabel = new JLabel();
-		labelPanel.add(titleLabel, BorderLayout.NORTH);
-		labelPanel.add(countLabel, BorderLayout.CENTER);
-		add(labelPanel, BorderLayout.NORTH);
+		if (numberToChoose > 0) {
+			countLabel = new JLabel();
+			add(countLabel, BorderLayout.NORTH);
+		}
 
 		toChoose = new UICard[cards.size()];
-		JPanel cardPanel = new JPanel(new GridLayout(12, 4));
+		JPanel cardPanel = new JPanel();
 		int i = 0;
 		for (Card c : cards) {
 			toChoose[i] = new UICard(c, render);
+			if (cards.size() <= 12) {
+				toChoose[i].setPreferredSize(new Dimension(150, 100));
+			} else {
+				toChoose[i].setPreferredSize(new Dimension(100, 75));
+			}
+
 			toChoose[i].addMouseListener(new SelectCardListener(this, toChoose[i]));
 			cardPanel.add(toChoose[i]);
 			i++;
 		}
-		add(cardPanel, BorderLayout.CENTER);
+		if (cards.size() <= 12) {
+			cardPanel.setPreferredSize(new Dimension(700, 300));
+		} else {
+			cardPanel.setPreferredSize(new Dimension(700, 700));
+		}
+		// cardPanel.setMaximumSize(new Dimension(700, 120 * cards.size() / 4));
+		// JScrollPane scroll = new JScrollPane(cardPanel);
 
-		JPanel buttonPanel = new JPanel();
-		confirmButton = new JButton("OK");
-		confirmButton.addActionListener(e -> confirmChoice());
-		buttonPanel.add(confirmButton);
-		add(buttonPanel, BorderLayout.SOUTH);
+		// scroll.setPreferredSize(new Dimension(700, 300));
+		// scroll.add(cardPanel);
+		add(cardPanel, BorderLayout.CENTER);
+		if (numberToChoose > 0) {
+			JPanel buttonPanel = new JPanel();
+			confirmButton = new JButton("OK");
+			confirmButton.addActionListener(e -> confirmChoice());
+			buttonPanel.add(confirmButton);
+			add(buttonPanel, BorderLayout.SOUTH);
+		}
+		// setPreferredSize(new Dimension(500, 400));
 		update();
 	}
 
 	@Override
 	public void update() {
-		if (numberToChoose != 0)
+		if (numberToChoose > 0) {
 			countLabel.setText("(" + chosenSize() + "/" + numberToChoose + ")");
-		if (forceEqual) {
-			confirmButton.setEnabled(chosenSize() == numberToChoose);
-		} else {
-			confirmButton.setEnabled(chosenSize() <= numberToChoose);
+			if (forceEqual) {
+				confirmButton.setEnabled(chosenSize() == numberToChoose);
+			} else {
+				confirmButton.setEnabled(chosenSize() <= numberToChoose);
+			}
 		}
-
 		validate();
 		repaint();
 	}

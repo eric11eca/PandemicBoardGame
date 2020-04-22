@@ -11,6 +11,7 @@ import game.TurnController;
 import game.player.PlayerController;
 import gui.GameGUI;
 import gui.interaction.UICardChooser;
+import gui.interaction.UICardChooser;
 import render.Render;
 
 @SuppressWarnings("serial")
@@ -46,8 +47,8 @@ public class UIPlayer extends JPanel implements UI {
 		labelPanel.add(cityLabel, BorderLayout.SOUTH);
 		add(labelPanel, BorderLayout.NORTH);
 		add(handButton, BorderLayout.CENTER);
-		handButton.addActionListener(e -> gui.displayPopup(new UICardChooser("Player Hands", 0,
-				playerController.getPlayerHand(), render, list -> gui.hidePopup(), true)));
+		handButton.addActionListener(e -> gui.displayPopup("Player Hands",
+				new UICardChooser(0, playerController.getPlayerHand(), render, list -> gui.hidePopup(), true)));
 	}
 
 	// @Override

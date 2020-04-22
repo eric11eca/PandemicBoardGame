@@ -18,11 +18,12 @@ public class UIColorChooser extends JPanel implements UI {
 		setLayout(new BorderLayout());
 		JLabel titleLabel = new JLabel("Choose a color:");
 		add(titleLabel, BorderLayout.NORTH);
-		JPanel buttonPanel = new JPanel(new GridLayout(2, 2));
-		for (GameColor choice : toChoose) {
+		JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
+		for (GameColor choice : GameColor.values()) {
 			JButton button = new JButton(choice.toString());
 			button.addActionListener(e -> action.accept(choice));
 			buttonPanel.add(button);
+			button.setEnabled(toChoose.contains(choice));
 		}
 		add(buttonPanel, BorderLayout.CENTER);
 	}

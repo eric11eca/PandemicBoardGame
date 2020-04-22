@@ -44,6 +44,7 @@ public class GameGUI {
 	// private UIBoard boardUI;
 	private List<UI> uis;
 	private UI popupUI;
+	private JFrame popupFrame;
 //	private UIDeck playerDeckUI;
 //	private UIDeck playerDiscardUI;
 //	private UIDeck infectDeckUI;
@@ -165,14 +166,26 @@ public class GameGUI {
 		}
 	}
 
-	public void displayPopup(UI message) {
+	public void displayPopup(String title, UI message) {
 		popupUI = message;
-		boardUI.displayMessage((JComponent) message);
+		if (popupFrame != null)
+			popupFrame.dispose();
+		popupFrame = new JFrame();
+		popupFrame.setTitle(title);
+		JComponent component = (JComponent) message;
+		popupFrame.add(component);
+		popupFrame.pack();
+		popupFrame.setLocationRelativeTo(frame);
+		popupFrame.setResizable(false);
+		// popupFrame.setm
+		popupFrame.setVisible(true);
+		// boardUI.displayMessage((JComponent) message);
 		update();
 	}
 
 	public void hidePopup() {
-		boardUI.hideMessage();
+		if (popupFrame != null)
+			popupFrame.dispose();
 		update();
 	}
 

@@ -33,7 +33,7 @@ public class GUIInteraction implements PlayerInteraction {
 			callback.accept(color);
 			gui.update();
 		});
-		gui.displayPopup(chooser);
+		gui.displayPopup("Choose Color", chooser);
 	}
 
 	@Override
@@ -43,42 +43,42 @@ public class GUIInteraction implements PlayerInteraction {
 			callback.accept(player);
 			gui.update();
 		});
-		gui.displayPopup(chooser);
+		gui.displayPopup("Choose Player", chooser);
 	}
 
 	@Override
 	public void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
-		UICardChooser chooser = new UICardChooser("Select Cards", number, cards, render, list -> {
+		UICardChooser chooser = new UICardChooser(number, cards, render, list -> {
 			gui.hidePopup();
 			callback.accept(list);
 			gui.update();
 		}, true);
-		gui.displayPopup(chooser);
+		gui.displayPopup("Select Cards", chooser);
 	}
 
 	@Override
 	public void selectCityFrom(Set<City> cities, Consumer<City> callback) {
 		List<Card> cityCardList = new ArrayList<>();
 		cities.forEach(card -> cityCardList.add(new CardCity(card)));
-		UICardChooser chooser = new UICardChooser("Select A City", 1, cityCardList, render, list -> {
+		UICardChooser chooser = new UICardChooser(1, cityCardList, render, list -> {
 			assert list.size() == 1;
 			City chosen = list.get(0).getCity().get();
 			gui.hidePopup();
 			callback.accept(chosen);
 			gui.update();
 		}, true);
-		gui.displayPopup(chooser);
+		gui.displayPopup("Select A City", chooser);
 
 	}
 
 	@Override
 	public void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) {
-		UICardChooser chooser = new UICardChooser("Select Cards To Discard", number, cards, render, list -> {
+		UICardChooser chooser = new UICardChooser(number, cards, render, list -> {
 			gui.hidePopup();
 			callback.accept(list);
 			gui.update();
 		}, false);
-		gui.displayPopup(chooser);
+		gui.displayPopup("Select Cards To Discard", chooser);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class GUIInteraction implements PlayerInteraction {
 					callback.accept(list);
 					gui.update();
 				});
-		gui.displayPopup(chooser);
+		gui.displayPopup("Arrange", chooser);
 	}
 
 }
