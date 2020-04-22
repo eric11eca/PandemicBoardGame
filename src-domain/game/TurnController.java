@@ -2,15 +2,16 @@ package game;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.swing.JOptionPane;
 
 import data.GameProperty;
 import game.cards.Card;
 import game.cards.Deck;
+import game.city.City;
 import game.player.PlayerController;
+import game.player.PlayerInteraction;
 
 /**
  * A upper level component that implements turns and delegate actions to the
@@ -21,17 +22,22 @@ public class TurnController {
 	private Infection infection;
 	private GameState game;
 	private PlayerController[] playerControllers;
+	private PlayerInteraction interaction;
 
 	private int current;
 	private boolean skipInfection;
 	private int remainingActions;
+	private boolean isInfectionStage;
+	private int remainingInfection;
 
 	private Set<ActionType> actionDone;
 
-	public TurnController(Deck playerDeck, Infection infection, GameState game, PlayerController[] playerControllers) {
+	public TurnController(Deck playerDeck, Infection infection, GameState game, PlayerController[] playerControllers,
+			PlayerInteraction interaction) {
 		super();
 		this.playerDeck = playerDeck;
 		this.infection = infection;
+		this.interaction = interaction;
 		this.game = game;
 		this.playerControllers = playerControllers;
 		actionDone = EnumSet.noneOf(ActionType.class);
@@ -41,10 +47,11 @@ public class TurnController {
 		final int ACTION_PER_TURN = GameProperty.getInstance().getInt("ACTION_PER_TURN");
 		remainingActions = ACTION_PER_TURN;
 		actionDone.clear();
+		isInfectionStage = false;
 	}
 
 	public boolean canContinueAction() {
-		return remainingActions > 0;
+		return remainingActions > 0 && !isInfectionStage;
 	}
 
 	public void performAction(ActionType actionType) {
@@ -72,9 +79,42 @@ public class TurnController {
 	}
 
 	public void endTurn() {
-		drawPlayerCards();
-		infection();
+		if (!isInfectionStage) {
+			drawPlayerCards();
+			startInfection();
+		} else {
+			if (remainingInfection > 0) {
+				infection.infectOnce().map(city -> {
+					Set<City> set = new HashSet<>();
+					set.add(city);
+					return set;
+				}).ifPresent(interaction::displayCities);
+				remainingInfection--;
+			}
+			if (remainingInfection == 0) {
+				nextTurn();
+			}
+		}
+
+	}
+
+	public boolean isInfectionStage() {
+		return isInfectionStage;
+	}
+
+	public void startInfection() {
+		if (!skipInfection) {
+			isInfectionStage = true;
+			remainingInfection = game.getInfectionRate();
+		} else {
+			skipInfection = false;
+		}
+	}
+
+	public void nextTurn() {
+		isInfectionStage = false;
 		current = (current + 1) % playerControllers.length;
+		startTurn();
 	}
 
 	private void drawPlayerCards() {
@@ -87,17 +127,8 @@ public class TurnController {
 			}
 			cards.add(playerDeck.takeTopCard());
 		}
+		interaction.displayCards(cards);
 		playerControllers[current].givePlayerCards(cards);
-	}
-
-	private void infection() {
-		if (skipInfection) {
-			skipInfection = false;
-			return;
-		}
-		for (int i = 0; i < game.getInfectionRate(); i++) {
-			infection.infectOnce();
-		}
 	}
 
 	public int getRemainingActions() {
@@ -106,6 +137,10 @@ public class TurnController {
 
 	public boolean isPlayerActive(PlayerController controller) {
 		return playerControllers[current] == controller;
+	}
+
+	public int getRemainingInfection() {
+		return remainingInfection;
 	}
 
 }

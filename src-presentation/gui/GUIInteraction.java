@@ -92,4 +92,13 @@ public class GUIInteraction implements PlayerInteraction {
 		gui.displayPopup("Arrange", chooser);
 	}
 
+	@Override
+	public void displayCards(List<Card> cards) {
+		UICardChooser chooser = new UICardChooser(0, cards, render, list -> {
+			gui.hidePopup();
+			gui.update();
+		}, false);
+		gui.displayPopup("Cities", chooser);
+	}
+
 }

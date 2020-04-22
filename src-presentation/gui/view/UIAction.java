@@ -21,7 +21,8 @@ public class UIAction extends JPanel implements UI {
 	private TurnController turnController;
 	private Map<ActionType, JButton> actionButtons;
 	private JButton endTurnButton;
-	private JLabel remainingActions;
+	private JLabel remainingLabel;
+	private JLabel remaining;
 
 	public UIAction(GameGUI gui, TurnController turnController) {
 		this.gui = gui;
@@ -32,10 +33,12 @@ public class UIAction extends JPanel implements UI {
 		this.setPreferredSize(new Dimension(800, 100));
 		add(buttonPanel, BorderLayout.CENTER);
 		JPanel westPanel = new JPanel(new BorderLayout());
-		westPanel.add(new JLabel("Remaining Actions"), BorderLayout.NORTH);
-		remainingActions = new JLabel("", SwingConstants.CENTER);
-		remainingActions.setFont(remainingActions.getFont().deriveFont(80f));
-		westPanel.add(remainingActions, BorderLayout.CENTER);
+		remainingLabel = new JLabel("Remaining Actions");
+		westPanel.add(remainingLabel, BorderLayout.NORTH);
+		remaining = new JLabel("", SwingConstants.CENTER);
+		remaining.setFont(remaining.getFont().deriveFont(80f));
+		westPanel.setPreferredSize(new Dimension(200, 100));
+		westPanel.add(remaining, BorderLayout.CENTER);
 		add(westPanel, BorderLayout.WEST);
 
 	}
@@ -66,7 +69,6 @@ public class UIAction extends JPanel implements UI {
 
 	public void endTurn() {
 		turnController.endTurn();
-		turnController.startTurn();
 		gui.update();
 	}
 
@@ -79,6 +81,13 @@ public class UIAction extends JPanel implements UI {
 	@Override
 	public void update() {
 		updateButtons();
-		remainingActions.setText("" + turnController.getRemainingActions());
+		if (turnController.isInfectionStage()) {
+			remainingLabel.setText("Remaining Infection");
+			remaining.setText("" + turnController.getRemainingInfection());
+		} else {
+			remainingLabel.setText("Remaining Actions");
+			remaining.setText("" + turnController.getRemainingActions());
+		}
+
 	}
 }

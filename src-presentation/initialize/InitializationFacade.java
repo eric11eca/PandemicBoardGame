@@ -91,7 +91,7 @@ public class InitializationFacade {
 		quarantineChecker = playerInitialization.getQuanrantineChecker();
 		infection = new Infection(infectionDeck, infectionDiscard, quarantineChecker, game, gameCubePool);
 		epidemic = new Epidemic(infectionDeck, infectionDiscard, game, quarantineChecker, gameCubePool);
-		turnController = new TurnController(playerDeck, infection, game, playerControllers);
+		turnController = new TurnController(playerDeck, infection, game, playerControllers, interaction);
 		initialize();
 	}
 

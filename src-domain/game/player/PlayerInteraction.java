@@ -1,11 +1,13 @@
 package game.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
 import game.GameColor;
 import game.cards.Card;
+import game.cards.CardCity;
 import game.city.City;
 
 /**
@@ -78,4 +80,21 @@ public interface PlayerInteraction {
 	 * @param callback callback function with the arranged list of cards
 	 */
 	void arrangeCards(List<Card> cards, Consumer<List<Card>> callback);
+
+	/**
+	 * Display cities to the user without blocking
+	 * 
+	 * @param cities
+	 */
+	default void displayCities(Set<City> cities) {
+		List<Card> cityCardList = new ArrayList<>();
+		cities.forEach(card -> cityCardList.add(new CardCity(card)));
+		displayCards(cityCardList);
+	}
+
+	/**
+	 * Display cards to the user without blocking
+	 * 
+	 */
+	void displayCards(List<Card> cards);
 }

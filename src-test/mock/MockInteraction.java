@@ -21,6 +21,7 @@ public class MockInteraction implements PlayerInteraction {
 		selectCityFromImpl = this::errBiConsumer;
 		selectCardsToDiscardImpl = this::errTriConsumer;
 		arrangeCardsImpl = this::errBiConsumer;
+		displayCardImpl = this::errConsumer;
 	}
 
 	public MockInteraction implementSelectColorFrom(MethodSelectColorFrom selectColorFromImpl) {
@@ -43,14 +44,18 @@ public class MockInteraction implements PlayerInteraction {
 		return this;
 	}
 
-	public <T extends Card> MockInteraction implementSelectCardsToDiscard(
-			MethodSelectCardsFrom selectCardsToDiscardImpl) {
+	public MockInteraction implementSelectCardsToDiscard(MethodSelectCardsFrom selectCardsToDiscardImpl) {
 		this.selectCardsToDiscardImpl = selectCardsToDiscardImpl;
 		return this;
 	}
 
-	public <T extends Card> MockInteraction implementArrangeCards(MethodArrangeCards arrangeCardsImpl) {
+	public MockInteraction implementArrangeCards(MethodArrangeCards arrangeCardsImpl) {
 		this.arrangeCardsImpl = arrangeCardsImpl;
+		return this;
+	}
+
+	public MockInteraction implementDisplayCities(MethodDisplayCards displayCityImpl) {
+		this.displayCardImpl = displayCityImpl;
 		return this;
 	}
 
@@ -61,6 +66,7 @@ public class MockInteraction implements PlayerInteraction {
 	private MethodSelectCityFrom selectCityFromImpl;
 	private MethodSelectCardsFrom selectCardsToDiscardImpl;
 	private MethodArrangeCards arrangeCardsImpl;
+	private MethodDisplayCards displayCardImpl;
 
 	public interface MethodSelectColorFrom extends BiConsumer<Set<GameColor>, Consumer<GameColor>> {	}
 	public interface MethodSelectPlayerFrom extends BiConsumer<List<Player>, Consumer<Player>> {	}
@@ -71,6 +77,7 @@ public class MockInteraction implements PlayerInteraction {
 	public interface MethodArrangeCards{
 		void arrangeCards(List<Card> cards, Consumer<List<Card>> callback);
 	}
+	public interface MethodDisplayCards extends Consumer<List<Card>>{}
 	@Override
 	public void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback) 
 	{selectColorFromImpl.accept(colors, callback);}
@@ -89,7 +96,15 @@ public class MockInteraction implements PlayerInteraction {
 	@Override
 	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) 
 	{arrangeCardsImpl.arrangeCards(cards, callback);}
+	@Override
+	public void displayCards(List<Card> cards)
+	{displayCardImpl.accept(cards);}
+
 	//@formatter:on
+	private <T> void errConsumer(T t) {
+		mockFail();
+	}
+
 	private <T, R> void errBiConsumer(T t, R r) {
 		mockFail();
 	}

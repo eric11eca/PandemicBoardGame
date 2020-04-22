@@ -23,7 +23,7 @@ public class CardEventReused implements Card {
 
 	@Override
 	public void addToHand(Deck hand) {
-		delegate.addToHand(hand);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public class I18n {
 	private ResourceBundle resourceBundle;
 
 	private I18n(String bundle) {
-		resourceBundle = ResourceBundle.getBundle(bundle);
+		resourceBundle = ResourceBundle.getBundle(bundle, locale);
 	}
 
 	/**
