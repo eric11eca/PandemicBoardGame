@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import game.ActionType;
 import game.TurnController;
@@ -30,9 +31,13 @@ public class UIAction extends JPanel implements UI {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800, 100));
 		add(buttonPanel, BorderLayout.CENTER);
-		remainingActions = new JLabel();
-		add(remainingActions, BorderLayout.NORTH);
-		;
+		JPanel westPanel = new JPanel(new BorderLayout());
+		westPanel.add(new JLabel("Remaining Actions"), BorderLayout.NORTH);
+		remainingActions = new JLabel("", SwingConstants.CENTER);
+		remainingActions.setFont(remainingActions.getFont().deriveFont(80f));
+		westPanel.add(remainingActions, BorderLayout.CENTER);
+		add(westPanel, BorderLayout.WEST);
+
 	}
 
 	private void initButtons(JPanel buttonPanel) {
@@ -42,7 +47,7 @@ public class UIAction extends JPanel implements UI {
 			actionButtons.put(actionType, button);
 			buttonPanel.add(button);
 		}
-		endTurnButton = new JButton();
+		endTurnButton = new JButton("End Turn");
 		endTurnButton.addActionListener(e -> endTurn());
 		buttonPanel.add(endTurnButton);
 	}
@@ -67,13 +72,13 @@ public class UIAction extends JPanel implements UI {
 
 	public void updateButtons() {
 		actionButtons.forEach((actionType, button) -> {
-			button.setEnabled(turnController.canContinueAction() && turnController.canPerformAction(actionType));
+			button.setEnabled(turnController.canPerformAction(actionType));
 		});
 	}
 
 	@Override
 	public void update() {
 		updateButtons();
-		remainingActions.setText("Remaining Actions: " + turnController.getRemainingActions());
+		remainingActions.setText("" + turnController.getRemainingActions());
 	}
 }

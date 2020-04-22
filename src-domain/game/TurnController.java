@@ -48,7 +48,6 @@ public class TurnController {
 	}
 
 	public void performAction(ActionType actionType) {
-		assert canContinueAction();
 		assert canPerformAction(actionType);
 		playerControllers[current].perform(actionType, () -> {
 			actionDone(actionType);
@@ -63,6 +62,8 @@ public class TurnController {
 	}
 
 	public boolean canPerformAction(ActionType actionType) {
+		if (!canContinueAction() && actionType != ActionType.EVENT)
+			return false;
 		return playerControllers[current].canPerform(actionType, actionDone.contains(actionType));
 	}
 
