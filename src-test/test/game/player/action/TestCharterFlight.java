@@ -19,7 +19,6 @@ import game.city.City;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerImpl;
-import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionCharterFlight;
 import mock.MockCityBuilder;

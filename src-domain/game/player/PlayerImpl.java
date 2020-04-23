@@ -39,18 +39,19 @@ public class PlayerImpl implements Player {
 	@Override
 	public void receiveCard(List<Card> cards) {
 		cards.forEach(card -> card.addToHand(hand));
-		if (hand.size() > getHandLimit()) {
-			discardHelper();
+		while (hand.size() > getHandLimit()) {
+			List<Card> toDiscard = interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList());
+			this.discardCards(toDiscard);
 		}
 	}
 
-	private void discardHelper() {
-		interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList(), toDiscard -> {
-			this.discardCards(toDiscard);
-			if (hand.size() > getHandLimit())
-				discardHelper();
-		});
-	}
+//	private void discardHelper() {
+//		interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList(), toDiscard -> {
+//			this.discardCards(toDiscard);
+//			if (hand.size() > getHandLimit())
+//				discardHelper();
+//		});
+//	}
 
 	@Override
 	public void removeCard(Card toRemove) {

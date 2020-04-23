@@ -70,7 +70,11 @@ public interface PlayerInteraction {
 	 * @param cards    cards to select from
 	 * @param callback callback function with the selected cards to discard
 	 */
-	void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback);
+	@Deprecated
+	default void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) {
+	}
+
+	List<Card> selectCardsToDiscard(int number, List<Card> cards);
 
 	/**
 	 * Asynchronously arrange many cards. The callback function must provide a new

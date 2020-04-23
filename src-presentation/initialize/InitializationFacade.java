@@ -25,7 +25,6 @@ import game.disease.CureSet;
 import game.disease.GameCubePool;
 import game.player.Player;
 import game.player.PlayerController;
-import game.player.PlayerInteraction;
 import gui.GUIInteraction;
 import gui.GameGUI;
 import render.Render;

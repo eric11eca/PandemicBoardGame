@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 import game.GameColor;
@@ -19,7 +20,7 @@ public class MockInteraction implements PlayerInteraction {
 		selectPlayerFromImpl = this::errBiConsumer;
 		selectCardsFromImpl = this::errTriConsumer;
 		selectCityFromImpl = this::errBiConsumer;
-		selectCardsToDiscardImpl = this::errTriConsumer;
+		selectCardsToDiscardImpl = this::errBiFunction;
 		arrangeCardsImpl = this::errBiConsumer;
 		displayCardImpl = this::errConsumer;
 	}
@@ -44,7 +45,7 @@ public class MockInteraction implements PlayerInteraction {
 		return this;
 	}
 
-	public MockInteraction implementSelectCardsToDiscard(MethodSelectCardsFrom selectCardsToDiscardImpl) {
+	public MockInteraction implementSelectCardsToDiscard(MethodDiscardCards selectCardsToDiscardImpl) {
 		this.selectCardsToDiscardImpl = selectCardsToDiscardImpl;
 		return this;
 	}
@@ -64,7 +65,7 @@ public class MockInteraction implements PlayerInteraction {
 	private MethodSelectPlayerFrom selectPlayerFromImpl;
 	private MethodSelectCardsFrom selectCardsFromImpl;
 	private MethodSelectCityFrom selectCityFromImpl;
-	private MethodSelectCardsFrom selectCardsToDiscardImpl;
+	private MethodDiscardCards selectCardsToDiscardImpl;
 	private MethodArrangeCards arrangeCardsImpl;
 	private MethodDisplayCards displayCardImpl;
 
@@ -78,6 +79,7 @@ public class MockInteraction implements PlayerInteraction {
 		void arrangeCards(List<Card> cards, Consumer<List<Card>> callback);
 	}
 	public interface MethodDisplayCards extends Consumer<List<Card>>{}
+	public interface MethodDiscardCards extends BiFunction<Integer,List<Card>,List<Card>>{}
 	@Override
 	public void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback) 
 	{selectColorFromImpl.accept(colors, callback);}
@@ -91,8 +93,8 @@ public class MockInteraction implements PlayerInteraction {
 	public void selectCityFrom(Set<City> cities, Consumer<City> callback) 
 	{selectCityFromImpl.accept(cities, callback);}
 	@Override
-	public void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) 
-	{selectCardsToDiscardImpl.selectCardsFrom(number, cards, callback);}
+	public List<Card> selectCardsToDiscard(int number, List<Card> cards) 
+	{return selectCardsToDiscardImpl.apply(number, cards);}
 	@Override
 	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) 
 	{arrangeCardsImpl.arrangeCards(cards, callback);}
@@ -111,6 +113,11 @@ public class MockInteraction implements PlayerInteraction {
 
 	private <T, R, I> void errTriConsumer(T t, R r, I i) {
 		mockFail();
+	}
+
+	private <T, R, I> I errBiFunction(T t, R r) {
+		mockFail();
+		return null;
 	}
 
 	private void mockFail() {

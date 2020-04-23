@@ -101,4 +101,10 @@ public class GUIInteraction implements PlayerInteraction {
 		gui.displayPopup("Cities", chooser);
 	}
 
+	@Override
+	public List<Card> selectCardsToDiscard(int number, List<Card> cards) {
+		// TODO implement with JOptionPane
+		return null;
+	}
+
 }

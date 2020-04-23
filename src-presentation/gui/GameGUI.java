@@ -10,10 +10,8 @@ import java.util.Set;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import game.GameColor;
 import game.GameState;
@@ -21,7 +19,6 @@ import game.TurnController;
 import game.cards.Deck;
 import game.disease.GameCubePool;
 import game.player.PlayerController;
-import gui.interaction.UIMessage;
 import gui.view.UI;
 import gui.view.UIAction;
 import gui.view.UIBoard;

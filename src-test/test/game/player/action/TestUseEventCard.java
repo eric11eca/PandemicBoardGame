@@ -23,7 +23,6 @@ import game.event.Event;
 import game.event.EventAirlift;
 import game.player.Player;
 import game.player.PlayerImpl;
-import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionEventCard;
 import mock.MockCityBuilder;

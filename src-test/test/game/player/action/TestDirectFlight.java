@@ -18,7 +18,6 @@ import game.cards.Deck;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerImpl;
-import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionDirectFlight;
 import mock.MockCityBuilder;
