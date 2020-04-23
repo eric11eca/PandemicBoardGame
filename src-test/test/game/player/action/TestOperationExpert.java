@@ -1,4 +1,4 @@
-package test.playerAction;
+package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,8 +22,8 @@ import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionSkillOperationsExpert;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestOperationExpert {
 	Player player;
@@ -63,7 +63,7 @@ public class TestOperationExpert {
 		});
 
 		discard = new Deck();
-		player = new PlayerImpl(0, newyorkCity, discard, interaction);
+		player = new PlayerImpl(null, newyorkCity, discard, interaction);
 		player.receiveCard(newyorkCard);
 	}
 

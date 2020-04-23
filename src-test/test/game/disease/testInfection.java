@@ -19,9 +19,10 @@ import game.city.City;
 import game.disease.GameCubePool;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.PlayerRole;
 import game.player.special.QuarantineChecker;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class testInfection {
 	Infection infection;
@@ -53,7 +54,7 @@ public class testInfection {
 		chicagoCity = chicagoBuilder.build();
 		
 		interaction = new MockInteraction();
-		player = new PlayerImpl(0, chicagoCity, new Deck(), interaction);
+		player = new PlayerImpl(PlayerRole.SCIENTIST, chicagoCity, infectionDeck, interaction);
 		
 		quarantineChecker = new QuarantineChecker(player);
 		infection = new Infection(infectionDeck, infectionDeck, quarantineChecker, game, gameCubePool);

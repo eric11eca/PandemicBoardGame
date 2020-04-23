@@ -1,4 +1,4 @@
-package test.playerAction;
+package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +19,8 @@ import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionTreatDisease;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestTreatDisease {
 	Player player;
@@ -47,7 +47,7 @@ public class TestTreatDisease {
 		interaction.implementSelectColorFrom(this::selectColorFrom);
 
 		discard = new Deck();
-		player = new PlayerImpl(0, newyorkCity, discard, interaction);
+		player = new PlayerImpl(null, newyorkCity, discard, interaction);
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class TestTreatDisease {
 		newyorkCity = newyorkBuilder.build();
 		newyorkCity.initializeDisease(3);
 		
-		player = new PlayerImpl(0, newyorkCity, discard, interaction);
+		player = new PlayerImpl(null, newyorkCity, discard, interaction);
 		
 		Set<GameColor> curedDisease = new HashSet<>();
 		curedDisease.add(GameColor.BLUE);

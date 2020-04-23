@@ -1,4 +1,4 @@
-package test.playerAction;
+package test.game.player.action;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -18,11 +18,12 @@ import game.event.Event;
 import game.event.EventGovernmentGrant;
 import game.player.Player;
 import game.player.PlayerImpl;
+import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionSkillContingencyPlanner;
 import game.player.special.ContingencyPlanner;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestContingencyPlanner {
 	ContingencyPlanner planner;
@@ -46,7 +47,7 @@ public class TestContingencyPlanner {
 		
 		interaction = new MockInteraction();
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
-		player = new PlayerImpl(0, newyorkCity, new Deck(), interaction);
+		player = new PlayerImpl(PlayerRole.CONTINGENCY_PLANNER, newyorkCity, new Deck(), interaction);
 		planner = new ContingencyPlanner(player);
 		
 		Event govGrant = new EventGovernmentGrant(null);

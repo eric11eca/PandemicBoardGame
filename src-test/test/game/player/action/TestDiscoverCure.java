@@ -1,4 +1,4 @@
-package test.playerAction;
+package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -22,8 +22,8 @@ import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionDiscoverCure;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestDiscoverCure {
 	Player player;
@@ -71,7 +71,7 @@ public class TestDiscoverCure {
 		});
 		interaction.implementSelectCardsFrom(this::selectCardsFrom);
 		
-		player = new PlayerImpl(0, city1, discard, interaction);
+		player = new PlayerImpl(null, city1, discard, interaction);
 		player.receiveCard(cardList);
 	}
 

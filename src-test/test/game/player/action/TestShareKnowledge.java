@@ -1,4 +1,4 @@
-package test.playerAction;
+package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +19,8 @@ import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionGiveKnowledge;
 import game.player.action.ActionTakeKnowledge;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestShareKnowledge {
 	Player giver;
@@ -47,7 +47,7 @@ public class TestShareKnowledge {
 		
 		cbExecuted = false;
 		
-		receiver = new PlayerImpl(0, newyorkCity, new Deck(), new MockInteraction());
+		receiver = new PlayerImpl(null, newyorkCity, new Deck(), new MockInteraction());
 		
 		playerList = new ArrayList<>();
 		playerList.add(receiver);
@@ -62,7 +62,7 @@ public class TestShareKnowledge {
 		});
 		
 		discard = new Deck();
-		giver = new PlayerImpl(0, newyorkCity, discard, giverInteraction);
+		giver = new PlayerImpl(null, newyorkCity, discard, giverInteraction);
 		giver.receiveCard(newyorkCard);		
 	}
 
@@ -80,7 +80,7 @@ public class TestShareKnowledge {
 	@Test
 	public void testTakeCard() {
 		receiverInteraction = new MockInteraction();
-		receiver = new PlayerImpl(0, newyorkCity, new Deck(), receiverInteraction);
+		receiver = new PlayerImpl(null, newyorkCity, new Deck(), receiverInteraction);
 		receiverInteraction.implementSelectPlayerFrom((players, callback) -> {
 			assertTrue(players.contains(giver));
 			callback.accept(giver);

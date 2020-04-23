@@ -1,4 +1,4 @@
-package test.playerAction;
+package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,8 +17,8 @@ import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
 import game.player.action.ActionShuttleFlight;
-import test.MockCityBuilder;
-import test.MockInteraction;
+import mock.MockCityBuilder;
+import mock.MockInteraction;
 
 public class TestShuttleFlightAction {
 	Player player;
@@ -51,7 +52,7 @@ public class TestShuttleFlightAction {
 		});
 		
 		discard = new Deck();
-		player = new PlayerImpl(0, newyorkCity, discard, interaction);
+		player = new PlayerImpl(null, newyorkCity, discard, interaction);
 	}
 
 	@Test
