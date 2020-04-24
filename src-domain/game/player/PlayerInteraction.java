@@ -23,7 +23,7 @@ public interface PlayerInteraction {
 	 * @param colors   set of colors to select from
 	 * @param callback callback function with selected color
 	 */
-	void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback);
+	void selectColorFrom(Set<GameColor> colors, String title, Consumer<GameColor> callback);
 
 	/**
 	 * Asynchronously select a player from a list of players
@@ -31,7 +31,7 @@ public interface PlayerInteraction {
 	 * @param players  list of players to select from
 	 * @param callback callback function with selected player
 	 */
-	void selectPlayerFrom(List<Player> players, Consumer<Player> callback);
+	void selectPlayerFrom(List<Player> players, String title, Consumer<Player> callback);
 
 	/**
 	 * Asynchronously select a card from a list of cards
@@ -39,8 +39,8 @@ public interface PlayerInteraction {
 	 * @param cards    list of cards to select from
 	 * @param callback callback function with selected card
 	 */
-	default void selectOneCardFrom(List<Card> cards, Consumer<Card> callback) {
-		selectCardsFrom(1, cards, list -> callback.accept(list.get(0)));
+	default void selectOneCardFrom(List<Card> cards, String title, Consumer<Card> callback) {
+		selectCardsFrom(1, cards, title, list -> callback.accept(list.get(0)));
 	}
 
 	/**
@@ -51,7 +51,7 @@ public interface PlayerInteraction {
 	 * @param cards    cards to choose from
 	 * @param callback callback function with selected cards
 	 */
-	void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback);
+	void selectCardsFrom(int number, List<Card> cards, String title, Consumer<List<Card>> callback);
 
 	/**
 	 * Asynchronously select a city from the set of cities
@@ -59,22 +59,9 @@ public interface PlayerInteraction {
 	 * @param cities   the cities to select from
 	 * @param callback callback function with the selected city
 	 */
-	void selectCityFrom(Set<City> cities, Consumer<City> callback);
+	void selectCityFrom(Set<City> cities, String title, Consumer<City> callback);
 
-	/**
-	 * Asynchronously select many cards to discard from a list of cards. This method
-	 * may seem similar to {@code selectCardsFrom}, but this method allows selection
-	 * less than or equal to the number specified (not over)
-	 * 
-	 * @param number   maximum number of cards to select
-	 * @param cards    cards to select from
-	 * @param callback callback function with the selected cards to discard
-	 */
-	@Deprecated
-	default void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) {
-	}
-
-	List<Card> selectCardsToDiscard(int number, List<Card> cards);
+	List<Card> selectCardsToDiscard(int number, List<Card> cards, String title);
 
 	/**
 	 * Asynchronously arrange many cards. The callback function must provide a new
@@ -83,22 +70,22 @@ public interface PlayerInteraction {
 	 * @param cards    cards to arrange
 	 * @param callback callback function with the arranged list of cards
 	 */
-	void arrangeCards(List<Card> cards, Consumer<List<Card>> callback);
+	void arrangeCards(List<Card> cards, String title, Consumer<List<Card>> callback);
 
 	/**
 	 * Display cities to the user without blocking
 	 * 
 	 * @param cities
 	 */
-	default void displayCities(Set<City> cities) {
+	default void displayCities(Set<City> cities, String title) {
 		List<Card> cityCardList = new ArrayList<>();
 		cities.forEach(card -> cityCardList.add(new CardCity(card)));
-		displayCards(cityCardList);
+		displayCards(cityCardList, title);
 	}
 
 	/**
 	 * Display cards to the user without blocking
 	 * 
 	 */
-	void displayCards(List<Card> cards);
+	void displayCards(List<Card> cards, String title);
 }

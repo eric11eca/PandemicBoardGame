@@ -22,11 +22,11 @@ public class UICardArranger extends JPanel implements UI {
 	private JButton confirmButton;
 	private JPanel cardPanel;
 
-	public UICardArranger(String title, List<Card> cards, Render render, Consumer<List<Card>> action) {
+	public UICardArranger(List<Card> cards, Render render, Consumer<List<Card>> action) {
 		this.action = action;
 		this.setLayout(new BorderLayout());
 		JPanel labelPanel = new JPanel(new BorderLayout());
-		titleLabel = new JLabel(title);
+		titleLabel = new JLabel("Please arrange. The first card will be on top of the deck");
 		labelPanel.add(titleLabel, BorderLayout.NORTH);
 		add(labelPanel, BorderLayout.NORTH);
 

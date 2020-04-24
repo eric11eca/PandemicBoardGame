@@ -14,7 +14,7 @@ public class ActionDirectFlight extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getDirectFlightCards(), card -> {
+		interaction.selectOneCardFrom(getDirectFlightCards(), "action.direct_flight.select_destination", card -> {
 			performDirectFlightAction(card, completionCallback);
 		});
 	}

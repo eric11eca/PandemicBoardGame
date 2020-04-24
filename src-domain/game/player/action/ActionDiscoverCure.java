@@ -23,10 +23,11 @@ public class ActionDiscoverCure extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectColorFrom(getCanCureColors(), color -> {
-			interaction.selectCardsFrom(cardNeeded, getDiscoverCureCards(color), cards -> {
-				performDiscoverCureAction(color, cards, completionCallback);
-			});
+		interaction.selectColorFrom(getCanCureColors(), "action.discover_cure.select_color", color -> {
+			interaction.selectCardsFrom(cardNeeded, getDiscoverCureCards(color), "action.discover_cure.select_cards",
+					cards -> {
+						performDiscoverCureAction(color, cards, completionCallback);
+					});
 		});
 	}
 

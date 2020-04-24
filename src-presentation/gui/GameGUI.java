@@ -186,4 +186,8 @@ public class GameGUI {
 		update();
 	}
 
+	public JFrame getGameFrame() {
+		return frame;
+	}
+
 }

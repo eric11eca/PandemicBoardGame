@@ -19,9 +19,9 @@ public class ActionCharterFlight extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getCharterFlightCards(), card -> {
+		interaction.selectOneCardFrom(getCharterFlightCards(), "action.charter_flight.select_card", card -> {
 			Set<City> allExceptCurrent = cities.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation()));
-			interaction.selectCityFrom(allExceptCurrent, city -> {
+			interaction.selectCityFrom(allExceptCurrent, "action.charter_flight.select_destination", city -> {
 				this.performCharterFlightAction(card, city, completionCallback);
 			});
 		});

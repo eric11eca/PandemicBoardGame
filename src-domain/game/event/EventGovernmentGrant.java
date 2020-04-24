@@ -17,7 +17,7 @@ public class EventGovernmentGrant implements Event {
 	@Override
 	public void executeEvent(PlayerInteraction interaction) {
 		interaction.selectCityFrom(cities.getCitiesSatisfying(c -> !c.hasResearchStation()),
-				c -> c.buildResearchStation());
+				"event.government_grant.select_city", c -> c.buildResearchStation());
 	}
 
 }

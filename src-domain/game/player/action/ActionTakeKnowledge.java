@@ -17,11 +17,13 @@ public class ActionTakeKnowledge extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(getOtherPlayersWithCurrentCityCard(), giver -> {
-			interaction.selectOneCardFrom(giver.getSharableKnowledgeCards(player()), shared -> {
-				this.performTakeKnowledgeAction(giver, shared, completionCallback);
-			});
-		});
+		interaction.selectPlayerFrom(getOtherPlayersWithCurrentCityCard(), "action.take_knowledge.select_giver",
+				giver -> {
+					interaction.selectOneCardFrom(giver.getSharableKnowledgeCards(player()),
+							"action.take_knowledge.select_card", shared -> {
+								this.performTakeKnowledgeAction(giver, shared, completionCallback);
+							});
+				});
 	}
 
 	@Override

@@ -18,9 +18,10 @@ public class ActionShuttleFlight extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectCityFrom(getCitiesWithResearchStationExceptCurrent(), city -> {
-			performShuttleFlightAction(city, completionCallback);
-		});
+		interaction.selectCityFrom(getCitiesWithResearchStationExceptCurrent(),
+				"action.shuttle_flight.select_destination", city -> {
+					performShuttleFlightAction(city, completionCallback);
+				});
 	}
 
 	@Override

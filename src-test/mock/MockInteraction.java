@@ -81,25 +81,25 @@ public class MockInteraction implements PlayerInteraction {
 	public interface MethodDisplayCards extends Consumer<List<Card>>{}
 	public interface MethodDiscardCards extends BiFunction<Integer,List<Card>,List<Card>>{}
 	@Override
-	public void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback) 
+	public void selectColorFrom(Set<GameColor> colors,String title, Consumer<GameColor> callback) 
 	{selectColorFromImpl.accept(colors, callback);}
 	@Override
-	public void selectPlayerFrom(List<Player> players, Consumer<Player> callback) 
+	public void selectPlayerFrom(List<Player> players,String title, Consumer<Player> callback) 
 	{selectPlayerFromImpl.accept(players, callback);}
 	@Override
-	public void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback)
+	public void selectCardsFrom(int number, List<Card> cards, String title,Consumer<List<Card>> callback)
 	{selectCardsFromImpl.selectCardsFrom(number, cards, callback);}
 	@Override
-	public void selectCityFrom(Set<City> cities, Consumer<City> callback) 
+	public void selectCityFrom(Set<City> cities, String title,Consumer<City> callback) 
 	{selectCityFromImpl.accept(cities, callback);}
 	@Override
-	public List<Card> selectCardsToDiscard(int number, List<Card> cards) 
+	public List<Card> selectCardsToDiscard(int number, List<Card> cards,String title) 
 	{return selectCardsToDiscardImpl.apply(number, cards);}
 	@Override
-	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) 
+	public void arrangeCards(List<Card> cards,String title, Consumer<List<Card>> callback) 
 	{arrangeCardsImpl.arrangeCards(cards, callback);}
 	@Override
-	public void displayCards(List<Card> cards)
+	public void displayCards(List<Card> cards,String title)
 	{displayCardImpl.accept(cards);}
 
 	//@formatter:on

@@ -88,7 +88,9 @@ public class TurnController {
 					Set<City> set = new HashSet<>();
 					set.add(city);
 					return set;
-				}).ifPresent(interaction::displayCities);
+				}).ifPresent(cities -> {
+					interaction.displayCities(cities, "turn.infection");
+				});
 				remainingInfection--;
 			}
 			if (remainingInfection == 0) {
@@ -107,6 +109,7 @@ public class TurnController {
 			isInfectionStage = true;
 			remainingInfection = game.getInfectionRate();
 		} else {
+			isInfectionStage = true;
 			skipInfection = false;
 		}
 	}
@@ -127,7 +130,7 @@ public class TurnController {
 			}
 			cards.add(playerDeck.takeTopCard());
 		}
-		interaction.displayCards(cards);
+		interaction.displayCards(cards, "turn.draw_cards");
 		playerControllers[current].givePlayerCards(cards);
 	}
 

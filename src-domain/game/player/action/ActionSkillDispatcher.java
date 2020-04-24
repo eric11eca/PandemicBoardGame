@@ -19,8 +19,8 @@ public class ActionSkillDispatcher extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(getMovablePlayers(), toMove -> {
-			interaction.selectCityFrom(getMovableCities(toMove), toMoveTo -> {
+		interaction.selectPlayerFrom(getMovablePlayers(), "action.skill.dispatcher.select_player", toMove -> {
+			interaction.selectCityFrom(getMovableCities(toMove), "action.skill.dispatcher.select_city", toMoveTo -> {
 				this.performSpecialSkill(toMove, toMoveTo, completionCallback);
 			});
 		});

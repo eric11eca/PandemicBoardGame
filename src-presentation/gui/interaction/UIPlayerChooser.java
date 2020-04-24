@@ -15,9 +15,9 @@ import gui.view.UI;
 
 @SuppressWarnings("serial")
 public class UIPlayerChooser extends JPanel implements UI {
-	public UIPlayerChooser(List<Player> toChoose, Consumer<Player> action) {
+	public UIPlayerChooser(String title, List<Player> toChoose, Consumer<Player> action) {
 		setLayout(new BorderLayout());
-		JLabel titleLabel = new JLabel("Choose a player:");
+		JLabel titleLabel = new JLabel(title);
 		add(titleLabel, BorderLayout.NORTH);
 		JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 		for (Player choice : toChoose) {

@@ -21,10 +21,11 @@ public class EventAirlift implements Event {
 
 	@Override
 	public void executeEvent(PlayerInteraction interaction) {
-		interaction.selectPlayerFrom(players, p -> {
-			interaction.selectCityFrom(cities.getCitiesSatisfying(c -> !p.getLocation().equals(c)), c -> {
-				p.setLocation(c);
-			});
+		interaction.selectPlayerFrom(players, "event.airlift.select_player", p -> {
+			interaction.selectCityFrom(cities.getCitiesSatisfying(c -> !p.getLocation().equals(c)),
+					"event.airlift.select_destination", c -> {
+						p.setLocation(c);
+					});
 		});
 	}
 }

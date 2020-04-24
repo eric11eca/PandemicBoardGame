@@ -23,10 +23,11 @@ public class ActionSkillOperationsExpert extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(this.getCityCards(), card -> {
-			interaction.selectCityFrom(citySet.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation())), city -> {
-				this.performSpecialSkill(card, city, completionCallback);
-			});
+		interaction.selectOneCardFrom(this.getCityCards(), "action.skill.operation_expert.select_card", card -> {
+			interaction.selectCityFrom(citySet.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation())),
+					"action.skill.operation_expert.select_destination", city -> {
+						this.performSpecialSkill(card, city, completionCallback);
+					});
 		});
 	}
 

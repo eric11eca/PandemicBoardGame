@@ -27,7 +27,7 @@ public class EventForecast implements Event {
 		for (int i = 0; i < FORECAST_CARD_NUMBER && !infectionDeck.isEmpty(); i++) {
 			toArrange.add(infectionDeck.takeTopCard());
 		}
-		interaction.arrangeCards(toArrange, this::putArrangedCardsBack);
+		interaction.arrangeCards(toArrange, "event.forecast.arrange_cards", this::putArrangedCardsBack);
 	}
 
 	private void putArrangedCardsBack(List<Card> arranged) {

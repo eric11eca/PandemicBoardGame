@@ -17,10 +17,11 @@ public class ActionGiveKnowledge extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(getOtherSharablePlayers(), taker -> {
-			interaction.selectOneCardFrom(player().getSharableKnowledgeCards(taker), shared -> {
-				this.performGiveKnowledgeAction(taker, shared, completionCallback);
-			});
+		interaction.selectPlayerFrom(getOtherSharablePlayers(), "action.give_knowledge.select_taker", taker -> {
+			interaction.selectOneCardFrom(player().getSharableKnowledgeCards(taker),
+					"action.give_knowledge.select_card", shared -> {
+						this.performGiveKnowledgeAction(taker, shared, completionCallback);
+					});
 		});
 	}
 

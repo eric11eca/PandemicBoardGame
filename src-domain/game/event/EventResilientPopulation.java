@@ -16,7 +16,8 @@ public class EventResilientPopulation implements Event {
 
 	@Override
 	public void executeEvent(PlayerInteraction interaction) {
-		interaction.selectOneCardFrom(infectionDiscard.getFilteredSubDeck(c -> true), infectionDiscard::removeCard);
+		interaction.selectOneCardFrom(infectionDiscard.getFilteredSubDeck(c -> true),
+				"event.resilient_population.select_card", infectionDiscard::removeCard);
 	}
 
 }

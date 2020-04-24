@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import javax.swing.JOptionPane;
+
 import game.GameColor;
 import game.cards.Card;
 import game.cards.CardCity;
@@ -14,6 +16,7 @@ import game.player.PlayerInteraction;
 import gui.interaction.UICardArranger;
 import gui.interaction.UICardChooser;
 import gui.interaction.UIColorChooser;
+import gui.interaction.UIDiscarder;
 import gui.interaction.UIPlayerChooser;
 import render.Render;
 
@@ -27,37 +30,37 @@ public class GUIInteraction implements PlayerInteraction {
 	}
 
 	@Override
-	public void selectColorFrom(Set<GameColor> colors, Consumer<GameColor> callback) {
-		UIColorChooser chooser = new UIColorChooser(colors, color -> {
+	public void selectColorFrom(Set<GameColor> colors, String title, Consumer<GameColor> callback) {
+		UIColorChooser chooser = new UIColorChooser(title, colors, color -> {
 			gui.hidePopup();
 			callback.accept(color);
 			gui.update();
 		});
-		gui.displayPopup("Choose Color", chooser);
+		gui.displayPopup(title, chooser);
 	}
 
 	@Override
-	public void selectPlayerFrom(List<Player> players, Consumer<Player> callback) {
-		UIPlayerChooser chooser = new UIPlayerChooser(players, player -> {
+	public void selectPlayerFrom(List<Player> players, String title, Consumer<Player> callback) {
+		UIPlayerChooser chooser = new UIPlayerChooser(title, players, player -> {
 			gui.hidePopup();
 			callback.accept(player);
 			gui.update();
 		});
-		gui.displayPopup("Choose Player", chooser);
+		gui.displayPopup(title, chooser);
 	}
 
 	@Override
-	public void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
+	public void selectCardsFrom(int number, List<Card> cards, String title, Consumer<List<Card>> callback) {
 		UICardChooser chooser = new UICardChooser(number, cards, render, list -> {
 			gui.hidePopup();
 			callback.accept(list);
 			gui.update();
 		}, true);
-		gui.displayPopup("Select Cards", chooser);
+		gui.displayPopup(title, chooser);
 	}
 
 	@Override
-	public void selectCityFrom(Set<City> cities, Consumer<City> callback) {
+	public void selectCityFrom(Set<City> cities, String title, Consumer<City> callback) {
 		List<Card> cityCardList = new ArrayList<>();
 		cities.forEach(card -> cityCardList.add(new CardCity(card)));
 		UICardChooser chooser = new UICardChooser(1, cityCardList, render, list -> {
@@ -67,44 +70,35 @@ public class GUIInteraction implements PlayerInteraction {
 			callback.accept(chosen);
 			gui.update();
 		}, true);
-		gui.displayPopup("Select A City", chooser);
+		gui.displayPopup(title, chooser);
 
 	}
 
 	@Override
-	public void selectCardsToDiscard(int number, List<Card> cards, Consumer<List<Card>> callback) {
-		UICardChooser chooser = new UICardChooser(number, cards, render, list -> {
+	public void arrangeCards(List<Card> cards, String title, Consumer<List<Card>> callback) {
+		UICardArranger chooser = new UICardArranger(cards, render, list -> {
 			gui.hidePopup();
 			callback.accept(list);
 			gui.update();
-		}, false);
-		gui.displayPopup("Select Cards To Discard", chooser);
+		});
+		gui.displayPopup(title, chooser);
 	}
 
 	@Override
-	public void arrangeCards(List<Card> cards, Consumer<List<Card>> callback) {
-		UICardArranger chooser = new UICardArranger("Please arrange. The first card will be on top of the deck", cards,
-				render, list -> {
-					gui.hidePopup();
-					callback.accept(list);
-					gui.update();
-				});
-		gui.displayPopup("Arrange", chooser);
-	}
-
-	@Override
-	public void displayCards(List<Card> cards) {
+	public void displayCards(List<Card> cards, String title) {
 		UICardChooser chooser = new UICardChooser(0, cards, render, list -> {
 			gui.hidePopup();
 			gui.update();
 		}, false);
-		gui.displayPopup("Cities", chooser);
+		gui.displayPopup(title, chooser);
 	}
 
 	@Override
-	public List<Card> selectCardsToDiscard(int number, List<Card> cards) {
-		// TODO implement with JOptionPane
-		return null;
+	public List<Card> selectCardsToDiscard(int number, List<Card> cards, String title) {
+		gui.hidePopup();
+		UIDiscarder discarder = new UIDiscarder(number, cards, render);
+		JOptionPane.showMessageDialog(gui.getGameFrame(), discarder, title, JOptionPane.PLAIN_MESSAGE);
+		return discarder.getChosenCards();
 	}
 
 }

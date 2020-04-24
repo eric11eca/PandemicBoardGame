@@ -17,26 +17,20 @@ import gui.view.UI;
 import render.Render;
 
 @SuppressWarnings("serial")
-public class UICardChooser extends JPanel implements UI {
+public class UIDiscarder extends JPanel implements UI {
 	private UICard[] toChoose;
+	private boolean[] chosen;
 	private int numberToChoose;
-	private Consumer<List<Card>> action;
 	private JLabel countLabel;
-	private JButton confirmButton;
-	private boolean forceEqual;
 
-	public UICardChooser(int numberToChoose, List<Card> cards, Render render, Consumer<List<Card>> action,
-			boolean forceEqual) {
-		this.action = action;
-		this.forceEqual = forceEqual;
+	public UIDiscarder(int numberToChoose, List<Card> cards, Render render) {
 		this.numberToChoose = numberToChoose;
 		this.setLayout(new BorderLayout());
-		if (numberToChoose > 0) {
-			countLabel = new JLabel();
-			add(countLabel, BorderLayout.NORTH);
-		}
+		countLabel = new JLabel();
+		add(countLabel, BorderLayout.NORTH);
 
 		toChoose = new UICard[cards.size()];
+		chosen = new boolean[cards.size()];
 		JPanel cardPanel = new JPanel();
 		int i = 0;
 		for (Card c : cards) {
@@ -62,27 +56,30 @@ public class UICardChooser extends JPanel implements UI {
 		// scroll.setPreferredSize(new Dimension(700, 300));
 		// scroll.add(cardPanel);
 		add(cardPanel, BorderLayout.CENTER);
-		if (numberToChoose > 0) {
-			JPanel buttonPanel = new JPanel();
-			confirmButton = new JButton("OK");
-			confirmButton.addActionListener(e -> confirmChoice());
-			buttonPanel.add(confirmButton);
-			add(buttonPanel, BorderLayout.SOUTH);
-		}
+//		if (numberToChoose > 0) {
+//			JPanel buttonPanel = new JPanel();
+//			confirmButton = new JButton("OK");
+//			confirmButton.addActionListener(e -> confirmChoice());
+//			buttonPanel.add(confirmButton);
+//			add(buttonPanel, BorderLayout.SOUTH);
+//		}
 		// setPreferredSize(new Dimension(500, 400));
 		update();
 	}
 
 	@Override
 	public void update() {
-		if (numberToChoose > 0) {
-			countLabel.setText("(" + chosenSize() + "/" + numberToChoose + ")");
-			if (forceEqual) {
-				confirmButton.setEnabled(chosenSize() == numberToChoose);
-			} else {
-				confirmButton.setEnabled(chosenSize() <= numberToChoose);
+		if (chosenSize() > numberToChoose) {
+			for (int i = 0; i < toChoose.length; i++) {
+				toChoose[i].setSelected(chosen[i]);
+			}
+		} else {
+			for (int i = 0; i < toChoose.length; i++) {
+				chosen[i] = toChoose[i].isSelected();
 			}
 		}
+		countLabel.setText("(" + chosenSize() + "/" + numberToChoose + ")");
+
 		// validate();
 		repaint();
 	}
@@ -96,11 +93,7 @@ public class UICardChooser extends JPanel implements UI {
 		return chosen;
 	}
 
-	public void confirmChoice() {
-		action.accept(getChosenCards());
-	}
-
-	private List<Card> getChosenCards() {
+	public List<Card> getChosenCards() {
 		List<Card> chosenCard = new ArrayList<>();
 		for (UICard cardUI : toChoose) {
 			if (cardUI.isSelected())

@@ -17,7 +17,8 @@ public class ActionDispatcherMove extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(getPlayers(), player -> dispatchedActions.get(player).perform(completionCallback));
+		interaction.selectPlayerFrom(getPlayers(), "action.dispatcher_move.select_player",
+				player -> dispatchedActions.get(player).perform(completionCallback));
 	}
 
 	protected List<Player> getPlayers() {

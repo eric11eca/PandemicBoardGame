@@ -17,9 +17,10 @@ public class ActionTreatDisease extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectColorFrom(playerCurrentLocation().getExistingDiseases(), color -> {
-			performTreatDisease(color, completionCallback);
-		});
+		interaction.selectColorFrom(playerCurrentLocation().getExistingDiseases(), "action.treat_disease.select_color",
+				color -> {
+					performTreatDisease(color, completionCallback);
+				});
 	}
 
 	@Override

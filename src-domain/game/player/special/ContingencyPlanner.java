@@ -36,4 +36,13 @@ public class ContingencyPlanner extends AbstractPlayerDecorator {
 		return hand;
 	}
 
+	@Override
+	public void discardCard(Card toDiscard) {
+		if (toDiscard.equals(eventReused)) {
+			eventReused = null;
+		} else {
+			super.discardCard(toDiscard);
+		}
+	}
+
 }

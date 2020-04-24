@@ -14,9 +14,9 @@ import gui.view.UI;
 
 @SuppressWarnings("serial")
 public class UIColorChooser extends JPanel implements UI {
-	public UIColorChooser(Set<GameColor> toChoose, Consumer<GameColor> action) {
+	public UIColorChooser(String title, Set<GameColor> toChoose, Consumer<GameColor> action) {
 		setLayout(new BorderLayout());
-		JLabel titleLabel = new JLabel("Choose a color:");
+		JLabel titleLabel = new JLabel(title);
 		add(titleLabel, BorderLayout.NORTH);
 		JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 		for (GameColor choice : GameColor.values()) {

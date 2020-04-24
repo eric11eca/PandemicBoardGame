@@ -22,7 +22,8 @@ public class ActionSkillContingencyPlanner extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getDiscardedEventCards(), card -> performSpecialSkill(card, completionCallback));
+		interaction.selectOneCardFrom(getDiscardedEventCards(), "action.skill.contingency_planner",
+				card -> performSpecialSkill(card, completionCallback));
 	}
 
 	@Override

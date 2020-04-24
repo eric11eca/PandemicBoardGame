@@ -18,7 +18,8 @@ public class ActionDrive extends Action {
 	@Override
 	public void perform(Runnable completionCallback) {
 		Set<City> neighbors = cities.getCitiesSatisfying(playerCurrentLocation()::isNeighboring);
-		interaction.selectCityFrom(neighbors, city -> performDriveAction(city, completionCallback));
+		interaction.selectCityFrom(neighbors, "action.drive.select_city",
+				city -> performDriveAction(city, completionCallback));
 	}
 
 	@Override

@@ -19,8 +19,8 @@ public class ActionEventCard extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(playersWithEventCards(), p -> {
-			interaction.selectOneCardFrom(getEventCardsFromPlayer(p), card -> {
+		interaction.selectPlayerFrom(playersWithEventCards(), "action.event.select_player", p -> {
+			interaction.selectOneCardFrom(getEventCardsFromPlayer(p), "action.event.select_event_card", card -> {
 				this.performEventCardAction(p, card, completionCallback);
 			});
 		});

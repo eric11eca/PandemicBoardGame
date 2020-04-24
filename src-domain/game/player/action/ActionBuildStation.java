@@ -22,7 +22,7 @@ public class ActionBuildStation extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getBuildResearchStationCards(),
+		interaction.selectOneCardFrom(getBuildResearchStationCards(), "action.build_station.select_card",
 				card -> this.afterSelectingCard(card, completionCallback));
 	}
 
@@ -45,7 +45,7 @@ public class ActionBuildStation extends Action {
 	protected void afterSelectingCard(Card selectedCard, Runnable completionCallback) {
 		final int MAX_STATION_COUNT = GameProperty.getInstance().getInt("MAX_STATION_COUNT");
 		if (getStationCount() > MAX_STATION_COUNT) {
-			interaction.selectCityFrom(getCitiesWithStation(), city -> {
+			interaction.selectCityFrom(getCitiesWithStation(), "action.build_station.select_city_remove", city -> {
 				city.removeResearchStation();
 				this.performBuildStationActionWithCard(selectedCard, completionCallback);
 			});

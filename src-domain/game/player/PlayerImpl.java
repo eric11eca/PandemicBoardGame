@@ -40,7 +40,8 @@ public class PlayerImpl implements Player {
 	public void receiveCard(List<Card> cards) {
 		cards.forEach(card -> card.addToHand(hand));
 		while (hand.size() > getHandLimit()) {
-			List<Card> toDiscard = interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList());
+			List<Card> toDiscard = interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList(),
+					"PLAYER_DISCARD");
 			this.discardCards(toDiscard);
 		}
 	}
