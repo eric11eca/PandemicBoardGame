@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import game.ActionType;
 import game.player.Player;
 import game.player.PlayerRole;
 import game.player.action.Action;
@@ -15,6 +14,7 @@ import game.player.action.ActionDispatcherMove;
 import game.player.action.ActionDrive;
 import game.player.action.ActionShuttleFlight;
 import game.player.action.ActionSkillDispatcher;
+import game.player.action.ActionType;
 import game.player.special.DispatchedPlayer;
 
 public class DispatcherFactory extends AbstractPlayerFactory {

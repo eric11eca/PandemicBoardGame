@@ -3,10 +3,10 @@ package game.player;
 import java.util.List;
 import java.util.Map;
 
-import game.ActionType;
 import game.cards.Card;
 import game.city.City;
 import game.player.action.Action;
+import game.player.action.ActionType;
 
 /**
  * The PlayerController encapsulates a role and a player. The role is

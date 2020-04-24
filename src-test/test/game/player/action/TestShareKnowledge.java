@@ -1,9 +1,10 @@
 package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -12,7 +13,6 @@ import org.junit.Test;
 
 import game.cards.Card;
 import game.cards.CardCity;
-import game.cards.Deck;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerImpl;
@@ -23,84 +23,89 @@ import mock.MockCityBuilder;
 import mock.MockInteraction;
 
 public class TestShareKnowledge {
-	Player giver;
-	Player receiver;
-	
-	City newyorkCity;
-	MockCityBuilder newyorkBuilder;
-	Card newyorkCard;
+	private Player giver;
+	private Player receiver;
 
-	MockCityBuilder cityFactory = new MockCityBuilder();
-	boolean cbExecuted;
-	MockInteraction giverInteraction;
-	MockInteraction receiverInteraction;
+	private City newyorkCity;
+	private Card newyorkCard;
 
-	Deck discard;
-	List<Player> playerList;
-	List<Card> cardList;
+	private boolean cbExecuted;
+	private MockInteraction giverInteraction;
+	private MockInteraction receiverInteraction;
+
+	private List<Player> playerList;
 
 	@Before
 	public void setup() {
-		newyorkBuilder = new MockCityBuilder().name("NewYork");
-		newyorkCity = newyorkBuilder.build();
+		newyorkCity = new MockCityBuilder().name("NewYork").build();
 		newyorkCard = new CardCity(newyorkCity);
-		
+
 		cbExecuted = false;
-		
-		receiver = new PlayerImpl(null, newyorkCity, new Deck(), new MockInteraction());
-		
-		playerList = new ArrayList<>();
-		playerList.add(receiver);
-		cardList = new ArrayList<>();
-		cardList.add(newyorkCard);
-		
-		giverInteraction = new MockInteraction();
-		giverInteraction.implementSelectCardsFrom(this::selectCardsFrom);
-		giverInteraction.implementSelectPlayerFrom((players, callback) -> {
-			assertTrue(players.contains(receiver));
-			callback.accept(receiver);
-		});
-		
-		discard = new Deck();
-		giver = new PlayerImpl(null, newyorkCity, discard, giverInteraction);
-		giver.receiveCard(newyorkCard);		
+
+		giverInteraction = new MockInteraction().implementSelectCardsFrom(this::selectNewYork)
+				.implementSelectPlayerFrom(this::selectReceiver);
+		receiverInteraction = new MockInteraction().implementSelectPlayerFrom(this::selectGiver)
+				.implementSelectCardsFrom(this::selectNewYork);
+
+		giver = new PlayerImpl(null, newyorkCity, null, giverInteraction);
+		giver.receiveCard(newyorkCard);
+		receiver = new PlayerImpl(null, newyorkCity, null, receiverInteraction);
+
+		playerList = Arrays.asList(receiver, giver);
 	}
 
 	@Test
 	public void testGiveCard() {
 		assertEquals(newyorkCity, giver.getLocation());
 		assertEquals(newyorkCity, receiver.getLocation());
-		
+		assertEquals(1, giver.getFilteredHand(c -> true).size());
+		assertEquals(0, receiver.getFilteredHand(c -> true).size());
 		Action action = new ActionGiveKnowledge(giver, giverInteraction, playerList);
+		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
 
 		assertTrue(cbExecuted);
+		assertEquals(0, giver.getFilteredHand(c -> true).size());
+		assertEquals(1, receiver.getFilteredHand(c -> true).size());
 	}
-	
+
 	@Test
 	public void testTakeCard() {
-		receiverInteraction = new MockInteraction();
-		receiver = new PlayerImpl(null, newyorkCity, new Deck(), receiverInteraction);
-		receiverInteraction.implementSelectPlayerFrom((players, callback) -> {
-			assertTrue(players.contains(giver));
-			callback.accept(giver);
-		});
-		receiverInteraction.implementSelectCardsFrom(this::selectCardsFrom);
-		
-		playerList = new ArrayList<>();
-		playerList.add(giver);
-		
+
 		assertEquals(newyorkCity, giver.getLocation());
 		assertEquals(newyorkCity, receiver.getLocation());
-		
+		assertEquals(1, giver.getFilteredHand(c -> true).size());
+		assertEquals(0, receiver.getFilteredHand(c -> true).size());
 		Action action = new ActionTakeKnowledge(receiver, receiverInteraction, playerList);
+		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
 
 		assertTrue(cbExecuted);
+		assertEquals(0, giver.getFilteredHand(c -> true).size());
+		assertEquals(1, receiver.getFilteredHand(c -> true).size());
 	}
-	
-	private void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
+
+	@Test
+	public void testCannotPerform() {
+		giver.setLocation(new MockCityBuilder().build());
+		Action action = new ActionTakeKnowledge(receiver, receiverInteraction, playerList);
+		assertFalse(action.canPerform());
+		Action action2 = new ActionGiveKnowledge(giver, receiverInteraction, playerList);
+		assertFalse(action2.canPerform());
+	}
+
+	private void selectNewYork(int number, List<Card> cards, Consumer<List<Card>> callback) {
 		assertTrue(cards.contains(newyorkCard));
-		callback.accept(cardList);
+		callback.accept(Arrays.asList(newyorkCard));
+	}
+
+	private void selectReceiver(List<Player> players, Consumer<Player> callback) {
+		assertTrue(players.contains(receiver));
+		callback.accept(receiver);
+	}
+
+	private void selectGiver(List<Player> players, Consumer<Player> callback) {
+		assertTrue(players.contains(giver));
+		callback.accept(giver);
 	}
 }

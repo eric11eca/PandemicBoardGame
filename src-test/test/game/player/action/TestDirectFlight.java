@@ -1,12 +1,11 @@
 package test.game.player.action;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 
 import org.junit.Before;
@@ -24,17 +23,14 @@ import mock.MockCityBuilder;
 import mock.MockInteraction;
 
 public class TestDirectFlight {
-	Player player;
-	City chicagoCity, newyorkCity;
+	private Player player;
+	private City chicagoCity, newyorkCity;
 
-	MockCityBuilder cityFactory = new MockCityBuilder();
-	boolean cbExecuted;
-	MockInteraction interaction;
+	private boolean cbExecuted;
+	private MockInteraction interaction;
 
-	Card chicagoCard;
-	List<Card> cardList;
-
-	Deck discard;
+	private Card chicagoCard;
+	private Deck discard;
 
 	@Before
 	public void setup() {
@@ -48,8 +44,6 @@ public class TestDirectFlight {
 		chicagoBuilder.neighborSet().add(newyorkCity);
 
 		chicagoCard = new CardCity(chicagoCity);
-		cardList = new ArrayList<>();
-		cardList.add(chicagoCard);
 
 		cbExecuted = false;
 		interaction = new MockInteraction();
@@ -57,16 +51,16 @@ public class TestDirectFlight {
 
 		discard = new Deck();
 		player = new PlayerImpl(null, newyorkCity, discard, interaction);
-		player.receiveCard(chicagoCard);
+
 	}
 
 	@Test
 	public void testSuccessDirectFlight() {
-		Set<City> citySet = new HashSet<>();
-		citySet.add(chicagoCity);
+		player.receiveCard(chicagoCard);
 		assertEquals(newyorkCity, player.getLocation());
 
 		Action action = new ActionDirectFlight(player, interaction);
+		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
 
 		assertTrue(cbExecuted);
@@ -74,7 +68,22 @@ public class TestDirectFlight {
 		assertTrue(discard.contains(chicagoCard));
 	}
 
+	@Test
+	public void testCannotPerformHasNoCard() {
+		Action action = new ActionDirectFlight(player, interaction);
+		assertFalse(action.canPerform());
+	}
+
+	@Test
+	public void testCannotPerformAlreadyThere() {
+		player.receiveCard(chicagoCard);
+		player.setLocation(chicagoCity);
+		Action action = new ActionDirectFlight(player, interaction);
+		assertFalse(action.canPerform());
+	}
+
 	private void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
-		callback.accept(cardList);
+		assertTrue(cards.contains(chicagoCard));
+		callback.accept(Arrays.asList(chicagoCard));
 	}
 }

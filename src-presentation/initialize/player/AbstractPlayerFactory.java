@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import data.GameProperty;
-import game.ActionType;
 import game.GameColor;
 import game.cards.Deck;
 import game.city.City;
@@ -27,6 +26,7 @@ import game.player.action.ActionGiveKnowledge;
 import game.player.action.ActionShuttleFlight;
 import game.player.action.ActionTakeKnowledge;
 import game.player.action.ActionTreatDisease;
+import game.player.action.ActionType;
 
 public abstract class AbstractPlayerFactory {
 

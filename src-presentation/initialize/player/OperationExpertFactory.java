@@ -2,12 +2,12 @@ package initialize.player;
 
 import java.util.Map;
 
-import game.ActionType;
 import game.player.Player;
 import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionBuildStation;
 import game.player.action.ActionSkillOperationsExpert;
+import game.player.action.ActionType;
 
 public class OperationExpertFactory extends AbstractPlayerFactory {
 

@@ -33,7 +33,7 @@ public class ActionDiscoverCure extends Action {
 
 	@Override
 	public boolean canPerform() {
-		return !getCanCureColors().isEmpty();
+		return playerCurrentLocation().hasResearchStation() && !getCanCureColors().isEmpty();
 	}
 
 	protected List<Card> getDiscoverCureCards(GameColor color) {
@@ -60,11 +60,12 @@ public class ActionDiscoverCure extends Action {
 
 	protected Set<GameColor> getCanCureColors() {
 		Set<GameColor> canCure = EnumSet.noneOf(GameColor.class);
-		canCure.removeAll(curedDiseases);
+
 		for (GameColor color : GameColor.values()) {
 			if (getDiscoverCureCards(color).size() >= cardNeeded)
 				canCure.add(color);
 		}
+		canCure.removeAll(curedDiseases);
 		return canCure;
 	}
 }

@@ -1,4 +1,4 @@
-package game;
+package game.player.action;
 
 public enum ActionType {
 	//@formatter:off

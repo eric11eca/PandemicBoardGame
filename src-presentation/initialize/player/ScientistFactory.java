@@ -3,11 +3,11 @@ package initialize.player;
 import java.util.Map;
 
 import data.GameProperty;
-import game.ActionType;
 import game.player.Player;
 import game.player.PlayerRole;
 import game.player.action.Action;
 import game.player.action.ActionDiscoverCure;
+import game.player.action.ActionType;
 
 public class ScientistFactory extends AbstractPlayerFactory {
 

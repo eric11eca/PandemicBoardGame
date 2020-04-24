@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import game.ActionType;
 import game.TurnController;
+import game.player.action.ActionType;
 import gui.GameGUI;
 
 @SuppressWarnings("serial")
