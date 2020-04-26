@@ -17,7 +17,7 @@ public class CardEvent implements Card {
 
 	public CardEvent(Event event) {
 		super();
-		this.event = event;
+		this.event = Objects.requireNonNull(event);
 	}
 
 	@Override

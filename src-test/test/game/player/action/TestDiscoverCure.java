@@ -60,8 +60,11 @@ public class TestDiscoverCure {
 		player.receiveCard(cardList());
 
 		Action action = new ActionDiscoverCure(player, interaction, diseases, 5);
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
+		interaction.verifySelectColorCalled(1);
+		interaction.verifySelectCardsCalled(1);
 		assertTrue(cbExecuted);
 		assertTrue(diseases.contains(GameColor.RED));
 		assertEquals(5, discard.size());

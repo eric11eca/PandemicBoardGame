@@ -1,4 +1,4 @@
-package test.game.player.action;
+package test.game.event;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,7 +28,7 @@ import game.player.action.ActionEventCard;
 import mock.MockCityBuilder;
 import mock.MockInteraction;
 
-public class TestUseEventCard {
+public class TestAirLift {
 	Player player;
 	City chicagoCity, newyorkCity;
 

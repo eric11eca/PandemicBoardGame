@@ -58,8 +58,10 @@ public class TestDrive {
 		citySet.add(neighborCity);
 
 		Action action = new ActionDrive(new CitySet(citySet), player, interaction);
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
+		interaction.verifySelectCityCalled(1);
 		assertTrue(cbExecuted);
 		assertEquals(player.getLocation(), neighborCity);
 	}

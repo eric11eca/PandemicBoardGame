@@ -61,8 +61,12 @@ public class TestShareKnowledge {
 		assertEquals(1, giver.getFilteredHand(c -> true).size());
 		assertEquals(0, receiver.getFilteredHand(c -> true).size());
 		Action action = new ActionGiveKnowledge(giver, giverInteraction, playerList);
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
+
+		giverInteraction.verifySelectPlayerCalled(1);
+		giverInteraction.verifySelectCardsCalled(1);
 
 		assertTrue(cbExecuted);
 		assertEquals(0, giver.getFilteredHand(c -> true).size());
@@ -77,8 +81,12 @@ public class TestShareKnowledge {
 		assertEquals(1, giver.getFilteredHand(c -> true).size());
 		assertEquals(0, receiver.getFilteredHand(c -> true).size());
 		Action action = new ActionTakeKnowledge(receiver, receiverInteraction, playerList);
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
+
+		receiverInteraction.verifySelectPlayerCalled(1);
+		receiverInteraction.verifySelectCardsCalled(1);
 
 		assertTrue(cbExecuted);
 		assertEquals(0, giver.getFilteredHand(c -> true).size());

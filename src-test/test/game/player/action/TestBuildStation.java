@@ -108,6 +108,7 @@ public class TestBuildStation {
 
 		assertFalse(newyorkCity.hasResearchStation());
 		Action action = new ActionBuildStation(player, interaction, false, new CitySet(citySet));
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
 		assertTrue(cbExecuted);

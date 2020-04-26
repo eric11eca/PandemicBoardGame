@@ -53,8 +53,11 @@ public class TestTreatDisease {
 		assertEquals(1, newyorkCity.getExistingDiseases().size());
 
 		Action action = new ActionTreatDisease(player, interaction, Collections.emptySet());
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
+
+		interaction.verifySelectColorCalled(1);
 
 		assertTrue(cbExecuted);
 		assertEquals(newyorkCity.getExistingDiseases().size(), 0);

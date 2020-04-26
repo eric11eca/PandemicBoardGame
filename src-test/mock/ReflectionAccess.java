@@ -1,4 +1,4 @@
-package test;
+package mock;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

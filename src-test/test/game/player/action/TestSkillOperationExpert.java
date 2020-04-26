@@ -21,11 +21,11 @@ import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerImpl;
 import game.player.action.Action;
-import game.player.action.ActionCharterFlight;
+import game.player.action.ActionSkillOperationsExpert;
 import mock.MockCityBuilder;
 import mock.MockInteraction;
 
-public class TestCharterFlight {
+public class TestSkillOperationExpert {
 	private Player player;
 	private City chicagoCity, newyorkCity;
 	private CitySet cities;
@@ -41,6 +41,7 @@ public class TestCharterFlight {
 	public void setup() {
 		MockCityBuilder newyorkBuilder = new MockCityBuilder().name("NewYork");
 		newyorkCity = newyorkBuilder.build();
+		newyorkCity.buildResearchStation();
 
 		MockCityBuilder chicagoBuilder = new MockCityBuilder().name("Chicago");
 		chicagoCity = chicagoBuilder.build();
@@ -52,7 +53,7 @@ public class TestCharterFlight {
 
 		cbExecuted = false;
 		interaction = new MockInteraction();
-		interaction.implementSelectCardsFrom(this::selectNewYork);
+		interaction.implementSelectCardsFrom(this::selectNewYorkCard);
 		interaction.implementSelectCityFrom(this::selectChicago);
 
 		discard = new Deck();
@@ -61,23 +62,22 @@ public class TestCharterFlight {
 		Set<City> citySet = new HashSet<>();
 		citySet.add(chicagoCity);
 		citySet.add(newyorkCity);
-
 		cities = new CitySet(citySet);
-
 	}
 
 	@Test
-	public void testSuccessCharterFlight() {
+	public void testOperationsExpertMove() {
 
-		assertEquals(newyorkCity, player.getLocation());
+		assertTrue(newyorkCity.equals(player.getLocation()));
+		assertTrue(newyorkCity.hasResearchStation());
 		player.receiveCard(newyorkCard);
 
-		Action action = new ActionCharterFlight(cities, player, interaction);
-		assertFalse(action.isOncePerTurn());
+		Action action = new ActionSkillOperationsExpert(player, interaction, cities);
+		assertTrue(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
-		interaction.verifySelectCityCalled(1);
 		interaction.verifySelectCardsCalled(1);
+		interaction.verifySelectCityCalled(1);
 
 		assertTrue(cbExecuted);
 		assertEquals(chicagoCity, player.getLocation());
@@ -85,18 +85,26 @@ public class TestCharterFlight {
 	}
 
 	@Test
-	public void testCannotPerformNoCard() {
-		Action action = new ActionCharterFlight(cities, player, interaction);
+	public void testCannotPerformNoStation() {
+		player.setLocation(chicagoCity);
+		player.receiveCard(newyorkCard);
+		Action action = new ActionSkillOperationsExpert(player, interaction, cities);
 		assertFalse(action.canPerform());
 	}
 
-	private void selectNewYork(int number, List<Card> cards, Consumer<List<Card>> callback) {
+	@Test
+	public void testCannotPerformNoCard() {
+		Action action = new ActionSkillOperationsExpert(player, interaction, cities);
+		assertFalse(action.canPerform());
+	}
+
+	private void selectNewYorkCard(int number, List<Card> cards, Consumer<List<Card>> callback) {
 		assertTrue(cards.contains(newyorkCard));
 		callback.accept(Arrays.asList(newyorkCard));
 	}
 
-	private void selectChicago(Set<City> cities, Consumer<City> callback) {
-		assertTrue(cities.contains(chicagoCity));
+	private void selectChicago(Set<City> citiesToSelectFrom, Consumer<City> callback) {
+		assertTrue(citiesToSelectFrom.contains(chicagoCity));
 		callback.accept(chicagoCity);
 	}
 }

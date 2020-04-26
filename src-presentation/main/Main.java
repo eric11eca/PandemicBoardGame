@@ -18,7 +18,7 @@ public class Main {
 		SwingUtilities.invokeLater(() -> {
 			GameGUI gui = init.createGUI();
 			gui.showGUI();
-			SwingUtilities.invokeLater(gui::update);
+			gui.update();
 		});
 
 	}

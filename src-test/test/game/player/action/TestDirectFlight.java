@@ -60,8 +60,10 @@ public class TestDirectFlight {
 		assertEquals(newyorkCity, player.getLocation());
 
 		Action action = new ActionDirectFlight(player, interaction);
+		assertFalse(action.isOncePerTurn());
 		assertTrue(action.canPerform());
 		action.perform(() -> cbExecuted = true);
+		interaction.verifySelectCardsCalled(1);
 
 		assertTrue(cbExecuted);
 		assertEquals(chicagoCity, player.getLocation());

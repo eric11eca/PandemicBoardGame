@@ -21,8 +21,8 @@ import game.city.City;
 import game.disease.CubeData;
 import mock.MockCityBuilder;
 import mock.MockGameProperty;
+import mock.ReflectionAccess;
 import render.RenderCity;
-import test.ReflectionAccess;
 
 public class TestCityLoader {
 
