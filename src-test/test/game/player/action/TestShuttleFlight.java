@@ -81,7 +81,6 @@ public class TestShuttleFlight {
 	@Test
 	public void testCannotPerformNoOtherStation() {
 		londonCity.removeResearchStation();
-		player.setLocation(chicagoCity);
 		Action action = new ActionShuttleFlight(cities, player, interaction);
 		assertFalse(action.canPerform());
 

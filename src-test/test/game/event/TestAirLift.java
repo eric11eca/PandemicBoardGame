@@ -8,66 +8,42 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import game.cards.Card;
-import game.cards.CardCity;
 import game.cards.Deck;
-import game.cards.event.CardEvent;
 import game.city.City;
 import game.city.CitySet;
 import game.event.Event;
 import game.event.EventAirlift;
 import game.player.Player;
 import game.player.PlayerImpl;
-import game.player.action.Action;
-import game.player.action.ActionEventCard;
 import mock.MockCityBuilder;
 import mock.MockInteraction;
 
 public class TestAirLift {
-	Player player;
-	City chicagoCity, newyorkCity;
+	private Player player;
+	private City chicagoCity, newyorkCity;
 
-	MockCityBuilder cityFactory = new MockCityBuilder();
-	boolean cbExecuted;
-	MockInteraction interaction;
-
-	Card newyorkCard;
-	Card evetCard;
-	List<Card> cardList;
+	private MockInteraction interaction;
 
 	@Before
 	public void setup() {
-		cardList = new ArrayList<>();
+		newyorkCity = new MockCityBuilder().name("NewYork").build();
+		chicagoCity = new MockCityBuilder().name("Chicago").build();
 
-		MockCityBuilder newyorkBuilder = new MockCityBuilder().name("NewYork");
-		newyorkCity = newyorkBuilder.build();
-
-		newyorkCard = new CardCity(newyorkCity);
-		MockCityBuilder chicagoBuilder = new MockCityBuilder().name("Chicago");
-		chicagoCity = chicagoBuilder.build();
-
-		cbExecuted = false;
-		interaction = new MockInteraction();
-		interaction.implementSelectCardsFrom(this::selectCardsFrom);
-
-		player = new PlayerImpl(null, newyorkCity, new Deck(), interaction);
-		player.receiveCard(newyorkCard);
-
-		interaction.implementSelectPlayerFrom((players, callback) -> {
+		interaction = new MockInteraction().implementSelectPlayerFrom((players, callback) -> {
 			assertTrue(players.contains(player));
 			callback.accept(player);
-		});
-
-		interaction.implementSelectCityFrom((citiesToSelectFrom, callback) -> {
+		}).implementSelectCityFrom((citiesToSelectFrom, callback) -> {
 			assertFalse(citiesToSelectFrom.contains(newyorkCity));
 			assertTrue(citiesToSelectFrom.contains(chicagoCity));
 			callback.accept(chicagoCity);
 		});
+
+		player = new PlayerImpl(null, newyorkCity, new Deck(), interaction);
+
 	}
 
 	@Test
@@ -79,22 +55,15 @@ public class TestAirLift {
 		citySet.add(newyorkCity);
 		citySet.add(chicagoCity);
 
-		Event airlift = new EventAirlift(playerList, new CitySet(citySet));
-		evetCard = new CardEvent(airlift);
-		cardList.add(evetCard);
-		player.receiveCard(evetCard);
-
 		assertEquals(newyorkCity, player.getLocation());
 
-		Action action = new ActionEventCard(interaction, playerList);
-		action.perform(() -> cbExecuted = true);
+		Event event = new EventAirlift(playerList, new CitySet(citySet));
 
-		assertTrue(cbExecuted);
+		event.executeEvent(interaction);
+
 		assertEquals(chicagoCity, player.getLocation());
+		interaction.verifySelectPlayerCalled(1);
+		interaction.verifySelectCityCalled(1);
 	}
 
-	private void selectCardsFrom(int number, List<Card> cards, Consumer<List<Card>> callback) {
-		assertTrue(cards.contains(evetCard));
-		callback.accept(cardList);
-	}
 }

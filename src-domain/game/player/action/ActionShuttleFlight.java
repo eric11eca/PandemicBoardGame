@@ -36,7 +36,6 @@ public class ActionShuttleFlight extends Action {
 	}
 
 	protected void performShuttleFlightAction(City destination, Runnable completionCallback) {
-		assert playerCurrentLocation().hasResearchStation() && destination.hasResearchStation();
 		player().setLocation(destination);
 		completionCallback.run();
 	}

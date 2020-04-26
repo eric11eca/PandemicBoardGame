@@ -43,9 +43,6 @@ public class ActionSkillOperationsExpert extends Action {
 	}
 
 	protected void performSpecialSkill(Card toDiscard, City toMove, Runnable completionCallback) {
-		assert playerCurrentLocation().hasResearchStation();
-		assert toDiscard.getCity().isPresent();
-		assert !toMove.equals(playerCurrentLocation());
 		player().setLocation(toMove);
 		player().discardCard(toDiscard);
 		completionCallback.run();

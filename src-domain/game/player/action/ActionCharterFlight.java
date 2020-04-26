@@ -41,8 +41,6 @@ public class ActionCharterFlight extends Action {
 	}
 
 	protected void performCharterFlightAction(Card usingCard, City flyTo, Runnable completionCallback) {
-		City city = usingCard.getCity().orElseThrow(RuntimeException::new);
-		assert city.equals(playerCurrentLocation());
 		player().setLocation(flyTo);
 		player().discardCard(usingCard);
 		completionCallback.run();
