@@ -68,15 +68,13 @@ public class ActionBuildStation extends Action {
 	}
 
 	protected void performBuildStationActionWithCard(Card card, Runnable completionCallback) {
-		legalityCheckAndDiscard(card);
+		discardIfNeedCard(card);
 		this.performBuildStationAction(completionCallback);
 	}
 
-	private void legalityCheckAndDiscard(Card card) {
+	private void discardIfNeedCard(Card card) {
 		if (!needCard && card == null)
 			return;
-		City city = card.getCity().get();
-		assert city.equals(playerCurrentLocation());
 		player().discardCard(card);
 	}
 

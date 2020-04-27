@@ -45,17 +45,9 @@ public class ActionDiscoverCure extends Action {
 	}
 
 	protected void performDiscoverCureAction(GameColor color, List<Card> usingCards, Runnable completionCallback) {
-		legalityCheck(color, usingCards);
 		player().discardCards(usingCards);
 		curedDiseases.add(color);
 		completionCallback.run();
-	}
-
-	private void legalityCheck(GameColor color, List<Card> usingCards) {
-		assert usingCards.size() == cardNeeded;
-		usingCards.forEach(card -> {
-			assert card.getCity().get().getColor() == color;
-		});
 	}
 
 	protected Set<GameColor> getCanCureColors() {

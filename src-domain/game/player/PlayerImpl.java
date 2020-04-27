@@ -46,14 +46,6 @@ public class PlayerImpl implements Player {
 		}
 	}
 
-//	private void discardHelper() {
-//		interaction.selectCardsToDiscard(hand.size() - getHandLimit(), hand.toList(), toDiscard -> {
-//			this.discardCards(toDiscard);
-//			if (hand.size() > getHandLimit())
-//				discardHelper();
-//		});
-//	}
-
 	@Override
 	public void removeCard(Card toRemove) {
 		if (!hand.removeCard(toRemove))
