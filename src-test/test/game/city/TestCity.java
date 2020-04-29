@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,6 +19,7 @@ import game.GameState;
 import game.city.City;
 import game.disease.CubeData;
 import game.disease.CubeDataImpl;
+import mock.MockCityBuilder;
 
 public class TestCity {
 
@@ -151,6 +153,160 @@ public class TestCity {
 		EasyMock.verify(game);
 		assertEquals(1, disease.getDiseaseCubeCount(GameColor.RED));
 
+	}
+
+	@Test
+	public void testInfectTo3() {
+		CubeData disease = new CubeDataImpl();
+		disease.setDiseaseCubeCount(GameColor.RED, 2);
+		CityData data = new CityData("name", GameColor.RED, 12345, false);
+		City city = new City(data, disease, null);
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(0);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city.infect(game, c -> false);
+
+		EasyMock.verify(game);
+		assertEquals(3, disease.getDiseaseCubeCount(GameColor.RED));
+	}
+
+	@Test
+	public void testInfectWithQuarantine() {
+		CubeData disease = new CubeDataImpl();
+		disease.setDiseaseCubeCount(GameColor.RED, 2);
+		CityData data = new CityData("name", GameColor.RED, 12345, false);
+		City city = new City(data, disease, null);
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(0);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city.infect(game, c -> true);
+
+		EasyMock.verify(game);
+		assertEquals(2, disease.getDiseaseCubeCount(GameColor.RED));
+	}
+
+	@Test
+	public void testInfectCauseOneOutbreak() {
+		CubeData disease1 = new CubeDataImpl();
+		CubeData disease2 = new CubeDataImpl();
+		CubeData disease3 = new CubeDataImpl();
+		MockCityBuilder builder1 = new MockCityBuilder().name("1").cubeData(disease1).color(GameColor.RED);
+		MockCityBuilder builder2 = new MockCityBuilder().name("2").cubeData(disease2).color(GameColor.BLUE);
+		MockCityBuilder builder3 = new MockCityBuilder().name("3").cubeData(disease3).color(GameColor.YELLOW);
+		City city1 = builder1.build();
+		City city2 = builder2.build();
+		City city3 = builder3.build();
+		builder1.neighborSet().add(city2);
+		builder1.neighborSet().add(city3);
+		builder2.neighborSet().add(city1);
+		builder3.neighborSet().add(city1);
+
+		city1.initializeDisease(3);
+
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(1);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city1.infect(game, city2::equals);
+		EasyMock.verify(game);
+		assertEquals(3, disease1.getDiseaseCubeCount(GameColor.RED));
+		assertEquals(0, disease2.getDiseaseCubeCount(GameColor.RED));
+		assertEquals(1, disease3.getDiseaseCubeCount(GameColor.RED));
+	}
+
+	@Test
+	public void testInfectChainOutbreak() {
+		CubeData disease1 = new CubeDataImpl();
+		CubeData disease2 = new CubeDataImpl();
+		CubeData disease3 = new CubeDataImpl();
+		MockCityBuilder builder1 = new MockCityBuilder().name("1").cubeData(disease1).color(GameColor.RED);
+		MockCityBuilder builder2 = new MockCityBuilder().name("2").cubeData(disease2).color(GameColor.RED);
+		MockCityBuilder builder3 = new MockCityBuilder().name("3").cubeData(disease3).color(GameColor.YELLOW);
+		City city1 = builder1.build();
+		City city2 = builder2.build();
+		City city3 = builder3.build();
+		builder1.neighborSet().add(city2);
+		builder1.neighborSet().add(city3);
+		builder2.neighborSet().add(city1);
+		builder2.neighborSet().add(city3);
+		builder3.neighborSet().add(city1);
+		builder3.neighborSet().add(city2);
+
+		city1.initializeDisease(3);
+		city2.initializeDisease(3);
+
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(2);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city1.infect(game, c -> false);
+		EasyMock.verify(game);
+		assertEquals(3, disease1.getDiseaseCubeCount(GameColor.RED));
+		assertEquals(3, disease2.getDiseaseCubeCount(GameColor.RED));
+		assertEquals(2, disease3.getDiseaseCubeCount(GameColor.RED));
+	}
+
+	@Test
+	public void testEpidemicInfectNoOutbreak() {
+		CubeData disease = new CubeDataImpl();
+		disease.setDiseaseCubeCount(GameColor.RED, 0);
+		CityData data = new CityData("name", GameColor.RED, 12345, false);
+		City city = new City(data, disease, Collections.emptySet());
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(0);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city.epidemicInfect(game, c -> false);
+
+		EasyMock.verify(game);
+		assertEquals(3, disease.getDiseaseCubeCount(GameColor.RED));
+	}
+
+	@Test
+	public void testEpidemicInfectQuarantine() {
+		CubeData disease = new CubeDataImpl();
+		disease.setDiseaseCubeCount(GameColor.RED, 1);
+		CityData data = new CityData("name", GameColor.RED, 12345, false);
+		City city = new City(data, disease, Collections.emptySet());
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(0);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city.epidemicInfect(game, c -> true);
+
+		EasyMock.verify(game);
+		assertEquals(1, disease.getDiseaseCubeCount(GameColor.RED));
+	}
+
+	@Test
+	public void testEpidemicInfectOutbreak() {
+		CubeData disease1 = new CubeDataImpl();
+		CubeData disease2 = new CubeDataImpl();
+		CubeData disease3 = new CubeDataImpl();
+		MockCityBuilder builder1 = new MockCityBuilder().name("1").cubeData(disease1).color(GameColor.RED);
+		MockCityBuilder builder2 = new MockCityBuilder().name("2").cubeData(disease2).color(GameColor.BLUE);
+		MockCityBuilder builder3 = new MockCityBuilder().name("3").cubeData(disease3).color(GameColor.YELLOW);
+		City city1 = builder1.build();
+		City city2 = builder2.build();
+		City city3 = builder3.build();
+		builder1.neighborSet().add(city2);
+		builder1.neighborSet().add(city3);
+		builder2.neighborSet().add(city1);
+		builder3.neighborSet().add(city1);
+
+		city1.initializeDisease(1);
+
+		GameState game = EasyMock.mock(GameState.class);
+		game.increaseOutbreakLevel(1);
+		EasyMock.expectLastCall().andVoid();
+		EasyMock.replay(game);
+		city1.epidemicInfect(game, c -> false);
+		EasyMock.verify(game);
+		assertEquals(3, disease1.getDiseaseCubeCount(GameColor.RED));
+		assertEquals(1, disease2.getDiseaseCubeCount(GameColor.RED));
+		assertEquals(1, disease3.getDiseaseCubeCount(GameColor.RED));
 	}
 
 //	/**

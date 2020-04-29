@@ -102,7 +102,7 @@ public class City {
 		disease.addDiseaseCube(getColor(), addCubeCount);
 
 		if (willOutbreak) {
-			return this.outbreak(getColor(), isQuarantined, new HashSet<>(), 0);
+			return this.outbreak(getColor(), isQuarantined, new HashSet<>(), 1);
 		} else {
 			return 0;
 		}
