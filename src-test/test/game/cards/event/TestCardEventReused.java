@@ -69,4 +69,11 @@ public class TestCardEventReused {
 
 	}
 
+	@Test
+	public void testHashCode() {
+		Card card1 = EasyMock.mock(Card.class);
+		CardEventReused eventCard1 = new CardEventReused(card1);
+		assertEquals(card1.hashCode(), eventCard1.hashCode());
+	}
+
 }

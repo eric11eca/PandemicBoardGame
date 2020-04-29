@@ -57,16 +57,6 @@ public class CureSet implements Set<GameColor> {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		return underlying.equals(o);
-	}
-
-	@Override
-	public int hashCode() {
-		return underlying.hashCode();
-	}
-
-	@Override
 	public boolean isEmpty() {
 		return underlying.isEmpty();
 	}

@@ -59,11 +59,8 @@ public class CubeDataImpl implements CubeData {
 
 	@Override
 	public Set<GameColor> getExistingDiseases() {
-		EnumSet<GameColor> set = EnumSet.noneOf(GameColor.class);
-		diseaseCubes.forEach((color, count) -> {
-			if (count > 0)
-				set.add(color);
-		});
+		Set<GameColor> set = EnumSet.noneOf(GameColor.class);
+		set.addAll(diseaseCubes.keySet());
 		return set;
 	}
 }

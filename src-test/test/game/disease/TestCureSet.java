@@ -20,11 +20,11 @@ import game.disease.CureSet;
 public class TestCureSet {
 	GameState game;
 	CureSet cureSet;
-	
+
 	@Before
 	public void setup() {
 		game = EasyMock.mock(GameState.class);
-		cureSet  = new CureSet(game, EnumSet.of(GameColor.BLUE, GameColor.YELLOW));
+		cureSet = new CureSet(game, EnumSet.of(GameColor.BLUE, GameColor.YELLOW));
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class TestCureSet {
 		assertTrue(cureSet.add(GameColor.RED));
 		EasyMock.verify(game);
 	}
-	
+
 	@Test
 	public void testRemove() {
 		assertTrue(cureSet.remove(GameColor.BLUE));
@@ -46,52 +46,52 @@ public class TestCureSet {
 
 	@Test
 	public void testAddAll() {
-		GameColor[] colors2 = new GameColor[] {GameColor.BLUE, GameColor.YELLOW};
+		GameColor[] colors2 = new GameColor[] { GameColor.BLUE, GameColor.YELLOW };
 		assertFalse(cureSet.addAll(Arrays.asList(colors2)));
 		assertEquals(2, cureSet.size());
-		GameColor[] colors1 = new GameColor[] {GameColor.BLACK, GameColor.RED};
+		GameColor[] colors1 = new GameColor[] { GameColor.BLACK, GameColor.RED };
 		assertTrue(cureSet.addAll(Arrays.asList(colors1)));
 		assertEquals(4, cureSet.size());
 	}
-	
+
 	@Test
 	public void testContainsAll() {
-		GameColor[] colors = new GameColor[] {GameColor.BLUE, GameColor.YELLOW};
+		GameColor[] colors = new GameColor[] { GameColor.BLUE, GameColor.YELLOW };
 		assertTrue(cureSet.containsAll(Arrays.asList(colors)));
 		cureSet.clear();
 		assertFalse(cureSet.containsAll(Arrays.asList(colors)));
 		assertTrue(cureSet.isEmpty());
-		
-		GameColor[] colorsAll = new GameColor[] {
-				GameColor.BLUE, GameColor.YELLOW, GameColor.BLACK, GameColor.RED};
+
+		GameColor[] colorsAll = new GameColor[] { GameColor.BLUE, GameColor.YELLOW, GameColor.BLACK, GameColor.RED };
 		cureSet.addAll(Arrays.asList(colorsAll));
-		
-		GameColor[] retained = new GameColor[] {GameColor.BLUE, GameColor.YELLOW};
+
+		GameColor[] retained = new GameColor[] { GameColor.BLUE, GameColor.YELLOW };
 		assertTrue(cureSet.retainAll(Arrays.asList(retained)));
 		assertTrue(cureSet.containsAll(Arrays.asList(colors)));
 		assertFalse(cureSet.retainAll(Arrays.asList(retained)));
 		assertFalse(cureSet.isEmpty());
-		
+
 		assertTrue(cureSet.removeAll(Arrays.asList(colors)));
 		assertFalse(cureSet.containsAll(Arrays.asList(colors)));
 		assertFalse(cureSet.removeAll(Arrays.asList(colors)));
 		assertTrue(cureSet.isEmpty());
 	}
-	
+
 	@Test
 	public void testReturnedObject() {
-		GameColor[] colors = new GameColor[] {GameColor.BLUE, GameColor.YELLOW};
+		GameColor[] colors = new GameColor[] { GameColor.BLUE, GameColor.YELLOW };
 		List<GameColor> colorList = Arrays.asList(colors);
-		
+
 		Iterator<GameColor> iterator = cureSet.iterator();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			assertTrue(colorList.contains(iterator.next()));
 		}
-		
+
 		Object[] cureArray = cureSet.toArray();
 		assertTrue(Arrays.asList(cureArray).contains(GameColor.BLUE));
-		
+
 		GameColor[] cureTArray = cureSet.toArray(new GameColor[4]);
 		assertTrue(Arrays.asList(cureTArray).contains(GameColor.BLUE));
 	}
+
 }
