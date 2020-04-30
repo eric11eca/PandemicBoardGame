@@ -1,6 +1,6 @@
 package game;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +13,7 @@ import game.city.City;
 import game.player.PlayerController;
 import game.player.PlayerInteraction;
 import game.player.action.ActionType;
+import lang.I18n;
 
 /**
  * A upper level component that implements turns and delegate actions to the
@@ -25,13 +26,14 @@ public class TurnController {
 	private PlayerController[] playerControllers;
 	private PlayerInteraction interaction;
 
-	private int current;
+	private int currentPlayerIndex;
 	private boolean skipInfection;
-	private int remainingActions;
-	private boolean isInfectionStage;
-	private int remainingInfection;
 
 	private Set<ActionType> actionDone;
+
+	private TurnStage stage;
+
+	private int remaining;
 
 	public TurnController(Deck playerDeck, Infection infection, GameState game, PlayerController[] playerControllers,
 			PlayerInteraction interaction) {
@@ -42,109 +44,157 @@ public class TurnController {
 		this.game = game;
 		this.playerControllers = playerControllers;
 		actionDone = EnumSet.noneOf(ActionType.class);
+		stage = TurnStage.BEFORE_PLAYER_ACTION;
 	}
 
-	public void startTurn() {
+	public TurnStage getStage() {
+		return stage;
+	}
+
+	/**
+	 * Execute the next stage of the turn
+	 */
+	public void nextStage() {
+		switch (stage) {
+		case BEFORE_PLAYER_ACTION:
+			startPlayerActionStage();
+			break;
+		case PLAYER_ACTION:
+			stage = TurnStage.BEFORE_DRAW_CARD;
+			break;
+		case BEFORE_DRAW_CARD:
+			startDrawingCardStage();
+			break;
+		case DRAWING_CARD:
+			drawNextCardForPlayer();
+			if (!shouldDrawMoreCardInThisTurn()) {
+				stage = TurnStage.BEFORE_INFECTION;
+			}
+			break;
+		case BEFORE_INFECTION:
+			startInfectionStage();
+			break;
+		case INFECTION:
+			nextInfection();
+			if (!shouldInfectMoreInThisTurn()) {
+				incrementPlayerIndex();
+				stage = TurnStage.BEFORE_PLAYER_ACTION;
+			}
+			break;
+		}
+	}
+
+	/**
+	 * Starts a player's turn
+	 */
+	private void startPlayerActionStage() {
 		final int ACTION_PER_TURN = GameProperty.getInstance().getInt("ACTION_PER_TURN");
-		remainingActions = ACTION_PER_TURN;
+		remaining = ACTION_PER_TURN;
 		actionDone.clear();
-		isInfectionStage = false;
+		stage = TurnStage.PLAYER_ACTION;
 	}
 
-	public boolean canContinueAction() {
-		return remainingActions > 0 && !isInfectionStage;
+	private boolean canPerforMoreActionInThisTurn() {
+		return remaining > 0;
+	}
+
+	private void startDrawingCardStage() {
+		final int DRAW_CARDS_PER_TURN = GameProperty.getInstance().getInt("DRAW_CARDS_PER_TURN");
+		remaining = DRAW_CARDS_PER_TURN;
+		stage = TurnStage.DRAWING_CARD;
+	}
+
+	/**
+	 * Draw a card for the player
+	 * 
+	 * @return true if the drawing phase ends after this call
+	 */
+	private void drawNextCardForPlayer() {
+		if (playerDeck.isEmpty()) {
+			game.triggerLose();
+			return;
+		}
+		List<Card> cards = Arrays.asList(playerDeck.takeTopCard());
+		interaction.displayCards(cards, I18n.format("turn.draw_cards"));
+		playerControllers[currentPlayerIndex].givePlayerCards(cards);
+		remaining--;
+	}
+
+	private boolean shouldDrawMoreCardInThisTurn() {
+		return remaining > 0;
+	}
+
+	private void startInfectionStage() {
+		if (skipInfection) {
+			skipInfection = false;
+			stage = TurnStage.BEFORE_PLAYER_ACTION;
+		} else {
+			remaining = game.getInfectionRate();
+			stage = TurnStage.INFECTION;
+		}
+	}
+
+	/**
+	 * Infect a city from the infection deck
+	 * 
+	 * @return true if infection ends after this call
+	 */
+	private void nextInfection() {
+		infection.infectOnce().map(city -> {
+			Set<City> set = new HashSet<>();
+			set.add(city);
+			return set;
+		}).ifPresent(cities -> {
+			interaction.displayCities(cities, I18n.format("turn.infection"));
+		});
+		remaining--;
+	}
+
+	private boolean shouldInfectMoreInThisTurn() {
+		return remaining > 0;
 	}
 
 	public void performAction(ActionType actionType) {
 		assert canPerformAction(actionType);
-		playerControllers[current].perform(actionType, () -> {
+		playerControllers[currentPlayerIndex].perform(actionType, () -> {
 			actionDone(actionType);
 		});
 	}
 
 	private void actionDone(ActionType actionType) {
 		if (actionType != ActionType.EVENT)
-			remainingActions--;
+			remaining--;
 		actionDone.add(actionType);
-
 	}
 
 	public boolean canPerformAction(ActionType actionType) {
-		if (!canContinueAction() && actionType != ActionType.EVENT)
-			return false;
-		return playerControllers[current].canPerform(actionType, actionDone.contains(actionType));
+		if (actionType != ActionType.EVENT) {
+			if (stage != TurnStage.PLAYER_ACTION)
+				return false;
+			if (!canPerforMoreActionInThisTurn())
+				return false;
+		}
+		return playerControllers[currentPlayerIndex].canPerform(actionType, actionDone.contains(actionType));
 	}
 
 	public void skipNextInfectionStage() {
 		skipInfection = true;
 	}
 
-	public void endTurn() {
-		if (!isInfectionStage) {
-			drawPlayerCards();
-			startInfection();
-		} else {
-			if (remainingInfection > 0) {
-				infection.infectOnce().map(city -> {
-					Set<City> set = new HashSet<>();
-					set.add(city);
-					return set;
-				}).ifPresent(cities -> {
-					interaction.displayCities(cities, "turn.infection");
-				});
-				remainingInfection--;
-			}
-			if (remainingInfection == 0) {
-				nextTurn();
-			}
-		}
-
+	public boolean isNextInfectionStageSkipped() {
+		return skipInfection;
 	}
 
-	public boolean isInfectionStage() {
-		return isInfectionStage;
+	private void incrementPlayerIndex() {
+		currentPlayerIndex = (currentPlayerIndex + 1) % playerControllers.length;
 	}
 
-	public void startInfection() {
-		if (!skipInfection) {
-			isInfectionStage = true;
-			remainingInfection = game.getInfectionRate();
-		} else {
-			isInfectionStage = true;
-			skipInfection = false;
-		}
-	}
-
-	public void nextTurn() {
-		isInfectionStage = false;
-		current = (current + 1) % playerControllers.length;
-		startTurn();
-	}
-
-	private void drawPlayerCards() {
-		List<Card> cards = new ArrayList<>();
-		final int DRAW_CARDS_PER_TURN = GameProperty.getInstance().getInt("DRAW_CARDS_PER_TURN");
-		for (int i = 0; i < DRAW_CARDS_PER_TURN; i++) {
-			if (playerDeck.isEmpty()) {
-				game.triggerLose();
-				break;
-			}
-			cards.add(playerDeck.takeTopCard());
-		}
-		interaction.displayCards(cards, "turn.draw_cards");
-		playerControllers[current].givePlayerCards(cards);
-	}
-
-	public int getRemainingActions() {
-		return remainingActions;
+	public int getRemainingOperations() {
+		return remaining;
 	}
 
 	public boolean isPlayerActive(PlayerController controller) {
-		return playerControllers[current] == controller;
-	}
-
-	public int getRemainingInfection() {
-		return remainingInfection;
+		return playerControllers[currentPlayerIndex] == controller;
 	}
 
 }

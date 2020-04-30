@@ -6,6 +6,7 @@ import java.util.List;
 import game.cards.Card;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionGiveKnowledge extends Action {
 	private List<Player> players;
@@ -17,12 +18,13 @@ public class ActionGiveKnowledge extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(getOtherSharablePlayers(), "action.give_knowledge.select_taker", taker -> {
-			interaction.selectOneCardFrom(player().getSharableKnowledgeCards(taker),
-					"action.give_knowledge.select_card", shared -> {
-						this.performGiveKnowledgeAction(taker, shared, completionCallback);
-					});
-		});
+		interaction.selectPlayerFrom(getOtherSharablePlayers(), I18n.format("action.give_knowledge.select_taker"),
+				taker -> {
+					interaction.selectOneCardFrom(player().getSharableKnowledgeCards(taker),
+							I18n.format("action.give_knowledge.select_card"), shared -> {
+								this.performGiveKnowledgeAction(taker, shared, completionCallback);
+							});
+				});
 	}
 
 	@Override

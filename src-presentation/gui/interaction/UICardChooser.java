@@ -19,6 +19,7 @@ import render.Render;
 @SuppressWarnings("serial")
 public class UICardChooser extends JPanel implements UI {
 	private UICard[] toChoose;
+	private boolean[] chosen;
 	private int numberToChoose;
 	private Consumer<List<Card>> action;
 	private JLabel countLabel;
@@ -37,11 +38,14 @@ public class UICardChooser extends JPanel implements UI {
 		}
 
 		toChoose = new UICard[cards.size()];
+		chosen = new boolean[cards.size()];
 		JPanel cardPanel = new JPanel();
 		int i = 0;
 		for (Card c : cards) {
 			toChoose[i] = new UICard(c, render);
-			if (cards.size() <= 12) {
+			if (cards.size() == 1) {
+				toChoose[i].setPreferredSize(new Dimension(300, 200));
+			} else if (cards.size() <= 12) {
 				toChoose[i].setPreferredSize(new Dimension(150, 100));
 			} else {
 				toChoose[i].setPreferredSize(new Dimension(100, 75));
@@ -51,7 +55,9 @@ public class UICardChooser extends JPanel implements UI {
 			cardPanel.add(toChoose[i]);
 			i++;
 		}
-		if (cards.size() <= 12) {
+		if (cards.size() == 1) {
+			cardPanel.setPreferredSize(new Dimension(400, 300));
+		} else if (cards.size() <= 12) {
 			cardPanel.setPreferredSize(new Dimension(700, 300));
 		} else {
 			cardPanel.setPreferredSize(new Dimension(700, 700));
@@ -75,6 +81,15 @@ public class UICardChooser extends JPanel implements UI {
 
 	@Override
 	public void update() {
+		if (chosenSize() > numberToChoose) {
+			for (int i = 0; i < toChoose.length; i++) {
+				toChoose[i].setSelected(chosen[i]);
+			}
+		} else {
+			for (int i = 0; i < toChoose.length; i++) {
+				chosen[i] = toChoose[i].isSelected();
+			}
+		}
 		if (numberToChoose > 0) {
 			countLabel.setText("(" + chosenSize() + "/" + numberToChoose + ")");
 			if (forceEqual) {

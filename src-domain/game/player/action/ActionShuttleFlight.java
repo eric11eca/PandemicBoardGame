@@ -6,6 +6,7 @@ import game.city.City;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionShuttleFlight extends Action {
 
@@ -19,7 +20,7 @@ public class ActionShuttleFlight extends Action {
 	@Override
 	public void perform(Runnable completionCallback) {
 		interaction.selectCityFrom(getCitiesWithResearchStationExceptCurrent(),
-				"action.shuttle_flight.select_destination", city -> {
+				I18n.format("action.shuttle_flight.select_destination"), city -> {
 					performShuttleFlightAction(city, completionCallback);
 				});
 	}

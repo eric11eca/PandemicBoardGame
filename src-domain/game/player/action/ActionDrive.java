@@ -6,6 +6,7 @@ import game.city.City;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionDrive extends Action {
 	private CitySet cities;
@@ -18,7 +19,7 @@ public class ActionDrive extends Action {
 	@Override
 	public void perform(Runnable completionCallback) {
 		Set<City> neighbors = cities.getCitiesSatisfying(playerCurrentLocation()::isNeighboring);
-		interaction.selectCityFrom(neighbors, "action.drive.select_city",
+		interaction.selectCityFrom(neighbors, I18n.format("action.drive.select_city"),
 				city -> performDriveAction(city, completionCallback));
 	}
 

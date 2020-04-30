@@ -68,6 +68,9 @@ public class UICardArranger extends JPanel implements UI {
 			for (int i = 0; i < toArrange.length; i++) {
 				cardPanel.add(toArrange[i]);
 			}
+			for (int i = 0; i < toArrange.length; i++) {
+				toArrange[i].setSelected(false);
+			}
 		}
 
 		validate();

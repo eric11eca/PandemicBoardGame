@@ -8,6 +8,7 @@ import java.util.Set;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionSkillDispatcher extends Action {
 	private List<Player> players;
@@ -19,11 +20,13 @@ public class ActionSkillDispatcher extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(getMovablePlayers(), "action.skill.dispatcher.select_player", toMove -> {
-			interaction.selectCityFrom(getMovableCities(toMove), "action.skill.dispatcher.select_city", toMoveTo -> {
-				this.performSpecialSkill(toMove, toMoveTo, completionCallback);
-			});
-		});
+		interaction.selectPlayerFrom(getMovablePlayers(), I18n.format("action.skill.dispatcher.select_player"),
+				toMove -> {
+					interaction.selectCityFrom(getMovableCities(toMove),
+							I18n.format("action.skill.dispatcher.select_city"), toMoveTo -> {
+								this.performSpecialSkill(toMove, toMoveTo, completionCallback);
+							});
+				});
 	}
 
 	@Override

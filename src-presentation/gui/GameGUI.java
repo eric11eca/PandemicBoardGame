@@ -27,6 +27,7 @@ import gui.view.UIDisease;
 import gui.view.UIInfectionRate;
 import gui.view.UIOutbreak;
 import gui.view.UIPlayer;
+import gui.view.UITurn;
 import render.Render;
 
 public class GameGUI {
@@ -136,6 +137,9 @@ public class GameGUI {
 	public void initActionPanel(TurnController turnController) {
 		UIAction ui = new UIAction(this, turnController);
 		bottomPanel.add(ui, BorderLayout.CENTER);
+		UITurn uiTurn = new UITurn(turnController);
+		bottomPanel.add(uiTurn, BorderLayout.NORTH);
+		uis.add(uiTurn);
 		uis.add(ui);
 	}
 
@@ -158,7 +162,8 @@ public class GameGUI {
 			popupUI.update();
 		if (game.isLost()) {
 			JOptionPane.showMessageDialog(null, "You lost");
-		} else if (game.isWon()) {
+		}
+		if (game.isWon()) {
 			JOptionPane.showMessageDialog(null, "You win");
 		}
 	}
