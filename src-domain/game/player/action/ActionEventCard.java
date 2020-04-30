@@ -7,6 +7,7 @@ import game.cards.Card;
 import game.event.Event;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionEventCard extends Action {
 
@@ -19,10 +20,11 @@ public class ActionEventCard extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectPlayerFrom(playersWithEventCards(), "action.event.select_player", p -> {
-			interaction.selectOneCardFrom(getEventCardsFromPlayer(p), "action.event.select_event_card", card -> {
-				this.performEventCardAction(p, card, completionCallback);
-			});
+		interaction.selectPlayerFrom(playersWithEventCards(), I18n.format("action.event.select_player"), p -> {
+			interaction.selectOneCardFrom(getEventCardsFromPlayer(p), I18n.format("action.event.select_event_card"),
+					card -> {
+						this.performEventCardAction(p, card, completionCallback);
+					});
 		});
 	}
 

@@ -9,6 +9,7 @@ import game.city.City;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionBuildStation extends Action {
 	private boolean needCard;
@@ -23,7 +24,8 @@ public class ActionBuildStation extends Action {
 	@Override
 	public void perform(Runnable completionCallback) {
 		if (needCard) {
-			interaction.selectOneCardFrom(getBuildResearchStationCards(), "action.build_station.select_card",
+			interaction.selectOneCardFrom(getBuildResearchStationCards(),
+					I18n.format("action.build_station.select_card"),
 					card -> this.afterSelectingCard(card, completionCallback));
 		} else {
 			afterSelectingCard(null, completionCallback);
@@ -50,10 +52,11 @@ public class ActionBuildStation extends Action {
 	protected void afterSelectingCard(Card selectedCard, Runnable completionCallback) {
 		final int MAX_STATION_COUNT = GameProperty.getInstance().getInt("MAX_STATION_COUNT");
 		if (getStationCount() >= MAX_STATION_COUNT) {
-			interaction.selectCityFrom(getCitiesWithStation(), "action.build_station.select_city_remove", city -> {
-				city.removeResearchStation();
-				this.performBuildStationActionWithCard(selectedCard, completionCallback);
-			});
+			interaction.selectCityFrom(getCitiesWithStation(), I18n.format("action.build_station.select_city_remove"),
+					city -> {
+						city.removeResearchStation();
+						this.performBuildStationActionWithCard(selectedCard, completionCallback);
+					});
 		} else {
 			this.performBuildStationActionWithCard(selectedCard, completionCallback);
 		}
@@ -73,7 +76,7 @@ public class ActionBuildStation extends Action {
 	}
 
 	private void discardIfNeedCard(Card card) {
-		if (!needCard && card == null)
+		if (!needCard)
 			return;
 		player().discardCard(card);
 	}

@@ -8,20 +8,22 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import game.TurnController;
+import game.TurnStage;
 import game.player.action.ActionType;
 import gui.GameGUI;
+import lang.I18n;
 
 @SuppressWarnings("serial")
 public class UIAction extends JPanel implements UI {
 	private GameGUI gui;
 	private TurnController turnController;
 	private Map<ActionType, JButton> actionButtons;
-	private JButton endTurnButton;
-	private JLabel remainingLabel;
+	private JButton nextStageButton;
 	private JLabel remaining;
 
 	public UIAction(GameGUI gui, TurnController turnController) {
@@ -32,14 +34,10 @@ public class UIAction extends JPanel implements UI {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800, 100));
 		add(buttonPanel, BorderLayout.CENTER);
-		JPanel westPanel = new JPanel(new BorderLayout());
-		remainingLabel = new JLabel("Remaining Actions");
-		westPanel.add(remainingLabel, BorderLayout.NORTH);
 		remaining = new JLabel("", SwingConstants.CENTER);
 		remaining.setFont(remaining.getFont().deriveFont(80f));
-		westPanel.setPreferredSize(new Dimension(200, 100));
-		westPanel.add(remaining, BorderLayout.CENTER);
-		add(westPanel, BorderLayout.WEST);
+		remaining.setPreferredSize(new Dimension(50, 100));
+		add(remaining, BorderLayout.WEST);
 
 	}
 
@@ -50,9 +48,9 @@ public class UIAction extends JPanel implements UI {
 			actionButtons.put(actionType, button);
 			buttonPanel.add(button);
 		}
-		endTurnButton = new JButton("End Turn");
-		endTurnButton.addActionListener(e -> endTurn());
-		buttonPanel.add(endTurnButton);
+		nextStageButton = new JButton();
+		nextStageButton.addActionListener(e -> endTurn());
+		buttonPanel.add(nextStageButton);
 	}
 
 	private JButton createButton(ActionType actionType) {
@@ -68,7 +66,16 @@ public class UIAction extends JPanel implements UI {
 	}
 
 	public void endTurn() {
-		turnController.endTurn();
+		if (turnController.getStage() == TurnStage.PLAYER_ACTION) {
+
+			int option = JOptionPane.showConfirmDialog(gui.getGameFrame(), I18n.format("end_turn.confirm.text"),
+					I18n.format("end_turn.confirm.title"), JOptionPane.OK_CANCEL_OPTION);
+			if (option != JOptionPane.OK_OPTION)
+				return;
+
+		}
+		gui.hidePopup();
+		turnController.nextStage();
 		gui.update();
 	}
 
@@ -81,13 +88,9 @@ public class UIAction extends JPanel implements UI {
 	@Override
 	public void update() {
 		updateButtons();
-		if (turnController.isInfectionStage()) {
-			remainingLabel.setText("Remaining Infection");
-			remaining.setText("" + turnController.getRemainingInfection());
-		} else {
-			remainingLabel.setText("Remaining Actions");
-			remaining.setText("" + turnController.getRemainingActions());
-		}
+		// remainingLabel.setText(turnController.getStage().getStageText());
+		remaining.setText("" + turnController.getRemainingOperations());
+		nextStageButton.setText(turnController.getStage().getButtonName());
 
 	}
 }

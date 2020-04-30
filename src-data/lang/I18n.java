@@ -13,7 +13,11 @@ public class I18n {
 	private ResourceBundle resourceBundle;
 
 	private I18n(String bundle) {
-		resourceBundle = ResourceBundle.getBundle(bundle, locale);
+		try {
+			resourceBundle = ResourceBundle.getBundle(bundle, locale);
+		} catch (Throwable t) {
+			resourceBundle = null;
+		}
 	}
 
 	/**
@@ -24,6 +28,9 @@ public class I18n {
 	 * @return
 	 */
 	private String formatString(String key, Object... args) {
+		if (resourceBundle == null) {
+			return "NULL!" + key;
+		}
 		try {
 			String format = resourceBundle.getString(key);
 			return String.format(format, args);

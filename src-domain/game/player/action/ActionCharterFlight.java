@@ -8,6 +8,7 @@ import game.city.City;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionCharterFlight extends Action {
 	private CitySet cities;
@@ -19,12 +20,14 @@ public class ActionCharterFlight extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getCharterFlightCards(), "action.charter_flight.select_card", card -> {
-			Set<City> allExceptCurrent = cities.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation()));
-			interaction.selectCityFrom(allExceptCurrent, "action.charter_flight.select_destination", city -> {
-				this.performCharterFlightAction(card, city, completionCallback);
-			});
-		});
+		interaction.selectOneCardFrom(getCharterFlightCards(), I18n.format("action.charter_flight.select_card"),
+				card -> {
+					Set<City> allExceptCurrent = cities.getCitiesSatisfying(c -> !c.equals(playerCurrentLocation()));
+					interaction.selectCityFrom(allExceptCurrent,
+							I18n.format("action.charter_flight.select_destination"), city -> {
+								this.performCharterFlightAction(card, city, completionCallback);
+							});
+				});
 	}
 
 	@Override

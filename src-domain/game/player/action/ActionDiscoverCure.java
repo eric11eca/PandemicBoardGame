@@ -8,6 +8,7 @@ import game.GameColor;
 import game.cards.Card;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionDiscoverCure extends Action {
 
@@ -24,8 +25,8 @@ public class ActionDiscoverCure extends Action {
 	@Override
 	public void perform(Runnable completionCallback) {
 		interaction.selectColorFrom(getCanCureColors(), "action.discover_cure.select_color", color -> {
-			interaction.selectCardsFrom(cardNeeded, getDiscoverCureCards(color), "action.discover_cure.select_cards",
-					cards -> {
+			interaction.selectCardsFrom(cardNeeded, getDiscoverCureCards(color),
+					I18n.format("action.discover_cure.select_cards"), cards -> {
 						performDiscoverCureAction(color, cards, completionCallback);
 					});
 		});

@@ -110,9 +110,9 @@ public class InitializationFacade {
 		});
 	}
 
-	public void startGame() {
-		turnController.startTurn();
-	}
+//	public void startGame() {
+//		turnController.startPlayerActionStage();
+//	}
 
 	public GameGUI createGUI() {
 		GameGUI gui = new GameGUI(game);

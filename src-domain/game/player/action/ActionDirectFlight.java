@@ -6,6 +6,7 @@ import game.cards.Card;
 import game.city.City;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class ActionDirectFlight extends Action {
 	public ActionDirectFlight(Player player, PlayerInteraction interaction) {
@@ -14,9 +15,10 @@ public class ActionDirectFlight extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getDirectFlightCards(), "action.direct_flight.select_destination", card -> {
-			performDirectFlightAction(card, completionCallback);
-		});
+		interaction.selectOneCardFrom(getDirectFlightCards(), I18n.format("action.direct_flight.select_destination"),
+				card -> {
+					performDirectFlightAction(card, completionCallback);
+				});
 	}
 
 	@Override

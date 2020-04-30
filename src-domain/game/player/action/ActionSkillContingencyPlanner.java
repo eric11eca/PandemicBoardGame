@@ -7,6 +7,7 @@ import game.cards.Deck;
 import game.cards.event.CardEventReused;
 import game.player.PlayerInteraction;
 import game.player.special.ContingencyPlanner;
+import lang.I18n;
 
 public class ActionSkillContingencyPlanner extends Action {
 
@@ -22,7 +23,7 @@ public class ActionSkillContingencyPlanner extends Action {
 
 	@Override
 	public void perform(Runnable completionCallback) {
-		interaction.selectOneCardFrom(getDiscardedEventCards(), "action.skill.contingency_planner",
+		interaction.selectOneCardFrom(getDiscardedEventCards(), I18n.format("action.skill.contingency_planner"),
 				card -> performSpecialSkill(card, completionCallback));
 	}
 

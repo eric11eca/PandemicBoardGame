@@ -13,7 +13,6 @@ public class Main {
 		final int playerCount = 2;
 		final int epidemic = 4;
 		InitializationFacade init = new InitializationFacade(playerCount, epidemic);
-		init.startGame();
 
 		SwingUtilities.invokeLater(() -> {
 			GameGUI gui = init.createGUI();

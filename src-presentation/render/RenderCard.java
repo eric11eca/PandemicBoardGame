@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import game.cards.Card;
+import game.cards.CardEpidemic;
 import game.city.City;
 import game.event.Event;
+import lang.I18n;
 
 public class RenderCard {
 	private static final int WIDTH = 250;
@@ -23,6 +25,9 @@ public class RenderCard {
 	public void renderCard(Graphics2D g, Card card, Render render) {
 		card.getCity().ifPresent(city -> renderCityCard(g, city, render));
 		card.getEvent().ifPresent(event -> renderEventCard(g, event));
+		if (card.getClass() == CardEpidemic.class) {
+			renderEpidemicCard(g);
+		}
 	}
 
 	public void renderBackground(Graphics2D g) {
@@ -49,11 +54,25 @@ public class RenderCard {
 		g.fillRect(0, BORDER, BORDER, HEIGHT - BORDER * 2);
 		g.fillRect(WIDTH - BORDER, BORDER, BORDER, HEIGHT - BORDER * 2);
 		g.fillRect(0, HEIGHT - BORDER, WIDTH, BORDER);
-		g.fillOval((WIDTH - CIRCLE_SIZE) / 2, (HEIGHT - CIRCLE_SIZE) / 4, CIRCLE_SIZE, CIRCLE_SIZE);
+		g.fillRect((WIDTH - CIRCLE_SIZE) / 2, (HEIGHT - CIRCLE_SIZE) / 4, CIRCLE_SIZE, CIRCLE_SIZE);
 
 		g.setFont(g.getFont().deriveFont((float) 30));
 		int h = g.getFontMetrics().getHeight();
 		int w = g.getFontMetrics().stringWidth(event.getName());
 		g.drawString(event.getName(), (WIDTH - w) / 2, HEIGHT / 2 + g.getFontMetrics().getAscent());
+	}
+
+	private void renderEpidemicCard(Graphics2D g) {
+		g.setColor(Color.GREEN.darker());
+		g.fillRect(0, 0, WIDTH, BORDER);
+		g.fillRect(0, BORDER, BORDER, HEIGHT - BORDER * 2);
+		g.fillRect(WIDTH - BORDER, BORDER, BORDER, HEIGHT - BORDER * 2);
+		g.fillRect(0, HEIGHT - BORDER, WIDTH, BORDER);
+		g.fillRect((WIDTH - CIRCLE_SIZE) / 2, (HEIGHT - CIRCLE_SIZE) / 4, CIRCLE_SIZE, CIRCLE_SIZE);
+
+		g.setFont(g.getFont().deriveFont((float) 30));
+		int h = g.getFontMetrics().getHeight();
+		int w = g.getFontMetrics().stringWidth(I18n.format("epidemic"));
+		g.drawString(I18n.format("epidemic"), (WIDTH - w) / 2, HEIGHT / 2 + g.getFontMetrics().getAscent());
 	}
 }
