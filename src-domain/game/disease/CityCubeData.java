@@ -15,7 +15,11 @@ public class CityCubeData implements CubeData {
 
 	public CityCubeData(CubeData gamePool) {
 		this.gamePool = gamePool;
-		this.delegate = new CubeDataImpl();
+		this.delegate = createCubeDataDelegate();
+	}
+
+	protected CubeDataImpl createCubeDataDelegate() {
+		return new CubeDataImpl();
 	}
 
 	@Override

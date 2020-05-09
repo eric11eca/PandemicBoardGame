@@ -9,6 +9,8 @@ import java.util.function.Supplier;
 
 import javax.swing.JComponent;
 
+import lang.I18n;
+
 @SuppressWarnings("serial")
 public class UIOutbreak extends JComponent implements UI {
 	private Supplier<Integer> outbreakLevel;
@@ -31,7 +33,7 @@ public class UIOutbreak extends JComponent implements UI {
 	}
 
 	private void paintText(Graphics2D g2d) {
-		g2d.drawString("Outbreak", 10, g2d.getFontMetrics().getAscent());// TODO i18n support
+		g2d.drawString(I18n.format("outbreak"), 10, g2d.getFontMetrics().getAscent());// TODO i18n support
 	}
 
 	private void paintOutbreakLevel(Graphics2D g2d, int level, boolean reached) {

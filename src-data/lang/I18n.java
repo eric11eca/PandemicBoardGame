@@ -48,4 +48,9 @@ public class I18n {
 		return instance.formatString(key, args);
 	}
 
+	public static void setLocale(Locale locale) {
+		I18n.locale = locale;
+		instance = null;
+	}
+
 }

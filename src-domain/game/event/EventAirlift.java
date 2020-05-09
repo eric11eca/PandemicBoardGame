@@ -5,6 +5,7 @@ import java.util.List;
 import game.city.CitySet;
 import game.player.Player;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class EventAirlift implements Event {
 	/*
@@ -27,5 +28,10 @@ public class EventAirlift implements Event {
 						p.setLocation(c);
 					});
 		});
+	}
+
+	@Override
+	public String getName() {
+		return I18n.format("event.airlift");
 	}
 }

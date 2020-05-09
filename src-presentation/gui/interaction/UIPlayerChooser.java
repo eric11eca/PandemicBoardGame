@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import game.GameColor;
 import game.player.Player;
 import gui.view.UI;
 

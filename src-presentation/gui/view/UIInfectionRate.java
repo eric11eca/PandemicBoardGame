@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 import javax.swing.JComponent;
 
 import data.GameProperty;
-import game.GameState;
+import lang.I18n;
 
 @SuppressWarnings("serial")
 public class UIInfectionRate extends JComponent implements UI {
@@ -35,7 +35,7 @@ public class UIInfectionRate extends JComponent implements UI {
 	}
 
 	private void paintText(Graphics2D g2d) {
-		g2d.drawString("Infection Rate", 10, g2d.getFontMetrics().getAscent());// TODO i18n support
+		g2d.drawString(I18n.format("infection.rate"), 10, g2d.getFontMetrics().getAscent());// TODO i18n support
 	}
 
 	private void paintInfection(Graphics2D g2d, int level, int[] rates, boolean reached) {

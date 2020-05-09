@@ -8,7 +8,5 @@ import game.player.PlayerInteraction;
 public interface Event {
 	void executeEvent(PlayerInteraction interaction);
 
-	default String getName() {
-		return getClass().getSimpleName();
-	}
+	String getName();
 }

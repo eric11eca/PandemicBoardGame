@@ -55,7 +55,7 @@ public class UIAction extends JPanel implements UI {
 
 	private JButton createButton(ActionType actionType) {
 		JButton button = new JButton();
-		button.setText(actionType.toString());
+		button.setText(actionType.getName());
 		button.addActionListener(e -> performAction(actionType));
 		return button;
 	}

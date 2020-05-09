@@ -16,7 +16,11 @@ public class GameCubePool implements CubeData {
 
 	public GameCubePool(GameState game) {
 		this.game = game;
-		this.delegate = new CubeDataImpl();
+		this.delegate = createCubeDataDelegate();
+	}
+
+	protected CubeDataImpl createCubeDataDelegate() {
+		return new CubeDataImpl();
 	}
 
 	public void initialize() {

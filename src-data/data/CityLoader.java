@@ -13,6 +13,7 @@ import java.util.Set;
 import game.GameColor;
 import game.city.City;
 import game.disease.CubeData;
+import lang.I18n;
 import render.RenderCity;
 
 /**
@@ -85,7 +86,7 @@ public abstract class CityLoader {
 
 	private City createCity(String cityName, GameColor color, int population, boolean start,
 			HashMap<City, Set<City>> cityToNeighborSet) {
-		CityData cityData = new CityData(cityName, color, population, start);
+		CityData cityData = new CityData(formatCityName(cityName), color, population, start);
 		CubeData cubeData = createCubeData();
 		Set<City> neighborSet = new HashSet<>();
 		City city = new City(cityData, cubeData, neighborSet);
@@ -118,5 +119,9 @@ public abstract class CityLoader {
 	 * @return
 	 */
 	protected abstract CubeData createCubeData();
+
+	protected String formatCityName(String rawName) {
+		return I18n.format("city." + rawName);
+	}
 
 }

@@ -2,6 +2,7 @@ package game.event;
 
 import game.cards.Deck;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class EventResilientPopulation implements Event {
 	/*
@@ -18,6 +19,11 @@ public class EventResilientPopulation implements Event {
 	public void executeEvent(PlayerInteraction interaction) {
 		interaction.selectOneCardFrom(infectionDiscard.getFilteredSubDeck(c -> true),
 				"event.resilient_population.select_card", infectionDiscard::removeCard);
+	}
+
+	@Override
+	public String getName() {
+		return I18n.format("event.resilient");
 	}
 
 }

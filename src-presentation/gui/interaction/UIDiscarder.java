@@ -2,15 +2,11 @@ package gui.interaction;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import game.cards.Card;
 import gui.view.UI;

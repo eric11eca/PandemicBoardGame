@@ -64,6 +64,11 @@ public class TestCityLoader {
 				return null;
 			}
 
+			@Override
+			protected String formatCityName(String rawName) {
+				return rawName;
+			}
+
 		};
 		parser.loadCities();
 		TreeMap<City, RenderCity> sorted = new TreeMap<>((c1, c2) -> c1.getName().compareTo(c2.getName()));

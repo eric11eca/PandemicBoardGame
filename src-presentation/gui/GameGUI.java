@@ -28,6 +28,7 @@ import gui.view.UIInfectionRate;
 import gui.view.UIOutbreak;
 import gui.view.UIPlayer;
 import gui.view.UITurn;
+import lang.I18n;
 import render.Render;
 
 public class GameGUI {
@@ -83,17 +84,17 @@ public class GameGUI {
 
 	}
 
-	public void initBoardPanel(Render render) {
-		boardUI = new UIBoard(render);
+	public void initBoardPanel(Render render, TurnController turnController) {
+		boardUI = new UIBoard(render, turnController);
 		uis.add(boardUI);
 		middlePanel.add(boardUI);
 	}
 
 	public void initDeckPanel(Deck playerDeck, Deck playerDiscard, Deck infectDeck, Deck infectDiscard) {
-		UIDeck playerDeckUI = new UIDeck("Player Deck", Color.YELLOW, playerDeck::size);
-		UIDeck playerDiscardUI = new UIDeck("Player Discard", Color.YELLOW, playerDiscard::size);
-		UIDeck infectDeckUI = new UIDeck("Infect Deck", Color.GREEN, infectDeck::size);
-		UIDeck infectDiscardUI = new UIDeck("Infect Discard", Color.GREEN, infectDiscard::size);
+		UIDeck playerDeckUI = new UIDeck(I18n.format("deck.player"), Color.YELLOW, playerDeck::size);
+		UIDeck playerDiscardUI = new UIDeck(I18n.format("deck.player_discard"), Color.YELLOW, playerDiscard::size);
+		UIDeck infectDeckUI = new UIDeck(I18n.format("deck.infect"), Color.GREEN, infectDeck::size);
+		UIDeck infectDiscardUI = new UIDeck(I18n.format("deck.infect_discard"), Color.GREEN, infectDiscard::size);
 		JPanel deckPanel = new JPanel();
 		deckPanel.add(playerDeckUI);
 		deckPanel.add(playerDiscardUI);
@@ -125,7 +126,8 @@ public class GameGUI {
 		UIOutbreak outbreakUI = new UIOutbreak(game::getOutbreakLevel);
 		statusPanel.add(outbreakUI, BorderLayout.NORTH);
 		uis.add(outbreakUI);
-		UIDisease diseaseUI = new UIDisease(render, curedDiseaseSet::contains, gameCubePool::isDiseaseEradicated);
+		UIDisease diseaseUI = new UIDisease(render, curedDiseaseSet::contains, gameCubePool::isDiseaseEradicated,
+				gameCubePool::getDiseaseCubeCount);
 		statusPanel.add(diseaseUI, BorderLayout.CENTER);
 		uis.add(diseaseUI);
 		UIInfectionRate infectionUI = new UIInfectionRate(game::getInfectionRateIndex);

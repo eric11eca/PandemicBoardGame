@@ -2,6 +2,7 @@ package game.event;
 
 import game.TurnController;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class EventOneQuietNight implements Event {
 	/*
@@ -17,6 +18,11 @@ public class EventOneQuietNight implements Event {
 	@Override
 	public void executeEvent(PlayerInteraction interaction) {
 		turnController.skipNextInfectionStage();
+	}
+
+	@Override
+	public String getName() {
+		return I18n.format("event.night");
 	}
 
 }

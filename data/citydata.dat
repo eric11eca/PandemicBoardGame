@@ -1,17 +1,17 @@
-San Francisco,BLUE,884363,101,257,,Chicago,Los Angeles,Tokyo,Manila
-Chicago,BLUE,2716000,341,206,,San Francisco,Los Angeles,Mexico City,Atlanta,Montreal
+San_Francisco,BLUE,884363,101,257,,Chicago,Los_Angeles,Tokyo,Manila
+Chicago,BLUE,2716000,341,206,,San_Francisco,Los_Angeles,Mexico_City,Atlanta,Montreal
 Atlanta,BLUE,486290,400,348,start,Chicago,Washington,Miami
-New York,BLUE,8623000,675,229,,Montreal,Washington,London,Madrid
-Montreal,BLUE,1705000,537,159,,New York,Chicago,Washington
-Washington,BLUE,7536000,624,334,,Miami,Atlanta,Montreal,New York
-Madrid,BLUE,3166000,1039,316,,New York,London,Paris,Sao Paulo,Algiers
-London,BLUE,8136000,1052,157,,New York,Essen,Paris,Madrid
+New_York,BLUE,8623000,675,229,,Montreal,Washington,London,Madrid
+Montreal,BLUE,1705000,537,159,,New_York,Chicago,Washington
+Washington,BLUE,7536000,624,334,,Miami,Atlanta,Montreal,New_York
+Madrid,BLUE,3166000,1039,316,,New_York,London,Paris,Sao_Paulo,Algiers
+London,BLUE,8136000,1052,157,,New_York,Essen,Paris,Madrid
 Paris,BLUE,2141000,1183,249,,London,Madrid,Milan,Essen,Algiers
 Milan,BLUE,1352000,1270,189,,Essen,Paris,Istanbul
-Essen,BLUE,582624,1237,85,,London,Milan,St. Petersburg,Paris
-St. Petersburg,BLUE,263255,1417,44,,Moscow,Essen,Istanbul
-Moscow,BLACK,11920000,1553,179,,St. Petersburg,Istanbul,Tehran
-Istanbul,BLACK,15070000,1411,308,,Milan,Algiers,Moscow,St. Petersburg,Cairo,Baghdad
+Essen,BLUE,582624,1237,85,,London,Milan,St._Petersburg,Paris
+St._Petersburg,BLUE,263255,1417,44,,Moscow,Essen,Istanbul
+Moscow,BLACK,11920000,1553,179,,St._Petersburg,Istanbul,Tehran
+Istanbul,BLACK,15070000,1411,308,,Milan,Algiers,Moscow,St._Petersburg,Cairo,Baghdad
 Algiers,BLACK,42008054,1236,396,,Madrid,Paris,Istanbul,Cairo
 Cairo,BLACK,19500000,1372,436,,Algiers,Istanbul,Baghdad,Riyadh,Khartoum
 Baghdad,BLACK,7216000,1529,390,,Istanbul,Cairo,Riyadh,Karachi,Tehran
@@ -22,27 +22,27 @@ Riyadh,BLACK,5188000,1582,558,,Cairo,Baghdad,Karachi
 Delhi,BLACK,18980000,1892,354,,Tehran,Karachi,Mumbai,Chennai,Kolkata
 Chennai,BLACK,15800,1906,598,,Mumbai,Delhi,Kolkata,Bangkok,Jakarta
 Kolkata,BLACK,4497000,1968,466,,Delhi,Chennai,Bangkok,Hongkong
-Los Angeles,YELLOW,4000000,137,386,,San Francisco,Chicago,Mexico City,Sydney
-Mexico City,YELLOW,8851000,309,543,,Los Angeles,Chicago,Miami,Bogota,Lima
-Miami,YELLOW,463347,451,461,,Bogota,Mexico City,Atlanta,Washington
-Bogota,YELLOW,8081000,488,674,,Miami,Mexico City,Lima,Sao Paulo,Buenos Aires
-Lima,YELLOW,9751717,501,842,,Mexico City,Bogota,Santiago
-Sao Paulo,YELLOW,14710000,753,854,,Bogota,Buenos Aires,Lagos,Madrid
+Los_Angeles,YELLOW,4000000,137,386,,San_Francisco,Chicago,Mexico_City,Sydney
+Mexico_City,YELLOW,8851000,309,543,,Los_Angeles,Chicago,Miami,Bogota,Lima
+Miami,YELLOW,463347,451,461,,Bogota,Mexico_City,Atlanta,Washington
+Bogota,YELLOW,8081000,488,674,,Miami,Mexico_City,Lima,Sao_Paulo,Buenos_Aires
+Lima,YELLOW,9751717,501,842,,Mexico_City,Bogota,Santiago
+Sao_Paulo,YELLOW,14710000,753,854,,Bogota,Buenos_Aires,Lagos,Madrid
 Santiago,YELLOW,5614000,551,1065,,Lima
-Lagos,YELLOW,21000000,1144,642,,Sao Paulo,Khartoum,Kinshasa
+Lagos,YELLOW,21000000,1144,642,,Sao_Paulo,Khartoum,Kinshasa
 Kinshasa,YELLOW,9464000,1275,714,,Lagos,Johannesburg,Khartoum
 Khartoum,YELLOW,1974647,1454,613,,Cairo,Lagos,Kinshasa,Johannesburg
 Johannesburg,YELLOW,957441,1404,978,,Kinshasa,Khartoum
-Buenos Aires,YELLOW,2890000,667,1000,,Sao Paulo,Bogota
+Buenos_Aires,YELLOW,2890000,667,1000,,Sao_Paulo,Bogota
 Beijing,RED,21540000,2059,258,,Shanghai,Seoul
 Seoul,RED,9776000,2282,155,,Beijing,Shanghai,Tokyo
 Shanghai,RED,26320000,2057,389,,Beijing,Seoul,Tokyo,Hongkong,Taipei
-Hongkong,RED,7392000,2181,476,,Shanghai,Taipei,Kolkata,Bangkok,Ho Chi Minh City,Manila
-Ho Chi Minh City,RED,8637000,2126,654,,Bangkok,Jakarta,Manila,Hongkong
+Hongkong,RED,7392000,2181,476,,Shanghai,Taipei,Kolkata,Bangkok,Ho_Chi_Minh_City,Manila
+Ho_Chi_Minh_City,RED,8637000,2126,654,,Bangkok,Jakarta,Manila,Hongkong
 Taipei,RED,2674000,2296,463,,Shanghai,Hongkong,Osaka,Manila
-Tokyo,RED,9273000,2452,278,,Seoul,San Francisco,Shanghai,Osaka
+Tokyo,RED,9273000,2452,278,,Seoul,San_Francisco,Shanghai,Osaka
 Osaka,RED,2691000,2358,363,,Taipei,Tokyo
-Manila,RED,1780000,2408,688,,Taipei,Hongkong,Ho Chi Minh City,San Francisco,Sydney
-Jakarta,RED,9608000,2125,848,,Chennai,Bangkok,Ho Chi Minh City,Sydney
-Sydney,RED,4452000,2469,1054,,Manila,Jakarta,Los Angeles
-Bangkok,RED,8281000,2063,553,,Kolkata,Chennai,Jakarta,Ho Chi Minh City,Hongkong
+Manila,RED,1780000,2408,688,,Taipei,Hongkong,Ho_Chi_Minh_City,San_Francisco,Sydney
+Jakarta,RED,9608000,2125,848,,Chennai,Bangkok,Ho_Chi_Minh_City,Sydney
+Sydney,RED,4452000,2469,1054,,Manila,Jakarta,Los_Angeles
+Bangkok,RED,8281000,2063,553,,Kolkata,Chennai,Jakarta,Ho_Chi_Minh_City,Hongkong

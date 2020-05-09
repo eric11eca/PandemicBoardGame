@@ -1,6 +1,6 @@
 package game.player;
 
-import data.GameProperty;
+import lang.I18n;
 
 public enum PlayerRole {
 	//@formatter:off
@@ -14,7 +14,7 @@ public enum PlayerRole {
 	//@formatter:on
 
 	public String getRoleName() {
-		return GameProperty.getInstance().get(this.name() + "_NAME");
+		return I18n.format("role." + this.name());
 	}
 
 }

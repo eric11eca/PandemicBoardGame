@@ -52,13 +52,11 @@ public class InitializationFacade {
 	private Predicate<City> quarantineChecker;
 	private Infection infection;
 	private Epidemic epidemic;
-	private int playerCount;
 	private int epidemicCount;
 
 	private PlayerInitialization playerInitialization;
 
 	public InitializationFacade(int playerCount, int epidemicCount) throws IOException {
-		this.playerCount = playerCount;
 		this.epidemicCount = epidemicCount;
 		game = new GameState();
 		gameCubePool = new GameCubePool(game);
@@ -119,7 +117,7 @@ public class InitializationFacade {
 		RenderPlayer[] renderPlayers = createPlayerRenderers();
 		Render render = new Render(renderCities, renderPlayers);
 		gui.initActionPanel(turnController);
-		gui.initBoardPanel(render);
+		gui.initBoardPanel(render, turnController);
 		gui.initDeckPanel(playerDeck, playerDiscard, infectionDeck, infectionDiscard);
 		gui.initPlayerPanel(render, playerControllers, turnController);
 		gui.initStatusPanel(curedDiseases, gameCubePool, render);

@@ -7,6 +7,7 @@ import data.GameProperty;
 import game.cards.Card;
 import game.cards.Deck;
 import game.player.PlayerInteraction;
+import lang.I18n;
 
 public class EventForecast implements Event {
 	/*
@@ -34,6 +35,11 @@ public class EventForecast implements Event {
 		while (!arranged.isEmpty()) {
 			infectionDeck.putOnTop(arranged.remove(arranged.size() - 1));
 		}
+	}
+
+	@Override
+	public String getName() {
+		return I18n.format("event.forecast");
 	}
 
 }

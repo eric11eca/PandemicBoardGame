@@ -1,5 +1,7 @@
 package game.player.action;
 
+import lang.I18n;
+
 public enum ActionType {
 	//@formatter:off
 	DRIVE,
@@ -14,5 +16,9 @@ public enum ActionType {
 	EVENT,
 	SPECIAL_SKILL;
 	//@formatter:on
+
+	public String getName() {
+		return I18n.format("action." + name() + ".name");
+	}
 
 }

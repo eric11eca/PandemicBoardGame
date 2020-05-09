@@ -33,12 +33,16 @@ public class GameProperty {
 	 * @return
 	 */
 	public int[] getIntArray(String name) {
-		String[] rawRates = get(name).split(",");
-		int[] rates = new int[rawRates.length];
-		for (int i = 0; i < rates.length; i++) {
-			rates[i] = Integer.parseInt(rawRates[i]);
+		String[] raw = getStringArray(name);
+		int[] arr = new int[raw.length];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = Integer.parseInt(raw[i]);
 		}
-		return rates;
+		return arr;
+	}
+
+	public String[] getStringArray(String name) {
+		return get(name).split(",");
 	}
 
 	/**

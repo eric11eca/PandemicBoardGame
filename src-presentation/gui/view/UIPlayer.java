@@ -11,7 +11,7 @@ import game.TurnController;
 import game.player.PlayerController;
 import gui.GameGUI;
 import gui.interaction.UICardChooser;
-import gui.interaction.UICardChooser;
+import lang.I18n;
 import render.Render;
 
 @SuppressWarnings("serial")
@@ -47,22 +47,10 @@ public class UIPlayer extends JPanel implements UI {
 		labelPanel.add(cityLabel, BorderLayout.SOUTH);
 		add(labelPanel, BorderLayout.NORTH);
 		add(handButton, BorderLayout.CENTER);
-		handButton.addActionListener(e -> gui.displayPopup("Player Hands",
-				new UICardChooser(0, playerController.getPlayerHand(), render, list -> gui.hidePopup(), true)));
+		handButton.addActionListener(
+				e -> gui.displayPopup(I18n.format("gui.view_hand", playerController.getPlayerHandSize()),
+						new UICardChooser(0, playerController.getPlayerHand(), render, list -> gui.hidePopup(), true)));
 	}
-
-	// @Override
-	// protected void paintComponent(Graphics g) {
-	// super.paintComponent(g);
-	// renderPlayer.renderPlayerInfoBoard((Graphics2D) g);
-//		Graphics2D g2d = (Graphics2D) g.create();
-//		int ascent = g2d.getFontMetrics().getAscent();
-//		int height = g2d.getFontMetrics().getHeight();
-//		g2d.drawString("Player " + playerNumber, 0, ascent);
-//		g2d.drawString(location.get().getName(), 0, ascent + height);
-//		g2d.drawString(String.valueOf(handSize.get()), 0, ascent + height * 2);
-//		g2d.dispose();
-	// }
 
 	@Override
 	public void update() {
@@ -73,8 +61,8 @@ public class UIPlayer extends JPanel implements UI {
 			setBackground(Color.LIGHT_GRAY);
 		}
 		roleLabel.setText(playerController.getRole().getRoleName());
-		cityLabel.setText("Location: " + playerController.getPlayerCity().getName());
-		handButton.setText("View Hand [" + playerController.getPlayerHandSize() + "]");
+		cityLabel.setText(I18n.format("gui.location", (playerController.getPlayerCity().getName())));
+		handButton.setText(I18n.format("gui.view_hand", playerController.getPlayerHandSize()));
 		repaint();
 	}
 }
