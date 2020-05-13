@@ -20,7 +20,7 @@ public class UIColorChooser extends JPanel implements UI {
 		add(titleLabel, BorderLayout.NORTH);
 		JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
 		for (GameColor choice : GameColor.values()) {
-			JButton button = new JButton(choice.toString());
+			JButton button = new JButton(choice.getName());
 			button.addActionListener(e -> action.accept(choice));
 			buttonPanel.add(button);
 			button.setEnabled(toChoose.contains(choice));

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data.GameProperty;
@@ -92,6 +93,8 @@ public class StartGUI extends JFrame {
 					String language = (String) e.getItem();
 					Locale locale = localeMap.get(language);
 					I18n.setLocale(locale);
+					Locale.setDefault(locale);
+					JOptionPane.setDefaultLocale(locale);
 					initUI();
 				}
 
