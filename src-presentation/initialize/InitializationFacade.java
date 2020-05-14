@@ -92,7 +92,7 @@ public class InitializationFacade {
 		initialize();
 	}
 
-	public void initialize() {
+	private void initialize() {
 		new InitializerDiseaseAndCity(gameCubePool, startingCity).initialize();
 		new InitializerDecksWithoutEpidemic(citySet, infectionDeck, infectionDiscard, playerDeck, players,
 				turnController).initialize();

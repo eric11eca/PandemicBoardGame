@@ -46,7 +46,8 @@ public class GameCubePool implements CubeData {
 	@Override
 	public void addDiseaseCube(GameColor color, int count) {
 		if (this.getDiseaseCubeCount(color) + count > getMaxDiseaseCubePerColor())
-			throw new RuntimeException("Disease Cube Overflow: " + this.getDiseaseCubeCount(color) + count);
+			throw new RuntimeException(
+					"Disease Cube Overflow: having " + this.getDiseaseCubeCount(color) + ", adding " + count);
 		delegate.addDiseaseCube(color, count);
 	}
 
