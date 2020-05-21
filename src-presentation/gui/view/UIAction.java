@@ -36,7 +36,7 @@ public class UIAction extends JPanel implements UI {
 		add(buttonPanel, BorderLayout.CENTER);
 		remaining = new JLabel("", SwingConstants.CENTER);
 		remaining.setFont(remaining.getFont().deriveFont(80f));
-		remaining.setPreferredSize(new Dimension(50, 100));
+		remaining.setPreferredSize(new Dimension(remaining.getFontMetrics(remaining.getFont()).stringWidth("00"), 100));
 		add(remaining, BorderLayout.WEST);
 
 	}

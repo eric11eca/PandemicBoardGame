@@ -55,6 +55,7 @@ public class StartGUI extends JFrame {
 	private void initStartButton() {
 		startButton = new JButton();
 		startButton.addActionListener(e -> {
+			dispose();
 			startAction.accept((Integer) playerCountChooser.getSelectedItem(),
 					difficultyMap.get(difficultyChooser.getSelectedItem()));
 		});
